@@ -1,0 +1,4 @@
+name_j,name_e,url,zoom_min,zoom_max
+標準地図,Standard,type=xyz&url=https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png&zmax=18&zmin=5&crs=EPSG3857,5,18
+淡色地図,Pale,type=xyz&url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png&zmax=18&zmin=5&crs=EPSG3857,5,18
+English,English,type=xyz&url=https://cyberjapandata.gsi.go.jp/xyz/english/{z}/{x}/{y}.png&zmax=11&zmin=9&crs=EPSG3857,9,11
