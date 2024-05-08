@@ -21,14 +21,15 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QThread, pyqtSignal
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
-from qgis.PyQt.QtCore import QThread, pyqtSignal
 from qgis.PyQt.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
 from qgis.PyQt.QtWidgets import QProgressBar
 from qgis.PyQt.QtWidgets import QAbstractItemView
 from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
+from qgis.gui import QgsMessageBar
+
 
 
 
@@ -281,7 +282,7 @@ class jpdata:
             self.dlg.myPushButton3.clicked.connect(self.unzipAll)
             self.dlg.myPushButton4.setText(self.tr(u'Add to Map'))
             self.dlg.myPushButton4.setToolTip(self.tr(u'Add Shapefile as a Layer to Map on QGIS'))
-            self.dlg.myPushButton4.clicked.connect(self.addMapAll)
+            self.dlg.myPushButton4.clicked.connect(self.addLNIAll)
             self.dlg.myPushButton5.setText(self.tr(u'Add to Map'))
             self.dlg.myPushButton5.setToolTip(self.tr(u'Add GSI xyz tile server to Map on QGIS'))
             self.dlg.myPushButton5.clicked.connect(self.addTile)
@@ -375,7 +376,7 @@ class jpdata:
             return
         QgsProject.instance().addMapLayer(layer)
 
-    def addMapAll(self):
+    def addLNIAll(self):
         items = self.dlg.myListWidget.selectedItems()
         pref_name = self.dlg.myListWidget2.selectedItems()
         pref_code = []
@@ -397,10 +398,11 @@ class jpdata:
                         )
 
                         if tempShpFileName is None:
+                            self.iface.messageBar().pushMessage('Error', 'Cannot find the .shp file: ' + item['shp'].replace(u'code_pref', pref_code[x]), 1, duration = 5)
                             tempShpFileName, ok = QFileDialog.getOpenFileName(
                                 self.iface.mainWindow(),
                                 u'Select a File', 
-                                self._folderPath, 
+                                self._folderPath + '/' + item['code_map'], 
                                 'ESRI Shapefile (*.shp)'
                             )
 
