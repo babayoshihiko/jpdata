@@ -21,9 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, QThread, pyqtSignal
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QThread, pyqtSignal
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QFileDialog
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem
 from qgis.PyQt.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
 from qgis.PyQt.QtWidgets import QProgressBar
 from qgis.PyQt.QtWidgets import QAbstractItemView
@@ -124,13 +124,13 @@ class jpdata:
         self._folderPath = s.value("jpdata/FolderPath", "~")
 
         self.actions = []
-        self.menu = self.tr(u'&jpdata')
+        self.menu = self.tr('&jpdata')
         
         self._LandNumInfo = jpDataUtils.getMapsFromCsv()
         self._GSI = jpDataUtils.getTilesFromCsv()
         
         # Create an action that triggers the folder chooser
-        self.action = QAction(u'Choose Folder', self.iface.mainWindow())
+        self.action = QAction('Choose Folder', self.iface.mainWindow())
         self.action.triggered.connect(self.chooseFolder)
 
         # Add the action to the toolbar
@@ -238,7 +238,7 @@ class jpdata:
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.add_action(
             self.plugin_dir + '/icon.png',
-            text = self.tr(u'Add Japan Data'),
+            text = self.tr('Add Japan Data'),
             callback = self.run,
             parent = self.iface.mainWindow())
 
@@ -250,7 +250,7 @@ class jpdata:
         for action in self.actions:
             self.iface.addLayerMenu().removeAction(action)
             self.iface.removePluginMenu(
-                self.tr(u'&jpdata'),
+                self.tr('&jpdata'),
                 action)
             self.iface.removeToolBarIcon(action)
 
@@ -266,35 +266,39 @@ class jpdata:
             if self._folderPath:
                 self.dlg.myLabel1.setText(self._folderPath)
             else:
-                self.dlg.myLabel1.setText(self.tr(u'Choose folder for zip/shp files'))
+                self.dlg.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
             
-            self.dlg.myTabWidget.setTabText(0, self.tr(u'LandNumInfo'))
-            self.dlg.myTabWidget.setTabText(1, self.tr(u'GSI Tiles'))
+            self.dlg.myTabWidget.setTabText(0, self.tr('LandNumInfo'))
+            self.dlg.myTabWidget.setTabText(1, self.tr('GSI Tiles'))
             
-            self.dlg.myPushButton1.setText(self.tr(u'Download'))
-            self.dlg.myPushButton1.setToolTip(self.tr(u'Download'))
+            self.dlg.myPushButton1.setText(self.tr('Download'))
+            self.dlg.myPushButton1.setToolTip(self.tr('Download'))
             self.dlg.myPushButton1.clicked.connect(self.downloadAll)
-            self.dlg.myPushButton2.setText(self.tr(u'Choose Folder'))
-            self.dlg.myPushButton2.setToolTip(self.tr(u'Choose Folder'))
+            self.dlg.myPushButton2.setText(self.tr('Choose Folder'))
+            self.dlg.myPushButton2.setToolTip(self.tr('Choose Folder'))
             self.dlg.myPushButton2.clicked.connect(self.chooseFolder)
-            self.dlg.myPushButton3.setText(self.tr(u'Unzip'))
-            self.dlg.myPushButton3.setToolTip(self.tr(u'Unzip downloaded zipfile'))
+            self.dlg.myPushButton3.setText(self.tr('Unzip'))
+            self.dlg.myPushButton3.setToolTip(self.tr('Unzip downloaded zipfile'))
             self.dlg.myPushButton3.clicked.connect(self.unzipAll)
-            self.dlg.myPushButton4.setText(self.tr(u'Add to Map'))
-            self.dlg.myPushButton4.setToolTip(self.tr(u'Add Shapefile as a Layer to Map on QGIS'))
+            self.dlg.myPushButton4.setText(self.tr('Add to Map'))
+            self.dlg.myPushButton4.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
             self.dlg.myPushButton4.clicked.connect(self.addLNIAll)
-            self.dlg.myPushButton5.setText(self.tr(u'Add to Map'))
-            self.dlg.myPushButton5.setToolTip(self.tr(u'Add GSI xyz tile server to Map on QGIS'))
+            self.dlg.myPushButton5.setText(self.tr('Add to Map'))
+            self.dlg.myPushButton5.setToolTip(self.tr('Add GSI xyz tile server to Map on QGIS'))
             self.dlg.myPushButton5.clicked.connect(self.addTile)
             
-            for item in self._LandNumInfo:
-                self.dlg.myListWidget.addItem(item['name_j'])
+            for row in self._LandNumInfo:
+                item =  QListWidgetItem(row['name_j'])
+                if (row['availability'] != 'yes'):
+                    item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
+                    item.setForeground(Qt.gray)
+                self.dlg.myListWidget.addItem(item)
             
             for code in range(1,47):
                 self.dlg.myListWidget2.addItem(jpDataUtils.getPrefNameByCode(code))
             
-            for item in self._GSI:
-                self.dlg.myListWidget3.addItem(item['name_j'])
+            for row in self._GSI:
+                self.dlg.myListWidget3.addItem(row['name_j'])
             
             # Users can choose multiple items
             self.dlg.myListWidget.setSelectionMode(
@@ -329,8 +333,8 @@ class jpdata:
             for item in self._LandNumInfo:
                 if str(self.dlg.myListWidget.selectedItems()[i].text()) == item['name_j']:
                     for x in range(len(pref_code)):
-                        tempUrl = item['url'].replace(u'code_pref', pref_code[x])
-                        tempZipFileName = item['zip'].replace(u'code_pref', pref_code[x])
+                        tempUrl = item['url'].replace('code_pref', pref_code[x])
+                        tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
                         self.initDownload(tempUrl, item['code_map'], tempZipFileName)
                     break
 
@@ -349,7 +353,7 @@ class jpdata:
             for item in self._LandNumInfo:
                 if str(self.dlg.myListWidget.selectedItems()[i].text()) == item['name_j']:
                     for x in range(len(pref_code)):
-                        tempZipFileName = item['zip'].replace(u'code_pref', pref_code[x])
+                        tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
                         if os.path.exists(self._folderPath + '/' +  item['code_map'] + '/' + tempZipFileName):
                             with zipfile.ZipFile(
                                 self._folderPath + '/' + item['code_map'] + '/' + tempZipFileName, 'r'
@@ -398,24 +402,26 @@ class jpdata:
                         )
 
                         if tempShpFileName is None:
-                            self.iface.messageBar().pushMessage('Error', 'Cannot find the .shp file: ' + item['shp'].replace(u'code_pref', pref_code[x]), 1, duration = 5)
+                            self.iface.messageBar().pushMessage('Error', 'Cannot find the .shp file: ' + item['shp'].replace('code_pref', pref_code[x]), 1, duration = 10)
                             tempShpFileName, ok = QFileDialog.getOpenFileName(
                                 self.iface.mainWindow(),
-                                u'Select a File', 
+                                'Select a File', 
                                 self._folderPath + '/' + item['code_map'], 
                                 'ESRI Shapefile (*.shp)'
                             )
-
-                        tempLayer = QgsVectorLayer(
-                            tempShpFileName, 
-                            item['name_j'] + ' (' + str(pref_name[x].text()) + ')', 
-                            'ogr'
-                        )
                         
-                        if os.path.exists(self.plugin_dir + '/qml/' + item['code_map'] + '.qml'):
-                            if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/' + item['code_map'] + '.qml'):
-                                tempLayer.triggerRepaint()
-                        QgsProject.instance().addMapLayer(tempLayer)
+                        if tempShpFileName != '':
+
+                            tempLayer = QgsVectorLayer(
+                                tempShpFileName, 
+                                item['name_j'] + ' (' + str(pref_name[x].text()) + ')', 
+                                'ogr'
+                            )
+                            
+                            if os.path.exists(self.plugin_dir + '/qml/' + item['code_map'] + '.qml'):
+                                if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/' + item['code_map'] + '.qml'):
+                                    tempLayer.triggerRepaint()
+                            QgsProject.instance().addMapLayer(tempLayer)
                     break
 
     def initDownload(self, url, subFolder, zipFileName):
@@ -455,7 +461,7 @@ class jpdata:
         # Open a folder dialog to choose a folder
         self._folderPath = QFileDialog.getExistingDirectory(
             self.iface.mainWindow(), 
-            self.tr(u'Choose Folder')
+            self.tr('Choose Folder')
         )
 
         if self._folderPath:

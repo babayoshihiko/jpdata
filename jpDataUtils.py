@@ -150,20 +150,20 @@ def getPrefCodeByName(pref_name):
         pref_code = u'11'
     elif pref_name == u'千葉県':
         pref_code = u'12'
-    elif pref_code == u'東京都':
-        pref_name = u'13'
-    elif pref_code == u'神奈川県':
-        pref_name = u'14'
-    elif pref_code == u'新潟県':
-        pref_name = u'15'
-    elif pref_code == u'富山県':
-        pref_name = u'16'
-    elif pref_code == u'石川県':
-        pref_name = u'17'
-    elif pref_code == u'福井県':
-        pref_name = u'18'
+    elif pref_name == u'東京都':
+        pref_code = u'13'
+    elif pref_name == u'神奈川県':
+        pref_code = u'14'
+    elif pref_name == u'新潟県':
+        pref_code = u'15'
+    elif pref_name == u'富山県':
+        pref_code = u'16'
+    elif pref_name == u'石川県':
+        pref_code = u'17'
+    elif pref_name == u'福井県':
+        pref_code = u'18'
     elif pref_name == u'山梨県':
-        pref_name = u'19'
+        pref_code = u'19'
     elif pref_name == u'長野県':
         pref_code = u'20'
     elif pref_name == u'岐阜県':
@@ -224,7 +224,7 @@ def getPrefCodeByName(pref_name):
     return pref_code
 
 def getMapsFromCsv():
-    filePath = os.path.dirname(__file__) + '/csv/LandNumInfo.csv'
+    filePath = os.path.dirname(__file__) + '/csv/LandNumInfo_Full.csv'
     with open(filePath, "r") as f:
         csvreader = csv.DictReader(f)
         rows = list(csvreader)
