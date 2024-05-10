@@ -30,9 +30,6 @@ from qgis.PyQt.QtWidgets import QAbstractItemView
 from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
 from qgis.gui import QgsMessageBar
 
-
-
-
 # Initialize Qt resources from file resources.py
 from .resources import *
 # Import the code for the dialog
@@ -44,52 +41,8 @@ import os
 import zipfile
 import time
 from . import jpDataUtils
+from . import jpDataDownloader
 
-
-class Downloader(QThread):
-
-    # Signal for the window to establish the maximum value
-    # of the progress bar.
-    setTotalProgress = pyqtSignal(int)
-    # Signal to increase the progress.
-    setCurrentProgress = pyqtSignal(int)
-    # Signal to be emitted when the file has been downloaded successfully.
-    succeeded = pyqtSignal()
-
-    def __init__(self, url, filename):
-        super().__init__()
-        self._url = url
-        self._filename = filename
-
-    def run(self):
-        url = self._url
-        filename = self._filename
-        readBytes = 0
-        chunkSize = 1024
-        # Open the URL address.
-        with urlopen(url) as r:
-            # Tell the window the amount of bytes to be downloaded.
-            self.setTotalProgress.emit(int(r.info()["Content-Length"]))
-            with open(filename, "ab") as f:
-                while True:
-                    # Read a piece of the file we are downloading.
-                    chunk = r.read(chunkSize)
-                    # If the result is `None`, that means data is not
-                    # downloaded yet. Just keep waiting.
-                    if chunk is None:
-                        continue
-                    # If the result is an empty `bytes` instance, then
-                    # the file is complete.
-                    elif chunk == b"":
-                        break
-                    # Write into the local file the downloaded chunk.
-                    f.write(chunk)
-                    readBytes += chunkSize
-                    # Tell the window how many bytes we have received.
-                    self.setCurrentProgress.emit(readBytes)
-        # If this line is reached then no exception has ocurred in
-        # the previous lines.
-        self.succeeded.emit()
 
 
 
@@ -122,6 +75,9 @@ class jpdata:
 
         s = QgsSettings()
         self._folderPath = s.value("jpdata/FolderPath", "~")
+        
+        self._downloader = jpDataDownloader.Downloader()
+        # self.downloader = Downloader()
 
         self.actions = []
         self.menu = self.tr('&jpdata')
@@ -262,6 +218,8 @@ class jpdata:
         if self.first_start == True:
             self.first_start = False
             self.dlg = jpdataDialog()
+            
+            self._downloader.setProgressBar(self.dlg.progressBar)
 
             if self._folderPath:
                 self.dlg.myLabel1.setText(self._folderPath)
@@ -335,7 +293,7 @@ class jpdata:
                     for x in range(len(pref_code)):
                         tempUrl = item['url'].replace('code_pref', pref_code[x])
                         tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
-                        self.initDownload(tempUrl, item['code_map'], tempZipFileName)
+                        self.startDownload(tempUrl, item['code_map'], tempZipFileName)
                     break
 
     def unzipAll(self):
@@ -441,39 +399,19 @@ class jpdata:
                                     tempLayer.triggerRepaint()
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
-
-    def initDownload(self, url, subFolder, zipFileName):
+    
+    def startDownload(self, url, subFolder, zipFileName):
         if not os.path.exists(self._folderPath + '/' + subFolder):
             os.mkdir(self._folderPath + '/' + subFolder) 
         
         if not os.path.exists(self._folderPath + '/' + subFolder + '/' + zipFileName):
-            self.dlg.myPushButton1.setEnabled(False)
+            #self.dlg.myPushButton1.setEnabled(False)
             
-            # Run the download in a new thread.
-            self.downloader = Downloader(
+            self.dlg.myLabel1.setText(url)
+            self._downloader.Download(
                 url,
                 self._folderPath + '/' + subFolder + '/' + zipFileName
             )
-            # Connect the signals which send information about the download
-            # progress with the proper methods of the progress bar.
-            self.downloader.setTotalProgress.connect(self.dlg.progressBar.setMaximum)
-            self.downloader.setCurrentProgress.connect(self.dlg.progressBar.setValue)
-            # Qt will invoke the `succeeded()` method when the file has been
-            # downloaded successfully and `downloadFinished()` when the
-            # child thread finishes.
-            self.downloader.succeeded.connect(self.downloadSucceeded)
-            self.downloader.finished.connect(self.downloadFinished)
-            self.downloader.start()
-
-    def downloadSucceeded(self):
-        # Set the progress at 100%.
-        self.dlg.progressBar.setValue(self.dlg.progressBar.maximum())
-
-    def downloadFinished(self):
-        # Restore the button.
-        self.dlg.myPushButton1.setEnabled(True)
-        # Delete the thread when no longer needed.
-        del self.downloader
 
     def chooseFolder(self):
         # Open a folder dialog to choose a folder
