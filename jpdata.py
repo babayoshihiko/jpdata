@@ -394,7 +394,13 @@ class jpdata:
         for i in range(len(items)):
             for item in self._LandNumInfo:
                 if str(self.dlg.myListWidget.selectedItems()[i].text()) == item['name_j']:
-                    for x in range(len(pref_code)):
+                    if item['type_muni'] == 'single':
+                        # The single .shp file covers the whole nation
+                        # So, pick the first prefecture only (not used, though)
+                        seleted_prefs = [0]
+                    else:
+                        seleted_prefs = range(len(pref_code))
+                    for x in seleted_prefs:
                         tempShpFileName = jpDataUtils.findShpFile(
                             self._folderPath + '/' + item['code_map'], 
                             item, 
@@ -402,7 +408,10 @@ class jpdata:
                         )
 
                         if tempShpFileName is None:
-                            self.iface.messageBar().pushMessage('Error', 'Cannot find the .shp file: ' + item['shp'].replace('code_pref', pref_code[x]), 1, duration = 10)
+                            self.iface.messageBar().pushMessage(
+                                'Error', 
+                                'Cannot find the .shp file: ' + item['shp'].replace('code_pref', pref_code[x]), 1, duration = 10
+                            )
                             tempShpFileName, ok = QFileDialog.getOpenFileName(
                                 self.iface.mainWindow(),
                                 'Select a File', 
@@ -412,14 +421,23 @@ class jpdata:
                         
                         if tempShpFileName != '':
 
-                            tempLayer = QgsVectorLayer(
-                                tempShpFileName, 
-                                item['name_j'] + ' (' + str(pref_name[x].text()) + ')', 
-                                'ogr'
-                            )
+                            if item['type_muni'] == 'single':
+                                tempLayer = QgsVectorLayer(
+                                    tempShpFileName, 
+                                    item['name_j'], 
+                                    'ogr'
+                                )
+                            else:
+                                tempLayer = QgsVectorLayer(
+                                    tempShpFileName, 
+                                    item['name_j'] + ' (' + str(pref_name[x].text()) + ')', 
+                                    'ogr'
+                                )
                             
-                            if os.path.exists(self.plugin_dir + '/qml/' + item['code_map'] + '.qml'):
-                                if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/' + item['code_map'] + '.qml'):
+                            tempLayer.setProviderEncoding(item['encoding'])
+                            
+                            if os.path.exists(self.plugin_dir + '/qml/' + item['qml'] + '.qml'):
+                                if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/' + item['qml'] + '.qml'):
                                     tempLayer.triggerRepaint()
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
