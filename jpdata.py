@@ -77,7 +77,6 @@ class jpdata:
         self._folderPath = s.value("jpdata/FolderPath", "~")
         
         self._downloader = jpDataDownloader.Downloader()
-        # self.downloader = Downloader()
 
         self.actions = []
         self.menu = self.tr('&jpdata')
@@ -219,8 +218,6 @@ class jpdata:
             self.first_start = False
             self.dlg = jpdataDialog()
             
-            self._downloader.setProgressBar(self.dlg.progressBar)
-
             if self._folderPath:
                 self.dlg.myLabel1.setText(self._folderPath)
             else:
@@ -313,10 +310,33 @@ class jpdata:
                     for x in range(len(pref_code)):
                         tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
                         if os.path.exists(self._folderPath + '/' +  item['code_map'] + '/' + tempZipFileName):
-                            with zipfile.ZipFile(
-                                self._folderPath + '/' + item['code_map'] + '/' + tempZipFileName, 'r'
-                            ) as zip_ref:
-                                zip_ref.extractall(self._folderPath + '/' + item['code_map'])
+                            #with zipfile.ZipFile(
+                            #    self._folderPath + '/' + item['code_map'] + '/' + tempZipFileName, 'r'
+                            #) as zip_ref:
+                            #    zip_ref.extractall(self._folderPath + '/' + item['code_map'])
+
+                            # Below is a workaround for a zip file with Japanese filenames/foldernames
+                            with zipfile.ZipFile(self._folderPath + '/' + item['code_map'] + '/' + tempZipFileName, 'r') as zf:
+                                # Iterate through each file in the zip
+                                for zip_info in zf.infolist():
+                                    # Extract the filename using the correct encoding (e.g. 'cp932' for Japanese Windows)
+                                    filename = zip_info.filename.encode('cp437').decode('cp932')
+
+                                    # Construct the output file path
+                                    output_file_path = self._folderPath + '/' + item['code_map'] + '/' + filename
+
+                                    if zip_info.is_dir():
+                                        # Create directories if they do not exist
+                                        os.makedirs(output_file_path, exist_ok=True)
+                                    else:
+                                        os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
+
+                                        # Extract the file
+                                        with zf.open(zip_info) as file:
+                                            with open(output_file_path, 'wb') as out_file:
+                                                out_file.write(file.read())
+
+
                     break
 
     def addTile(self):
@@ -410,7 +430,8 @@ class jpdata:
             self.dlg.myLabel1.setText(url)
             self._downloader.Download(
                 url,
-                self._folderPath + '/' + subFolder + '/' + zipFileName
+                self._folderPath + '/' + subFolder + '/' + zipFileName,
+                self.dlg.progressBar
             )
 
     def chooseFolder(self):
