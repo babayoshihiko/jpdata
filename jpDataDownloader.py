@@ -42,7 +42,7 @@ class Downloader(QWidget):
                             zip_ref.testzip()
                             return True
                     except zipfile.BadZipFile:
-                        QgsMessageLog.logMessage('The downloaded zipfile is corrupt.', 'jpdata', level=QgsMessageLog.WARNING)
+                        QgsMessageLog.logMessage('The downloaded zipfile is corrupt.', 'jpdata', level=Qgis.Warning)
                         return False  # Zipfile is corrupt
         except urllib.error.URLError as e:
             QgsMessageLog.logMessage(str(e) + ' (' + url + ')', 'jpdata', level=Qgis.Warning)
