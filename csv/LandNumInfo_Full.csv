@@ -13,7 +13,7 @@ name_j,availability,code_map,type_muni,name_e,year,url,zip,shp,geojson,altdir,so
 標高・傾斜度3次メッシュ,,G04-a,mesh,,,,,,,,,,,,,,,,
 標高・傾斜度4次メッシュ,,G04-c,mesh,,,,,,,,,,,,,,,,
 標高・傾斜度5次メッシュ,,G04-d,mesh,,,,,,,,,,,,,,,,
-低位地帯,,G08,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/G08/G08-15/G08-15_code_pref_GML.zip,G08-15_code_pref_GML.zip,G08-15_code_pref.shp,,G08-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-G08-2015.html,,,,,,,CP932,
+低位地帯,yes,G08,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/G08/G08-15/G08-15_code_pref_GML.zip,G08-15_code_pref_GML.zip,G08-15_code_pref.shp,,G08-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-G08-2015.html,,,,,,,CP932,
 土地利用,,,,,,,,,,,,,,,,,,,
 土地利用3次メッシュ,,L03-a,mesh,,,,,,,,,,,,,,,,
 土地利用細分メッシュ ,,L03-b,mesh,,,,,,,,,,,,,,,,
@@ -85,7 +85,7 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 災害危険区域,yes,A48,,,2021,https://nlftp.mlit.go.jp/ksj/gml/data/A48/A48-21/A48-21_code_pref_GML.zip,A48-21_code_pref_GML.zip,A48-21_code_pref.shp,A48-21_code_pref.geojson,A48-21_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A48-v1_2.html,A48_007,1 2 3 4 5 6 7,水害（河川） 水害（海） 水害（河川・海） 急傾斜地崩壊等 地すべり等 火山被害 その他,#16A085 #D1F2EB #1F618D #229954 #BA4A00 #E74C3C #808B96,,,CP932,
 3. 地域,,,,,,,,,,,,,,,,,,,
 施設,,,,,,,,,,,,,,,,,,,
-国・都道府県の機関,yes,P28,,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/P28/P28-22/P28-22_code_pref.zip,P28-22_code_pref.zip,P28-22_code_pref.shp,,P28-22_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P28-2022.html,,,,,,,CP932,
+国・都道府県の機関,yes,P28,,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/P28/P28-22/P28-22_code_pref.zip,P28-22_code_pref.zip,P28-22_code_pref.shp,,P28-22_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P28-2022.html,,,,,,,CP932,P02.qml
 市町村役場等及び公的集会施設,yes,P05,,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/P05/P05-22/P05-22_code_pref_GML.zip,P05-22_code_pref_GML.zip,P05-22_code_pref.shp,,P05-22_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P05-2022.html,,,,,,,CP932,
 市区町村役場,yes,P34,,,2014,https://nlftp.mlit.go.jp/ksj/gml/data/P34/P34-14/P34-14_code_pref_GML.zip,P34-14_code_pref_GML.zip,P34-14_code_pref.shp,,P34-14_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P34.html,,,,,,,CP932,
 公共施設,yes,P02,,Public Facility,2006,https://nlftp.mlit.go.jp/ksj/gml/data/P02/P02-06/P02-06_code_pref_GML.zip,P02-06_code_pref_GML.zip,P02-06_code_pref-g_PublicFacility.shp,,P02-06_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P02-2006.html,,,,,,,CP932,
@@ -97,7 +97,7 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 医療機関,yes,P04,,,2020,https://nlftp.mlit.go.jp/ksj/gml/data/P04/P04-20/P04-20_code_pref_GML.zip,P04-20_code_pref_GML.zip,P04-20_code_pref.shp,P04-20_code_pref.geojson,P04-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P04-v3_0.html,,,,,,,CP932,
 福祉施設,yes,P14,,,2021,https://nlftp.mlit.go.jp/ksj/gml/data/P14/P14-21/P14-21_code_pref_GML.zip,P14-21_code_pref_GML.zip,P14-21_code_pref.shp,P14-21_code_pref.geojson,SHP,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P14-v2_1.html,P14_005,01 02 03 04 05 06 99,保護施設 老人福祉施設 障害者支援施設等 身体障害者社会参加支援施設 児童福祉施設等 母子・父子福祉施設 その他の社会福祉施設等,#1B9E77 #D95F02 #7570B3 #E7298A #66A61E #E6AB02 #A6761D,P14_002,name_muni,CP932,
 文化施設,yes,P27,,,2013,https://nlftp.mlit.go.jp/ksj/gml/data/P27/P27-13/P27-13_code_pref.zip,P27-13_code_pref.zip,P27-13_code_pref.shp,,P27-13_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P27.html,,,,,,,CP932,
-学校,yes,P29,,,2021,https://nlftp.mlit.go.jp/ksj/gml/data/P29/P29-21/P29-21_code_pref_GML.zip,P29-21_code_pref_GML.zip,P29-21_code_pref.shp,P29-21_code_pref.geojson,P29-21_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P29-2021.html,,,,,P29_001,code_pref_muni,CP932,
+学校,yes,P29,,,2021,https://nlftp.mlit.go.jp/ksj/gml/data/P29/P29-21/P29-21_code_pref_GML.zip,P29-21_code_pref_GML.zip,P29-21_code_pref.shp,P29-21_code_pref.geojson,P29-21_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P29-2021.html,,,,,P29_001,code_pref_muni,CP932,P29.qml
 都市公園,yes,P13,,,2011,https://nlftp.mlit.go.jp/ksj/gml/data/P13/P13-11/P13-11_code_pref_GML.zip,P13-11_code_pref_GML.zip,P13-11_code_pref.shp,,P13-11_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P13.html,,,,,,,CP932,
 上水道関連施設（浄水場）,yes,P21,,,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P21/P21-12/P21-12_code_pref_GML.zip,P21-12_code_pref_GML.zip,P21-12b_code_pref.shp,,21-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P21.html,,,,,,,CP932,
 上水道関連施設（給水区域）,yes,P21,,,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P21/P21-12/P21-12_code_pref_GML.zip,P21-12_code_pref_GML.zip,P21-12a_code_pref.shp,,21-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P21.html,,,,,,,CP932,
