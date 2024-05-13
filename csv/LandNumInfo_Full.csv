@@ -20,8 +20,8 @@ name_j,availability,code_map,type_muni,name_e,year,url,zip,shp,geojson,altdir,so
 土地利用細分メッシュ（ラスタ版）,,L03-b_r,mesh,,,,,,,,,,,,,,,,
 都市地域土地利用細分メッシュ,,L03-b-u,mesh,,,,,,,,,,,,,,,,
 土地利用詳細メッシュ,,L03-b-c,mesh,,,,,,,,,,,,,,,,
-森林地域,yes,A13,,,2016,https://nlftp.mlit.go.jp/ksj/gml/data/A23/A23-16/A23-16_code_pref_GML.zip,A23-16_code_pref_GML.zip,A23-16_code_pref.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A23-v3_0.html,,,,,A23_002,code_pref_muni,CP932,
-国有林野,yes,A45,,,2018,https://nlftp.mlit.go.jp/ksj/gml/data/A45/A45-19/A45-19_code_pref_GML.zip,A45-19_code_pref_GML.zip,A45-19_code_pref.shp,,A45-19_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A45.html,,,,,,,CP932,A45-05.qml
+森林地域,yes,A13,,Forest Area,2016,https://nlftp.mlit.go.jp/ksj/gml/data/A23/A23-16/A23-16_code_pref_GML.zip,A23-16_code_pref_GML.zip,A23-16_code_pref_ForestArea.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A23-v3_0.html,,,,,A23_002,code_pref_muni,CP932,A13.qml
+国有林野,yes,A45,,,2018,https://nlftp.mlit.go.jp/ksj/gml/data/A45/A45-19/A45-19_code_pref_GML.zip,A45-19_code_pref_GML.zip,A45-19_code_pref.shp,,A45-19_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A45.html,,,,,,,CP932,A45.qml
 農業地域（農業地域）,yes,A12,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A12/A12-15/A12-15_code_pref_GML.zip,A12-15_code_pref_GML.zip,a001code_pref0020160205.shp,,A12-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A12.html,,,,,,,CP932,A12-05.qml
 農業地域（農用地区域）,yes,A12,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A12/A12-15/A12-15_code_pref_GML.zip,A12-15_code_pref_GML.zip,a001code_pref0020160206.shp,,A12-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A12.html,,,,,,,CP932,A12-06.qml
 都市地域（ポリゴン）,,A09,muni,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A12/A12-15/A12-15_code_pref_GML.zip,,,,,,,,,,,,,
@@ -139,13 +139,13 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 宿泊容量メッシュ,,P09,mesh,,,,,,,,,,,,,,,,
 地域資源,yes,P19,,,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P19/P19-12/P19-12_code_pref_GML.zip,P19-12_code_pref_GML.zip,,,P19-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P19.html,,,,,,,CP932,
 保護保全,,,,,,,,,,,,,,,,,,,
-自然公園地域（自然公園地域）,yes,A10,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A10/A10-15/A10-15_code_pref_GML.zip,A10-15_code_pref_GML.zip,a001code_pref0020160211.shp,,A10-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A10-2015.html,,,,,,,CP932,
-自然公園地域（特別地域）,yes,A10,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A10/A10-15/A10-15_code_pref_GML.zip,A10-15_code_pref_GML.zip,a001code_pref0020160212.shp,,A10-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A10-2015.html,,,,,,,CP932,
-自然公園地域（特別保護地区）,yes,A10,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A10/A10-15/A10-15_code_pref_GML.zip,A10-15_code_pref_GML.zip,a001code_pref0020160213.shp,,A10-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A10-2015.html,,,,,,,CP932,
-自然保全地域（自然保全地域）,yes,A11,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A11/A11-15/A11-15_code_pref_GML.zip,A11-15_code_pref_GML.zip,a001code_pref0020160214.shp,,A11-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A11.html,,,,,,,CP932,
-自然保全地域（原生自然環境保全地域）,yes,A11,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A11/A11-15/A11-15_code_pref_GML.zip,A11-15_code_pref_GML.zip,a001code_pref0020160215.shp,,A11-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A11.html,,,,,,,CP932,
-自然保全地域（特別地区）,yes,A11,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A11/A11-15/A11-15_code_pref_GML.zip,A11-15_code_pref_GML.zip,a001code_pref0020160216.shp,,A11-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A11.html,,,,,,,CP932,
-鳥獣保護区,yes,A15,,Wildlife Preserve,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A15/A15-15/A15-15_code_pref_GML.zip,A15-15_code_pref_GML.zip,A15_15_code_pref_WildlifePreserve.shp,,A15-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A15.html,,,,,,,,
+自然公園地域（自然公園地域）,yes,A10,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A10/A10-15/A10-15_code_pref_GML.zip,A10-15_code_pref_GML.zip,a001code_pref0020160211.shp,,A10-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A10-2015.html,,,,,,,CP932,A10-11.qml
+自然公園地域（特別地域）,yes,A10,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A10/A10-15/A10-15_code_pref_GML.zip,A10-15_code_pref_GML.zip,a001code_pref0020160212.shp,,A10-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A10-2015.html,,,,,,,CP932,A10-12.qml
+自然公園地域（特別保護地区）,yes,A10,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A10/A10-15/A10-15_code_pref_GML.zip,A10-15_code_pref_GML.zip,a001code_pref0020160213.shp,,A10-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A10-2015.html,,,,,,,CP932,A10-13.qml
+自然保全地域（自然保全地域）,yes,A11,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A11/A11-15/A11-15_code_pref_GML.zip,A11-15_code_pref_GML.zip,a001code_pref0020160214.shp,,A11-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A11.html,,,,,,,CP932,A11-14.qml
+自然保全地域（原生自然環境保全地域）,yes,A11,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A11/A11-15/A11-15_code_pref_GML.zip,A11-15_code_pref_GML.zip,a001code_pref0020160215.shp,,A11-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A11.html,,,,,,,CP932,A11-15.qml
+自然保全地域（特別地区）,yes,A11,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A11/A11-15/A11-15_code_pref_GML.zip,A11-15_code_pref_GML.zip,a001code_pref0020160216.shp,,A11-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A11.html,,,,,,,CP932,A11-16.qml
+鳥獣保護区,yes,A15,,Wildlife Preserve,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A15/A15-15/A15-15_code_pref_GML.zip,A15-15_code_pref_GML.zip,A15_15_code_pref_WildlifePreserve.shp,,A15-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A15.html,,,,,,,CP932,A15.qml
 4. 交通,,,,,,,,,,,,,,,,,,,
 交通,,,,,,,,,,,,,,,,,,,
 高速道路時系列（ライン）（ポイント）,,N06,,,,,,,,,,,,,,,,,

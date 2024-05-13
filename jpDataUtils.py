@@ -251,7 +251,7 @@ def findShpFile(folderPath, row, code_pref, code_muni = '', name_muni = ''):
     elif os.path.exists(folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '\\' + shpFileTarget):
         shpFile = folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '\\' + shpFileTarget
     else:
-        QgsMessageLog.logMessage('Cannot find the file ' + shpFileTarget, 'jpdata', level=QgsMessageLog.WARNING)
+        QgsMessageLog.logMessage('Cannot find the file ' + shpFileTarget, 'jpdata', level=Qgis.Warning)
     
     return shpFile
 
