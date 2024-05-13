@@ -20,7 +20,7 @@ class Downloader(QWidget):
         readed_data = blocknum * blocksize
 
         if totalsize > 0:
-            download_percentage = readed_data * 100 / totalsize
+            download_percentage = int(readed_data * 100 / totalsize)
             if self._progressBar is not None:
                 self._progressBar.setValue(download_percentage)
             QApplication.processEvents()

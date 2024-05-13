@@ -414,8 +414,8 @@ class jpdata:
                             
                             tempLayer.setProviderEncoding(item['encoding'])
                             
-                            if os.path.exists(self.plugin_dir + '/qml/' + item['qml'] + '.qml'):
-                                if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/' + item['qml'] + '.qml'):
+                            if os.path.exists(self.plugin_dir + '/qml/' + item['qml']):
+                                if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/' + item['qml']):
                                     tempLayer.triggerRepaint()
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
