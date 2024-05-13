@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-import urllib.request
+from qgis.core import QgsMessageLog, Qgis
 from qgis.PyQt.QtWidgets import QApplication, QWidget, QProgressBar
 import sys
+import urllib.request
+import zipfile
  
 class Downloader(QWidget):
  
@@ -26,5 +28,23 @@ class Downloader(QWidget):
     # method to download any file using urllib
     def Download(self, url, filename, progressBar):
         self._progressBar = progressBar
-        urllib.request.urlretrieve(url, filename, self.Handle_Progress)
-        self._progressBar.setValue(100)
+        self._progressBar.setValue(0)
+        try:
+            response = urllib.request.urlopen(url)
+            if response.getcode() == 200:
+                content_type = response.headers.get('Content-Type')
+                if content_type == 'application/zip':
+                    urllib.request.urlretrieve(url, filename, self.Handle_Progress)
+                    self._progressBar.setValue(100)
+                    try:
+                        with zipfile.ZipFile(filename, 'r') as zip_ref:
+                            # Check if the zipfile is readable
+                            zip_ref.testzip()
+                            return True
+                    except zipfile.BadZipFile:
+                        QgsMessageLog.logMessage('The downloaded zipfile is corrupt.', 'jpdata', level=QgsMessageLog.WARNING)
+                        return False  # Zipfile is corrupt
+        except urllib.error.URLError as e:
+            QgsMessageLog.logMessage(str(e) + ' (' + url + ')', 'jpdata', level=Qgis.Warning)
+            return False  # Zipfile is corrupt
+

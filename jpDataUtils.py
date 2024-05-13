@@ -22,6 +22,7 @@
  ***************************************************************************/
 """
 
+from qgis.core import QgsMessageLog, Qgis
 import os, csv
 
 
@@ -237,14 +238,20 @@ def getTilesFromCsv():
         rows = list(csvreader)
         return rows
 
-def findShpFile(folderPath, row, code_pref):
+def findShpFile(folderPath, row, code_pref, code_muni = '', name_muni = ''):
     shpFile = None
-    if os.path.exists(folderPath + '/' + row['shp'].replace(u'code_pref', code_pref)):
-        shpFile = folderPath + '/' + row['shp'].replace(u'code_pref', code_pref)
-    elif  os.path.exists(folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '/' + row['shp'].replace(u'code_pref', code_pref)):
-        shpFile = folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '/' + row['shp'].replace(u'code_pref', code_pref)
-    elif  os.path.exists(folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '\\' + row['shp'].replace(u'code_pref', code_pref)):
-        shpFile = folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '\\' + row['shp'].replace(u'code_pref', code_pref)
+    shpFileTarget = row['shp'].replace('code_pref', code_pref)
+    shpFileTarget = shpFileTarget.replace('code_muni', code_muni)
+    shpFileTarget = shpFileTarget.replace('name_muni', name_muni)
+    
+    if os.path.exists(folderPath + '/' + shpFileTarget):
+        shpFile = folderPath + '/' + shpFileTarget
+    elif os.path.exists(folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '/' + shpFileTarget):
+        shpFile = folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '/' + shpFileTarget
+    elif os.path.exists(folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '\\' + shpFileTarget):
+        shpFile = folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '\\' + shpFileTarget
+    else:
+        QgsMessageLog.logMessage('Cannot find the file ' + shpFileTarget, 'jpdata', level=QgsMessageLog.WARNING)
     
     return shpFile
 

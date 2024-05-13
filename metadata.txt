@@ -7,7 +7,7 @@
 name=jpdata
 qgisMinimumVersion=3.0
 description=Download and load various data of Japan
-version=0.1
+version=0.3
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 
@@ -26,7 +26,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=python, Japan
 
-homepage=https://www.uclmail.net/users/babayoshihiko/
+homepage=https://github.com/babayoshihiko/jpdata
 category=Plugins
 icon=icon.png
 # experimental flag
