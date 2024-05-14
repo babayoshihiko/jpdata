@@ -266,7 +266,12 @@ class jpdata:
             
             # Set Tab 3
             self.dlg.myTabWidget.setTabText(2, self.tr('Census'))
+            self.dlg.myLabel31.setText(self.tr('Year'))
             self.dlg.myComboBox31.addItem('2020')
+            self.dlg.myComboBox31.addItem('2015')
+            self.dlg.myComboBox31.addItem('2010')
+            self.dlg.myComboBox31.addItem('2005')
+            self.dlg.myComboBox31.addItem('2000')
             self.dlg.myPushButton31.setText(self.tr('Download'))
             self.dlg.myPushButton31.setToolTip(self.tr('Download census data by city'))
             self.dlg.myPushButton31.clicked.connect(self.tab3DownloadAll)
@@ -460,7 +465,6 @@ class jpdata:
 
     def tab3DownloadAll(self):
         year = str(self.dlg.myComboBox31.currentText())
-        year = '2020'
         pref_name = str(self.dlg.myListWidget31.selectedItems()[0].text())
         muni_names = self.dlg.myListWidget32.selectedItems()
 

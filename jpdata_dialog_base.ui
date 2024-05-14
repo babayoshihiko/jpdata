@@ -50,7 +50,7 @@
    <item row="2" column="0" colspan="2">
     <widget class="QTabWidget" name="myTabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -131,26 +131,37 @@
        <string>tab_3</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_5">
-       <item row="1" column="0">
-        <widget class="QListWidget" name="myListWidget31"/>
+       <item row="0" column="2" rowspan="2">
+        <widget class="QListWidget" name="myListWidget32"/>
        </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="myPushButton31">
+       <item row="2" column="2">
+        <widget class="QPushButton" name="myPushButton32">
          <property name="text">
-          <string>myPushButton31</string>
+          <string>myPushButton32</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="myComboBox31">
+         <property name="currentText">
+          <string/>
          </property>
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QComboBox" name="myComboBox31"/>
+        <widget class="QLabel" name="myLabel31">
+         <property name="text">
+          <string>myLabel31</string>
+         </property>
+        </widget>
        </item>
-       <item row="0" column="1" rowspan="2">
-        <widget class="QListWidget" name="myListWidget32"/>
+       <item row="1" column="0" colspan="2">
+        <widget class="QListWidget" name="myListWidget31"/>
        </item>
        <item row="2" column="1">
-        <widget class="QPushButton" name="myPushButton32">
+        <widget class="QPushButton" name="myPushButton31">
          <property name="text">
-          <string>myPushButton32</string>
+          <string>myPushButton31</string>
          </property>
         </widget>
        </item>
