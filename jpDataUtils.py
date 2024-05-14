@@ -254,4 +254,3 @@ def findShpFile(folderPath, row, code_pref, code_muni = '', name_muni = ''):
         QgsMessageLog.logMessage('Cannot find the file ' + shpFileTarget, 'jpdata', level=Qgis.Warning)
     
     return shpFile
-

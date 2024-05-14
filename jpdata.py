@@ -27,7 +27,7 @@ from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem
 from qgis.PyQt.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
 from qgis.PyQt.QtWidgets import QProgressBar
 from qgis.PyQt.QtWidgets import QAbstractItemView
-from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
+from qgis.core import QgsMessageLog, Qgis, QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
 from qgis.gui import QgsMessageBar
 
 # Initialize Qt resources from file resources.py
@@ -42,7 +42,8 @@ import zipfile
 import time
 from . import jpDataUtils
 from . import jpDataDownloader
-
+from . import jpDataMuni
+from . import jpDataCensus
 
 
 
@@ -227,7 +228,7 @@ class jpdata:
             self.dlg.myTabWidget.setTabText(1, self.tr('GSI Tiles'))
             
             self.dlg.myPushButton1.setText(self.tr('Download'))
-            self.dlg.myPushButton1.setToolTip(self.tr('Download'))
+            self.dlg.myPushButton1.setToolTip(self.tr('Download Land Numerical Information data'))
             self.dlg.myPushButton1.clicked.connect(self.downloadAll)
             self.dlg.myPushButton2.setText(self.tr('Choose Folder'))
             self.dlg.myPushButton2.setToolTip(self.tr('Choose Folder'))
@@ -262,6 +263,23 @@ class jpdata:
             self.dlg.myListWidget2.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
+            
+            # Set Tab 3
+            self.dlg.myTabWidget.setTabText(2, self.tr('Census'))
+            self.dlg.myComboBox31.addItem('2020')
+            self.dlg.myPushButton31.setText(self.tr('Download'))
+            self.dlg.myPushButton31.setToolTip(self.tr('Download census data by city'))
+            self.dlg.myPushButton31.clicked.connect(self.tab3DownloadAll)
+            self.dlg.myPushButton32.setText(self.tr('Add to Map'))
+            self.dlg.myPushButton32.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
+            self.dlg.myPushButton32.clicked.connect(self.tab3AddMap)
+            self.dlg.myListWidget31.itemClicked.connect(self.tab3SelectPref)
+            self.dlg.myListWidget32.setSelectionMode(
+                QAbstractItemView.ExtendedSelection
+            )
+            
+            for code in range(1,47):
+                self.dlg.myListWidget31.addItem(jpDataUtils.getPrefNameByCode(code))
 
         # show the dialog
         self.dlg.show()
@@ -425,14 +443,82 @@ class jpdata:
             os.mkdir(self._folderPath + '/' + subFolder) 
         
         if not os.path.exists(self._folderPath + '/' + subFolder + '/' + zipFileName):
-            #self.dlg.myPushButton1.setEnabled(False)
-            
-            self.dlg.myLabel1.setText(url)
+            QgsMessageLog.logMessage('Staring download ' + url, 'jpdata', level=Qgis.Warning)
             self._downloader.Download(
                 url,
                 self._folderPath + '/' + subFolder + '/' + zipFileName,
                 self.dlg.progressBar
             )
+
+    def tab3SelectPref(self):
+        selectedItems = self.dlg.myListWidget31.selectedItems()
+        for item in selectedItems:
+            rows = jpDataMuni.getMuniFromPrefName( str(item.text()) )
+            self.dlg.myListWidget32.clear()
+            for row in rows:
+                self.dlg.myListWidget32.addItem( row['name_muni'] )
+
+    def tab3DownloadAll(self):
+        year = str(self.dlg.myComboBox31.currentText())
+        year = '2020'
+        pref_name = str(self.dlg.myListWidget31.selectedItems()[0].text())
+        muni_names = self.dlg.myListWidget32.selectedItems()
+
+        for muni_name in muni_names:
+            row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
+            tempUrl = jpDataCensus.getUrl( year, row['code_pref'], row['code_muni'] )
+            tempZipFileName = jpDataCensus.getZipFileName( year, row['code_pref'], row['code_muni'] )
+            self.startDownload(tempUrl ,'Census', tempZipFileName)
+
+    def tab3AddMap(self):
+        year = str(self.dlg.myComboBox31.currentText())        
+        pref_name = str(self.dlg.myListWidget31.selectedItems()[0].text())
+        muni_names = self.dlg.myListWidget32.selectedItems()
+
+        for muni_name in muni_names:
+            row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
+            tempZipFileName = jpDataCensus.getZipFileName( year, row['code_pref'], row['code_muni'] )
+            tempShpFileName = jpDataCensus.getShpFileName( year, row['code_pref'], row['code_muni'] )
+
+            # Create Census folder
+            #QgsMessageLog.logMessage(tempShpFileName, 'jpdata', level=Qgis.Warning)
+
+            # Unzip
+            if not os.path.exists(self._folderPath + '/Census/' + tempShpFileName):
+                if os.path.exists(self._folderPath + '/Census/' + tempZipFileName):
+                    with zipfile.ZipFile(
+                        self._folderPath + '/Census/' + tempZipFileName, 'r'
+                    ) as zip_ref:
+                        zip_ref.extractall(self._folderPath + '/Census')
+                else:
+                    # QgsMessageLog.logMessage('Cannot find zip and shp.', 'jpdata', level=Qgis.Warning)
+                    return
+            
+            # getFile
+            if os.path.exists(self._folderPath + '/Census/' + tempShpFileName):
+                tempShpFileName = self._folderPath + '/Census/' + tempShpFileName
+            else:
+                tempShpFileName = None
+
+            if tempShpFileName is None:
+                self.iface.messageBar().pushMessage(
+                    'Error', 
+                    'Cannot find the .shp file: ' + tempShpFileName, 1, duration = 10
+                )
+                return
+            
+            if tempShpFileName != '':
+                tempLayer = QgsVectorLayer(
+                    tempShpFileName, 
+                    row['name_muni'], 
+                    'ogr'
+                )
+                tempLayer.setProviderEncoding('CP932')
+                if os.path.exists(self.plugin_dir + '/qml/Census.qml'):
+                    if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/Census.qml'):
+                        tempLayer.triggerRepaint()
+                QgsProject.instance().addMapLayer(tempLayer)
+
 
     def chooseFolder(self):
         # Open a folder dialog to choose a folder

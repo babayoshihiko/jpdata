@@ -33,7 +33,7 @@ class Downloader(QWidget):
             response = urllib.request.urlopen(url)
             if response.getcode() == 200:
                 content_type = response.headers.get('Content-Type')
-                if content_type == 'application/zip':
+                if content_type == 'application/zip' or content_type == 'application/octet-stream':
                     urllib.request.urlretrieve(url, filename, self.Handle_Progress)
                     self._progressBar.setValue(100)
                     try:
