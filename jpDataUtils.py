@@ -238,27 +238,12 @@ def getTilesFromCsv():
         rows = list(csvreader)
         return rows
 
-def findShpFile(folderPath, row, code_pref, code_muni = '', name_muni = ''):
-    shpFile = None
-    shpFileTarget = row['shp'].replace('code_pref', code_pref)
-    shpFileTarget = shpFileTarget.replace('code_muni', code_muni)
-    shpFileTarget = shpFileTarget.replace('name_muni', name_muni)
-    
-    if os.path.exists(folderPath + '/' + shpFileTarget):
-        shpFile = folderPath + '/' + shpFileTarget
-    elif os.path.exists(folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '/' + shpFileTarget):
-        shpFile = folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '/' + shpFileTarget
-    elif os.path.exists(folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '\\' + shpFileTarget):
-        shpFile = folderPath + '/' + row['altdir'].replace(u'code_pref', code_pref) + '\\' + shpFileTarget
-    
-    return shpFile
-
 def findShpFile2(folderPath, shp, altdir, code_pref, code_muni = '', name_muni = ''):
     shpFile = None
     shpFileTarget = shp.replace('code_pref', code_pref)
     shpFileTarget = shpFileTarget.replace('code_muni', code_muni)
     shpFileTarget = shpFileTarget.replace('name_muni', name_muni)
-    altDir = altdir.replace(u'code_pref', code_pref)
+    altDir = altdir.replace('code_pref', code_pref)
     altDir = altDir.replace('code_muni', code_muni)
     altDir = altDir.replace('name_muni', name_muni)
     if os.path.exists(folderPath + '/' + shpFileTarget):
@@ -269,32 +254,33 @@ def findShpFile2(folderPath, shp, altdir, code_pref, code_muni = '', name_muni =
         shpFile = folderPath + '/' + altDir + '\\' + shpFileTarget
     return shpFile
 
-def unzipAndGetShp(folderPath, zipFileName, shp, altdir, code_pref = '', code_muni = '', name_muni = ''):
+def unzipAndGetShp(folderPath, zipFileName, shp, altdir = '', code_pref = '', code_muni = '', name_muni = ''):
     shpFileName = findShpFile2(folderPath, shp, altdir, code_pref, code_muni, name_muni)
     if shpFileName is None:
         zipFileName = zipFileName.replace('code_pref', code_pref)
         zipFileName = zipFileName.replace('code_muni', code_muni)
         zipFileName = zipFileName.replace('name_muni', name_muni)
         # Below is a workaround for a zip file with Japanese filenames/foldernames
-        with zipfile.ZipFile(folderPath + '/' + zipFileName, 'r') as zf:
-            # Iterate through each file in the zip
-            for zip_info in zf.infolist():
-                # Extract the filename using the correct encoding (e.g. 'cp932' for Japanese Windows)
-                filename = zip_info.filename.encode('cp437').decode('cp932')
-                # Construct the output file path
-                output_file_path = folderPath + '/' + filename
-                if zip_info.is_dir():
-                    # Create directories if they do not exist
-                    os.makedirs(output_file_path, exist_ok=True)
-                else:
-                    os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-                    # Extract the file
-                    with zf.open(zip_info) as file:
-                        with open(output_file_path, 'wb') as out_file:
-                            out_file.write(file.read())
+        if os.path.exists(folderPath + '/' + zipFileName):
+            with zipfile.ZipFile(folderPath + '/' + zipFileName, 'r') as zf:
+                # Iterate through each file in the zip
+                for zip_info in zf.infolist():
+                    # Extract the filename using the correct encoding (e.g. 'cp932' for Japanese Windows)
+                    filename = zip_info.filename.encode('cp437').decode('cp932')
+                    # Construct the output file path
+                    output_file_path = folderPath + '/' + filename
+                    if zip_info.is_dir():
+                        # Create directories if they do not exist
+                        os.makedirs(output_file_path, exist_ok=True)
+                    else:
+                        os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
+                        # Extract the file
+                        with zf.open(zip_info) as file:
+                            with open(output_file_path, 'wb') as out_file:
+                                out_file.write(file.read())
     shpFileName = findShpFile2(folderPath, shp, altdir, code_pref, code_muni, name_muni)
     if shpFileName is None:
-        QgsMessageLog.logMessage('Cannot find the file ' + shpFileName, 'jpdata', level=Qgis.Warning)
+        QgsMessageLog.logMessage('Cannot find the file ' + shp, 'jpdata', level=Qgis.Warning)
     
     return shpFileName
 

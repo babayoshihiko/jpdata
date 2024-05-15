@@ -385,34 +385,19 @@ class jpdata:
             row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
             tempZipFileName = jpDataCensus.getZipFileName( year, row['code_pref'], row['code_muni'] )
             tempShpFileName = jpDataCensus.getShpFileName( year, row['code_pref'], row['code_muni'] )
-
-            # Create Census folder
-            if not os.path.exists(self._folderPath + '/Census/'):
-                os.mkdir(self._folderPath + '/Census') 
-
-            # Unzip
-            if not os.path.exists(self._folderPath + '/Census/' + tempShpFileName):
-                if os.path.exists(self._folderPath + '/Census/' + tempZipFileName):
-                    with zipfile.ZipFile(
-                        self._folderPath + '/Census/' + tempZipFileName, 'r'
-                    ) as zip_ref:
-                        zip_ref.extractall(self._folderPath + '/Census')
-                else:
-                    QgsMessageLog.logMessage('Cannot find zip and shp.', 'jpdata', level=Qgis.Warning)
-                    return
-            
-            # getFile
-            if os.path.exists(self._folderPath + '/Census/' + tempShpFileName):
-                tempShpFileName = self._folderPath + '/Census/' + tempShpFileName
-            else:
-                tempShpFileName = None
+            tempShpFileName = jpDataUtils.unzipAndGetShp(
+                self._folderPath + '/Census/',
+                tempZipFileName,
+                tempShpFileName
+            )
 
             if tempShpFileName is None:
-                self.iface.messageBar().pushMessage(
-                    'Error', 
-                    'Cannot find the .shp file: ' + tempShpFileName, 1, duration = 10
+                tempShpFileName, ok = QFileDialog.getOpenFileName(
+                                self.iface.mainWindow(),
+                                self.tr('Select a shp file'), 
+                                self._folderPath + '/Census', 
+                                'ESRI Shapefile (*.shp)'
                 )
-                return
             
             if tempShpFileName != '':
                 tempLayer = QgsVectorLayer(
