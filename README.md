@@ -69,3 +69,13 @@ https://www.e-stat.go.jp/help/data-definition-information/download
 政令指定都市になった日時については、下記を参照。
 
 https://www.soumu.go.jp/main_sosiki/jichi_gyousei/bunken/shitei_toshi-ichiran.html
+
+## Issues
+
+- 国土数値情報のうち、市町村単位で提供している地図
+- 国土数値情報のうち、メッシュ単位で提供している地図（1 次メッシュ）
+- 国土数値情報のうち、メッシュ単位で提供している地図（3 次メッシュ）
+- 国土数値情報 過去のデータ
+- 国勢調査 政令指定都市
+- 国勢調査 市町村合併前の扱い
+- 全データの英語名称

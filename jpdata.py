@@ -169,6 +169,7 @@ class jpdata:
         if self.first_start == True:
             self.first_start = False
             self.dlg = jpdataDialog()
+            self.dlg.setWindowFlags(Qt.WindowStaysOnTopHint)
             
             if self._folderPath:
                 self.dlg.myLabel1.setText(self._folderPath)
