@@ -23,6 +23,13 @@ The corresponding 'QGIS Layer Style File' (QML) is in the plugins folder, but ha
 
 Add the GSI tile server.
 
+## Census
+
+The Census is a survey conducted by the Ministry of Internal Affairs and Communications, with GIS data provided every five years since 2000. There are subregions (in units of cities, towns and villages, and wards for designated cities) and mesh units, and the plug-in supports subregions. Various geodetic systems are supported, but the plug-in uses the plane rectangular coordinate system, JGD2000 until 2010, and JGD2011 since 2015.
+ JGD2011.
+
+Choose a prefecture; then choose municipalities. Click "Download" to download the zip files. Click "Add to Map" to unzip the zip files and add shp files to QGIS map.
+
 # jpdata （日本語）
 
 このプラグインは、同じメニュー項目を２箇所に追加します。
@@ -47,3 +54,18 @@ Add the GSI tile server.
 ## 地理院タイル  {#Geographical-Survey-Institute-tiles-ja}
 
 国土地理院のタイルサーバーを追加します。
+
+## 国勢調査
+
+国勢調査は、総務省が行なっている調査で、2000年以降 5 年ごとに GIS データが提供されています。小地域（市町村単位、なお司令指定都市は行政区単位）、メッシュ単位があり、プラグインでは小地域に対応しています。また、さまざまな測地系に対応していますが、プラグインでは平面直角座標系とし、2010年までは JGD2000、2015年以降は
+ JGD2011 としています。
+
+https://www.e-stat.go.jp/help/data-definition-information/download
+
+都道府県を選択します。その後、市町村を選択します。zip ファイルをダウンロードするには、「ダウンロード」を押します。zip を解凍、shp ファイルを追加するには「地図に追加」を押します。
+
+なお、政令指定都市の場合、市ではなく行政区単位の提供になります。市を選択してもダウンロードも地図へ追加もできません。
+
+政令指定都市になった日時については、下記を参照。
+
+https://www.soumu.go.jp/main_sosiki/jichi_gyousei/bunken/shitei_toshi-ichiran.html

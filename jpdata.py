@@ -101,16 +101,6 @@ class jpdata:
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
-        """Get the translation for a string using Qt translation API.
-
-        We implement this ourselves since we do not inherit QObject.
-
-        :param message: String for translation.
-        :type message: str, QString
-
-        :returns: Translated version of message.
-        :rtype: QString
-        """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('jpdata', message)
 
@@ -126,44 +116,6 @@ class jpdata:
         status_tip=None,
         whats_this=None,
         parent=None):
-        """Add a toolbar icon to the toolbar.
-
-        :param icon_path: Path to the icon for this action. Can be a resource
-            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
-        :type icon_path: str
-
-        :param text: Text that should be shown in menu items for this action.
-        :type text: str
-
-        :param callback: Function to be called when the action is triggered.
-        :type callback: function
-
-        :param enabled_flag: A flag indicating if the action should be enabled
-            by default. Defaults to True.
-        :type enabled_flag: bool
-
-        :param add_to_menu: Flag indicating whether the action should also
-            be added to the menu. Defaults to True.
-        :type add_to_menu: bool
-
-        :param add_to_toolbar: Flag indicating whether the action should also
-            be added to the toolbar. Defaults to True.
-        :type add_to_toolbar: bool
-
-        :param status_tip: Optional text to show in a popup when mouse pointer
-            hovers over the action.
-        :type status_tip: str
-
-        :param parent: Parent widget for the new action. Defaults None.
-        :type parent: QWidget
-
-        :param whats_this: Optional text to show in the status bar when the
-            mouse pointer hovers over the action.
-
-        :returns: The action that was created. Note that the action is also
-            added to self.actions list.
-        :rtype: QAction
-        """
 
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
@@ -224,38 +176,25 @@ class jpdata:
             else:
                 self.dlg.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
             
+            # Tab 1
             self.dlg.myTabWidget.setTabText(0, self.tr('LandNumInfo'))
-            self.dlg.myTabWidget.setTabText(1, self.tr('GSI Tiles'))
-            
             self.dlg.myPushButton1.setText(self.tr('Download'))
             self.dlg.myPushButton1.setToolTip(self.tr('Download Land Numerical Information data'))
             self.dlg.myPushButton1.clicked.connect(self.downloadAll)
             self.dlg.myPushButton2.setText(self.tr('Choose Folder'))
             self.dlg.myPushButton2.setToolTip(self.tr('Choose Folder'))
             self.dlg.myPushButton2.clicked.connect(self.chooseFolder)
-            self.dlg.myPushButton3.setText(self.tr('Unzip'))
-            self.dlg.myPushButton3.setToolTip(self.tr('Unzip downloaded zipfile'))
-            self.dlg.myPushButton3.clicked.connect(self.unzipAll)
             self.dlg.myPushButton4.setText(self.tr('Add to Map'))
             self.dlg.myPushButton4.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
-            self.dlg.myPushButton4.clicked.connect(self.addLNIAll)
-            self.dlg.myPushButton5.setText(self.tr('Add to Map'))
-            self.dlg.myPushButton5.setToolTip(self.tr('Add GSI xyz tile server to Map on QGIS'))
-            self.dlg.myPushButton5.clicked.connect(self.addTile)
-            
+            self.dlg.myPushButton4.clicked.connect(self.tab1AddMap)
             for row in self._LandNumInfo:
                 item =  QListWidgetItem(row['name_j'])
                 if (row['availability'] != 'yes'):
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                     item.setForeground(Qt.gray)
                 self.dlg.myListWidget.addItem(item)
-            
             for code in range(1,47):
                 self.dlg.myListWidget2.addItem(jpDataUtils.getPrefNameByCode(code))
-            
-            for row in self._GSI:
-                self.dlg.myListWidget3.addItem(row['name_j'])
-            
             # Users can choose multiple items
             self.dlg.myListWidget.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
@@ -263,6 +202,14 @@ class jpdata:
             self.dlg.myListWidget2.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
+            
+            # Tab 2
+            self.dlg.myTabWidget.setTabText(1, self.tr('GSI Tiles'))
+            self.dlg.myPushButton5.setText(self.tr('Add to Map'))
+            self.dlg.myPushButton5.setToolTip(self.tr('Add GSI xyz tile server to Map on QGIS'))
+            self.dlg.myPushButton5.clicked.connect(self.addTile)
+            for row in self._GSI:
+                self.dlg.myListWidget3.addItem(row['name_j'])
             
             # Set Tab 3
             self.dlg.myTabWidget.setTabText(2, self.tr('Census'))
@@ -316,52 +263,6 @@ class jpdata:
                         self.startDownload(tempUrl, item['code_map'], tempZipFileName)
                     break
 
-    def unzipAll(self):
-        items = self.dlg.myListWidget.selectedItems()
-        pref_name = self.dlg.myListWidget2.selectedItems()
-        pref_code = []
-        for i in range(len(pref_name)):
-            pref_code.append(
-                jpDataUtils.getPrefCodeByName(
-                    str(self.dlg.myListWidget2.selectedItems()[i].text())
-                )
-            )
-        
-        for i in range(len(items)):
-            for item in self._LandNumInfo:
-                if str(self.dlg.myListWidget.selectedItems()[i].text()) == item['name_j']:
-                    for x in range(len(pref_code)):
-                        tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
-                        if os.path.exists(self._folderPath + '/' +  item['code_map'] + '/' + tempZipFileName):
-                            #with zipfile.ZipFile(
-                            #    self._folderPath + '/' + item['code_map'] + '/' + tempZipFileName, 'r'
-                            #) as zip_ref:
-                            #    zip_ref.extractall(self._folderPath + '/' + item['code_map'])
-
-                            # Below is a workaround for a zip file with Japanese filenames/foldernames
-                            with zipfile.ZipFile(self._folderPath + '/' + item['code_map'] + '/' + tempZipFileName, 'r') as zf:
-                                # Iterate through each file in the zip
-                                for zip_info in zf.infolist():
-                                    # Extract the filename using the correct encoding (e.g. 'cp932' for Japanese Windows)
-                                    filename = zip_info.filename.encode('cp437').decode('cp932')
-
-                                    # Construct the output file path
-                                    output_file_path = self._folderPath + '/' + item['code_map'] + '/' + filename
-
-                                    if zip_info.is_dir():
-                                        # Create directories if they do not exist
-                                        os.makedirs(output_file_path, exist_ok=True)
-                                    else:
-                                        os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-
-                                        # Extract the file
-                                        with zf.open(zip_info) as file:
-                                            with open(output_file_path, 'wb') as out_file:
-                                                out_file.write(file.read())
-
-
-                    break
-
     def addTile(self):
         selected_items = self.dlg.myListWidget3.selectedItems()
         
@@ -381,7 +282,7 @@ class jpdata:
             return
         QgsProject.instance().addMapLayer(layer)
 
-    def addLNIAll(self):
+    def tab1AddMap(self):
         items = self.dlg.myListWidget.selectedItems()
         pref_name = self.dlg.myListWidget2.selectedItems()
         pref_code = []
@@ -402,9 +303,11 @@ class jpdata:
                     else:
                         seleted_prefs = range(len(pref_code))
                     for x in seleted_prefs:
-                        tempShpFileName = jpDataUtils.findShpFile(
+                        tempShpFileName = jpDataUtils.unzipAndGetShp(
                             self._folderPath + '/' + item['code_map'], 
-                            item, 
+                            item['zip'], 
+                            item['shp'], 
+                            item['altdir'], 
                             pref_code[x]
                         )
 
@@ -442,13 +345,12 @@ class jpdata:
                                     tempLayer.triggerRepaint()
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
-    
+
     def startDownload(self, url, subFolder, zipFileName):
         if not os.path.exists(self._folderPath + '/' + subFolder):
             os.mkdir(self._folderPath + '/' + subFolder) 
         
         if not os.path.exists(self._folderPath + '/' + subFolder + '/' + zipFileName):
-            QgsMessageLog.logMessage('Staring download ' + url, 'jpdata', level=Qgis.Warning)
             self._downloader.Download(
                 url,
                 self._folderPath + '/' + subFolder + '/' + zipFileName,
@@ -485,7 +387,8 @@ class jpdata:
             tempShpFileName = jpDataCensus.getShpFileName( year, row['code_pref'], row['code_muni'] )
 
             # Create Census folder
-            #QgsMessageLog.logMessage(tempShpFileName, 'jpdata', level=Qgis.Warning)
+            if not os.path.exists(self._folderPath + '/Census/'):
+                os.mkdir(self._folderPath + '/Census') 
 
             # Unzip
             if not os.path.exists(self._folderPath + '/Census/' + tempShpFileName):
@@ -495,7 +398,7 @@ class jpdata:
                     ) as zip_ref:
                         zip_ref.extractall(self._folderPath + '/Census')
                 else:
-                    # QgsMessageLog.logMessage('Cannot find zip and shp.', 'jpdata', level=Qgis.Warning)
+                    QgsMessageLog.logMessage('Cannot find zip and shp.', 'jpdata', level=Qgis.Warning)
                     return
             
             # getFile

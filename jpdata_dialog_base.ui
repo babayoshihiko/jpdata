@@ -57,7 +57,20 @@
        <string>tab_1</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="0" column="0" colspan="3">
+       <item row="1" column="0">
+        <widget class="QPushButton" name="myPushButton1">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>myPushuButton1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
           <widget class="QListWidget" name="myListWidget"/>
@@ -80,27 +93,7 @@
          </item>
         </layout>
        </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="myPushButton1">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>myPushuButton1</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1">
-        <widget class="QPushButton" name="myPushButton3">
-         <property name="text">
-          <string>myPushuButton3</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
         <widget class="QPushButton" name="myPushButton4">
          <property name="text">
           <string>myPushuButton4</string>
