@@ -401,7 +401,7 @@ class jpdata:
             if tempShpFileName != '':
                 tempLayer = QgsVectorLayer(
                     tempShpFileName, 
-                    row['name_muni'], 
+                    row['name_muni'] + ' (' + year + ')', 
                     'ogr'
                 )
                 tempLayer.setProviderEncoding('CP932')
