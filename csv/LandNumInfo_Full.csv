@@ -1,6 +1,6 @@
 name_j,availability,code_map,type_muni,name_e,year,url,zip,shp,geojson,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml
 1. 国土（水・土地）,,,,,,,,,,,,,,,,,,,
-水域,,,,,,,,,,,,,,,,,,,
+【水域】,,,,,,,,,,,,,,,,,,,
 海岸線,yes,C23,,Coastline,2006,https://nlftp.mlit.go.jp/ksj/gml/data/C23/C23-06/C23-06_code_pref_GML.zip,C23-06_code_pref_GML.zip,C23-06_code_pref-g_Coastline.shp,,C23-06_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C23.html,,,,,C23_001,code_pref_muni,CP932,C23.qml
 海岸保全施設（ライン）,yes,P23,,,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P23/P23-12/P23-12_13_GML.zip,P23-12_code_pref_GML.zip,P23b-12_code_pref.shp,,P23-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P23.html,,,,,,,CP932,P23b.qml
 海岸保全施設（ポイント） ,yes,P23,,,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P23/P23-12/P23-12_13_GML.zip,P23-12_code_pref_GML.zip,P23a-12_code_pref.shp,,P23-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P23.html,,,,,,,CP932,P23a.qml
@@ -9,12 +9,12 @@ name_j,availability,code_map,type_muni,name_e,year,url,zip,shp,geojson,altdir,so
 ダム,yes,W01,single,,2014,https://nlftp.mlit.go.jp/ksj/gml/data/W01/W01-14/W01-14_GML.zip,W01-14_GML.zip,W01-14-g_Dam.shp,,W01-14_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W01.html,,,,,,,CP932,W01.qml
 河川（ライン）,maybe (都道府県によって年が違う),W05,,Stream,,https://nlftp.mlit.go.jp/ksj/gml/data/W05/W05-08/W05-08_code_pref_GML.zip,W05-08_code_pref_GML.zip,W05-08_code_pref-g_Stream.shp,,W05-08_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W05.html,,,,,,,CP932,
 河川（ポイント）,maybe (都道府県によって年が違う),W05,,River Node,,https://nlftp.mlit.go.jp/ksj/gml/data/W05/W05-08/W05-08_code_pref_GML.zip,W05-08_code_pref_GML.zip,W05-08_code_pref-g_RiverNode.shp,,W05-08_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W05.html,,,,,,,CP932,
-地形,,,,,,,,,,,,,,,,,,,
+【地形】,,,,,,,,,,,,,,,,,,,
 標高・傾斜度3次メッシュ,,G04-a,mesh,,,,,,,,,,,,,,,,
 標高・傾斜度4次メッシュ,,G04-c,mesh,,,,,,,,,,,,,,,,
 標高・傾斜度5次メッシュ,,G04-d,mesh,,,,,,,,,,,,,,,,
 低位地帯,yes,G08,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/G08/G08-15/G08-15_code_pref_GML.zip,G08-15_code_pref_GML.zip,G08-15_code_pref.shp,,G08-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-G08-2015.html,,,,,,,CP932,
-土地利用,,,,,,,,,,,,,,,,,,,
+【土地利用】,,,,,,,,,,,,,,,,,,,
 土地利用3次メッシュ,,L03-a,mesh,,,,,,,,,,,,,,,,
 土地利用細分メッシュ ,,L03-b,mesh,,,,,,,,,,,,,,,,
 土地利用細分メッシュ（ラスタ版）,,L03-b_r,mesh,,,,,,,,,,,,,,,,
@@ -27,11 +27,11 @@ name_j,availability,code_map,type_muni,name_e,year,url,zip,shp,geojson,altdir,so
 都市地域（ポリゴン）,,A09,muni,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A12/A12-15/A12-15_code_pref_GML.zip,,,,,,,,,,,,,
 用途地域（ポリゴン）,,A29,muni,,,,,,,,,,,,,,,,
 立地適正化計画区域（ポリゴン） ,,A50,muni,,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A50/A50-20/A50-20_code_pref_GML.zip,A50-20_code_pref_GML.zip,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A50-v1_0.html,A50_006,1 2 3,立地適正化計画区域 居住誘導区域 都市機能誘導区域,#E2FFE3 #99CDFD #F87E88,,,UTF-8,
-地価,,,,,,,,,,,,,,,,,,,
+【地価】,,,,,,,,,,,,,,,,,,,
 地価公示,yes,L01,,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/L01/L01-22/L01-22_code_pref_GML.zip,L01-22_code_pref_GML.zip,L01-22_code_pref.shp,L01-22_code_pref.geojson,L01-22_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L01-v3_1.html,L01_006,,,,L01_022,code_pref_muni,CP932,L01.qml
 都道府県地価調査,yes,L02,,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/L02/L02-22/L02-22_code_pref_GML.zip,L02-22_code_pref_GML.zip,L02-22_code_pref.shp,L02-22_code_pref.geojson,L02-22_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L02-v3_0.html,L02_006,,,,L02_020,code_pref_muni,CP932,L02.qml
 2. 政策区域 ,,,,,,,,,,,,,,,,,,,
-行政地域,,,,,,,,,,,,,,,,,,,
+【行政地域】,,,,,,,,,,,,,,,,,,,
 行政区域,yes,N03,,,2024,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2024/N03-20240101_code_pref_GML.zip,N03-20240101_code_pref_GML.zip,N03-20240101_code_pref.shp,,N03-20240101_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-2024.html,,,,,N03_007,code_pref_muni,CP932,
 DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A16/A16-15/A16-15_code_pref_GML.zip,A16-15_code_pref_GML.zip,A16-15_code_pref_DID.shp,,A16-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A16-2015.html,,,,,,,CP932,
 中学校区,yes,A32,,,2021,https://nlftp.mlit.go.jp/ksj/gml/data/A32/A32-21/A32-21_code_pref_GML.zip,A32-21_code_pref_GML.zip,A32-21_code_pref.shp,A32-21_code_pref.geojson,A32-21_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A32-v3_0.html,,,,,A32_001,code_pref_muni,CP932,
@@ -51,7 +51,7 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 歴史的風土保存区域,yes,A42,single,Special Preservation Area of Historic Landscape,2018,https://nlftp.mlit.go.jp/ksj/gml/data/A42/A42-18/A42-18_GML.zip,A42-18_GML.zip,A42-18_Spacial_Preservation_Area_of_Historic_Landscape.shp,,A42-18_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A42.html,,,,,,,CP932,
 歴史的風土特別保存地区,yes,A43,single,Preservation District of Historic Buildings,2018,https://nlftp.mlit.go.jp/ksj/gml/data/A43/A43-18/A43-18_GML.zip,A43-18_GML.zip,A43-18_Preservation_District_of_Historic_Buildings.shp,A43-18_ Preservation_District_of_Historic_Buildings.geojson,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A43.html,,,,,A43_003,code_pref_muni,CP932,
 歴史的風致維持向上計画の重点地区,yes,A44,single,Priority Area of Plan for the Maintenance and Improvement of Historical Scenic Beauty,2018,https://nlftp.mlit.go.jp/ksj/gml/data/A44/A44-18/A44-18_GML.zip,A44-18_GML.zip,A44-18_Priority_Area_of_Plan_for_the_Maintenance_and_Improvement_of_Historical_Scenic_Beauty.shp,A44-18_ Priority_Area_of_Plan_for_the_Maintenance_and_Improvement_of_Historical_Scenic_Beauty.geojson,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A44.html,,,,,A44_003,code_pref_muni,CP932,
-大都市圏・条件不利地域,,,,,,,,,,,,,,,,,,,
+【大都市圏・条件不利地域】,,,,,,,,,,,,,,,,,,,
 三大都市圏計画区域（ポリゴン）,,A03,三大都市圏,,,,,,,,,,,,,,,,
 過疎地域,yes,A17,,,2017,https://nlftp.mlit.go.jp/ksj/gml/data/A17/A17-17/A17-17_code_pref_GML.zip,A17-17_code_pref_GML.zip,A17-17_code_pref.shp,,A17-17_code_pref_GML,,,,,,,,CP932,
 振興山村,yes,A24,,,2016,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-16/A24-16_code_pref_GML.zip,A24-16_code_pref_GML.zip,A24-16_code_pref.shp,,A24-16_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-2016.html,,,,,,,CP932,
@@ -70,7 +70,7 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 豪雪地帯統計情報（ポリゴン）,,A22s,,,,,,,,,,,,,,,,,
 特殊土壌地帯,,A23,,,2016,https://nlftp.mlit.go.jp/ksj/gml/data/A23/A23-16/A23-16_code_pref_GML.zip,A23-16_code_pref_GML.zip,A23-16_code_pref.shp,,A23-16_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A23-2016.html,,,,,,,CP932,
 密集市街地,,A39,single,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A39/A39-15/A39-15_GML.zip,A39-15_GML.zip,A39-15.shp,,A39-15_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A39-2015.html,,,,,,,CP932,
-災害・防災,,,,,,,,,,,,,,,,,,,
+【災害・防災】,,,,,,,,,,,,,,,,,,,
 洪水浸水想定区域（1次メッシュ）,,A31,mesh,,,,,,,,,,,,,,,,
 避難施設,yes,P20,,,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P20/P20-12/P20-12_code_pref_GML.zip,P20-12_code_pref_GML.zip,P20-12_code_pref.shp,,P20-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P20.html,,,,,,,CP932,
 洪水浸水想定区域（河川単位：ポリゴン）,yes,A31a,river,,2021,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-21/A31-21_code_pref_GML.zip,A31-21_code_pref_GML.zip,NA,,A31-21_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31a-2022.html,,,,,,,CP932,
@@ -84,7 +84,7 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 高潮浸水想定区域（ポリゴン）,,A49,,,,,,,,,,,,,,,,,
 災害危険区域,yes,A48,,,2021,https://nlftp.mlit.go.jp/ksj/gml/data/A48/A48-21/A48-21_code_pref_GML.zip,A48-21_code_pref_GML.zip,A48-21_code_pref.shp,A48-21_code_pref.geojson,A48-21_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A48-v1_2.html,A48_007,1 2 3 4 5 6 7,水害（河川） 水害（海） 水害（河川・海） 急傾斜地崩壊等 地すべり等 火山被害 その他,#16A085 #D1F2EB #1F618D #229954 #BA4A00 #E74C3C #808B96,,,CP932,
 3. 地域,,,,,,,,,,,,,,,,,,,
-施設,,,,,,,,,,,,,,,,,,,
+【施設】,,,,,,,,,,,,,,,,,,,
 国・都道府県の機関,yes,P28,,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/P28/P28-22/P28-22_code_pref.zip,P28-22_code_pref.zip,P28-22_code_pref.shp,,P28-22_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P28-2022.html,,,,,,,CP932,P02.qml
 市町村役場等及び公的集会施設,yes,P05,,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/P05/P05-22/P05-22_code_pref_GML.zip,P05-22_code_pref_GML.zip,P05-22_code_pref.shp,,P05-22_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P05-2022.html,,,,,,,CP932,
 市区町村役場,yes,P34,,,2014,https://nlftp.mlit.go.jp/ksj/gml/data/P34/P34-14/P34-14_code_pref_GML.zip,P34-14_code_pref_GML.zip,P34-14_code_pref.shp,,P34-14_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P34.html,,,,,,,CP932,
@@ -123,7 +123,7 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 物流拠点,yes,P31,,,2013,https://nlftp.mlit.go.jp/ksj/gml/data/P31/P31-13/P31-13_code_pref.zip,P31-13_code_pref.zip,P31-13_code_pref_e.shp,,P31-13_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P31.html,,,,,,,CP932,
 集客施設,yes,P33,,,2014,https://nlftp.mlit.go.jp/ksj/gml/data/P33/P33-14/P33-14_code_pref_GML.zip,P33-14_code_pref_GML.zip,P33-14_code_pref.shp,,P33-14_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P33.html,,,,,,,CP932,
 道の駅,yes,P35,single,Roadside Station,2018,https://nlftp.mlit.go.jp/ksj/gml/data/P35/P35-18/P35-18_GML.zip,P35-18_GML.zip,P35-18_Roadside_Station.shp,,P35-18_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P35.html,,,,,,,CP932,
-地域資源・観光,,,,,,,,,,,,,,,,,,,
+【地域資源・観光】,,,,,,,,,,,,,,,,,,,
 都道府県指定文化財（ポイント）,yes,P32,,,2014,https://nlftp.mlit.go.jp/ksj/gml/data/P32/P32-14/P32-14_code_pref_GML.zip,P32-14_code_pref_GML.zip,P32-14_code_pref.shp,,P32-14_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P32.html,,,,,,,CP932,
 世界文化遺産（ポリゴン）,yes,A34,single,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/A34/A34-22/A34-230328_GML.zip,A34-230328_GML.zip,A34a-230328.shp,,A34-230328_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A34-2022.html,,,,,,,CP932,
 世界文化遺産（ポリゴン代表点）,yes,A34,single,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/A34/A34-22/A34-230328_GML.zip,A34-230328_GML.zip,A34b-230328.shp,,A34-230328_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A34-2022.html,,,,,,,CP932,
@@ -138,7 +138,7 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 観光資源（面）,yes,P12,,,2014,https://nlftp.mlit.go.jp/ksj/gml/data/P12/P12-14/P12-14_code_pref_GML.zip,P12-14_code_pref_GML.zip,P12c-14_code_pref.shp,,P12-14_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P12-2014.html,,,,,,,CP932,
 宿泊容量メッシュ,,P09,mesh,,,,,,,,,,,,,,,,
 地域資源,yes,P19,,,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P19/P19-12/P19-12_code_pref_GML.zip,P19-12_code_pref_GML.zip,,,P19-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P19.html,,,,,,,CP932,
-保護保全,,,,,,,,,,,,,,,,,,,
+【保護保全】,,,,,,,,,,,,,,,,,,,
 自然公園地域（自然公園地域）,yes,A10,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A10/A10-15/A10-15_code_pref_GML.zip,A10-15_code_pref_GML.zip,a001code_pref0020160211.shp,,A10-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A10-2015.html,,,,,,,CP932,A10-11.qml
 自然公園地域（特別地域）,yes,A10,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A10/A10-15/A10-15_code_pref_GML.zip,A10-15_code_pref_GML.zip,a001code_pref0020160212.shp,,A10-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A10-2015.html,,,,,,,CP932,A10-12.qml
 自然公園地域（特別保護地区）,yes,A10,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A10/A10-15/A10-15_code_pref_GML.zip,A10-15_code_pref_GML.zip,a001code_pref0020160213.shp,,A10-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A10-2015.html,,,,,,,CP932,A10-13.qml
@@ -147,10 +147,11 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 自然保全地域（特別地区）,yes,A11,,,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A11/A11-15/A11-15_code_pref_GML.zip,A11-15_code_pref_GML.zip,a001code_pref0020160216.shp,,A11-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A11.html,,,,,,,CP932,A11-16.qml
 鳥獣保護区,yes,A15,,Wildlife Preserve,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A15/A15-15/A15-15_code_pref_GML.zip,A15-15_code_pref_GML.zip,A15_15_code_pref_WildlifePreserve.shp,,A15-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A15.html,,,,,,,CP932,A15.qml
 4. 交通,,,,,,,,,,,,,,,,,,,
-交通,,,,,,,,,,,,,,,,,,,
-高速道路時系列（ライン）（ポイント）,,N06,,,,,,,,,,,,,,,,,
-緊急輸送道路（ライン）,,N10,,,,,,,,,,,,,,,,,
-重要物流道路（ライン）,,N12,,,,,,,,,,,,,,,,,
+【交通】,,,,,,,,,,,,,,,,,,,
+高速道路時系列（路線区間）,yes,N06,single,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/N06/N06-22/N06-22_GML.zip,N06-22_GML.zip,N06-22_HighwaySection.shp,,N06-22_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N06-2022.html,,,,,,,CP932,
+高速道路時系列（接合部）,yes,N06,single,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/N06/N06-22/N06-22_GML.zip,N06-22_GML.zip,N06-22_Joint.shp,,N06-22_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N06-2022.html,,,,,,,CP932,
+緊急輸送道路,yes,N10,,,2020,https://nlftp.mlit.go.jp/ksj/gml/data/N10/N10-20/N10-20_code_pref_GML.zip,N10-20_code_pref_GML.zip,N10-20_code_pref.shp,,N10-20_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N10-2020.html,,,,,,,CP932,N10.qml
+重要物流道路,yes,N12,,,2021,https://nlftp.mlit.go.jp/ksj/gml/data/N12/N12-21/N12-21_code_pref_GML.zip,N12-21_code_pref_GML.zip,Shapefile/N12-21_code_pref.shp,,N12-21_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N12-2021.html,,,,,,,CP932,N12.qml
 道路密度・道路延長メッシュ,,N04,,,,,,,,,,,,,,,,,
 バス停留所（ポイント）,,P11,,,,,,,,,,,,,,,,,
 バスルート（ライン）,,N07,,,,,,,,,,,,,,,,,
