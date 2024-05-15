@@ -21,14 +21,13 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QThread, pyqtSignal
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem
-from qgis.PyQt.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
-from qgis.PyQt.QtWidgets import QProgressBar
+#from qgis.PyQt.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
+#from qgis.PyQt.QtWidgets import QProgressBar
 from qgis.PyQt.QtWidgets import QAbstractItemView
-from qgis.core import QgsMessageLog, Qgis, QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
-from qgis.gui import QgsMessageBar
+from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -274,7 +273,7 @@ class jpdata:
                 zoom_max = current_gsi['zoom_max']
                 break
         
-        # 'type=xyz&url=' + tile_url + '&zmax=' + zoom_max + 'zmin=' + zoom_min + '&crs=EPSG3857',
+        tile_url = 'type=xyz&url=' + tile_url + '&zmax=' + zoom_max + '&zmin=' + zoom_min + '&crs=EPSG3857'
         layer = QgsRasterLayer(
             tile_url,
             tile_name, 'wms')

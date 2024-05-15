@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from qgis.core import QgsMessageLog, Qgis
 from qgis.PyQt.QtWidgets import QApplication, QWidget, QProgressBar
-import sys
 import urllib.request
 import zipfile
  
