@@ -308,7 +308,8 @@ class jpdata:
                             item['zip'], 
                             item['shp'], 
                             item['altdir'], 
-                            pref_code[x]
+                            pref_code[x],
+                            epsg = item['epsg']
                         )
 
                         if tempShpFileName is None:
@@ -324,7 +325,6 @@ class jpdata:
                             )
                         
                         if tempShpFileName != '':
-
                             if item['type_muni'] == 'single':
                                 tempLayer = QgsVectorLayer(
                                     tempShpFileName, 
@@ -339,7 +339,9 @@ class jpdata:
                                 )
                             
                             tempLayer.setProviderEncoding(item['encoding'])
-                            
+                            if not os.path.exists(tempShpFileName[:-4] + ".qix"):
+                                tempLayer.dataProvider().createSpatialIndex()
+
                             if os.path.exists(self.plugin_dir + '/qml/' + item['qml']):
                                 if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/' + item['qml']):
                                     tempLayer.triggerRepaint()
@@ -406,6 +408,9 @@ class jpdata:
                     'ogr'
                 )
                 tempLayer.setProviderEncoding('CP932')
+                if not os.path.exists(tempShpFileName[:-4] + ".qix"):
+                    tempLayer.dataProvider().createSpatialIndex()
+
                 if os.path.exists(self.plugin_dir + '/qml/Census.qml'):
                     if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/Census.qml'):
                         tempLayer.triggerRepaint()

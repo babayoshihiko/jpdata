@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from qgis.core import QgsMessageLog, Qgis
+from qgis.core import QgsMessageLog, Qgis, QgsCoordinateReferenceSystem
 import os, csv
 import zipfile
 
@@ -231,7 +231,7 @@ def findShpFile2(folderPath, shp, altdir, code_pref, code_muni = '', name_muni =
         shpFile = folderPath + '/' + altDir + '\\' + shpFileTarget
     return shpFile
 
-def unzipAndGetShp(folder_path, zip_file, shp_file, altdir = '', code_pref = '', code_muni = '', name_muni = ''):
+def unzipAndGetShp(folder_path, zip_file, shp_file, altdir = '', code_pref = '', code_muni = '', name_muni = '', epsg = ''):
     shpFileName = findShpFile2(folder_path, shp_file, altdir, code_pref, code_muni, name_muni)
     if shpFileName is None:
         zipFileName = zip_file.replace('code_pref', code_pref)
@@ -258,6 +258,11 @@ def unzipAndGetShp(folder_path, zip_file, shp_file, altdir = '', code_pref = '',
     shpFileName = findShpFile2(folder_path, shp_file, altdir, code_pref, code_muni, name_muni)
     if shpFileName is None:
         QgsMessageLog.logMessage('Cannot find the file ' + shp_file, 'jpdata', level=Qgis.Warning)
+    else:
+        if not os.path.exists(shpFileName[:-4] + ".prj") and epsg != '':
+            crs = QgsCoordinateReferenceSystem(f"EPSG:{epsg}")
+            with open(shpFileName[:-4] + ".prj", 'w') as prj_file:
+                prj_file.write(crs.toWkt())
     
     return shpFileName
 

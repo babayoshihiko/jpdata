@@ -1,0 +1,9 @@
+cff-version: 1.1.0
+message: "Cite as"
+authors:
+  - family-names: Baba
+    given-names: Yoshihiko
+    orcid: https://orcid.org/0000-0001-7034-9724
+    website: https://www.uclmail.net/users/babayoshihiko/
+title: "jpdata"
+doi: 10.5281/zenodo.
