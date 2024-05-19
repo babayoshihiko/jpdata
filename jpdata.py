@@ -24,8 +24,6 @@
 from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem
-#from qgis.PyQt.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
-#from qgis.PyQt.QtWidgets import QProgressBar
 from qgis.PyQt.QtWidgets import QAbstractItemView
 from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
 
@@ -33,12 +31,8 @@ from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
 from .resources import *
 # Import the code for the dialog
 from .jpdata_dialog import jpdataDialog
-import os.path
+import os, tempfile
 
-from urllib.request import urlopen
-import os
-import zipfile
-import time
 from . import jpDataUtils
 from . import jpDataDownloader
 from . import jpDataMuni
@@ -342,9 +336,16 @@ class jpdata:
                             if not os.path.exists(tempShpFileName[:-4] + ".qix"):
                                 tempLayer.dataProvider().createSpatialIndex()
 
-                            if os.path.exists(self.plugin_dir + '/qml/' + item['qml']):
-                                if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/' + item['qml']):
-                                    tempLayer.triggerRepaint()
+                            if os.path.isfile(self.plugin_dir + '/qml/' + item['qml']):
+                                # For the qml files that use SVG images in the plugin folder
+                                with tempfile.TemporaryDirectory() as temp_dir:
+                                    with open(self.plugin_dir + '/qml/' + item['qml'], 'r') as file:
+                                        file_contents = file.read()
+                                    new_contents = file_contents.replace('PLUGIN_DIR', self.plugin_dir )
+                                    with open(temp_dir + item['qml'], 'w') as file:
+                                        file.write(new_contents)
+                                    if tempLayer.loadNamedStyle(temp_dir + item['qml']):
+                                        tempLayer.triggerRepaint()
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
 
