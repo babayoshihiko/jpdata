@@ -6,7 +6,7 @@ name_j,availability,code_map,type_muni,name_e,year,url,zip,shp,geojson,altdir,so
 海岸保全施設（ポイント） ,yes,P23,,,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P23/P23-12/P23-12_13_GML.zip,P23-12_code_pref_GML.zip,P23a-12_code_pref.shp,,P23-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P23.html,,,,,,,CP932,P23a.qml,4612
 湖沼,yes,W09,single,,2005,https://nlftp.mlit.go.jp/ksj/gml/data/W09/W09-05/W09-05_GML.zip,W09-05_GML.zip,W09-05-g_Lake.shp,,W09-05_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W09-2005.html,,,,,,,CP932,W09.qml,4612
 流域メッシュ ,,W07,mesh,,,,,,,,,,,,,,,,,
-ダム,yes,W01,single,,2014,https://nlftp.mlit.go.jp/ksj/gml/data/W01/W01-14/W01-14_GML.zip,W01-14_GML.zip,W01-14-g_Dam.shp,,W01-14_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W01.html,,,,,,,CP932,W01.qml,6668
+ダム,yes,W01,single,,2014,https://nlftp.mlit.go.jp/ksj/gml/data/W01/W01-14/W01-14_GML.zip,W01-14_GML.zip,W01-14-g_Dam.shp,,W01-14_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W01.html,,,,,,,CP932,W01-2014.qml,6668
 河川（ライン）,maybe (都道府県によって年が違う),W05,,Stream,,https://nlftp.mlit.go.jp/ksj/gml/data/W05/W05-08/W05-08_code_pref_GML.zip,W05-08_code_pref_GML.zip,W05-08_code_pref-g_Stream.shp,,W05-08_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W05.html,,,,,,,CP932,,4612
 河川（ポイント）,maybe (都道府県によって年が違う),W05,,River Node,,https://nlftp.mlit.go.jp/ksj/gml/data/W05/W05-08/W05-08_code_pref_GML.zip,W05-08_code_pref_GML.zip,W05-08_code_pref-g_RiverNode.shp,,W05-08_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W05.html,,,,,,,CP932,,4612
 【地形】,,,,,,,,,,,,,,,,,,,,
@@ -165,9 +165,9 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 駅別乗降客数,yes,S12,single,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/S12/S12-22/S12-22_GML.zip,S12-22_GML.zip,S12-22_NumberOfPassengers.shp,,S12-22_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S12-2021.html,,,,,,,CP932,,6668
 交通流動量 駅別乗降数（ポリゴン）（ポイント）,,S05-c,Kanto Kinki,,,,,,,,,,,,,,,,,
 空港（空港）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_Airport.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,C28-2021.qml,6668
-空港（空港）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_Airport.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,C28-2021.qml,6668
-空港（空港）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_Airport.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,C28-2021.qml,6668
-空港（空港）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_Airport.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,C28-2021.qml,6668
+空港（標点）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_AirportReferencePoint.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,,6668
+空港（ターミナルビル）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_TerminalBuilding.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,,6668
+空港（調査内容）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_SurveyContent.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,,6668
 空港時系列（ポリゴン）（ポイント）,,N08,,,,,,,,,,,,,,,,,,
 空港間流通量（ライン）,,S10b,,,,,,,,,,,,,,,,,,
 ヘリポート（ポイント）,,N11,,,,,,,,,,,,,,,,,,
