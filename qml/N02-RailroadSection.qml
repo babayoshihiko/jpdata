@@ -135,10 +135,10 @@
     <field configurationFlags="None" name="N02_004"/>
   </fieldConfiguration>
   <aliases>
-    <alias index="0" field="N02_001" name=""/>
-    <alias index="1" field="N02_002" name=""/>
-    <alias index="2" field="N02_003" name=""/>
-    <alias index="3" field="N02_004" name=""/>
+    <alias index="0" field="N02_001" name="鉄道区分"/>
+    <alias index="1" field="N02_002" name="事業者種別"/>
+    <alias index="2" field="N02_003" name="路線名"/>
+    <alias index="3" field="N02_004" name="運営会社"/>
   </aliases>
   <defaults>
     <default applyOnUpdate="0" expression="" field="N02_001"/>
