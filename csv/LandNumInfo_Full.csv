@@ -162,9 +162,12 @@ DID人口集中地区,yes,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A1
 鉄道（鉄道区間）,yes,N02,single,Railway (Railroad Section),2022,https://nlftp.mlit.go.jp/ksj/gml/data/N02/N02-22/N02-22_GML.zip,N02-22_GML.zip,N02-22_RailroadSection.shp,,N02-22_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N02-2022.html,,,,,,,CP932,N02-RailroadSection.qml,6668
 鉄道時系列（駅）,yes,N05,single,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/N05/N05-22/N05-22_GML.zip,N05-22_GML.zip,N05-22_Station2.shp,,N05-22_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N05-2022.html,,,,,,,CP932,N02-Station.qml,6668
 鉄道時系列（鉄道区間）,yes,N05,single,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/N05/N05-22/N05-22_GML.zip,N05-22_GML.zip,N05-22_RailroadSection2.shp,,N05-22_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N05-2022.html,,,,,,,CP932,N02-RailroadSection.qml,6668
-駅別乗降客数（ライン）,yes,S12,single,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/S12/S12-22/S12-22_GML.zip,S12-22_GML.zip,S12-22_NumberOfPassengers.shp,,S12-22_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S12-2021.html,,,,,,,CP932,,6668
-交通流動量 駅別乗降数（ポリゴン）（ポイント）,,S05-c,,,,,,,,,,,,,,,,,,
-空港（ポリゴン）（ポイント）,,C28,,,,,,,,,,,,,,,,,,
+駅別乗降客数,yes,S12,single,,2022,https://nlftp.mlit.go.jp/ksj/gml/data/S12/S12-22/S12-22_GML.zip,S12-22_GML.zip,S12-22_NumberOfPassengers.shp,,S12-22_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S12-2021.html,,,,,,,CP932,,6668
+交通流動量 駅別乗降数（ポリゴン）（ポイント）,,S05-c,Kanto Kinki,,,,,,,,,,,,,,,,,
+空港（空港）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_Airport.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,C28-2021.qml,6668
+空港（空港）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_Airport.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,C28-2021.qml,6668
+空港（空港）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_Airport.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,C28-2021.qml,6668
+空港（空港）,yes,C28,single,Airport,2021,https://nlftp.mlit.go.jp/ksj/gml/data/C28/C28-21/C28-21_GML.zip,C28-21_GML.zip,C28-21_Airport.shp,,C28-21_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C28-2021.html,,,,,,,CP932,C28-2021.qml,6668
 空港時系列（ポリゴン）（ポイント）,,N08,,,,,,,,,,,,,,,,,,
 空港間流通量（ライン）,,S10b,,,,,,,,,,,,,,,,,,
 ヘリポート（ポイント）,,N11,,,,,,,,,,,,,,,,,,
