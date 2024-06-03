@@ -31,8 +31,8 @@ name_j,availability,code_map,type_muni,name_e,year,url,zip,shp,geojson,altdir,so
 用途地域（ポリゴン）,,A29,muni,,,,,,,,,,,,,,,,,
 立地適正化計画区域（ポリゴン） ,,A50,muni,,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A50/A50-20/A50-20_code_pref_GML.zip,A50-20_code_pref_GML.zip,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A50-v1_0.html,A50_006,1 2 3,立地適正化計画区域 居住誘導区域 都市機能誘導区域,#E2FFE3 #99CDFD #F87E88,,,UTF-8,,6668
 【地価】,,,,,,,,,,,,,,,,,,,,
-地価公示,yes,L01,,,2023,https://nlftp.mlit.go.jp/ksj/gml/data/L01/L01-23/L01-23_code_pref_GML.zip,L01-23_code_pref_GML.zip,L01-22_code_pref.shp,L01-23_code_pref.geojson,L01-23_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L01-v3_1.html,L01_006,,,,L01_022,code_pref_muni,CP932,L01-2023.qml,4612
-都道府県地価調査,yes,L02,,,2023,https://nlftp.mlit.go.jp/ksj/gml/data/L02/L02-23/L02-23_code_pref_GML.zip,L02-23_code_pref_GML.zip,L02-22_code_pref.shp,L02-22_code_pref.geojson,L02-23_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L02-v3_1.html,L02_006,,,,L02_020,code_pref_muni,CP932,L02-2023.qml,4612
+地価公示,yes,L01,,,2023,https://nlftp.mlit.go.jp/ksj/gml/data/L01/L01-23/L01-23_code_pref_GML.zip,L01-23_code_pref_GML.zip,L01-23_code_pref.shp,L01-23_code_pref.geojson,L01-23_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L01-v3_1.html,L01_006,,,,L01_022,code_pref_muni,CP932,L01-2023.qml,4612
+都道府県地価調査,yes,L02,,,2023,https://nlftp.mlit.go.jp/ksj/gml/data/L02/L02-23/L02-23_code_pref_GML.zip,L02-23_code_pref_GML.zip,L02-23_code_pref.shp,L02-23_code_pref.geojson,L02-23_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L02-v3_1.html,L02_006,,,,L02_020,code_pref_muni,CP932,L02-2023.qml,4612
 2. 政策区域 ,,,,,,,,,,,,,,,,,,,,
 【行政地域】,,,,,,,,,,,,,,,,,,,,
 行政区域,yes,N03,,,2024,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2024/N03-20240101_code_pref_GML.zip,N03-20240101_code_pref_GML.zip,N03-20240101_code_pref.shp,,N03-20240101_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-2024.html,,,,,N03_007,code_pref_muni,UTF-8,N03-2024.qml,6668
