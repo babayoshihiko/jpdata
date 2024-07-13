@@ -34,7 +34,8 @@ from .jpdata_dialog import jpdataDialog
 import os, tempfile
 
 from . import jpDataUtils
-from . import jpDataDownloader
+#from . import jpDataDownloader
+from . import jpDataDownloader3
 from . import jpDataMuni
 from . import jpDataCensus
 
@@ -70,7 +71,8 @@ class jpdata:
         s = QgsSettings()
         self._folderPath = s.value("jpdata/FolderPath", "~")
         
-        self._downloader = jpDataDownloader.Downloader()
+        #self._downloader = jpDataDownloader.Downloader()
+        self._downloader = jpDataDownloader3.DownloadThread()
 
         self.actions = []
         self.menu = self.tr('&jpdata')
@@ -174,7 +176,7 @@ class jpdata:
             self.dlg.myTabWidget.setTabText(0, self.tr('LandNumInfo'))
             self.dlg.myPushButton1.setText(self.tr('Download'))
             self.dlg.myPushButton1.setToolTip(self.tr('Download Land Numerical Information data'))
-            self.dlg.myPushButton1.clicked.connect(self.downloadAll)
+            self.dlg.myPushButton1.clicked.connect(self.tab1DownloadAll)
             self.dlg.myPushButton2.setText(self.tr('Choose Folder'))
             self.dlg.myPushButton2.setToolTip(self.tr('Choose Folder'))
             self.dlg.myPushButton2.clicked.connect(self.chooseFolder)
@@ -237,7 +239,34 @@ class jpdata:
             # substitute with your code.
             pass
 
-    def downloadAll(self):
+#    def downloadAll(self):
+#        items = self.dlg.myListWidget.selectedItems()
+#        pref_name = self.dlg.myListWidget2.selectedItems()
+#        pref_code = []
+#        for i in range(len(pref_name)):
+#            pref_code.append(
+#                jpDataUtils.getPrefCodeByName(
+#                    str(self.dlg.myListWidget2.selectedItems()[i].text())
+#                )
+#            )
+#        
+#        for i in range(len(items)):
+#            for item in self._LandNumInfo:
+#                if str(self.dlg.myListWidget.selectedItems()[i].text()) == item['name_j']:
+#                    for x in range(len(pref_code)):
+#                        tempUrl = item['url'].replace('code_pref', pref_code[x])
+#                        tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
+#                        # self.startDownload(tempUrl, item['code_map'], tempZipFileName)
+#                        self.start_download(tempUrl, item['code_map'], tempZipFileName)
+#                    break
+
+    def tab1DownloadAll(self):
+        self.dlg.progressBar.setValue(0)
+        if self.dlg.myPushButton1.text() == self.tr('Cancel'):
+            self.cancel_download()
+            return
+        
+        self.dlg.myPushButton1.setText(self.tr('Cancel'))
         items = self.dlg.myListWidget.selectedItems()
         pref_name = self.dlg.myListWidget2.selectedItems()
         pref_code = []
@@ -254,7 +283,8 @@ class jpdata:
                     for x in range(len(pref_code)):
                         tempUrl = item['url'].replace('code_pref', pref_code[x])
                         tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
-                        self.startDownload(tempUrl, item['code_map'], tempZipFileName)
+                        # self.startDownload(tempUrl, item['code_map'], tempZipFileName)
+                        self.start_download(tempUrl, item['code_map'], tempZipFileName)
                     break
 
     def addTile(self):
@@ -349,16 +379,36 @@ class jpdata:
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
 
-    def startDownload(self, url, subFolder, zipFileName):
+#    def startDownload(self, url, subFolder, zipFileName):
+#        if not os.path.exists(self._folderPath + '/' + subFolder):
+#            os.mkdir(self._folderPath + '/' + subFolder) 
+#        
+#        if not os.path.exists(self._folderPath + '/' + subFolder + '/' + zipFileName):
+#            self._downloader.Download(
+#                url,
+#                self._folderPath + '/' + subFolder + '/' + zipFileName,
+#                self.dlg.progressBar
+#            )
+
+    def start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(self._folderPath + '/' + subFolder):
-            os.mkdir(self._folderPath + '/' + subFolder) 
+            os.mkdir(self._folderPath + '/' + subFolder)
         
         if not os.path.exists(self._folderPath + '/' + subFolder + '/' + zipFileName):
-            self._downloader.Download(
-                url,
-                self._folderPath + '/' + subFolder + '/' + zipFileName,
-                self.dlg.progressBar
-            )
+            self._downloader.setUrl(url)
+            self._downloader.setFilePath(self._folderPath + '/' + subFolder + '/' + zipFileName)
+            self._downloader.progress.connect(self.dlg.progressBar.setValue)
+            self._downloader.finished.connect(self.download_finished)
+            self._downloader.start()
+
+    def download_finished(self, success):
+        self.dlg.myPushButton1.setText(self.tr('Download'))
+        self.dlg.myPushButton31.setText(self.tr('Download'))
+        self.dlg.progressBar.setValue(100)
+
+    def cancel_download(self):
+        if self._downloader is not None:
+            self._downloader.stop()
 
     def tab3SelectPref(self):
         selectedItems = self.dlg.myListWidget31.selectedItems()
@@ -369,6 +419,12 @@ class jpdata:
                 self.dlg.myListWidget32.addItem( row['name_muni'] )
 
     def tab3DownloadAll(self):
+        self.dlg.progressBar.setValue(0)
+        if self.dlg.myPushButton1.text() == self.tr('Cancel'):
+            self.cancel_download()
+            return
+        
+        self.dlg.myPushButton31.setText(self.tr('Cancel'))
         year = str(self.dlg.myComboBox31.currentText())
         pref_name = str(self.dlg.myListWidget31.selectedItems()[0].text())
         muni_names = self.dlg.myListWidget32.selectedItems()
