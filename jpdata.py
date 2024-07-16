@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QUrl
+from qgis.PyQt.QtGui import QIcon, QDesktopServices
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem
 from qgis.PyQt.QtWidgets import QAbstractItemView
 from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
@@ -183,6 +183,9 @@ class jpdata:
             self.dlg.myPushButton4.setText(self.tr('Add to Map'))
             self.dlg.myPushButton4.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
             self.dlg.myPushButton4.clicked.connect(self.tab1AddMap)
+            self.dlg.myPushButton15.setText(self.tr('Web'))
+            self.dlg.myPushButton15.setToolTip(self.tr('Open the webpage with the standard browser'))
+            self.dlg.myPushButton15.clicked.connect(self.tab1Web)
             for row in self._LandNumInfo:
                 item =  QListWidgetItem(row['name_j'])
                 if (row['availability'] != 'yes'):
@@ -305,6 +308,15 @@ class jpdata:
         if not layer.isValid():
             return
         QgsProject.instance().addMapLayer(layer)
+
+    def tab1Web(self):
+        items = self.dlg.myListWidget.selectedItems()
+        for i in range(len(items)):
+            for item in self._LandNumInfo:
+                if str(self.dlg.myListWidget.selectedItems()[i].text()) == item['name_j']:
+                
+                    url = QUrl(item['source'])
+                    QDesktopServices.openUrl(url)
 
     def tab1AddMap(self):
         items = self.dlg.myListWidget.selectedItems()
