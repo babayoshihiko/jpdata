@@ -34,7 +34,6 @@ from .jpdata_dialog import jpdataDialog
 import os, tempfile
 
 from . import jpDataUtils
-#from . import jpDataDownloader
 from . import jpDataDownloader3
 from . import jpDataMuni
 from . import jpDataCensus
@@ -69,9 +68,8 @@ class jpdata:
             QCoreApplication.installTranslator(self.translator)
 
         s = QgsSettings()
-        self._folderPath = s.value("jpdata/FolderPath", "~")
+        self._folderPath = s.value('jpdata/FolderPath', '~')
         
-        #self._downloader = jpDataDownloader.Downloader()
         self._downloader = jpDataDownloader3.DownloadThread()
 
         self.actions = []
@@ -172,7 +170,9 @@ class jpdata:
             else:
                 self.dlg.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
             
-            # Tab 1
+            self.dlg.myLabelStatus.setText('')
+            
+            # Set Tab 1
             self.dlg.myTabWidget.setTabText(0, self.tr('LandNumInfo'))
             self.dlg.myPushButton1.setText(self.tr('Download'))
             self.dlg.myPushButton1.setToolTip(self.tr('Download Land Numerical Information data'))
@@ -202,7 +202,7 @@ class jpdata:
                 QAbstractItemView.ExtendedSelection
             )
             
-            # Tab 2
+            # Set Tab 2
             self.dlg.myTabWidget.setTabText(1, self.tr('GSI Tiles'))
             self.dlg.myPushButton5.setText(self.tr('Add to Map'))
             self.dlg.myPushButton5.setToolTip(self.tr('Add GSI xyz tile server to Map on QGIS'))
@@ -242,26 +242,24 @@ class jpdata:
             # substitute with your code.
             pass
 
-#    def downloadAll(self):
-#        items = self.dlg.myListWidget.selectedItems()
-#        pref_name = self.dlg.myListWidget2.selectedItems()
-#        pref_code = []
-#        for i in range(len(pref_name)):
-#            pref_code.append(
-#                jpDataUtils.getPrefCodeByName(
-#                    str(self.dlg.myListWidget2.selectedItems()[i].text())
-#                )
-#            )
-#        
-#        for i in range(len(items)):
-#            for item in self._LandNumInfo:
-#                if str(self.dlg.myListWidget.selectedItems()[i].text()) == item['name_j']:
-#                    for x in range(len(pref_code)):
-#                        tempUrl = item['url'].replace('code_pref', pref_code[x])
-#                        tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
-#                        # self.startDownload(tempUrl, item['code_map'], tempZipFileName)
-#                        self.start_download(tempUrl, item['code_map'], tempZipFileName)
-#                    break
+    def addTile(self):
+        selected_items = self.dlg.myListWidget3.selectedItems()
+        
+        for current_gsi in self._GSI:
+            if current_gsi['name_j'] == str(selected_items[0].text()):
+                tile_name = current_gsi['name_j']
+                tile_url = current_gsi['url']
+                zoom_min = current_gsi['zoom_min']
+                zoom_max = current_gsi['zoom_max']
+                break
+        
+        tile_url = 'type=xyz&url=' + tile_url + '&zmax=' + zoom_max + '&zmin=' + zoom_min + '&crs=EPSG3857'
+        layer = QgsRasterLayer(
+            tile_url,
+            tile_name, 'wms')
+        if not layer.isValid():
+            return
+        QgsProject.instance().addMapLayer(layer)
 
     def tab1DownloadAll(self):
         self.dlg.progressBar.setValue(0)
@@ -286,28 +284,8 @@ class jpdata:
                     for x in range(len(pref_code)):
                         tempUrl = item['url'].replace('code_pref', pref_code[x])
                         tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
-                        # self.startDownload(tempUrl, item['code_map'], tempZipFileName)
                         self.start_download(tempUrl, item['code_map'], tempZipFileName)
                     break
-
-    def addTile(self):
-        selected_items = self.dlg.myListWidget3.selectedItems()
-        
-        for current_gsi in self._GSI:
-            if current_gsi['name_j'] == str(selected_items[0].text()):
-                tile_name = current_gsi['name_j']
-                tile_url = current_gsi['url']
-                zoom_min = current_gsi['zoom_min']
-                zoom_max = current_gsi['zoom_max']
-                break
-        
-        tile_url = 'type=xyz&url=' + tile_url + '&zmax=' + zoom_max + '&zmin=' + zoom_min + '&crs=EPSG3857'
-        layer = QgsRasterLayer(
-            tile_url,
-            tile_name, 'wms')
-        if not layer.isValid():
-            return
-        QgsProject.instance().addMapLayer(layer)
 
     def tab1Web(self):
         items = self.dlg.myListWidget.selectedItems()
@@ -349,6 +327,7 @@ class jpdata:
                         )
 
                         if tempShpFileName is None:
+                            self.dlg.myLabelStatus.setText(self.tr('Cannot find the .shp file: ') + item['shp'].replace('code_pref', pref_code[x]))
                             self.iface.messageBar().pushMessage(
                                 'Error', 
                                 'Cannot find the .shp file: ' + item['shp'].replace('code_pref', pref_code[x]), 1, duration = 10
@@ -391,17 +370,6 @@ class jpdata:
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
 
-#    def startDownload(self, url, subFolder, zipFileName):
-#        if not os.path.exists(self._folderPath + '/' + subFolder):
-#            os.mkdir(self._folderPath + '/' + subFolder) 
-#        
-#        if not os.path.exists(self._folderPath + '/' + subFolder + '/' + zipFileName):
-#            self._downloader.Download(
-#                url,
-#                self._folderPath + '/' + subFolder + '/' + zipFileName,
-#                self.dlg.progressBar
-#            )
-
     def start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(self._folderPath + '/' + subFolder):
             os.mkdir(self._folderPath + '/' + subFolder)
@@ -412,6 +380,8 @@ class jpdata:
             self._downloader.progress.connect(self.dlg.progressBar.setValue)
             self._downloader.finished.connect(self.download_finished)
             self._downloader.start()
+        else:
+            self.dlg.myLabelStatus.setText(self.tr('The zip file exists: ') + zipFileName)
 
     def download_finished(self, success):
         self.dlg.myPushButton1.setText(self.tr('Download'))
@@ -477,7 +447,7 @@ class jpdata:
                     'ogr'
                 )
                 tempLayer.setProviderEncoding('CP932')
-                if not os.path.exists(tempShpFileName[:-4] + ".qix"):
+                if not os.path.exists(tempShpFileName[:-4] + '.qix'):
                     tempLayer.dataProvider().createSpatialIndex()
 
                 if os.path.exists(self.plugin_dir + '/qml/Census.qml'):
@@ -496,4 +466,4 @@ class jpdata:
         if self._folderPath:
             self.dlg.myLabel1.setText(self._folderPath)
             s = QgsSettings()
-            s.setValue("jpdata/FolderPath", self._folderPath)
+            s.setValue('jpdata/FolderPath', self._folderPath)

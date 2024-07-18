@@ -46,4 +46,4 @@ class DownloadThread(QThread):
     def stop(self):
         self._is_running = False
         if os.path.exists(self.file_path):
-                    os.remove(self.file_path)
+            os.remove(self.file_path)

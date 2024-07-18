@@ -79,3 +79,15 @@ https://www.soumu.go.jp/main_sosiki/jichi_gyousei/bunken/shitei_toshi-ichiran.ht
 - 国勢調査 政令指定都市
 - 国勢調査 市町村合併前の扱い
 - 全データの英語名称
+
+# Version History
+
+## Version 0.6
+
+Released in July 2024
+
+* Rewrote jpDownloader.py
+* Download can be cancelled.
+* Updated Land Numerical Information
+* (LNI) Web button to open the information webpage on the default browser
+* Message below the progress bar in the window
