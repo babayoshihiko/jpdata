@@ -67,11 +67,8 @@ class jpdata:
             self.translator.load(locale_path)
             QCoreApplication.installTranslator(self.translator)
 
-        s = QgsSettings()
-        self._folderPath = s.value('jpdata/FolderPath', '~')
+        self._folderPath = QSettings().value('jpdata/FolderPath', '~')
         
-        self._downloader = jpDataDownloader3.DownloadThread()
-
         self.actions = []
         self.menu = self.tr('&jpdata')
         
@@ -164,25 +161,30 @@ class jpdata:
             self.first_start = False
             self.dlg = jpdataDialog()
             self.dlg.setWindowFlags(Qt.WindowStaysOnTopHint)
+
+            self._downloader = jpDataDownloader3.DownloadThread()
+            self._downloader.progress.connect(self.dlg.progressBar.setValue)
+            self._downloader.finished.connect(self.download_finished)
             
+            self.dlg.myPushButton2.setText(self.tr('Choose Folder'))
+            self.dlg.myPushButton2.setToolTip(self.tr('Choose Folder'))
+            self.dlg.myPushButton2.clicked.connect(self.chooseFolder)
+
             if self._folderPath:
                 self.dlg.myLabel1.setText(self._folderPath)
             else:
                 self.dlg.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
             
             self.dlg.myLabelStatus.setText('')
-            
+
             # Set Tab 1
             self.dlg.myTabWidget.setTabText(0, self.tr('LandNumInfo'))
-            self.dlg.myPushButton1.setText(self.tr('Download'))
-            self.dlg.myPushButton1.setToolTip(self.tr('Download Land Numerical Information data'))
-            self.dlg.myPushButton1.clicked.connect(self.tab1DownloadAll)
-            self.dlg.myPushButton2.setText(self.tr('Choose Folder'))
-            self.dlg.myPushButton2.setToolTip(self.tr('Choose Folder'))
-            self.dlg.myPushButton2.clicked.connect(self.chooseFolder)
-            self.dlg.myPushButton4.setText(self.tr('Add to Map'))
-            self.dlg.myPushButton4.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
-            self.dlg.myPushButton4.clicked.connect(self.tab1AddMap)
+            self.dlg.myPushButton11.setText(self.tr('Download'))
+            self.dlg.myPushButton11.setToolTip(self.tr('Download Land Numerical Information data'))
+            self.dlg.myPushButton11.clicked.connect(self.tab1DownloadAll)
+            self.dlg.myPushButton14.setText(self.tr('Add to Map'))
+            self.dlg.myPushButton14.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
+            self.dlg.myPushButton14.clicked.connect(self.tab1AddMap)
             self.dlg.myPushButton15.setText(self.tr('Web'))
             self.dlg.myPushButton15.setToolTip(self.tr('Open the webpage with the standard browser'))
             self.dlg.myPushButton15.clicked.connect(self.tab1Web)
@@ -191,24 +193,24 @@ class jpdata:
                 if (row['availability'] != 'yes'):
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                     item.setForeground(Qt.gray)
-                self.dlg.myListWidget.addItem(item)
+                self.dlg.myListWidget11.addItem(item)
             for code in range(1,47):
-                self.dlg.myListWidget2.addItem(jpDataUtils.getPrefNameByCode(code))
+                self.dlg.myListWidget12.addItem(jpDataUtils.getPrefNameByCode(code))
             # Users can choose multiple items
-            self.dlg.myListWidget.setSelectionMode(
+            self.dlg.myListWidget11.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
-            self.dlg.myListWidget2.setSelectionMode(
+            self.dlg.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
             
             # Set Tab 2
             self.dlg.myTabWidget.setTabText(1, self.tr('GSI Tiles'))
-            self.dlg.myPushButton5.setText(self.tr('Add to Map'))
-            self.dlg.myPushButton5.setToolTip(self.tr('Add GSI xyz tile server to Map on QGIS'))
-            self.dlg.myPushButton5.clicked.connect(self.addTile)
+            self.dlg.myPushButton25.setText(self.tr('Add to Map'))
+            self.dlg.myPushButton25.setToolTip(self.tr('Add GSI xyz tile server to Map on QGIS'))
+            self.dlg.myPushButton25.clicked.connect(self.addTile)
             for row in self._GSI:
-                self.dlg.myListWidget3.addItem(row['name_j'])
+                self.dlg.myListWidget23.addItem(row['name_j'])
             
             # Set Tab 3
             self.dlg.myTabWidget.setTabText(2, self.tr('Census'))
@@ -243,7 +245,7 @@ class jpdata:
             pass
 
     def addTile(self):
-        selected_items = self.dlg.myListWidget3.selectedItems()
+        selected_items = self.dlg.myListWidget23.selectedItems()
         
         for current_gsi in self._GSI:
             if current_gsi['name_j'] == str(selected_items[0].text()):
@@ -263,53 +265,56 @@ class jpdata:
 
     def tab1DownloadAll(self):
         self.dlg.progressBar.setValue(0)
-        if self.dlg.myPushButton1.text() == self.tr('Cancel'):
+        if self.dlg.myPushButton11.text() == self.tr('Cancel'):
             self.cancel_download()
             return
         
-        self.dlg.myPushButton1.setText(self.tr('Cancel'))
-        items = self.dlg.myListWidget.selectedItems()
-        pref_name = self.dlg.myListWidget2.selectedItems()
+        self.dlg.myPushButton11.setText(self.tr('Cancel'))
+        items = self.dlg.myListWidget11.selectedItems()
+        pref_name = self.dlg.myListWidget12.selectedItems()
         pref_code = []
         for i in range(len(pref_name)):
             pref_code.append(
                 jpDataUtils.getPrefCodeByName(
-                    str(self.dlg.myListWidget2.selectedItems()[i].text())
+                    str(self.dlg.myListWidget12.selectedItems()[i].text())
                 )
             )
         
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dlg.myListWidget.selectedItems()[i].text()) == item['name_j']:
+                if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
                     for x in range(len(pref_code)):
-                        tempUrl = item['url'].replace('code_pref', pref_code[x])
-                        tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
-                        self.start_download(tempUrl, item['code_map'], tempZipFileName)
+                        if self.dlg.myPushButton11.text() == self.tr('Cancel'):
+                            tempUrl = item['url'].replace('code_pref', pref_code[x])
+                            tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
+                            self.start_download(tempUrl, item['code_map'], tempZipFileName)
+                        else:
+                            break
                     break
 
     def tab1Web(self):
-        items = self.dlg.myListWidget.selectedItems()
+        items = self.dlg.myListWidget11.selectedItems()
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dlg.myListWidget.selectedItems()[i].text()) == item['name_j']:
+                if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
                 
                     url = QUrl(item['source'])
                     QDesktopServices.openUrl(url)
 
     def tab1AddMap(self):
-        items = self.dlg.myListWidget.selectedItems()
-        pref_name = self.dlg.myListWidget2.selectedItems()
+        items = self.dlg.myListWidget11.selectedItems()
+        pref_name = self.dlg.myListWidget12.selectedItems()
         pref_code = []
         for i in range(len(pref_name)):
             pref_code.append(
                 jpDataUtils.getPrefCodeByName(
-                    str(self.dlg.myListWidget2.selectedItems()[i].text())
+                    str(self.dlg.myListWidget12.selectedItems()[i].text())
                 )
             )
         
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dlg.myListWidget.selectedItems()[i].text()) == item['name_j']:
+                if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
                     if item['type_muni'] == 'single':
                         # The single .shp file covers the whole nation
                         # So, pick the first prefecture only (not used, though)
@@ -365,7 +370,7 @@ class jpdata:
                                     new_contents = file_contents.replace('PLUGIN_DIR', self.plugin_dir )
                                     with open(os.path.join(temp_dir, item['qml']), 'w') as file:
                                         file.write(new_contents)
-                                    if tempLayer.loadNamedStyle(os.path.join(temp_dir , item['qml'])):
+                                    if tempLayer.loadNamedStyle(os.path.join(temp_dir, item['qml'])):
                                         tempLayer.triggerRepaint()
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
@@ -378,18 +383,16 @@ class jpdata:
             self.dlg.myLabelStatus.setText(self.tr('Downloading: ') + zipFileName)
             self._downloader.setUrl(url)
             self._downloader.setFilePath(os.path.join(self._folderPath, subFolder, zipFileName))
-            self._downloader.progress.connect(self.dlg.progressBar.setValue)
-            self._downloader.finished.connect(self.download_finished)
             self._downloader.start()
         else:
             self.dlg.myLabelStatus.setText(self.tr('The zip file exists: ') + zipFileName)
-            self.dlg.myPushButton1.setText(self.tr('Download'))
+            self.dlg.myPushButton11.setText(self.tr('Download'))
             self.dlg.myPushButton31.setText(self.tr('Download'))
 
     def download_finished(self, success):
         current_text = self.dlg.myLabelStatus.text()
         self.dlg.myLabelStatus.setText(current_text + self.tr('...Done'))
-        self.dlg.myPushButton1.setText(self.tr('Download'))
+        self.dlg.myPushButton11.setText(self.tr('Download'))
         self.dlg.myPushButton31.setText(self.tr('Download'))
         self.dlg.progressBar.setValue(100)
 
@@ -422,7 +425,10 @@ class jpdata:
             row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
             tempUrl = jpDataCensus.getUrl( year, row['code_pref'], row['code_muni'] )
             tempZipFileName = jpDataCensus.getZipFileName( year, row['code_pref'], row['code_muni'] )
-            self.start_download(tempUrl ,'Census', tempZipFileName)
+            if self.dlg.myPushButton31.text() == self.tr('Cancel'):
+                self.start_download(tempUrl ,'Census', tempZipFileName)
+            else:
+                break
 
     def tab3AddMap(self):
         year = str(self.dlg.myComboBox31.currentText())        
@@ -434,7 +440,7 @@ class jpdata:
             tempZipFileName = jpDataCensus.getZipFileName( year, row['code_pref'], row['code_muni'] )
             tempShpFileName = jpDataCensus.getShpFileName( year, row['code_pref'], row['code_muni'] )
             tempShpFileName = jpDataUtils.unzipAndGetShp(
-                self._folderPath + '/Census/',
+                os.path.join(self._folderPath, 'Census'),
                 tempZipFileName,
                 tempShpFileName
             )

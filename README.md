@@ -86,8 +86,7 @@ https://www.soumu.go.jp/main_sosiki/jichi_gyousei/bunken/shitei_toshi-ichiran.ht
 
 Released in July 2024
 
-* Rewrote jpDownloader.py
-* Download can be cancelled.
-* Updated Land Numerical Information
+* Rewrote jpDownloader.py. Download can be cancelled.
+* Updated Land Numerical Information (https://nlftp.mlit.go.jp/ksj_news.html)
 * (LNI) Web button to open the information webpage on the default browser
 * Message below the progress bar in the window

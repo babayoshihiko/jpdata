@@ -2,7 +2,6 @@
 from qgis.PyQt.QtCore import QThread, pyqtSignal
 import os
 import requests
-import zipfile
 
 class DownloadThread(QThread):
     progress = pyqtSignal(int)

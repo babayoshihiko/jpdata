@@ -60,10 +60,10 @@
        <item row="0" column="0" colspan="2">
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
-          <widget class="QListWidget" name="myListWidget"/>
+          <widget class="QListWidget" name="myListWidget11"/>
          </item>
          <item row="0" column="1">
-          <widget class="QListWidget" name="myListWidget2">
+          <widget class="QListWidget" name="myListWidget12">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -90,7 +90,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="myPushButton1">
+          <widget class="QPushButton" name="myPushButton11">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -98,14 +98,14 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>myPushuButton1</string>
+            <string>myPushuButton11</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="myPushButton4">
+          <widget class="QPushButton" name="myPushButton14">
            <property name="text">
-            <string>myPushuButton4</string>
+            <string>myPushuButton14</string>
            </property>
           </widget>
          </item>
@@ -119,12 +119,12 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0">
-        <widget class="QListWidget" name="myListWidget3"/>
+        <widget class="QListWidget" name="myListWidget23"/>
        </item>
        <item row="1" column="0">
-        <widget class="QPushButton" name="myPushButton5">
+        <widget class="QPushButton" name="myPushButton25">
          <property name="text">
-          <string>myPushButton5</string>
+          <string>myPushButton25</string>
          </property>
         </widget>
        </item>
@@ -162,7 +162,7 @@
        <item row="1" column="0" colspan="2">
         <widget class="QListWidget" name="myListWidget31"/>
        </item>
-       <item row="2" column="1">
+       <item row="2" column="0" colspan="2">
         <widget class="QPushButton" name="myPushButton31">
          <property name="text">
           <string>myPushButton31</string>
