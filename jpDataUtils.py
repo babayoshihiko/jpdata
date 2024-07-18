@@ -202,14 +202,14 @@ def getPrefCodeByName(pref_name):
     return pref_code
 
 def getMapsFromCsv():
-    filePath = os.path.dirname(__file__) + '/csv/LandNumInfo_Full.csv'
+    filePath = os.path.join(os.path.dirname(__file__), 'csv', 'LandNumInfo.csv')
     with open(filePath, "r") as f:
         csvreader = csv.DictReader(f)
         rows = list(csvreader)
         return rows
 
 def getTilesFromCsv():
-    filePath = os.path.dirname(__file__) + '/csv/GSI.csv'
+    filePath = os.path.join(os.path.dirname(__file__), 'csv', 'GSI.csv')
     with open(filePath, "r") as f:
         csvreader = csv.DictReader(f)
         rows = list(csvreader)
@@ -223,12 +223,12 @@ def findShpFile2(folderPath, shp, altdir, code_pref, code_muni = '', name_muni =
     altDir = altdir.replace('code_pref', code_pref)
     altDir = altDir.replace('code_muni', code_muni)
     altDir = altDir.replace('name_muni', name_muni)
-    if os.path.exists(folderPath + '/' + shpFileTarget):
-        shpFile = folderPath + '/' + shpFileTarget
-    elif os.path.exists(folderPath + '/' + altDir + '/' + shpFileTarget):
-        shpFile = folderPath + '/' + altDir + '/' + shpFileTarget
-    elif os.path.exists(folderPath + '/' + altDir + '\\' + shpFileTarget):
-        shpFile = folderPath + '/' + altDir + '\\' + shpFileTarget
+    if os.path.exists(os.path.join(folderPath, shpFileTarget)):
+        shpFile = os.path.join(folderPath, shpFileTarget)
+    elif os.path.exists(os.path.join(folderPath, altDir, shpFileTarget)):
+        shpFile = os.path.join(folderPath, altDir, shpFileTarget)
+    elif os.path.exists(os.path.join(folderPath, altDir + '\\' + shpFileTarget)):
+        shpFile = os.path.join(folderPath, altDir + '\\' + shpFileTarget)
     return shpFile
 
 def unzipAndGetShp(folder_path, zip_file, shp_file, altdir = '', code_pref = '', code_muni = '', name_muni = '', epsg = ''):
@@ -240,14 +240,15 @@ def unzipAndGetShp(folder_path, zip_file, shp_file, altdir = '', code_pref = '',
         zipFileName = zipFileName.replace('code_muni', code_muni)
         zipFileName = zipFileName.replace('name_muni', name_muni)
         # Below is a workaround for a zip file with Japanese filenames/foldernames
-        if os.path.exists(folder_path + '/' + zipFileName):
-            with zipfile.ZipFile(folder_path + '/' + zipFileName, 'r') as zf:
+        if os.path.exists(os.path.join(folder_path, zipFileName)):
+            with zipfile.ZipFile(os.path.join(folder_path, zipFileName), 'r') as zf:
                 # Iterate through each file in the zip
                 for zip_info in zf.infolist():
-                    # Extract the filename using the correct encoding (e.g. 'cp932' for Japanese Windows)
+                    # Extract the filename using the correct encoding 
+                    # (e.g. 'cp932' for Japanese Windows)
                     filename = zip_info.filename.encode('cp437').decode('cp932')
                     # Construct the output file path
-                    output_file_path = folder_path + '/' + filename
+                    output_file_path = os.path.join(folder_path, filename)
                     if zip_info.is_dir():
                         # Create directories if they do not exist
                         os.makedirs(output_file_path, exist_ok=True)

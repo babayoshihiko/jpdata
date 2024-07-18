@@ -138,7 +138,7 @@ class jpdata:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.add_action(
-            self.plugin_dir + '/icon.png',
+            os.path.join (self.plugin_dir, 'icon.png'),
             text = self.tr('Add Japan Data'),
             callback = self.run,
             parent = self.iface.mainWindow())
@@ -357,39 +357,46 @@ class jpdata:
                             if not os.path.exists(tempShpFileName[:-4] + ".qix"):
                                 tempLayer.dataProvider().createSpatialIndex()
 
-                            if os.path.isfile(self.plugin_dir + '/qml/' + item['qml']):
+                            if os.path.isfile(os.path.join(self.plugin_dir, 'qml', item['qml'])):
                                 # For the qml files that use SVG images in the plugin folder
                                 with tempfile.TemporaryDirectory() as temp_dir:
-                                    with open(self.plugin_dir + '/qml/' + item['qml'], 'r') as file:
+                                    with open(os.path.join(self.plugin_dir, 'qml', item['qml']), 'r') as file:
                                         file_contents = file.read()
                                     new_contents = file_contents.replace('PLUGIN_DIR', self.plugin_dir )
-                                    with open(temp_dir + item['qml'], 'w') as file:
+                                    with open(os.path.join(temp_dir, item['qml']), 'w') as file:
                                         file.write(new_contents)
-                                    if tempLayer.loadNamedStyle(temp_dir + item['qml']):
+                                    if tempLayer.loadNamedStyle(os.path.join(temp_dir , item['qml'])):
                                         tempLayer.triggerRepaint()
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
 
     def start_download(self, url, subFolder, zipFileName):
-        if not os.path.exists(self._folderPath + '/' + subFolder):
-            os.mkdir(self._folderPath + '/' + subFolder)
+        if not os.path.exists(os.path.join(self._folderPath, subFolder)):
+            os.mkdir(os.path.join(self._folderPath, subFolder))
         
-        if not os.path.exists(self._folderPath + '/' + subFolder + '/' + zipFileName):
+        if not os.path.exists(os.path.join(self._folderPath, subFolder, zipFileName)):
+            self.dlg.myLabelStatus.setText(self.tr('Downloading: ') + zipFileName)
             self._downloader.setUrl(url)
-            self._downloader.setFilePath(self._folderPath + '/' + subFolder + '/' + zipFileName)
+            self._downloader.setFilePath(os.path.join(self._folderPath, subFolder, zipFileName))
             self._downloader.progress.connect(self.dlg.progressBar.setValue)
             self._downloader.finished.connect(self.download_finished)
             self._downloader.start()
         else:
             self.dlg.myLabelStatus.setText(self.tr('The zip file exists: ') + zipFileName)
+            self.dlg.myPushButton1.setText(self.tr('Download'))
+            self.dlg.myPushButton31.setText(self.tr('Download'))
 
     def download_finished(self, success):
+        current_text = self.dlg.myLabelStatus.text()
+        self.dlg.myLabelStatus.setText(current_text + self.tr('...Done'))
         self.dlg.myPushButton1.setText(self.tr('Download'))
         self.dlg.myPushButton31.setText(self.tr('Download'))
         self.dlg.progressBar.setValue(100)
 
     def cancel_download(self):
         if self._downloader is not None:
+            current_text = self.dlg.myLabelStatus.text()
+            self.dlg.myLabelStatus.setText(current_text + self.tr('...Cancelled'))
             self._downloader.stop()
 
     def tab3SelectPref(self):
@@ -402,7 +409,7 @@ class jpdata:
 
     def tab3DownloadAll(self):
         self.dlg.progressBar.setValue(0)
-        if self.dlg.myPushButton1.text() == self.tr('Cancel'):
+        if self.dlg.myPushButton31.text() == self.tr('Cancel'):
             self.cancel_download()
             return
         
@@ -415,7 +422,7 @@ class jpdata:
             row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
             tempUrl = jpDataCensus.getUrl( year, row['code_pref'], row['code_muni'] )
             tempZipFileName = jpDataCensus.getZipFileName( year, row['code_pref'], row['code_muni'] )
-            self.startDownload(tempUrl ,'Census', tempZipFileName)
+            self.start_download(tempUrl ,'Census', tempZipFileName)
 
     def tab3AddMap(self):
         year = str(self.dlg.myComboBox31.currentText())        
@@ -436,7 +443,7 @@ class jpdata:
                 tempShpFileName, ok = QFileDialog.getOpenFileName(
                                 self.iface.mainWindow(),
                                 self.tr('Select a shp file'), 
-                                self._folderPath + '/Census', 
+                                os.path.join(self._folderPath, 'Census'), 
                                 'ESRI Shapefile (*.shp)'
                 )
             
@@ -450,8 +457,8 @@ class jpdata:
                 if not os.path.exists(tempShpFileName[:-4] + '.qix'):
                     tempLayer.dataProvider().createSpatialIndex()
 
-                if os.path.exists(self.plugin_dir + '/qml/Census.qml'):
-                    if tempLayer.loadNamedStyle(self.plugin_dir + '/qml/Census.qml'):
+                if os.path.exists(os.path.join(self.plugin_dir, 'qml', 'Census.qml')):
+                    if tempLayer.loadNamedStyle(os.path.join(self.plugin_dir, 'qml', 'Census.qml')):
                         tempLayer.triggerRepaint()
                 QgsProject.instance().addMapLayer(tempLayer)
 

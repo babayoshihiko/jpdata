@@ -19,6 +19,8 @@ class DownloadThread(QThread):
         self.file_path = file_path
 
     def run(self):
+        if self.url is None or self.file_path is None:
+            return
         try:
             with requests.get(self.url, stream=True) as r:
                 r.raise_for_status()

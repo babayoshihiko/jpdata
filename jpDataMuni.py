@@ -8,7 +8,7 @@ import os, csv
 # code_dantai	code_region	code_pref	code_muni	name_pref	name_muni	name_muni_kana
 
 def getMuniFromPrefCode(code_pref):
-    filePath = os.path.dirname(__file__) + '/csv/code_pref_muni.csv'
+    filePath = os.path.join(os.path.dirname(__file__), 'csv', 'code_pref_muni.csv')
     filtered_rows = []
     with open(filePath, "r") as f:
         csvreader = csv.DictReader(f)
@@ -18,7 +18,7 @@ def getMuniFromPrefCode(code_pref):
     return filtered_rows
 
 def getMuniFromPrefName(code_pref):
-    filePath = os.path.dirname(__file__) + '/csv/code_pref_muni.csv'
+    filePath =os.path.join(os.path.dirname(__file__), 'csv', 'code_pref_muni.csv')
     filtered_rows = []
     with open(filePath, "r") as f:
         csvreader = csv.DictReader(f)
@@ -28,7 +28,7 @@ def getMuniFromPrefName(code_pref):
     return filtered_rows
 
 def getRowFromNames(name_pref, name_muni):
-    filePath = os.path.dirname(__file__) + '/csv/code_pref_muni.csv'
+    filePath = os.path.join(os.path.dirname(__file__), 'csv', 'code_pref_muni.csv')
     with open(filePath, "r") as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
