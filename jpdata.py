@@ -34,7 +34,7 @@ from .jpdata_dialog import jpdataDialog
 import os, tempfile
 
 from . import jpDataUtils
-from . import jpDataDownloader3
+from . import jpDataDownloader
 from . import jpDataMuni
 from . import jpDataCensus
 
@@ -162,7 +162,7 @@ class jpdata:
             self.dlg = jpdataDialog()
             self.dlg.setWindowFlags(Qt.WindowStaysOnTopHint)
 
-            self._downloader = jpDataDownloader3.DownloadThread()
+            self._downloader = jpDataDownloader.DownloadThread()
             self._downloader.progress.connect(self.dlg.progressBar.setValue)
             self._downloader.finished.connect(self.download_finished)
             
