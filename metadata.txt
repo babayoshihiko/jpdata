@@ -7,7 +7,7 @@
 name=jpdata
 qgisMinimumVersion=3.0
 description=Download and load various data of Japan
-version=0.5
+version=0.6
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 
@@ -21,10 +21,15 @@ repository=https://github.com/babayoshihiko/jpdata
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-# changelog=
+changelog=
+      0.6
+        * Rewrote jpDownloader.py. Download can be cancelled.
+        * Updated Land Numerical Information (https://nlftp.mlit.go.jp/ksj_news.html)
+        * (LNI) Web button to open the information webpage on the default browser
+        * Message below the progress bar in the window
 
 # Tags are comma separated with spaces allowed
-tags=python, Japan
+tags=python, Japan, Land Numerical Information, Geospatial Information Authority, Tile, Census, 国土数値情報, 国土地理院, 国勢調査
 
 homepage=https://github.com/babayoshihiko/jpdata
 category=Plugins
