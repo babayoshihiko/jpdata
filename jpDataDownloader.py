@@ -3,6 +3,7 @@ from qgis.PyQt.QtCore import QThread, pyqtSignal
 import os
 import requests
 
+
 class DownloadThread(QThread):
     progress = pyqtSignal(int)
     finished = pyqtSignal(bool)
@@ -26,7 +27,7 @@ class DownloadThread(QThread):
                 total_length = r.headers.get('content-length')
 
                 with open(self.file_path, 'wb') as f:
-                    if total_length is None: # no content length header
+                    if total_length is None:  # no content length header
                         f.write(r.content)
                     else:
                         dl = 0
@@ -39,8 +40,8 @@ class DownloadThread(QThread):
                             f.write(data)
                             self.progress.emit(int(100 * dl / total_length))
             self.finished.emit(True)
-            
-            
+
+
         except Exception as e:
             self.finished.emit(False)
 

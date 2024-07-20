@@ -3,6 +3,7 @@ from qgis.core import QgsMessageLog, Qgis, QgsCoordinateReferenceSystem
 import os, csv
 import zipfile
 
+
 def getPrefNameByCode(pref_code):
     pref_name = u''
     if pref_code == 1:
@@ -99,8 +100,9 @@ def getPrefNameByCode(pref_code):
         pref_name = u'鹿児島県'
     elif pref_code == 47:
         pref_name = u'沖縄県'
-    
+
     return pref_name
+
 
 def getPrefCodeByName(pref_name):
     pref_code = u''
@@ -198,8 +200,9 @@ def getPrefCodeByName(pref_name):
         pref_code = u'46'
     elif pref_name == u'沖縄県':
         pref_code = u'47'
-        
+
     return pref_code
+
 
 def getMapsFromCsv():
     filePath = os.path.join(os.path.dirname(__file__), 'csv', 'LandNumInfo.csv')
@@ -208,6 +211,7 @@ def getMapsFromCsv():
         rows = list(csvreader)
         return rows
 
+
 def getTilesFromCsv():
     filePath = os.path.join(os.path.dirname(__file__), 'csv', 'GSI.csv')
     with open(filePath, "r") as f:
@@ -215,7 +219,8 @@ def getTilesFromCsv():
         rows = list(csvreader)
         return rows
 
-def findShpFile2(folderPath, shp, altdir, code_pref, code_muni = '', name_muni = ''):
+
+def findShpFile2(folderPath, shp, altdir, code_pref, code_muni='', name_muni=''):
     shpFile = None
     shpFileTarget = shp.replace('code_pref', code_pref)
     shpFileTarget = shpFileTarget.replace('code_muni', code_muni)
@@ -231,7 +236,8 @@ def findShpFile2(folderPath, shp, altdir, code_pref, code_muni = '', name_muni =
         shpFile = os.path.join(folderPath, altDir + '\\' + shpFileTarget)
     return shpFile
 
-def unzipAndGetShp(folder_path, zip_file, shp_file, altdir = '', code_pref = '', code_muni = '', name_muni = '', epsg = ''):
+
+def unzipAndGetShp(folder_path, zip_file, shp_file, altdir='', code_pref='', code_muni='', name_muni='', epsg=''):
     shpFileName = findShpFile2(folder_path, shp_file, altdir, code_pref, code_muni, name_muni)
     if shpFileName is not None:
         return shpFileName
@@ -266,6 +272,5 @@ def unzipAndGetShp(folder_path, zip_file, shp_file, altdir = '', code_pref = '',
             crs = QgsCoordinateReferenceSystem(f'EPSG:{epsg}')
             with open(shpFileName[:-4] + '.prj', 'w') as prj_file:
                 prj_file.write(crs.toWkt())
-    
-    return shpFileName
 
+    return shpFileName

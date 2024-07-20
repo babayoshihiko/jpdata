@@ -39,7 +39,6 @@ from . import jpDataMuni
 from . import jpDataCensus
 
 
-
 class jpdata:
     """QGIS Plugin Implementation."""
 
@@ -68,44 +67,41 @@ class jpdata:
             QCoreApplication.installTranslator(self.translator)
 
         self._folderPath = QSettings().value('jpdata/FolderPath', '~')
-        
+
         self.actions = []
         self.menu = self.tr('&jpdata')
-        
+
         self._LandNumInfo = jpDataUtils.getMapsFromCsv()
         self._GSI = jpDataUtils.getTilesFromCsv()
-        
+
         # Create an action that triggers the folder chooser
         self.action = QAction('Choose Folder', self.iface.mainWindow())
         self.action.triggered.connect(self.chooseFolder)
 
         # Add the action to the toolbar
         self.iface.addToolBarIcon(self.action)
-        self.iface.addPluginToMenu("&Folder Chooser Plugin", self.action)
+        self.iface.addPluginToMenu('&Folder Chooser Plugin', self.action)
 
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
-
-
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('jpdata', message)
 
-
     def add_action(
-        self,
-        icon_path,
-        text,
-        callback,
-        enabled_flag=True,
-        add_to_menu=True,
-        add_to_toolbar=True,
-        status_tip=None,
-        whats_this=None,
-        parent=None):
+            self,
+            icon_path,
+            text,
+            callback,
+            enabled_flag=True,
+            add_to_menu=True,
+            add_to_toolbar=True,
+            status_tip=None,
+            whats_this=None,
+            parent=None):
 
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
@@ -135,10 +131,10 @@ class jpdata:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.add_action(
-            os.path.join (self.plugin_dir, 'icon.png'),
-            text = self.tr('Add Japan Data'),
-            callback = self.run,
-            parent = self.iface.mainWindow())
+            os.path.join(self.plugin_dir, 'icon.png'),
+            text=self.tr('Add Japan Data'),
+            callback=self.run,
+            parent=self.iface.mainWindow())
 
         # will be set False in run()
         self.first_start = True
@@ -165,7 +161,7 @@ class jpdata:
             self._downloader = jpDataDownloader.DownloadThread()
             self._downloader.progress.connect(self.dlg.progressBar.setValue)
             self._downloader.finished.connect(self.download_finished)
-            
+
             self.dlg.myPushButton2.setText(self.tr('Choose Folder'))
             self.dlg.myPushButton2.setToolTip(self.tr('Choose Folder'))
             self.dlg.myPushButton2.clicked.connect(self.chooseFolder)
@@ -174,7 +170,7 @@ class jpdata:
                 self.dlg.myLabel1.setText(self._folderPath)
             else:
                 self.dlg.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
-            
+
             self.dlg.myLabelStatus.setText('')
 
             # Set Tab 1
@@ -189,12 +185,12 @@ class jpdata:
             self.dlg.myPushButton15.setToolTip(self.tr('Open the webpage with the standard browser'))
             self.dlg.myPushButton15.clicked.connect(self.tab1Web)
             for row in self._LandNumInfo:
-                item =  QListWidgetItem(row['name_j'])
+                item = QListWidgetItem(row['name_j'])
                 if (row['availability'] != 'yes'):
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                     item.setForeground(Qt.gray)
                 self.dlg.myListWidget11.addItem(item)
-            for code in range(1,47):
+            for code in range(1, 47):
                 self.dlg.myListWidget12.addItem(jpDataUtils.getPrefNameByCode(code))
             # Users can choose multiple items
             self.dlg.myListWidget11.setSelectionMode(
@@ -203,7 +199,7 @@ class jpdata:
             self.dlg.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
-            
+
             # Set Tab 2
             self.dlg.myTabWidget.setTabText(1, self.tr('GSI Tiles'))
             self.dlg.myPushButton25.setText(self.tr('Add to Map'))
@@ -211,7 +207,7 @@ class jpdata:
             self.dlg.myPushButton25.clicked.connect(self.addTile)
             for row in self._GSI:
                 self.dlg.myListWidget23.addItem(row['name_j'])
-            
+
             # Set Tab 3
             self.dlg.myTabWidget.setTabText(2, self.tr('Census'))
             self.dlg.myLabel31.setText(self.tr('Year'))
@@ -230,8 +226,8 @@ class jpdata:
             self.dlg.myListWidget32.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
-            
-            for code in range(1,47):
+
+            for code in range(1, 47):
                 self.dlg.myListWidget31.addItem(jpDataUtils.getPrefNameByCode(code))
 
         # show the dialog
@@ -246,7 +242,7 @@ class jpdata:
 
     def addTile(self):
         selected_items = self.dlg.myListWidget23.selectedItems()
-        
+
         for current_gsi in self._GSI:
             if current_gsi['name_j'] == str(selected_items[0].text()):
                 tile_name = current_gsi['name_j']
@@ -254,7 +250,7 @@ class jpdata:
                 zoom_min = current_gsi['zoom_min']
                 zoom_max = current_gsi['zoom_max']
                 break
-        
+
         tile_url = 'type=xyz&url=' + tile_url + '&zmax=' + zoom_max + '&zmin=' + zoom_min + '&crs=EPSG3857'
         layer = QgsRasterLayer(
             tile_url,
@@ -268,7 +264,7 @@ class jpdata:
         if self.dlg.myPushButton11.text() == self.tr('Cancel'):
             self.cancel_download()
             return
-        
+
         self.dlg.myPushButton11.setText(self.tr('Cancel'))
         items = self.dlg.myListWidget11.selectedItems()
         pref_name = self.dlg.myListWidget12.selectedItems()
@@ -279,7 +275,7 @@ class jpdata:
                     str(self.dlg.myListWidget12.selectedItems()[i].text())
                 )
             )
-        
+
         for i in range(len(items)):
             for item in self._LandNumInfo:
                 if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
@@ -297,7 +293,6 @@ class jpdata:
         for i in range(len(items)):
             for item in self._LandNumInfo:
                 if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
-                
                     url = QUrl(item['source'])
                     QDesktopServices.openUrl(url)
 
@@ -311,7 +306,7 @@ class jpdata:
                     str(self.dlg.myListWidget12.selectedItems()[i].text())
                 )
             )
-        
+
         for i in range(len(items)):
             for item in self._LandNumInfo:
                 if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
@@ -323,41 +318,44 @@ class jpdata:
                         seleted_prefs = range(len(pref_code))
                     for x in seleted_prefs:
                         tempShpFileName = jpDataUtils.unzipAndGetShp(
-                            self._folderPath + '/' + item['code_map'], 
-                            item['zip'], 
-                            item['shp'], 
-                            item['altdir'], 
+                            self._folderPath + '/' + item['code_map'],
+                            item['zip'],
+                            item['shp'],
+                            item['altdir'],
                             pref_code[x],
-                            epsg = item['epsg']
+                            epsg=item['epsg']
                         )
 
                         if tempShpFileName is None:
-                            self.dlg.myLabelStatus.setText(self.tr('Cannot find the .shp file: ') + item['shp'].replace('code_pref', pref_code[x]))
+                            self.dlg.myLabelStatus.setText(
+                                self.tr('Cannot find the .shp file: ') + item['shp'].replace('code_pref', pref_code[x])
+                            )
                             self.iface.messageBar().pushMessage(
-                                'Error', 
-                                'Cannot find the .shp file: ' + item['shp'].replace('code_pref', pref_code[x]), 1, duration = 10
+                                'Error',
+                                'Cannot find the .shp file: ' + item['shp'].replace('code_pref', pref_code[x]),
+                                1, duration=10
                             )
                             tempShpFileName, ok = QFileDialog.getOpenFileName(
                                 self.iface.mainWindow(),
-                                'Select a File', 
-                                self._folderPath + '/' + item['code_map'], 
+                                'Select a File',
+                                self._folderPath + '/' + item['code_map'],
                                 'ESRI Shapefile (*.shp)'
                             )
-                        
+
                         if tempShpFileName != '':
                             if item['type_muni'] == 'single':
                                 tempLayer = QgsVectorLayer(
-                                    tempShpFileName, 
-                                    item['name_j'], 
+                                    tempShpFileName,
+                                    item['name_j'],
                                     'ogr'
                                 )
                             else:
                                 tempLayer = QgsVectorLayer(
-                                    tempShpFileName, 
-                                    item['name_j'] + ' (' + str(pref_name[x].text()) + ')', 
+                                    tempShpFileName,
+                                    item['name_j'] + ' (' + str(pref_name[x].text()) + ')',
                                     'ogr'
                                 )
-                            
+
                             tempLayer.setProviderEncoding(item['encoding'])
                             if not os.path.exists(tempShpFileName[:-4] + ".qix"):
                                 tempLayer.dataProvider().createSpatialIndex()
@@ -367,7 +365,7 @@ class jpdata:
                                 with tempfile.TemporaryDirectory() as temp_dir:
                                     with open(os.path.join(self.plugin_dir, 'qml', item['qml']), 'r') as file:
                                         file_contents = file.read()
-                                    new_contents = file_contents.replace('PLUGIN_DIR', self.plugin_dir )
+                                    new_contents = file_contents.replace('PLUGIN_DIR', self.plugin_dir)
                                     with open(os.path.join(temp_dir, item['qml']), 'w') as file:
                                         file.write(new_contents)
                                     if tempLayer.loadNamedStyle(os.path.join(temp_dir, item['qml'])):
@@ -378,7 +376,7 @@ class jpdata:
     def start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(os.path.join(self._folderPath, subFolder)):
             os.mkdir(os.path.join(self._folderPath, subFolder))
-        
+
         if not os.path.exists(os.path.join(self._folderPath, subFolder, zipFileName)):
             self.dlg.myLabelStatus.setText(self.tr('Downloading: ') + zipFileName)
             self._downloader.setUrl(url)
@@ -405,17 +403,17 @@ class jpdata:
     def tab3SelectPref(self):
         selectedItems = self.dlg.myListWidget31.selectedItems()
         for item in selectedItems:
-            rows = jpDataMuni.getMuniFromPrefName( str(item.text()) )
+            rows = jpDataMuni.getMuniFromPrefName(str(item.text()))
             self.dlg.myListWidget32.clear()
             for row in rows:
-                self.dlg.myListWidget32.addItem( row['name_muni'] )
+                self.dlg.myListWidget32.addItem(row['name_muni'])
 
     def tab3DownloadAll(self):
         self.dlg.progressBar.setValue(0)
         if self.dlg.myPushButton31.text() == self.tr('Cancel'):
             self.cancel_download()
             return
-        
+
         self.dlg.myPushButton31.setText(self.tr('Cancel'))
         year = str(self.dlg.myComboBox31.currentText())
         pref_name = str(self.dlg.myListWidget31.selectedItems()[0].text())
@@ -423,22 +421,22 @@ class jpdata:
 
         for muni_name in muni_names:
             row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
-            tempUrl = jpDataCensus.getUrl( year, row['code_pref'], row['code_muni'] )
-            tempZipFileName = jpDataCensus.getZipFileName( year, row['code_pref'], row['code_muni'] )
+            tempUrl = jpDataCensus.getUrl(year, row['code_pref'], row['code_muni'])
+            tempZipFileName = jpDataCensus.getZipFileName(year, row['code_pref'], row['code_muni'])
             if self.dlg.myPushButton31.text() == self.tr('Cancel'):
-                self.start_download(tempUrl ,'Census', tempZipFileName)
+                self.start_download(tempUrl, 'Census', tempZipFileName)
             else:
                 break
 
     def tab3AddMap(self):
-        year = str(self.dlg.myComboBox31.currentText())        
+        year = str(self.dlg.myComboBox31.currentText())
         pref_name = str(self.dlg.myListWidget31.selectedItems()[0].text())
         muni_names = self.dlg.myListWidget32.selectedItems()
 
         for muni_name in muni_names:
             row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
-            tempZipFileName = jpDataCensus.getZipFileName( year, row['code_pref'], row['code_muni'] )
-            tempShpFileName = jpDataCensus.getShpFileName( year, row['code_pref'], row['code_muni'] )
+            tempZipFileName = jpDataCensus.getZipFileName(year, row['code_pref'], row['code_muni'])
+            tempShpFileName = jpDataCensus.getShpFileName(year, row['code_pref'], row['code_muni'])
             tempShpFileName = jpDataUtils.unzipAndGetShp(
                 os.path.join(self._folderPath, 'Census'),
                 tempZipFileName,
@@ -447,16 +445,16 @@ class jpdata:
 
             if tempShpFileName is None:
                 tempShpFileName, ok = QFileDialog.getOpenFileName(
-                                self.iface.mainWindow(),
-                                self.tr('Select a shp file'), 
-                                os.path.join(self._folderPath, 'Census'), 
-                                'ESRI Shapefile (*.shp)'
+                    self.iface.mainWindow(),
+                    self.tr('Select a shp file'),
+                    os.path.join(self._folderPath, 'Census'),
+                    'ESRI Shapefile (*.shp)'
                 )
-            
+
             if tempShpFileName != '':
                 tempLayer = QgsVectorLayer(
-                    tempShpFileName, 
-                    row['name_muni'] + ' (' + year + ')', 
+                    tempShpFileName,
+                    row['name_muni'] + ' (' + year + ')',
                     'ogr'
                 )
                 tempLayer.setProviderEncoding('CP932')
@@ -468,11 +466,10 @@ class jpdata:
                         tempLayer.triggerRepaint()
                 QgsProject.instance().addMapLayer(tempLayer)
 
-
     def chooseFolder(self):
         # Open a folder dialog to choose a folder
         self._folderPath = QFileDialog.getExistingDirectory(
-            self.iface.mainWindow(), 
+            self.iface.mainWindow(),
             self.tr('Choose Folder')
         )
 
