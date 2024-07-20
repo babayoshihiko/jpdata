@@ -472,6 +472,8 @@ class jpdata:
             self.iface.mainWindow(),
             self.tr('Choose Folder')
         )
+        if not os.access(self._folderPath, os.W_OK):
+            self.dlg.myLabelStatus.setText(self.tr('The folder is not writable.'))
 
         if self._folderPath:
             self.dlg.myLabel1.setText(self._folderPath)
