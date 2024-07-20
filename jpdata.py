@@ -190,7 +190,7 @@ class jpdata:
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                     item.setForeground(Qt.gray)
                 self.dlg.myListWidget11.addItem(item)
-            for code in range(1, 47):
+            for code in range(1, 48):
                 self.dlg.myListWidget12.addItem(jpDataUtils.getPrefNameByCode(code))
             # Users can choose multiple items
             self.dlg.myListWidget11.setSelectionMode(
@@ -227,7 +227,7 @@ class jpdata:
                 QAbstractItemView.ExtendedSelection
             )
 
-            for code in range(1, 47):
+            for code in range(1, 48):
                 self.dlg.myListWidget31.addItem(jpDataUtils.getPrefNameByCode(code))
 
         # show the dialog
