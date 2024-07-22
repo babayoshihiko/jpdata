@@ -37,6 +37,7 @@ from . import jpDataUtils
 from . import jpDataDownloader
 from . import jpDataMuni
 from . import jpDataCensus
+from . import jpDataLNI
 
 
 class jpdata:
@@ -284,8 +285,13 @@ class jpdata:
                 if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
                     for x in range(len(pref_code)):
                         if self.dlg.myPushButton11.text() == self.tr('Cancel'):
-                            tempUrl = item['url'].replace('code_pref', pref_code[x])
-                            tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
+                            if item['code_map'] == 'W05':
+                                y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
+                                tempUrl = y['url']
+                                tempZipFileName = y['zip']
+                            else:
+                                tempUrl = item['url'].replace('code_pref', pref_code[x])
+                                tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
                             self.start_download(tempUrl, item['code_map'], tempZipFileName)
                         else:
                             break
@@ -320,6 +326,12 @@ class jpdata:
                     else:
                         seleted_prefs = range(len(pref_code))
                     for x in seleted_prefs:
+                        if item['code_map'] == 'W05':
+                            y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
+                            item['zip'] = y['zip']
+                            item['shp'] = y['shp']
+                            item['altdir'] = y['altdir']
+
                         tempShpFileName = jpDataUtils.unzipAndGetShp(
                             os.path.join(self._folderPath, item['code_map']),
                             item['zip'],
@@ -389,6 +401,8 @@ class jpdata:
             self.dlg.myLabelStatus.setText(self.tr('The zip file exists: ') + zipFileName)
             self.dlg.myPushButton11.setText(self.tr('Download'))
             self.dlg.myPushButton31.setText(self.tr('Download'))
+            self.dlg.myPushButton14.setEnabled(True)
+            self.dlg.myPushButton32.setEnabled(True)
 
     def download_finished(self, success):
         current_text = self.dlg.myLabelStatus.text()

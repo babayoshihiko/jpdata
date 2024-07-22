@@ -73,6 +73,6 @@ class DownloadThread(QThread):
                     else:
                         self.setStatus('The zipfile exists.')
                 except Exception as ex:
-                    self.setStatus('The zipfile exists but is corrupt.')
+                    self.setStatus('The zipfile exists but may be corrupt.')
         else:
             self.setStatus('The zipfile does not exist.')
