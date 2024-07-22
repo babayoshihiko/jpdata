@@ -262,10 +262,13 @@ class jpdata:
     def tab1DownloadAll(self):
         self.dlg.progressBar.setValue(0)
         if self.dlg.myPushButton11.text() == self.tr('Cancel'):
+            self.dlg.myPushButton11.setText(self.tr('Download'))
             self.cancel_download()
             return
 
         self.dlg.myPushButton11.setText(self.tr('Cancel'))
+        self.dlg.myPushButton14.setEnabled(False)
+
         items = self.dlg.myListWidget11.selectedItems()
         pref_name = self.dlg.myListWidget12.selectedItems()
         pref_code = []
@@ -318,7 +321,7 @@ class jpdata:
                         seleted_prefs = range(len(pref_code))
                     for x in seleted_prefs:
                         tempShpFileName = jpDataUtils.unzipAndGetShp(
-                            self._folderPath + '/' + item['code_map'],
+                            os.path.join(self._folderPath, item['code_map']),
                             item['zip'],
                             item['shp'],
                             item['altdir'],
@@ -389,16 +392,23 @@ class jpdata:
 
     def download_finished(self, success):
         current_text = self.dlg.myLabelStatus.text()
-        self.dlg.myLabelStatus.setText(current_text + self.tr('...Done'))
+        # self.dlg.myLabelStatus.setText(current_text + self.tr('...Done'))
+        self.dlg.myLabelStatus.setText(self._downloader.getStatus())
         self.dlg.myPushButton11.setText(self.tr('Download'))
         self.dlg.myPushButton31.setText(self.tr('Download'))
         self.dlg.progressBar.setValue(100)
+        self.dlg.myPushButton14.setEnabled(True)
+        self.dlg.myPushButton32.setEnabled(True)
 
     def cancel_download(self):
         if self._downloader is not None:
             current_text = self.dlg.myLabelStatus.text()
             self.dlg.myLabelStatus.setText(current_text + self.tr('...Cancelled'))
             self._downloader.stop()
+        else:
+            self._downloader = jpDataDownloader.DownloadThread()
+        self.dlg.myPushButton14.setEnabled(True)
+        self.dlg.myPushButton32.setEnabled(True)
 
     def tab3SelectPref(self):
         selectedItems = self.dlg.myListWidget31.selectedItems()
@@ -411,10 +421,13 @@ class jpdata:
     def tab3DownloadAll(self):
         self.dlg.progressBar.setValue(0)
         if self.dlg.myPushButton31.text() == self.tr('Cancel'):
+            self.dlg.myPushButton31.setText(self.tr('Download'))
             self.cancel_download()
             return
 
         self.dlg.myPushButton31.setText(self.tr('Cancel'))
+        self.dlg.myPushButton32.setEnabled(False)
+
         year = str(self.dlg.myComboBox31.currentText())
         pref_name = str(self.dlg.myListWidget31.selectedItems()[0].text())
         muni_names = self.dlg.myListWidget32.selectedItems()
