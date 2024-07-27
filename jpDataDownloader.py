@@ -41,7 +41,6 @@ class DownloadThread(QThread):
                         total_length = int(total_length)
                         for data in r.iter_content(chunk_size=4096):
                             if not self._is_running:
-                                self.setStatus('Download cancelled.')
                                 self.finished.emit(False)
                                 return
                             dl += len(data)
@@ -55,6 +54,7 @@ class DownloadThread(QThread):
             self.finished.emit(False)
 
     def stop(self):
+        self.setStatus('Download cancelled and removed: ' + self.file_path)
         self._is_running = False
         self.remove()
     
@@ -75,7 +75,7 @@ class DownloadThread(QThread):
                     if ret is not None:
                         self.setStatus('The zipfile exists with a problem: ' + self.file_path)
                     else:
-                        self.setStatus('The zipfile exists.')
+                        self.setStatus('The zipfile exists: ' + self.file_path)
                 except Exception as ex:
                     self.setStatus('The zipfile exists but may be corrupt: ' + self.file_path)
         else:

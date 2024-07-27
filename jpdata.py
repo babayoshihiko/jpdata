@@ -283,19 +283,30 @@ class jpdata:
         for i in range(len(items)):
             for item in self._LandNumInfo:
                 if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
-                    for x in range(len(pref_code)):
-                        if self.dlg.myPushButton11.text() == self.tr('Cancel'):
-                            if item['code_map'] == 'W05':
-                                y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
-                                tempUrl = y['url']
-                                tempZipFileName = y['zip']
+                    if item['type_muni'] != 'single':
+                        for x in range(len(pref_code)):
+                            if self.dlg.myPushButton11.text() == self.tr('Cancel'):
+                                # For the LNIs with specific pref/year combinations
+                                if item['code_map'] == 'W05':
+                                    y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
+                                    tempUrl = y['url']
+                                    tempZipFileName = y['zip']
+                                else:
+                                    tempUrl = item['url'].replace('code_pref', pref_code[x])
+                                    tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
+                                self.start_download(tempUrl, item['code_map'], tempZipFileName)
                             else:
-                                tempUrl = item['url'].replace('code_pref', pref_code[x])
-                                tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
+                                break
+                        break
+                    else:
+                        # The single .shp file covers the whole nation
+                        # So, download only once.
+                        if self.dlg.myPushButton11.text() == self.tr('Cancel'):
+                            tempUrl = item['url']
+                            tempZipFileName = item['zip']
                             self.start_download(tempUrl, item['code_map'], tempZipFileName)
                         else:
                             break
-                    break
 
     def tab1Web(self):
         items = self.dlg.myListWidget11.selectedItems()
@@ -320,42 +331,69 @@ class jpdata:
             for item in self._LandNumInfo:
                 if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
                     if item['type_muni'] == 'single':
-                        # The single .shp file covers the whole nation
-                        # So, pick the first prefecture only (not used, though)
                         seleted_prefs = [0]
                     else:
                         seleted_prefs = range(len(pref_code))
+
                     for x in seleted_prefs:
+                        # For the LNIs with specific pref/year combinations
                         if item['code_map'] == 'W05':
                             y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
                             item['zip'] = y['zip']
                             item['shp'] = y['shp']
                             item['altdir'] = y['altdir']
 
-                        tempShpFileName = jpDataUtils.unzipAndGetShp(
-                            os.path.join(self._folderPath, item['code_map']),
-                            item['zip'],
-                            item['shp'],
-                            item['altdir'],
-                            pref_code[x],
-                            epsg=item['epsg']
-                        )
+                        if item['type_muni'] == 'single':
+                            # The single .shp file covers the whole nation
+                            tempShpFileName = jpDataUtils.unzipAndGetShp(
+                                os.path.join(self._folderPath, item['code_map']),
+                                item['zip'],
+                                item['shp'],
+                                item['altdir'],
+                                '',
+                                epsg=item['epsg']
+                            )
+                        else:
+                            tempShpFileName = jpDataUtils.unzipAndGetShp(
+                                os.path.join(self._folderPath, item['code_map']),
+                                item['zip'],
+                                item['shp'],
+                                item['altdir'],
+                                pref_code[x],
+                                epsg=item['epsg']
+                            )
 
                         if tempShpFileName is None:
-                            self.dlg.myLabelStatus.setText(
-                                self.tr('Cannot find the .shp file: ') + item['shp'].replace('code_pref', pref_code[x])
-                            )
-                            self.iface.messageBar().pushMessage(
-                                'Error',
-                                'Cannot find the .shp file: ' + item['shp'].replace('code_pref', pref_code[x]),
-                                1, duration=10
-                            )
-                            tempShpFileName, ok = QFileDialog.getOpenFileName(
-                                self.iface.mainWindow(),
-                                'Select a File',
-                                self._folderPath + '/' + item['code_map'],
-                                'ESRI Shapefile (*.shp)'
-                            )
+                            if item['type_muni'] == 'single':
+                                self.dlg.myLabelStatus.setText(
+                                    self.tr('Cannot find the .shp file: ') + item['shp']
+                                )
+                                self.iface.messageBar().pushMessage(
+                                    'Error',
+                                    'Cannot find the .shp file: ' + item['shp'],
+                                    1, duration=10
+                                )
+                                tempShpFileName, ok = QFileDialog.getOpenFileName(
+                                    self.iface.mainWindow(),
+                                    'Select a File',
+                                    self._folderPath + '/' + item['code_map'],
+                                    'ESRI Shapefile (*.shp)'
+                                )
+                            else:
+                                self.dlg.myLabelStatus.setText(
+                                    self.tr('Cannot find the .shp file: ') + item['shp'].replace('code_pref', pref_code[x])
+                                )
+                                self.iface.messageBar().pushMessage(
+                                    'Error',
+                                    'Cannot find the .shp file: ' + item['shp'].replace('code_pref', pref_code[x]),
+                                    1, duration=10
+                                )
+                                tempShpFileName, ok = QFileDialog.getOpenFileName(
+                                    self.iface.mainWindow(),
+                                    'Select a File',
+                                    self._folderPath + '/' + item['code_map'],
+                                    'ESRI Shapefile (*.shp)'
+                                )
 
                         if tempShpFileName != '':
                             if item['type_muni'] == 'single':
@@ -406,8 +444,8 @@ class jpdata:
 
     def download_finished(self, success):
         current_text = self.dlg.myLabelStatus.text()
-        # self.dlg.myLabelStatus.setText(current_text + self.tr('...Done'))
-        self.dlg.myLabelStatus.setText(self._downloader.getStatus())
+        self.dlg.myLabelStatus.setText(current_text + self.tr('...Done'))
+        # self.dlg.myLabelStatus.setText(self._downloader.getStatus())
         self.dlg.myPushButton11.setText(self.tr('Download'))
         self.dlg.myPushButton31.setText(self.tr('Download'))
         self.dlg.progressBar.setValue(100)
