@@ -2,6 +2,7 @@
 from qgis.PyQt.QtCore import QThread, pyqtSignal
 import os
 import requests
+import zipfile
 
 
 class DownloadThread(QThread):
@@ -62,17 +63,20 @@ class DownloadThread(QThread):
             os.remove(self.file_path)
 
     def checkStatus(self):
+        if self.file_path is None:
+            self.setStatus('The zipfile has not been defined.')
+            return
         if os.path.exists(self.file_path):
             if os.stat(self.file_path).st_size == 0:
-                self.setStatus('The zipfile exists but the filesize is zero.')
+                self.setStatus('The zipfile exists but the filesize is zero: ' + self.file_path)
             else:
                 try:
-                    ret = self.file_path.testzip()
+                    ret = zipfile.ZipFile(self.file_path).testzip()
                     if ret is not None:
-                        self.setStatus('The zipfile exists with a problem.')
+                        self.setStatus('The zipfile exists with a problem: ' + self.file_path)
                     else:
                         self.setStatus('The zipfile exists.')
                 except Exception as ex:
-                    self.setStatus('The zipfile exists but may be corrupt.')
+                    self.setStatus('The zipfile exists but may be corrupt: ' + self.file_path)
         else:
-            self.setStatus('The zipfile does not exist.')
+            self.setStatus('The zipfile does not exist:' + self.file_path)
