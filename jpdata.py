@@ -336,12 +336,12 @@ class jpdata:
                                 #    y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
                                 #    tempUrl = y['url']
                                 #    tempZipFileName = y['zip']
-                                if item['year'].lower() == 'csv':
+                                if item['type_muni'].lower() == 'regional':
                                     year = str(self.dlg.myComboBox11.currentText())
                                     y = jpDataLNI.getUrlCodeZipByPrefName(item['code_map'], str(pref_name[x].text()), year)
                                     tempUrl = y['url']
                                     tempZipFileName = y['zip']
-                                    self.dlg.myLabelStatus.setText(item['code_map'] + str(pref_name[x].text()) + y['code_map'])
+                                    ## self.dlg.myLabelStatus.setText(item['code_map'] + str(pref_name[x].text()) + y['zip']) ##
                                 else:
                                     tempUrl = item['url'].replace('code_pref', pref_code[x])
                                     tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
@@ -393,14 +393,18 @@ class jpdata:
                         #    item['zip'] = y['zip']
                         #    item['shp'] = y['shp']
                         #    item['altdir'] = y['altdir']
-                        if item['year'].lower() == 'csv':
+                        if item['type_muni'].lower() == 'regional':
                             year = self.dlg.myComboBox11.currentText()
                             y = jpDataLNI.getUrlCodeZipByPrefName(item['code_map'], str(pref_name[x].text()), year)
-                            item['zip'] = y['zip']
-                            item['shp'] = y['shp']
-                            item['altdir'] = y['altdir']
-
-                        if item['type_muni'] == 'single':
+                            tempShpFileName = jpDataUtils.unzipAndGetShp(
+                                os.path.join(self._folderPath, item['code_map']),
+                                y['zip'],
+                                y['shp'],
+                                y['altdir'],
+                                '',
+                                epsg=item['epsg']
+                            )
+                        elif item['type_muni'].lower() == 'single':
                             # The single .shp file covers the whole nation
                             tempShpFileName = jpDataUtils.unzipAndGetShp(
                                 os.path.join(self._folderPath, item['code_map']),
