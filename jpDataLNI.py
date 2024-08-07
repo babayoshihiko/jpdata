@@ -2,6 +2,20 @@
 import os, csv
 from . import jpDataUtils
 
+def getPrefsOrRegionsByMapCode(code_map):
+    file_path = os.path.join(os.path.dirname(__file__), 'csv', 'LandNumInfo_' + code_map + '.csv')
+    prefs_or_regions = []
+    with open(file_path, 'r') as f:
+        csvreader = csv.DictReader(f)
+        for row in csvreader:
+            if len(row) >= 2:
+                prefs_or_regions.append(row['availability'])
+    unique_prefs_or_regions = []
+    for x in prefs_or_regions:
+        if x not in unique_prefs_or_regions:
+            unique_prefs_or_regions.append(x)
+    return unique_prefs_or_regions
+
 def getYearsByMapCode(code_map, name_pref = None):
     file_path = os.path.join(os.path.dirname(__file__), 'csv', 'LandNumInfo_' + code_map + '.csv')
     years = []

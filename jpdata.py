@@ -191,14 +191,14 @@ class jpdata:
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                     item.setForeground(Qt.gray)
                 self.dlg.myListWidget11.addItem(item)
-            for code in range(1, 48):
-                self.dlg.myListWidget12.addItem(jpDataUtils.getPrefNameByCode(code))
+            self.tab1CheckPrefsOrRegions()
             # Users cannot choose multiple maps
             #self.dlg.myListWidget11.setSelectionMode(
             #    QAbstractItemView.ExtendedSelection
             #)
-            self.dlg.myListWidget11.clicked.connect(self.tab1CheckYear)
+            self.dlg.myListWidget11.clicked.connect(self.tab1CheckPrefsOrRegions)
             self.dlg.myListWidget12.clicked.connect(self.tab1CheckYear)
+            self.myListWidget12_is_all_prefs = False
             # Users cannot choose multiple prefctures
             self.dlg.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
@@ -262,6 +262,29 @@ class jpdata:
         if not layer.isValid():
             return
         QgsProject.instance().addMapLayer(layer)
+
+    def tab1CheckPrefsOrRegions(self):
+        self.tab1CheckYear()
+        items = self.dlg.myListWidget11.selectedItems()
+        for i in range(len(items)):
+            for item in self._LandNumInfo:
+                if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
+                    if item['type_muni'].lower() == 'regional':
+                        if not self.myListWidget12_is_all_prefs:
+                            self.dlg.myListWidget12.clear()
+                        self.myListWidget12_is_all_prefs = True
+                        names_pref = jpDataLNI.getPrefsOrRegionsByMapCode(item['code_map'])
+                        for name_pref in names_pref:
+                            self.dlg.myListWidget12.addItem(name_pref)
+                    elif item['type_muni'].lower() == 'single':
+                        self.myListWidget12_is_all_prefs = False
+                        self.dlg.myListWidget12.clear()
+                        self.dlg.myListWidget12.addItem(self.tr('Nation-wide'))
+                    else:
+                        self.myListWidget12_is_all_prefs = False
+                        self.dlg.myListWidget12.clear()
+                        for code_pref in range(1, 48):
+                            self.dlg.myListWidget12.addItem(jpDataUtils.getPrefNameByCode(code_pref))
 
     def tab1CheckYear(self):
         items = self.dlg.myListWidget11.selectedItems()
