@@ -193,10 +193,13 @@ class jpdata:
                 self.dlg.myListWidget11.addItem(item)
             for code in range(1, 48):
                 self.dlg.myListWidget12.addItem(jpDataUtils.getPrefNameByCode(code))
-            # Users can choose multiple items
-            self.dlg.myListWidget11.setSelectionMode(
-                QAbstractItemView.ExtendedSelection
-            )
+            # Users cannot choose multiple maps
+            #self.dlg.myListWidget11.setSelectionMode(
+            #    QAbstractItemView.ExtendedSelection
+            #)
+            self.dlg.myListWidget11.clicked.connect(self.tab1CheckYear)
+            self.dlg.myListWidget12.clicked.connect(self.tab1CheckYear)
+            # Users cannot choose multiple prefctures
             self.dlg.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
@@ -260,6 +263,25 @@ class jpdata:
             return
         QgsProject.instance().addMapLayer(layer)
 
+    def tab1CheckYear(self):
+        items = self.dlg.myListWidget11.selectedItems()
+        for i in range(len(items)):
+            for item in self._LandNumInfo:
+                if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
+                    self.dlg.myComboBox11.clear()
+                    if item['year'].lower() != 'csv':
+                        self.dlg.myListWidget12.setSelectionMode(QAbstractItemView.ExtendedSelection)
+                        self.dlg.myComboBox11.addItem(item['year'])
+                    else:
+                        if len(self.dlg.myListWidget12.selectedItems()) > 0:
+                            name_pref = self.dlg.myListWidget12.selectedItems()[0].text()
+                        else:
+                            name_pref = None
+                        self.dlg.myListWidget12.setSelectionMode(QAbstractItemView.SingleSelection)
+                        years = jpDataLNI.getYearsByMapCode(item['code_map'], name_pref)
+                        for year in years:
+                            self.dlg.myComboBox11.addItem(year)
+
     def tab1DownloadAll(self):
         self.dlg.progressBar.setValue(0)
         if self.dlg.myPushButton11.text() == self.tr('Cancel'):
@@ -287,10 +309,16 @@ class jpdata:
                         for x in range(len(pref_code)):
                             if self.dlg.myPushButton11.text() == self.tr('Cancel'):
                                 # For the LNIs with specific pref/year combinations
-                                if item['code_map'] == 'W05':
-                                    y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
+                                #if item['code_map'] == 'W05':
+                                #    y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
+                                #    tempUrl = y['url']
+                                #    tempZipFileName = y['zip']
+                                if item['year'].lower() == 'csv':
+                                    year = str(self.dlg.myComboBox11.currentText())
+                                    y = jpDataLNI.getUrlCodeZipByPrefName(item['code_map'], str(pref_name[x].text()), year)
                                     tempUrl = y['url']
                                     tempZipFileName = y['zip']
+                                    self.dlg.myLabelStatus.setText(item['code_map'] + str(pref_name[x].text()) + y['code_map'])
                                 else:
                                     tempUrl = item['url'].replace('code_pref', pref_code[x])
                                     tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
@@ -337,8 +365,14 @@ class jpdata:
 
                     for x in seleted_prefs:
                         # For the LNIs with specific pref/year combinations
-                        if item['code_map'] == 'W05':
-                            y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
+                        #if item['code_map'] == 'W05':
+                        #    y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
+                        #    item['zip'] = y['zip']
+                        #    item['shp'] = y['shp']
+                        #    item['altdir'] = y['altdir']
+                        if item['year'].lower() == 'csv':
+                            year = self.dlg.myComboBox11.currentText()
+                            y = jpDataLNI.getUrlCodeZipByPrefName(item['code_map'], str(pref_name[x].text()), year)
                             item['zip'] = y['zip']
                             item['shp'] = y['shp']
                             item['altdir'] = y['altdir']

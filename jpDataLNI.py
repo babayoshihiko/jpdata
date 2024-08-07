@@ -1,4 +1,43 @@
 # -*- coding: utf-8 -*-
+import os, csv
+from . import jpDataUtils
+
+def getYearsByMapCode(code_map, name_pref = None):
+    file_path = os.path.join(os.path.dirname(__file__), 'csv', 'LandNumInfo_' + code_map + '.csv')
+    years = []
+    with open(file_path, 'r') as f:
+        csvreader = csv.DictReader(f)
+        for row in csvreader:
+            if len(row) >= 2 and name_pref is None:
+                years.append(row['year'])
+            elif len(row) >= 2 and row['availability'] == name_pref:
+                years.append(row['year'])
+    unique_years = []
+    for x in years:
+        if x not in unique_years:
+            unique_years.append(x)
+    return unique_years
+
+def getUrlCodeZipByPrefName(code_map, name_pref, year):
+    #name_pref = jpDataUtils.getPrefNameByCode(code_pref)
+    file_path = os.path.join(os.path.dirname(__file__), 'csv', 'LandNumInfo_' + code_map + '.csv')
+    filtered_rows = []
+    x = {'year': '',
+         'url': '', 
+         'code_map': code_map,
+         'zip': '',
+         'shp': '',
+         'altdir': ''}
+    with open(file_path, 'r') as f:
+        csvreader = csv.DictReader(f)
+        for row in csvreader:
+            if len(row) >= 2 and row['availability'] == name_pref and row['year'] == year:
+                x['year'] = row['year']
+                x['url'] = row['url']
+                x['zip'] = row['zip']
+                x['shp'] = row['shp']
+                x['altdir'] = row['altdir']
+    return x
 
 def getUrlCodeZip_W05(code_pref):
     x = {'year': '',
