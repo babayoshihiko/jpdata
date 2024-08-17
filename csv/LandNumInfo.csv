@@ -67,7 +67,7 @@ DID人口集中地区,,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A16/A
 離島振興対策実施地域統計情報（ポリゴン）,,A19s,,,,,,,,,,,,,,,,,,,
 小笠原諸島,yes,A21,single,Ogasawara Islands,2007,https://nlftp.mlit.go.jp/ksj/gml/data/A21/A21-07/A21-070402_13_GML.zip,A21-070402_13_GML.zip,A21-070402_13_OgasawaraIslands.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A21.html,,,,,A21_002,code_pref_muni,CP932,A21-2017.qml,4612,
 小笠原諸島統計情報（ポリゴン）,,A21s,,,,,,,,,,,,,,,,,,,
-奄美群島,yes,A20,single,,2007,https://nlftp.mlit.go.jp/ksj/gml/data/A20/A20-07/A20-070402_46_GML.zip,A20-070402_46_GML.zip,A20-070402_46_AmamiIslands.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A21.html,,,,,,,CP932,,4612,
+奄美群島,yes,A20,single,,2007,https://nlftp.mlit.go.jp/ksj/gml/data/A20/A20-07/A20-070402_46_GML.zip,A20-070402_46_GML.zip,A20-070402_46_AmamiIslands.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A20.html,,,,,,,CP932,,4612,
 奄美群島統計情報（ポリゴン）,,A20s,,,,,,,,,,,,,,,,,,,
 半島振興対策実施地域,yes,A18,,Peninsulas Development Implementation Area,2016,https://nlftp.mlit.go.jp/ksj/gml/data/A18/A18-16/A18-16_code_pref_GML.zip,A18-16_code_pref_GML.zip,A18-16_code_pref.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A18-2016.html,,,,,A18_002,code_pref_muni,CP932,,6668,
 半島振興対策実施地域統計情報（ポリゴン）,,A18s-a,,,,,,,,,,,,,,,,,,,
