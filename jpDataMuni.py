@@ -3,7 +3,6 @@
 from qgis.core import QgsMessageLog, Qgis
 import os, csv
 
-
 # The CSV contains the codes and names of prefs and munis in Japan
 # 
 # code_dantai	code_region	code_pref	code_muni	name_pref	name_muni	name_muni_kana
