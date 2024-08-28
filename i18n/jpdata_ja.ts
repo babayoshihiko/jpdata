@@ -4,22 +4,22 @@
 <context>
     <name>jpdata</name>
     <message>
-        <location filename="../jpdata.py" line="150"/>
+        <location filename="../jpdata.py" line="147"/>
         <source>&amp;jpdata</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="137"/>
+        <location filename="../jpdata.py" line="134"/>
         <source>Add Japan Data</source>
         <translation>日本のデータを追加</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="176"/>
+        <location filename="../jpdata.py" line="173"/>
         <source>Choose folder for zip/shp files</source>
         <translation>フォルダを選択</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="181"/>
+        <location filename="../jpdata.py" line="178"/>
         <source>LandNumInfo</source>
         <translation>国土数値情報</translation>
     </message>
@@ -29,12 +29,12 @@
         <translation>地理院タイル</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="396"/>
+        <location filename="../jpdata.py" line="537"/>
         <source>Download</source>
         <translation>ダウンロード</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="474"/>
+        <location filename="../jpdata.py" line="597"/>
         <source>Choose Folder</source>
         <translation>フォルダを選択</translation>
     </message>
@@ -54,7 +54,7 @@
         <translation>QGIS の地図に地理院 xyz タイルサーバを追加</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="183"/>
+        <location filename="../jpdata.py" line="180"/>
         <source>Download Land Numerical Information data</source>
         <translation>国土数値情報を追加</translation>
     </message>
@@ -74,49 +74,59 @@
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="449"/>
+        <location filename="../jpdata.py" line="573"/>
         <source>Select a shp file</source>
         <translation>shp を選択</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="188"/>
+        <location filename="../jpdata.py" line="185"/>
         <source>Web</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="189"/>
+        <location filename="../jpdata.py" line="186"/>
         <source>Open the webpage with the standard browser</source>
         <translation>標準ブラウザでWebページを開く</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="428"/>
+        <location filename="../jpdata.py" line="552"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="335"/>
+        <location filename="../jpdata.py" line="444"/>
         <source>Cannot find the .shp file: </source>
         <translation>.shp ファイルを見つけられません: </translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="383"/>
+        <location filename="../jpdata.py" line="495"/>
         <source>Downloading: </source>
         <translation>ダウンロード: </translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="388"/>
+        <location filename="../jpdata.py" line="500"/>
         <source>The zip file exists: </source>
         <translation>zip ファイルが存在しています: </translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="394"/>
+        <location filename="../jpdata.py" line="508"/>
         <source>...Done</source>
         <translation>...終了</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="402"/>
+        <location filename="../jpdata.py" line="519"/>
         <source>...Cancelled</source>
         <translation>...キャンセル</translation>
+    </message>
+    <message>
+        <location filename="../jpdata.py" line="282"/>
+        <source>Nation-wide</source>
+        <translation>全国</translation>
+    </message>
+    <message>
+        <location filename="../jpdata.py" line="602"/>
+        <source>The folder is not writable.</source>
+        <translation>フォルダに書き込むことができません。</translation>
     </message>
 </context>
 <context>
@@ -142,52 +152,52 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata_dialog_base.ui" line="118"/>
+        <location filename="../jpdata_dialog_base.ui" line="121"/>
         <source>tab_2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata_dialog_base.ui" line="135"/>
+        <location filename="../jpdata_dialog_base.ui" line="138"/>
         <source>tab_3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata_dialog_base.ui" line="168"/>
+        <location filename="../jpdata_dialog_base.ui" line="171"/>
         <source>myPushButton31</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata_dialog_base.ui" line="144"/>
+        <location filename="../jpdata_dialog_base.ui" line="147"/>
         <source>myPushButton32</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata_dialog_base.ui" line="158"/>
+        <location filename="../jpdata_dialog_base.ui" line="161"/>
         <source>myLabel31</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata_dialog_base.ui" line="88"/>
+        <location filename="../jpdata_dialog_base.ui" line="91"/>
         <source>myPushButton15</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata_dialog_base.ui" line="101"/>
+        <location filename="../jpdata_dialog_base.ui" line="104"/>
         <source>myPushuButton11</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata_dialog_base.ui" line="108"/>
+        <location filename="../jpdata_dialog_base.ui" line="111"/>
         <source>myPushuButton14</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata_dialog_base.ui" line="127"/>
+        <location filename="../jpdata_dialog_base.ui" line="130"/>
         <source>myPushButton25</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jpdata_dialog_base.ui" line="179"/>
+        <location filename="../jpdata_dialog_base.ui" line="182"/>
         <source>myLabelStatus</source>
         <translation type="unfinished"></translation>
     </message>
