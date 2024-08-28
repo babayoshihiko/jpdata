@@ -13,7 +13,7 @@ First, set the destination folder. This will be loaded from the QGIS configurati
 
 Select National Geo-information and then select a prefecture. Multiple selections can also be made.
 
-Press the buttons in the order Download, Solution and Add. Note that if the file cannot be found, you will be asked to select a file.
+Press the buttons "Download" and "Add to Map". Note that if the file cannot be found, you will be asked to select a file.
 
 Some maps do not have data for all prefectures. If this is the case, an error is generated. Error handling not yet available.
 
@@ -45,7 +45,7 @@ Choose a prefecture; then choose municipalities. Click "Download" to download th
 
 国土数値情報を選択し、都道府県を選択します。複数選択もできます。
 
-ダウンロード、解答、追加の順番にボタンを押します。なお、ファイルが見つからない場合はファイルを選択するように求められます。
+ダウンロード、追加の順番にボタンを押します。なお、ファイルが見つからない場合はファイルを選択するように求められます。
 
 地図によっては、すべての都道府県に対してデータがあるわけではありません。その際は、エラーになります。まだエラー処理はできていません。
 
@@ -82,6 +82,19 @@ https://www.soumu.go.jp/main_sosiki/jichi_gyousei/bunken/shitei_toshi-ichiran.ht
 
 # Version History
 
+## Version 0.6.2
+
+* Enhanced LNI supports
+  * Supports non-prefectural LNI datasets. For example, LNI datasets of Kanto region can be handled.
+  * The prefecture list may be refreshed according to the LNI type.
+  * Added more styles (qml files).
+* Many bugfixes
+
+## Version 0.6.1
+
+* Added LNIs
+* Many bugfixes
+
 ## Version 0.6
 
 Released in July 2024
@@ -90,3 +103,10 @@ Released in July 2024
 * Updated Land Numerical Information (https://nlftp.mlit.go.jp/ksj_news.html)
 * (LNI) Web button to open the information webpage on the default browser
 * Message below the progress bar in the window
+
+# Roadmap
+
+## Version 0.6.3
+
+* UI update: from dialogue to dock
+* Supports proxy
