@@ -7,6 +7,7 @@ mkdir ../qgis_plugins
 
 cd ../qgis_plugins
 rm -rf jpdata
+rm -f jpdata.zip 
 
 cp -R ../jpdata ./jpdata
 rm -f jpdata/.gitignore

@@ -21,24 +21,26 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QUrl
-from qgis.PyQt.QtGui import QIcon, QDesktopServices
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction
+# Initialize Qt resources from file resources.py
+from .resources import *
+
+# Import the code for the DockWidget
+from .jpdata_dockwidget import jpdataDockWidget
+import os.path
+
+# User defined
+import os, tempfile
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem
 from qgis.PyQt.QtWidgets import QAbstractItemView
 from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
-
-# Initialize Qt resources from file resources.py
-from .resources import *
-# Import the code for the dialog
-from .jpdata_dialog import jpdataDialog
-import os, tempfile
-
 from . import jpDataUtils
 from . import jpDataDownloader
 from . import jpDataMuni
 from . import jpDataCensus
 from . import jpDataLNI
-
 
 class jpdata:
     """QGIS Plugin Implementation."""
@@ -53,8 +55,10 @@ class jpdata:
         """
         # Save reference to the QGIS interface
         self.iface = iface
+
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
+
         # initialize locale
         locale = QSettings().value('locale/userLocale')[0:2]
         locale_path = os.path.join(
@@ -67,42 +71,91 @@ class jpdata:
             self.translator.load(locale_path)
             QCoreApplication.installTranslator(self.translator)
 
-        self._folderPath = QSettings().value('jpdata/FolderPath', '~')
-
+        # Declare instance attributes
         self.actions = []
-        self.menu = self.tr('&jpdata')
+        self.menu = self.tr(u'&jpdata')
+        # TODO: We are going to let the user set this up in a future iteration
+        self.toolbar = self.iface.addToolBar(u'jpdata')
+        self.toolbar.setObjectName(u'jpdata')
 
+        #print "** INITIALIZING jpdata"
+
+        self.pluginIsActive = False
+        self.dockwidget = None
+        
+        # User defined
+        self._folderPath = QSettings().value('jpdata/FolderPath', '~')
         self._LandNumInfo = jpDataUtils.getMapsFromCsv()
         self._GSI = jpDataUtils.getTilesFromCsv()
-
         # Create an action that triggers the folder chooser
         self.action = QAction('Choose Folder', self.iface.mainWindow())
         self.action.triggered.connect(self.chooseFolder)
 
-        # Add the action to the toolbar
-        self.iface.addToolBarIcon(self.action)
-        self.iface.addPluginToMenu('&Folder Chooser Plugin', self.action)
-
-        # Check if plugin was started the first time in current QGIS session
-        # Must be set in initGui() to survive plugin reloads
-        self.first_start = None
-
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
+        """Get the translation for a string using Qt translation API.
+
+        We implement this ourselves since we do not inherit QObject.
+
+        :param message: String for translation.
+        :type message: str, QString
+
+        :returns: Translated version of message.
+        :rtype: QString
+        """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('jpdata', message)
 
+
     def add_action(
-            self,
-            icon_path,
-            text,
-            callback,
-            enabled_flag=True,
-            add_to_menu=True,
-            add_to_toolbar=True,
-            status_tip=None,
-            whats_this=None,
-            parent=None):
+        self,
+        icon_path,
+        text,
+        callback,
+        enabled_flag=True,
+        add_to_menu=True,
+        add_to_toolbar=True,
+        status_tip=None,
+        whats_this=None,
+        parent=None):
+        """Add a toolbar icon to the toolbar.
+
+        :param icon_path: Path to the icon for this action. Can be a resource
+            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
+        :type icon_path: str
+
+        :param text: Text that should be shown in menu items for this action.
+        :type text: str
+
+        :param callback: Function to be called when the action is triggered.
+        :type callback: function
+
+        :param enabled_flag: A flag indicating if the action should be enabled
+            by default. Defaults to True.
+        :type enabled_flag: bool
+
+        :param add_to_menu: Flag indicating whether the action should also
+            be added to the menu. Defaults to True.
+        :type add_to_menu: bool
+
+        :param add_to_toolbar: Flag indicating whether the action should also
+            be added to the toolbar. Defaults to True.
+        :type add_to_toolbar: bool
+
+        :param status_tip: Optional text to show in a popup when mouse pointer
+            hovers over the action.
+        :type status_tip: str
+
+        :param parent: Parent widget for the new action. Defaults None.
+        :type parent: QWidget
+
+        :param whats_this: Optional text to show in the status bar when the
+            mouse pointer hovers over the action.
+
+        :returns: The action that was created. Note that the action is also
+            added to self.actions list.
+        :rtype: QAction
+        """
 
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
@@ -116,8 +169,7 @@ class jpdata:
             action.setWhatsThis(whats_this)
 
         if add_to_toolbar:
-            # Adds plugin icon to Plugins toolbar
-            self.iface.addToolBarIcon(action)
+            self.toolbar.addAction(action)
 
         if add_to_menu:
             self.iface.addPluginToMenu(
@@ -125,127 +177,178 @@ class jpdata:
                 action)
 
         self.actions.append(action)
-        self.iface.addLayerMenu().addAction(action)
 
         return action
 
+
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
+
+        icon_path = ':/plugins/jpdata/icon.png'
         self.add_action(
-            os.path.join(self.plugin_dir, 'icon.png'),
-            text=self.tr('Add Japan Data'),
+            icon_path,
+            text=self.tr(u'jpdata'),
             callback=self.run,
             parent=self.iface.mainWindow())
 
-        # will be set False in run()
-        self.first_start = True
+    #--------------------------------------------------------------------------
+
+    def onClosePlugin(self):
+        """Cleanup necessary items here when plugin dockwidget is closed"""
+
+        #print "** CLOSING jpdata"
+
+        # disconnects
+        self.dockwidget.closingPlugin.disconnect(self.onClosePlugin)
+
+        # remove this statement if dockwidget is to remain
+        # for reuse if plugin is reopened
+        # Commented next statement since it causes QGIS crashe
+        # when closing the docked window:
+        # self.dockwidget = None
+
+        self.pluginIsActive = False
+
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
+
+        #print "** UNLOAD jpdata"
+
         for action in self.actions:
-            self.iface.addLayerMenu().removeAction(action)
             self.iface.removePluginMenu(
-                self.tr('&jpdata'),
+                self.tr(u'&jpdata'),
                 action)
             self.iface.removeToolBarIcon(action)
+        # remove the toolbar
+        del self.toolbar
+
+    #--------------------------------------------------------------------------
 
     def run(self):
-        """Run method that performs all the real work"""
+        """Run method that loads and starts the plugin"""
 
-        # Create the dialog with elements (after translation) and keep reference
-        # Only create GUI ONCE in callback, so that it will only load when the plugin is started
-        if self.first_start == True:
-            self.first_start = False
-            self.dlg = jpdataDialog()
-            self.dlg.setWindowFlags(Qt.WindowStaysOnTopHint)
+        if not self.pluginIsActive:
+            self.pluginIsActive = True
 
+            #print "** STARTING jpdata"
+
+            # dockwidget may not exist if:
+            #    first run of plugin
+            #    removed on close (see self.onClosePlugin method)
+            if self.dockwidget == None:
+                # Create the dockwidget (after translation) and keep reference
+                self.dockwidget = jpdataDockWidget()
+
+            # connect to provide cleanup on closing of dockwidget
+            self.dockwidget.closingPlugin.connect(self.onClosePlugin)
+            
+            
+            
+            # User defined
             self._downloader = jpDataDownloader.DownloadThread()
-            self._downloader.progress.connect(self.dlg.progressBar.setValue)
+            self._downloader.progress.connect(self.dockwidget.progressBar.setValue)
             self._downloader.finished.connect(self.download_finished)
 
-            self.dlg.myPushButton2.setText(self.tr('Choose Folder'))
-            self.dlg.myPushButton2.setToolTip(self.tr('Choose Folder'))
-            self.dlg.myPushButton2.clicked.connect(self.chooseFolder)
+            self.dockwidget.myPushButton2.setText(self.tr('Choose Folder'))
+            self.dockwidget.myPushButton2.setToolTip(self.tr('Choose Folder'))
+            self.dockwidget.myPushButton2.clicked.connect(self.chooseFolder)
 
             if self._folderPath:
-                self.dlg.myLabel1.setText(self._folderPath)
+                self.dockwidget.myLabel1.setText(self._folderPath)
             else:
-                self.dlg.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
+                self.dockwidget.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
 
-            self.dlg.myLabelStatus.setText('')
+            self.dockwidget.myLabelStatus.setText('')
 
             # Set Tab 1
-            self.dlg.myTabWidget.setTabText(0, self.tr('LandNumInfo'))
-            self.dlg.myPushButton11.setText(self.tr('Download'))
-            self.dlg.myPushButton11.setToolTip(self.tr('Download Land Numerical Information data'))
-            self.dlg.myPushButton11.clicked.connect(self.tab1DownloadAll)
-            self.dlg.myPushButton14.setText(self.tr('Add to Map'))
-            self.dlg.myPushButton14.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
-            self.dlg.myPushButton14.clicked.connect(self.tab1AddMap)
-            self.dlg.myPushButton15.setText(self.tr('Web'))
-            self.dlg.myPushButton15.setToolTip(self.tr('Open the webpage with the standard browser'))
-            self.dlg.myPushButton15.clicked.connect(self.tab1Web)
+            self.dockwidget.myTabWidget.setTabText(0, self.tr('LandNumInfo'))
+            self.dockwidget.myPushButton11.setText(self.tr('Download'))
+            self.dockwidget.myPushButton11.setToolTip(self.tr('Download Land Numerical Information data'))
+            self.dockwidget.myPushButton11.clicked.connect(self.tab1DownloadAll)
+            self.dockwidget.myPushButton14.setText(self.tr('Add to Map'))
+            self.dockwidget.myPushButton14.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
+            self.dockwidget.myPushButton14.clicked.connect(self.tab1AddMap)
+            self.dockwidget.myPushButton15.setText(self.tr('Web'))
+            self.dockwidget.myPushButton15.setToolTip(self.tr('Open the webpage with the standard browser'))
+            self.dockwidget.myPushButton15.clicked.connect(self.tab1Web)
             for row in self._LandNumInfo:
                 item = QListWidgetItem(row['name_j'])
                 if (row['availability'] != 'yes'):
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                     item.setForeground(Qt.gray)
-                self.dlg.myListWidget11.addItem(item)
+                self.dockwidget.myListWidget11.addItem(item)
             self.tab1CheckPrefsOrRegions()
             # Users cannot choose multiple maps
-            #self.dlg.myListWidget11.setSelectionMode(
+            #self.dockwidget.myListWidget11.setSelectionMode(
             #    QAbstractItemView.ExtendedSelection
             #)
-            self.dlg.myListWidget11.clicked.connect(self.tab1CheckPrefsOrRegions)
-            self.dlg.myListWidget12.clicked.connect(self.tab1CheckYear)
+            self.dockwidget.myListWidget11.clicked.connect(self.tab1CheckPrefsOrRegions)
+            self.dockwidget.myListWidget12.clicked.connect(self.tab1CheckYear)
             self.myListWidget12_is_all_prefs = False
             # Users cannot choose multiple prefctures
-            self.dlg.myListWidget12.setSelectionMode(
+            self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
 
             # Set Tab 2
-            self.dlg.myTabWidget.setTabText(1, self.tr('GSI Tiles'))
-            self.dlg.myPushButton25.setText(self.tr('Add to Map'))
-            self.dlg.myPushButton25.setToolTip(self.tr('Add GSI xyz tile server to Map on QGIS'))
-            self.dlg.myPushButton25.clicked.connect(self.addTile)
+            self.dockwidget.myTabWidget.setTabText(1, self.tr('GSI Tiles'))
+            self.dockwidget.myPushButton25.setText(self.tr('Add to Map'))
+            self.dockwidget.myPushButton25.setToolTip(self.tr('Add GSI xyz tile server to Map on QGIS'))
+            self.dockwidget.myPushButton25.clicked.connect(self.addTile)
             for row in self._GSI:
-                self.dlg.myListWidget23.addItem(row['name_j'])
+                self.dockwidget.myListWidget23.addItem(row['name_j'])
 
             # Set Tab 3
-            self.dlg.myTabWidget.setTabText(2, self.tr('Census'))
-            self.dlg.myLabel31.setText(self.tr('Year'))
-            self.dlg.myComboBox31.addItem('2020')
-            self.dlg.myComboBox31.addItem('2015')
-            self.dlg.myComboBox31.addItem('2010')
-            self.dlg.myComboBox31.addItem('2005')
-            self.dlg.myComboBox31.addItem('2000')
-            self.dlg.myPushButton31.setText(self.tr('Download'))
-            self.dlg.myPushButton31.setToolTip(self.tr('Download census data by city'))
-            self.dlg.myPushButton31.clicked.connect(self.tab3DownloadAll)
-            self.dlg.myPushButton32.setText(self.tr('Add to Map'))
-            self.dlg.myPushButton32.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
-            self.dlg.myPushButton32.clicked.connect(self.tab3AddMap)
-            self.dlg.myListWidget31.itemClicked.connect(self.tab3SelectPref)
-            self.dlg.myListWidget32.setSelectionMode(
+            self.dockwidget.myTabWidget.setTabText(2, self.tr('Census'))
+            self.dockwidget.myLabel31.setText(self.tr('Year'))
+            self.dockwidget.myComboBox31.addItem('2020')
+            self.dockwidget.myComboBox31.addItem('2015')
+            self.dockwidget.myComboBox31.addItem('2010')
+            self.dockwidget.myComboBox31.addItem('2005')
+            self.dockwidget.myComboBox31.addItem('2000')
+            self.dockwidget.myPushButton31.setText(self.tr('Download'))
+            self.dockwidget.myPushButton31.setToolTip(self.tr('Download census data by city'))
+            self.dockwidget.myPushButton31.clicked.connect(self.tab3DownloadAll)
+            self.dockwidget.myPushButton32.setText(self.tr('Add to Map'))
+            self.dockwidget.myPushButton32.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
+            self.dockwidget.myPushButton32.clicked.connect(self.tab3AddMap)
+            self.dockwidget.myListWidget31.itemClicked.connect(self.tab3SelectPref)
+            self.dockwidget.myListWidget32.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
 
             for code in range(1, 48):
-                self.dlg.myListWidget31.addItem(jpDataUtils.getPrefNameByCode(code))
+                self.dockwidget.myListWidget31.addItem(jpDataUtils.getPrefNameByCode(code))
 
-        # show the dialog
-        self.dlg.show()
-        # Run the dialog event loop
-        result = self.dlg.exec_()
-        # See if OK was pressed
-        if result:
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
-            pass
+            
+            
+            
+
+            # show the dockwidget
+            # TODO: fix to allow choice of dock location
+            self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
+            self.dockwidget.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def addTile(self):
-        selected_items = self.dlg.myListWidget23.selectedItems()
+        selected_items = self.dockwidget.myListWidget23.selectedItems()
 
         for current_gsi in self._GSI:
             if current_gsi['name_j'] == str(selected_items[0].text()):
@@ -265,83 +368,83 @@ class jpdata:
 
     def tab1CheckPrefsOrRegions(self):
         self.tab1CheckYear()
-        items = self.dlg.myListWidget11.selectedItems()
+        items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
+                if str(self.dockwidget.myListWidget11.selectedItems()[i].text()) == item['name_j']:
                     if item['type_muni'].lower() == 'regional':
                         if not self.myListWidget12_is_all_prefs:
-                            self.dlg.myListWidget12.clear()
+                            self.dockwidget.myListWidget12.clear()
                         self.myListWidget12_is_all_prefs = True
                         names_pref = jpDataLNI.getPrefsOrRegionsByMapCode(item['code_map'])
                         for name_pref in names_pref:
-                            self.dlg.myListWidget12.addItem(name_pref)
+                            self.dockwidget.myListWidget12.addItem(name_pref)
                     elif item['type_muni'].lower() == 'single':
                         self.myListWidget12_is_all_prefs = False
-                        self.dlg.myListWidget12.clear()
-                        self.dlg.myListWidget12.addItem(self.tr('Nation-wide'))
+                        self.dockwidget.myListWidget12.clear()
+                        self.dockwidget.myListWidget12.addItem(self.tr('Nation-wide'))
                     else:
                         self.myListWidget12_is_all_prefs = False
-                        self.dlg.myListWidget12.clear()
+                        self.dockwidget.myListWidget12.clear()
                         for code_pref in range(1, 48):
-                            self.dlg.myListWidget12.addItem(jpDataUtils.getPrefNameByCode(code_pref))
+                            self.dockwidget.myListWidget12.addItem(jpDataUtils.getPrefNameByCode(code_pref))
 
     def tab1CheckYear(self):
-        items = self.dlg.myListWidget11.selectedItems()
+        items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
-                    self.dlg.myComboBox11.clear()
+                if str(self.dockwidget.myListWidget11.selectedItems()[i].text()) == item['name_j']:
+                    self.dockwidget.myComboBox11.clear()
                     if item['year'].lower() != 'csv':
-                        self.dlg.myListWidget12.setSelectionMode(QAbstractItemView.ExtendedSelection)
-                        self.dlg.myComboBox11.addItem(item['year'])
+                        self.dockwidget.myListWidget12.setSelectionMode(QAbstractItemView.ExtendedSelection)
+                        self.dockwidget.myComboBox11.addItem(item['year'])
                     else:
-                        if len(self.dlg.myListWidget12.selectedItems()) > 0:
-                            name_pref = self.dlg.myListWidget12.selectedItems()[0].text()
+                        if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+                            name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
                         else:
                             name_pref = None
-                        self.dlg.myListWidget12.setSelectionMode(QAbstractItemView.SingleSelection)
+                        self.dockwidget.myListWidget12.setSelectionMode(QAbstractItemView.SingleSelection)
                         years = jpDataLNI.getYearsByMapCode(item['code_map'], name_pref)
                         for year in years:
-                            self.dlg.myComboBox11.addItem(year)
+                            self.dockwidget.myComboBox11.addItem(year)
 
     def tab1DownloadAll(self):
-        self.dlg.progressBar.setValue(0)
-        if self.dlg.myPushButton11.text() == self.tr('Cancel'):
-            self.dlg.myPushButton11.setText(self.tr('Download'))
+        self.dockwidget.progressBar.setValue(0)
+        if self.dockwidget.myPushButton11.text() == self.tr('Cancel'):
+            self.dockwidget.myPushButton11.setText(self.tr('Download'))
             self.cancel_download()
             return
 
-        self.dlg.myPushButton11.setText(self.tr('Cancel'))
-        self.dlg.myPushButton14.setEnabled(False)
+        self.dockwidget.myPushButton11.setText(self.tr('Cancel'))
+        self.dockwidget.myPushButton14.setEnabled(False)
 
-        items = self.dlg.myListWidget11.selectedItems()
-        pref_name = self.dlg.myListWidget12.selectedItems()
+        items = self.dockwidget.myListWidget11.selectedItems()
+        pref_name = self.dockwidget.myListWidget12.selectedItems()
         pref_code = []
         for i in range(len(pref_name)):
             pref_code.append(
                 jpDataUtils.getPrefCodeByName(
-                    str(self.dlg.myListWidget12.selectedItems()[i].text())
+                    str(self.dockwidget.myListWidget12.selectedItems()[i].text())
                 )
             )
 
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
+                if str(self.dockwidget.myListWidget11.selectedItems()[i].text()) == item['name_j']:
                     if item['type_muni'] != 'single':
                         for x in range(len(pref_code)):
-                            if self.dlg.myPushButton11.text() == self.tr('Cancel'):
+                            if self.dockwidget.myPushButton11.text() == self.tr('Cancel'):
                                 # For the LNIs with specific pref/year combinations
                                 #if item['code_map'] == 'W05':
                                 #    y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
                                 #    tempUrl = y['url']
                                 #    tempZipFileName = y['zip']
                                 if item['type_muni'].lower() == 'regional':
-                                    year = str(self.dlg.myComboBox11.currentText())
+                                    year = str(self.dockwidget.myComboBox11.currentText())
                                     y = jpDataLNI.getUrlCodeZipByPrefName(item['code_map'], str(pref_name[x].text()), year)
                                     tempUrl = y['url']
                                     tempZipFileName = y['zip']
-                                    ## self.dlg.myLabelStatus.setText(item['code_map'] + str(pref_name[x].text()) + y['zip']) ##
+                                    ## self.dockwidget.myLabelStatus.setText(item['code_map'] + str(pref_name[x].text()) + y['zip']) ##
                                 else:
                                     tempUrl = item['url'].replace('code_pref', pref_code[x])
                                     tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
@@ -352,7 +455,7 @@ class jpdata:
                     else:
                         # The single .shp file covers the whole nation
                         # So, download only once.
-                        if self.dlg.myPushButton11.text() == self.tr('Cancel'):
+                        if self.dockwidget.myPushButton11.text() == self.tr('Cancel'):
                             tempUrl = item['url']
                             tempZipFileName = item['zip']
                             self.start_download(tempUrl, item['code_map'], tempZipFileName)
@@ -360,27 +463,27 @@ class jpdata:
                             break
 
     def tab1Web(self):
-        items = self.dlg.myListWidget11.selectedItems()
+        items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
+                if str(self.dockwidget.myListWidget11.selectedItems()[i].text()) == item['name_j']:
                     url = QUrl(item['source'])
                     QDesktopServices.openUrl(url)
 
     def tab1AddMap(self):
-        items = self.dlg.myListWidget11.selectedItems()
-        pref_name = self.dlg.myListWidget12.selectedItems()
+        items = self.dockwidget.myListWidget11.selectedItems()
+        pref_name = self.dockwidget.myListWidget12.selectedItems()
         pref_code = []
         for i in range(len(pref_name)):
             pref_code.append(
                 jpDataUtils.getPrefCodeByName(
-                    str(self.dlg.myListWidget12.selectedItems()[i].text())
+                    str(self.dockwidget.myListWidget12.selectedItems()[i].text())
                 )
             )
 
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dlg.myListWidget11.selectedItems()[i].text()) == item['name_j']:
+                if str(self.dockwidget.myListWidget11.selectedItems()[i].text()) == item['name_j']:
                     if item['type_muni'] == 'single':
                         seleted_prefs = [0]
                     else:
@@ -394,7 +497,7 @@ class jpdata:
                         #    item['shp'] = y['shp']
                         #    item['altdir'] = y['altdir']
                         if item['type_muni'].lower() == 'regional':
-                            year = self.dlg.myComboBox11.currentText()
+                            year = self.dockwidget.myComboBox11.currentText()
                             y = jpDataLNI.getUrlCodeZipByPrefName(item['code_map'], str(pref_name[x].text()), year)
                             tempShpFileName = jpDataUtils.unzipAndGetShp(
                                 os.path.join(self._folderPath, item['code_map']),
@@ -426,7 +529,7 @@ class jpdata:
 
                         if tempShpFileName is None:
                             if item['type_muni'] == 'single':
-                                self.dlg.myLabelStatus.setText(
+                                self.dockwidget.myLabelStatus.setText(
                                     self.tr('Cannot find the .shp file: ') + item['shp']
                                 )
                                 self.iface.messageBar().pushMessage(
@@ -441,7 +544,7 @@ class jpdata:
                                     'ESRI Shapefile (*.shp)'
                                 )
                             else:
-                                self.dlg.myLabelStatus.setText(
+                                self.dockwidget.myLabelStatus.setText(
                                     self.tr('Cannot find the .shp file: ') + item['shp'].replace('code_pref', pref_code[x])
                                 )
                                 self.iface.messageBar().pushMessage(
@@ -492,72 +595,72 @@ class jpdata:
             os.mkdir(os.path.join(self._folderPath, subFolder))
 
         if not os.path.exists(os.path.join(self._folderPath, subFolder, zipFileName)):
-            self.dlg.myLabelStatus.setText(self.tr('Downloading: ') + zipFileName)
+            self.dockwidget.myLabelStatus.setText(self.tr('Downloading: ') + zipFileName)
             self._downloader.setUrl(url)
             self._downloader.setFilePath(os.path.join(self._folderPath, subFolder, zipFileName))
             self._downloader.start()
         else:
-            self.dlg.myLabelStatus.setText(self.tr('The zip file exists: ') + zipFileName)
-            self.dlg.myPushButton11.setText(self.tr('Download'))
-            self.dlg.myPushButton31.setText(self.tr('Download'))
-            self.dlg.myPushButton14.setEnabled(True)
-            self.dlg.myPushButton32.setEnabled(True)
+            self.dockwidget.myLabelStatus.setText(self.tr('The zip file exists: ') + zipFileName)
+            self.dockwidget.myPushButton11.setText(self.tr('Download'))
+            self.dockwidget.myPushButton31.setText(self.tr('Download'))
+            self.dockwidget.myPushButton14.setEnabled(True)
+            self.dockwidget.myPushButton32.setEnabled(True)
 
     def download_finished(self, success):
-        current_text = self.dlg.myLabelStatus.text()
-        self.dlg.myLabelStatus.setText(current_text + self.tr('...Done'))
-        # self.dlg.myLabelStatus.setText(self._downloader.getStatus())
-        self.dlg.myPushButton11.setText(self.tr('Download'))
-        self.dlg.myPushButton31.setText(self.tr('Download'))
-        self.dlg.progressBar.setValue(100)
-        self.dlg.myPushButton14.setEnabled(True)
-        self.dlg.myPushButton32.setEnabled(True)
+        current_text = self.dockwidget.myLabelStatus.text()
+        self.dockwidget.myLabelStatus.setText(current_text + self.tr('...Done'))
+        # self.dockwidget.myLabelStatus.setText(self._downloader.getStatus())
+        self.dockwidget.myPushButton11.setText(self.tr('Download'))
+        self.dockwidget.myPushButton31.setText(self.tr('Download'))
+        self.dockwidget.progressBar.setValue(100)
+        self.dockwidget.myPushButton14.setEnabled(True)
+        self.dockwidget.myPushButton32.setEnabled(True)
 
     def cancel_download(self):
         if self._downloader is not None:
-            current_text = self.dlg.myLabelStatus.text()
-            self.dlg.myLabelStatus.setText(current_text + self.tr('...Cancelled'))
+            current_text = self.dockwidget.myLabelStatus.text()
+            self.dockwidget.myLabelStatus.setText(current_text + self.tr('...Cancelled'))
             self._downloader.stop()
         else:
             self._downloader = jpDataDownloader.DownloadThread()
-        self.dlg.myPushButton14.setEnabled(True)
-        self.dlg.myPushButton32.setEnabled(True)
+        self.dockwidget.myPushButton14.setEnabled(True)
+        self.dockwidget.myPushButton32.setEnabled(True)
 
     def tab3SelectPref(self):
-        selectedItems = self.dlg.myListWidget31.selectedItems()
+        selectedItems = self.dockwidget.myListWidget31.selectedItems()
         for item in selectedItems:
             rows = jpDataMuni.getMuniFromPrefName(str(item.text()))
-            self.dlg.myListWidget32.clear()
+            self.dockwidget.myListWidget32.clear()
             for row in rows:
-                self.dlg.myListWidget32.addItem(row['name_muni'])
+                self.dockwidget.myListWidget32.addItem(row['name_muni'])
 
     def tab3DownloadAll(self):
-        self.dlg.progressBar.setValue(0)
-        if self.dlg.myPushButton31.text() == self.tr('Cancel'):
-            self.dlg.myPushButton31.setText(self.tr('Download'))
+        self.dockwidget.progressBar.setValue(0)
+        if self.dockwidget.myPushButton31.text() == self.tr('Cancel'):
+            self.dockwidget.myPushButton31.setText(self.tr('Download'))
             self.cancel_download()
             return
 
-        self.dlg.myPushButton31.setText(self.tr('Cancel'))
-        self.dlg.myPushButton32.setEnabled(False)
+        self.dockwidget.myPushButton31.setText(self.tr('Cancel'))
+        self.dockwidget.myPushButton32.setEnabled(False)
 
-        year = str(self.dlg.myComboBox31.currentText())
-        pref_name = str(self.dlg.myListWidget31.selectedItems()[0].text())
-        muni_names = self.dlg.myListWidget32.selectedItems()
+        year = str(self.dockwidget.myComboBox31.currentText())
+        pref_name = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
+        muni_names = self.dockwidget.myListWidget32.selectedItems()
 
         for muni_name in muni_names:
             row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
             tempUrl = jpDataCensus.getUrl(year, row['code_pref'], row['code_muni'])
             tempZipFileName = jpDataCensus.getZipFileName(year, row['code_pref'], row['code_muni'])
-            if self.dlg.myPushButton31.text() == self.tr('Cancel'):
+            if self.dockwidget.myPushButton31.text() == self.tr('Cancel'):
                 self.start_download(tempUrl, 'Census', tempZipFileName)
             else:
                 break
 
     def tab3AddMap(self):
-        year = str(self.dlg.myComboBox31.currentText())
-        pref_name = str(self.dlg.myListWidget31.selectedItems()[0].text())
-        muni_names = self.dlg.myListWidget32.selectedItems()
+        year = str(self.dockwidget.myComboBox31.currentText())
+        pref_name = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
+        muni_names = self.dockwidget.myListWidget32.selectedItems()
 
         for muni_name in muni_names:
             row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
@@ -599,9 +702,9 @@ class jpdata:
             self.tr('Choose Folder')
         )
         if not os.access(self._folderPath, os.W_OK):
-            self.dlg.myLabelStatus.setText(self.tr('The folder is not writable.'))
+            self.dockwidget.myLabelStatus.setText(self.tr('The folder is not writable.'))
 
         if self._folderPath:
-            self.dlg.myLabel1.setText(self._folderPath)
+            self.dockwidget.myLabel1.setText(self._folderPath)
             s = QgsSettings()
             s.setValue('jpdata/FolderPath', self._folderPath)
