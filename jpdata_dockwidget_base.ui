@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>533</width>
-    <height>482</height>
+    <width>691</width>
+    <height>673</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,50 +15,37 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="4" column="0">
+    <item row="5" column="0">
+     <widget class="QProgressBar" name="progressBar">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
      <widget class="QLabel" name="myLabelStatus">
       <property name="text">
        <string>myLabelStatus</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="4" column="0">
      <widget class="QTabWidget" name="myTabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>tab_1</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="2" column="0" colspan="2">
-         <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="2">
-           <widget class="QListWidget" name="myListWidget12">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>191</width>
-              <height>16777215</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QComboBox" name="myComboBox11"/>
-          </item>
-          <item row="0" column="0" rowspan="2">
-           <widget class="QListWidget" name="myListWidget11"/>
-          </item>
-         </layout>
-        </item>
-        <item row="4" column="0">
+        <item row="1" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QPushButton" name="myPushButton15">
@@ -89,6 +76,37 @@
           </item>
          </layout>
         </item>
+        <item row="0" column="0">
+         <widget class="QSplitter" name="splitter">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QListWidget" name="myListWidget11"/>
+          <widget class="QWidget" name="">
+           <layout class="QGridLayout" name="gridLayout_2">
+            <item row="0" column="0">
+             <widget class="QListWidget" name="myListWidget12">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>191</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QComboBox" name="myComboBox11"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_2">
@@ -113,39 +131,60 @@
         <string>tab_3</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="0" column="2" rowspan="2">
-         <widget class="QListWidget" name="myListWidget32"/>
-        </item>
-        <item row="2" column="2">
-         <widget class="QPushButton" name="myPushButton32">
-          <property name="text">
-           <string>myPushButton32</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="myComboBox31">
-          <property name="currentText">
-           <string/>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0">
-         <widget class="QLabel" name="myLabel31">
-          <property name="text">
-           <string>myLabel31</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QListWidget" name="myListWidget31"/>
-        </item>
-        <item row="2" column="0" colspan="2">
-         <widget class="QPushButton" name="myPushButton31">
-          <property name="text">
-           <string>myPushButton31</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QSplitter" name="splitter_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <widget class="QWidget" name="verticalLayoutWidget">
+             <layout class="QVBoxLayout" name="verticalLayout">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QLabel" name="myLabel31">
+                  <property name="text">
+                   <string>myLabel31</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="myComboBox31">
+                  <property name="currentText">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QListWidget" name="myListWidget31"/>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QListWidget" name="myListWidget32"/>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QPushButton" name="myPushButton32">
+              <property name="text">
+               <string>myPushButton32</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="myPushButton31">
+              <property name="text">
+               <string>myPushButton31</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -154,10 +193,24 @@
         <string>tab_setting</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="myLineEditSetting1">
+          <property name="text">
+           <string notr="true">http://</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="myLabelSetting2">
           <property name="text">
            <string>Proxy Server</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="myLineEditSetting3">
+          <property name="text">
+           <string notr="true"/>
           </property>
          </widget>
         </item>
@@ -219,34 +272,15 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="myLineEditSetting1">
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="myLineEditSetting2">
           <property name="text">
-           <string>http://</string>
+           <string notr="true"/>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="myLineEditSetting2"/>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="myLineEditSetting3"/>
-        </item>
        </layout>
       </widget>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QProgressBar" name="progressBar">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>1</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="value">
-       <number>0</number>
-      </property>
      </widget>
     </item>
    </layout>
