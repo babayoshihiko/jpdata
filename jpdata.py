@@ -85,6 +85,7 @@ class jpdata:
         
         # User defined
         self._folderPath = QSettings().value('jpdata/FolderPath', '~')
+        self._proxyServer = QSettings().value('jpdata/ProxyServer', 'http://')
         self._LandNumInfo = jpDataUtils.getMapsFromCsv()
         self._GSI = jpDataUtils.getTilesFromCsv()
         # Create an action that triggers the folder chooser
@@ -184,11 +185,11 @@ class jpdata:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/jpdata/icon.png'
         self.add_action(
-            icon_path,
+            os.path.join(self.plugin_dir, 'icon.png'),
             text=self.tr(u'jpdata'),
             callback=self.run,
+            add_to_toolbar=False,
             parent=self.iface.mainWindow())
 
     #--------------------------------------------------------------------------
@@ -258,6 +259,10 @@ class jpdata:
                 self.dockwidget.myLabel1.setText(self._folderPath)
             else:
                 self.dockwidget.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
+            if self._proxyServer:
+                self.dockwidget.myLineEditSetting1.setText(self._proxyServer)
+            self.dockwidget.myLineEditSetting2.setToolTip(self.tr('User/Password are not stored'))
+            self.dockwidget.myLineEditSetting3.setToolTip(self.tr('User/Password are not stored'))
 
             self.dockwidget.myLabelStatus.setText('')
 
@@ -321,9 +326,10 @@ class jpdata:
             for code in range(1, 48):
                 self.dockwidget.myListWidget31.addItem(jpDataUtils.getPrefNameByCode(code))
 
-            
-            
-            
+            # Tab Setting
+            self.dockwidget.myLineEditSetting1.textEdited.connect(self.setProxyServer)
+            self.dockwidget.myLineEditSetting2.textEdited.connect(self.setProxyServer)
+            self.dockwidget.myLineEditSetting3.textEdited.connect(self.setProxyServer)
 
             # show the dockwidget
             # TODO: fix to allow choice of dock location
@@ -708,3 +714,18 @@ class jpdata:
             self.dockwidget.myLabel1.setText(self._folderPath)
             s = QgsSettings()
             s.setValue('jpdata/FolderPath', self._folderPath)
+
+    def setProxyServer(self):
+        _proxyServer = self.dockwidget.myLineEditSetting1.text()
+        if len(_proxyServer) > 10:
+            self._proxyServer = _proxyServer
+            s = QgsSettings()
+            s.setValue('jpdata/ProxyServer', self._proxyServer)
+            self._downloader.setProxyServer(self._proxyServer)
+            self._downloader.setProxyUser(self.dockwidget.myLineEditSetting2.text())
+            self._downloader.setProxyPassword(self.dockwidget.myLineEditSetting3.text())
+
+
+
+
+
