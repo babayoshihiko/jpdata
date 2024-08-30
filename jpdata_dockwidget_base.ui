@@ -38,7 +38,7 @@
     <item row="4" column="0">
      <widget class="QTabWidget" name="myTabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -82,8 +82,8 @@
            <enum>Qt::Horizontal</enum>
           </property>
           <widget class="QListWidget" name="myListWidget11"/>
-          <widget class="QWidget" name="">
-           <layout class="QGridLayout" name="gridLayout_2">
+          <widget class="QWidget" name="layoutWidget">
+           <layout class="QVBoxLayout" name="verticalLayout_1">
             <item row="0" column="0">
              <widget class="QListWidget" name="myListWidget12">
               <property name="sizePolicy">
@@ -94,14 +94,21 @@
               </property>
               <property name="maximumSize">
                <size>
-                <width>191</width>
+                <width>16777215</width>
                 <height>16777215</height>
                </size>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QComboBox" name="myComboBox11"/>
+             <widget class="QComboBox" name="myComboBox11">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
