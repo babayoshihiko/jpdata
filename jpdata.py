@@ -327,6 +327,7 @@ class jpdata:
                 self.dockwidget.myListWidget31.addItem(jpDataUtils.getPrefNameByCode(code))
 
             # Tab Setting
+            self.dockwidget.myTabWidget.setTabText(3, self.tr('Setting'))
             self.dockwidget.myLineEditSetting1.textEdited.connect(self.setProxyServer)
             self.dockwidget.myLineEditSetting2.textEdited.connect(self.setProxyServer)
             self.dockwidget.myLineEditSetting3.textEdited.connect(self.setProxyServer)
