@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'jpdata'
-copyright = u'2013, Yoshihiko Baba'
+copyright = u'2024, Yoshihiko Baba'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
