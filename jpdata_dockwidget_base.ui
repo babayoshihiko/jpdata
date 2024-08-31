@@ -84,7 +84,7 @@
           <widget class="QListWidget" name="myListWidget11"/>
           <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout_1">
-            <item row="0" column="0">
+            <item>
              <widget class="QListWidget" name="myListWidget12">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -100,7 +100,7 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
+            <item>
              <widget class="QComboBox" name="myComboBox11">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">

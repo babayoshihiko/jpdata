@@ -38,22 +38,21 @@ class DownloadThread(QThread):
         return self.status_message
 
     def run(self):
+        proxies = {}
         if self.url is None or self.file_path is None:
             return
         if self.proxy_server is not None:
             if proxy_server[:8] == 'https://':
-                if self.proxy_user is not None:
-                    _proxy_server == proxy_server.replace('https://','')
-                    _proxy_server == 'https://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
-                    proxies = {'https':_proxy_server}
+                _proxy_server = self.proxy_server.replace('https://','')
+                _proxy_server = 'https://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
+                proxies = {'https':_proxy_server}
             elif proxy_server[:7] == 'http://':
-                if self.proxy_user is not None:
-                    _proxy_server == proxy_server.replace('http://','')
-                    _proxy_server == 'http://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
-                    proxies = {'http':_proxy_server}
+                _proxy_server = self.proxy_server.replace('http://','')
+                _proxy_server = 'http://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
+                proxies = {'http':_proxy_server}
 
         try:
-            with requests.get(self.url, stream=True) as r:
+            with requests.get(self.url, stream=True, proxies = proxies) as r:
                 r.raise_for_status()
                 total_length = r.headers.get('content-length')
 
