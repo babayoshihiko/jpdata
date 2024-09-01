@@ -720,12 +720,12 @@ class jpdata:
         _proxyServer = self.dockwidget.myLineEditSetting1.text()
         if len(_proxyServer) > 10:
             self._proxyServer = _proxyServer
-            s = QgsSettings()
-            s.setValue('jpdata/ProxyServer', self._proxyServer)
+            QgsSettings().setValue('jpdata/ProxyServer', self._proxyServer)
             self._downloader.setProxyServer(self._proxyServer)
             self._downloader.setProxyUser(self.dockwidget.myLineEditSetting2.text())
             self._downloader.setProxyPassword(self.dockwidget.myLineEditSetting3.text())
-
+        else:
+            QgsSettings().setValue('jpdata/ProxyServer', 'http://')
 
 
 

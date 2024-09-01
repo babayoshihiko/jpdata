@@ -12,12 +12,14 @@ class DownloadThread(QThread):
     def __init__(self):
         QThread.__init__(self)
         self._is_running = True
+        self.proxy_server = None
+        self.status_message = ''
 
     def setProxyServer(self, proxy_server):
         if len(proxy_server) > 10:
             self.proxy_server = proxy_server
         else:
-            self.proxyServer = None
+            self.proxy_server = None
 
     def setProxyUser(self, proxy_user):
         self.proxy_user = proxy_user
@@ -42,17 +44,17 @@ class DownloadThread(QThread):
         if self.url is None or self.file_path is None:
             return
         if self.proxy_server is not None:
-            if proxy_server[:8] == 'https://':
+            if self.proxy_server[:8] == 'https://':
                 _proxy_server = self.proxy_server.replace('https://','')
                 _proxy_server = 'https://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
                 proxies = {'https':_proxy_server}
-            elif proxy_server[:7] == 'http://':
+            elif self.proxy_server[:7] == 'http://':
                 _proxy_server = self.proxy_server.replace('http://','')
                 _proxy_server = 'http://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
                 proxies = {'http':_proxy_server}
 
         try:
-            with requests.get(self.url, stream=True, proxies = proxies) as r:
+            with requests.get(self.url, stream=True) as r:
                 r.raise_for_status()
                 total_length = r.headers.get('content-length')
 
