@@ -35,10 +35,10 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="7" column="0">
      <widget class="QTabWidget" name="myTabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -176,16 +176,16 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QPushButton" name="myPushButton32">
+             <widget class="QPushButton" name="myPushButton31">
               <property name="text">
-               <string>myPushButton32</string>
+               <string>myPushButton31</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="myPushButton31">
+             <widget class="QPushButton" name="myPushButton32">
               <property name="text">
-               <string>myPushButton31</string>
+               <string>myPushButton32</string>
               </property>
              </widget>
             </item>
