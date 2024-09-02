@@ -41,6 +41,7 @@ from . import jpDataDownloader
 from . import jpDataMuni
 from . import jpDataCensus
 from . import jpDataLNI
+from .jpdata_mesh import jpdataMeshWidget
 
 class jpdata:
     """QGIS Plugin Implementation."""
@@ -91,6 +92,8 @@ class jpdata:
         # Create an action that triggers the folder chooser
         self.action = QAction('Choose Folder', self.iface.mainWindow())
         self.action.triggered.connect(self.chooseFolder)
+        
+        self.meshWindow = jpdataMeshWidget()
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -331,6 +334,9 @@ class jpdata:
             self.dockwidget.myLineEditSetting1.textEdited.connect(self.setProxyServer)
             self.dockwidget.myLineEditSetting2.textEdited.connect(self.setProxyServer)
             self.dockwidget.myLineEditSetting3.textEdited.connect(self.setProxyServer)
+
+            self.dockwidget.myPushButtonTest.clicked.connect(self.showMeshWindow)
+
 
             # show the dockwidget
             # TODO: fix to allow choice of dock location
@@ -727,6 +733,6 @@ class jpdata:
         else:
             QgsSettings().setValue('jpdata/ProxyServer', 'http://')
 
-
-
+    def showMeshWindow(self):
+        self.meshWindow.show()
 
