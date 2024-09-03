@@ -258,15 +258,6 @@ class jpdata:
             self.dockwidget.myPushButton2.setToolTip(self.tr('Choose Folder'))
             self.dockwidget.myPushButton2.clicked.connect(self.chooseFolder)
 
-            if self._folderPath:
-                self.dockwidget.myLabel1.setText(self._folderPath)
-            else:
-                self.dockwidget.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
-            if self._proxyServer:
-                self.dockwidget.myLineEditSetting1.setText(self._proxyServer)
-            self.dockwidget.myLineEditSetting2.setToolTip(self.tr('User/Password are not stored'))
-            self.dockwidget.myLineEditSetting3.setToolTip(self.tr('User/Password are not stored'))
-
             self.dockwidget.myLabelStatus.setText('')
 
             # Set Tab 1
@@ -334,6 +325,16 @@ class jpdata:
             self.dockwidget.myLineEditSetting1.textEdited.connect(self.setProxyServer)
             self.dockwidget.myLineEditSetting2.textEdited.connect(self.setProxyServer)
             self.dockwidget.myLineEditSetting3.textEdited.connect(self.setProxyServer)
+            if self._folderPath:
+                self.dockwidget.myLabel1.setText(self._folderPath)
+            else:
+                self.dockwidget.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
+                self.dockwidget.myTabWidget.setCurrentIndex(3)
+            if self._proxyServer:
+                self.dockwidget.myLineEditSetting1.setText(self._proxyServer)
+            self.dockwidget.myLineEditSetting2.setToolTip(self.tr('User/Password are not stored'))
+            self.dockwidget.myLineEditSetting3.setToolTip(self.tr('User/Password are not stored'))
+
 
             self.dockwidget.myPushButtonTest.clicked.connect(self.showMeshWindow)
 
@@ -342,6 +343,7 @@ class jpdata:
                 self.meshWindow.meshListWidget1.addItem(jpDataUtils.getPrefNameByCode(code))
             self.meshWindow.meshListWidget1.clicked.connect(self.meshPref)
             self.meshWindow.meshListWidget2.clicked.connect(self.meshMuni)
+            self.meshWindow.setWindowFlags(Qt.WindowStaysOnTopHint)
 
             # show the dockwidget
             # TODO: fix to allow choice of dock location
