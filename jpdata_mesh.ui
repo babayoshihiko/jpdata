@@ -39,7 +39,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QListWidget" name="meshListWidget1_2"/>
+        <widget class="QListWidget" name="meshListWidget2"/>
        </item>
       </layout>
      </widget>

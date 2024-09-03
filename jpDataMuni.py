@@ -18,16 +18,35 @@ def getMuniFromPrefCode(code_pref):
     return filtered_rows
 
 
-def getMuniFromPrefName(code_pref):
+def getMuniFromPrefName(name_pref):
     filePath = os.path.join(os.path.dirname(__file__), 'csv', 'code_pref_muni.csv')
     filtered_rows = []
     with open(filePath, 'r') as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
-            if len(row) >= 2 and row['name_pref'] == code_pref:
+            if len(row) >= 2 and row['name_pref'] == name_pref:
                 filtered_rows.append(row)
     return filtered_rows
 
+def getMesh1FromPrefName(name_muni):
+    filePath = os.path.join(os.path.dirname(__file__), 'csv', 'muni_mesh1.csv')
+    filtered_rows = []
+    with open(filePath, 'r') as f:
+        csvreader = csv.DictReader(f)
+        for row in csvreader:
+            if len(row) >= 2 and row['name_muni'] == name_muni:
+                filtered_rows.append(row)
+    return filtered_rows
+
+def getMesh3FromPrefName(name_muni):
+    filePath = os.path.join(os.path.dirname(__file__), 'csv', 'muni_mesh3.csv')
+    filtered_rows = []
+    with open(filePath, 'r') as f:
+        csvreader = csv.DictReader(f)
+        for row in csvreader:
+            if len(row) >= 2 and row['name_muni'] == name_muni:
+                filtered_rows.append(row)
+    return filtered_rows
 
 def getRowFromNames(name_pref, name_muni):
     filePath = os.path.join(os.path.dirname(__file__), 'csv', 'code_pref_muni.csv')

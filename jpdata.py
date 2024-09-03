@@ -337,6 +337,11 @@ class jpdata:
 
             self.dockwidget.myPushButtonTest.clicked.connect(self.showMeshWindow)
 
+            # Mesh Window
+            for code in range(1, 48):
+                self.meshWindow.meshListWidget1.addItem(jpDataUtils.getPrefNameByCode(code))
+            self.meshWindow.meshListWidget1.clicked.connect(self.meshPref)
+            self.meshWindow.meshListWidget2.clicked.connect(self.meshMuni)
 
             # show the dockwidget
             # TODO: fix to allow choice of dock location
@@ -736,3 +741,18 @@ class jpdata:
     def showMeshWindow(self):
         self.meshWindow.show()
 
+    def meshPref(self):
+        selectedItems = self.meshWindow.meshListWidget1.selectedItems()
+        for item in selectedItems:
+            rows = jpDataMuni.getMuniFromPrefName(str(item.text()))
+            self.meshWindow.meshListWidget2.clear()
+            for row in rows:
+                self.meshWindow.meshListWidget2.addItem(row['name_muni'])
+
+    def meshMuni(self):
+        selectedItems = self.meshWindow.meshListWidget2.selectedItems()
+        for item in selectedItems:
+            rows = jpDataMuni.getMesh3FromPrefName(str(item.text()))
+            self.meshWindow.meshListWidget3.clear()
+            for row in rows:
+                self.meshWindow.meshListWidget3.addItem(row['code_mesh3'])
