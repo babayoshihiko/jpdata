@@ -335,10 +335,12 @@ class jpdata:
             self.dockwidget.myLineEditSetting2.setToolTip(self.tr('User/Password are not stored'))
             self.dockwidget.myLineEditSetting3.setToolTip(self.tr('User/Password are not stored'))
 
-
+            self.dockwidget.myPushButtonTest.setText(self.tr('Test'))
             self.dockwidget.myPushButtonTest.clicked.connect(self.showMeshWindow)
 
             # Mesh Window
+            self.meshWindow.meshLabel1.setText(self.tr('Prefecture'))
+            self.meshWindow.meshLabel2.setText(self.tr('Municipality'))
             for code in range(1, 48):
                 self.meshWindow.meshListWidget1.addItem(jpDataUtils.getPrefNameByCode(code))
             self.meshWindow.meshListWidget1.clicked.connect(self.meshPref)
