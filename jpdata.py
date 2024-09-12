@@ -335,8 +335,9 @@ class jpdata:
             self.dockwidget.myLineEditSetting2.setToolTip(self.tr('User/Password are not stored'))
             self.dockwidget.myLineEditSetting3.setToolTip(self.tr('User/Password are not stored'))
 
-            self.dockwidget.myPushButtonTest.setText(self.tr('Test'))
-            self.dockwidget.myPushButtonTest.clicked.connect(self.showMeshWindow)
+            self.dockwidget.myPushButtonTest.hide()
+            # self.dockwidget.myPushButtonTest.setText(self.tr('Test'))
+            # self.dockwidget.myPushButtonTest.clicked.connect(self.showMeshWindow)
 
             # Mesh Window
             self.meshWindow.meshLabel1.setText(self.tr('Prefecture'))
@@ -616,17 +617,9 @@ class jpdata:
         if not os.path.exists(os.path.join(self._folderPath, subFolder)):
             os.mkdir(os.path.join(self._folderPath, subFolder))
 
-        _proxyServer = self.dockwidget.myLineEditSetting1.text()
-        if len(self._proxyServer) > 10:
-            self._proxyServer = _proxyServer
-            QgsSettings().setValue('jpdata/ProxyServer', self._proxyServer)
-            self._downloader.setProxyServer(self._proxyServer)
-            self._downloader.setProxyUser(self.dockwidget.myLineEditSetting2.text())
-            self._downloader.setProxyPassword(self.dockwidget.myLineEditSetting3.text())
-
         if not os.path.exists(os.path.join(self._folderPath, subFolder, zipFileName)):
+            self.setProxyServer()
             self.dockwidget.myLabelStatus.setText(self.tr('Downloading: ') + zipFileName)
-            #self.dockwidget.myLabelStatus.setText(self._downloader.getStatus())
             self._downloader.setUrl(url)
             self._downloader.setFilePath(os.path.join(self._folderPath, subFolder, zipFileName))
             self._downloader.start()

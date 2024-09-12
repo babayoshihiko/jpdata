@@ -20,22 +20,14 @@ class DownloadThread(QThread):
     def setProxyServer(self, proxy_server):
         if len(proxy_server) > 10:
             self.proxy_server = proxy_server
-            _proxy_server = self.proxy_server.replace('http://','')
-            self.status_message = 'http://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
         else:
             self.proxy_server = None
 
     def setProxyUser(self, proxy_user):
-        self.proxy_user = proxy_user
-        _proxy_server = self.proxy_server.replace('http://','')
-        self.status_message = 'http://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
- 
+        self.proxy_user = proxy_user.strip()
 
     def setProxyPassword(self, proxy_password):
-        self.proxy_password = proxy_password
-        _proxy_server = self.proxy_server.replace('http://','')
-        self.status_message = 'http://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
- 
+        self.proxy_password = proxy_password.strip()
 
     def setUrl(self, url):
         self.url = url
@@ -56,16 +48,17 @@ class DownloadThread(QThread):
         if self.proxy_server is not None:
             if self.proxy_server[:8] == 'https://':
                 _proxy_server = self.proxy_server.replace('https://','')
-                _proxy_server = 'https://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
-                proxies = {'https':_proxy_server}
             elif self.proxy_server[:7] == 'http://':
                 _proxy_server = self.proxy_server.replace('http://','')
-                _proxy_server = 'http://' + self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
-                proxies = {'http':_proxy_server}
-                os.environ['http_proxy'] = _proxy_server
+            
+            if proxy_user != '':
+                _proxy_server = self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
+            else:
+                _proxy_server = _proxy_server
+            proxies = {'http':'http://'+_proxy_server,'https':'https://'+_proxy_server}
 
         try:
-            with requests.get(self.url, stream=True, proxies = proxies) as r:
+            with requests.get(self.url, stream = True, proxies = proxies) as r:
                 r.raise_for_status()
                 total_length = r.headers.get('content-length')
 

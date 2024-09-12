@@ -82,6 +82,13 @@ https://www.soumu.go.jp/main_sosiki/jichi_gyousei/bunken/shitei_toshi-ichiran.ht
 
 # Version History
 
+## Version 0.6.3
+
+* UI update: from dialogue to dock
+* Supports proxy
+* Test button to get Mesh3 codes by prefecture/municipality
+* Many bugfixes
+
 ## Version 0.6.2
 
 * Enhanced LNI supports
@@ -106,7 +113,11 @@ Released in July 2024
 
 # Roadmap
 
-## Version 0.6.3
+* Mesh data from Land Numerical Information
+* Download census CSV data and table join
+* Kiban data from GeoSpatial Information Authority (GSI)
+* Digital Elevation Model data from GeoSpatial Information Authority (GSI) (QuickDEM4JP)
+* 3D City Model from Project PLATEAU
+* Ministry of Justice
+* Forestry Agency
 
-* UI update: from dialogue to dock
-* Supports proxy

@@ -22,6 +22,10 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+      0.6.3:
+        * UI update: from dialogue to dock
+        * Supports proxy
+        * Test button to get Mesh3 codes by prefecture/municipality
       0.6.2:
         * Enhanced LNI supports (See README)
         * Many bugfixes
