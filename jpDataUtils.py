@@ -234,12 +234,18 @@ def findShpFile2(folderPath, shp, altdir, code_pref, code_muni='', name_muni='')
         shpFile = os.path.join(folderPath, altDir, shpFileTarget)
     elif os.path.exists(os.path.join(folderPath, altDir + '\\' + shpFileTarget)):
         shpFile = os.path.join(folderPath, altDir + '\\' + shpFileTarget)
+
     return shpFile
 
 
 def unzipAndGetShp(folder_path, zip_file, shp_file, altdir='', code_pref='', code_muni='', name_muni='', epsg=''):
     shpFileName = findShpFile2(folder_path, shp_file, altdir, code_pref, code_muni, name_muni)
     if shpFileName is not None:
+        if not os.path.exists(shpFileName[:-4] + '.prj') and epsg != '':
+            crs = QgsCoordinateReferenceSystem(f'EPSG:{epsg}')
+            with open(shpFileName[:-4] + '.prj', 'w') as prj_file:
+                prj_file.write(crs.toWkt())
+
         return shpFileName
     else:
         zipFileName = zip_file.replace('code_pref', code_pref)
