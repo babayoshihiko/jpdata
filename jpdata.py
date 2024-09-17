@@ -24,6 +24,7 @@
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QUrl
 from qgis.PyQt.QtGui import QIcon, QDesktopServices
 from qgis.PyQt.QtWidgets import QAction
+
 # Initialize Qt resources from file resources.py
 from .resources import *
 
@@ -43,6 +44,7 @@ from . import jpDataCensus
 from . import jpDataLNI
 from .jpdata_mesh import jpdataMeshWidget
 
+
 class jpdata:
     """QGIS Plugin Implementation."""
 
@@ -61,11 +63,10 @@ class jpdata:
         self.plugin_dir = os.path.dirname(__file__)
 
         # initialize locale
-        locale = QSettings().value('locale/userLocale')[0:2]
+        locale = QSettings().value("locale/userLocale")[0:2]
         locale_path = os.path.join(
-            self.plugin_dir,
-            'i18n',
-            'jpdata_{}.qm'.format(locale))
+            self.plugin_dir, "i18n", "jpdata_{}.qm".format(locale)
+        )
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -74,25 +75,25 @@ class jpdata:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = self.tr(u'&jpdata')
+        self.menu = self.tr("&jpdata")
         # TODO: We are going to let the user set this up in a future iteration
-        self.toolbar = self.iface.addToolBar(u'jpdata')
-        self.toolbar.setObjectName(u'jpdata')
+        self.toolbar = self.iface.addToolBar("jpdata")
+        self.toolbar.setObjectName("jpdata")
 
-        #print "** INITIALIZING jpdata"
+        # print "** INITIALIZING jpdata"
 
         self.pluginIsActive = False
         self.dockwidget = None
-        
+
         # User defined
-        self._folderPath = QSettings().value('jpdata/FolderPath', '~')
-        self._proxyServer = QSettings().value('jpdata/ProxyServer', 'http://')
+        self._folderPath = QSettings().value("jpdata/FolderPath", "~")
+        self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
         self._LandNumInfo = jpDataUtils.getMapsFromCsv()
         self._GSI = jpDataUtils.getTilesFromCsv()
         # Create an action that triggers the folder chooser
-        self.action = QAction('Choose Folder', self.iface.mainWindow())
+        self.action = QAction("Choose Folder", self.iface.mainWindow())
         self.action.triggered.connect(self.chooseFolder)
-        
+
         self.meshWindow = jpdataMeshWidget()
 
     # noinspection PyMethodMayBeStatic
@@ -108,8 +109,7 @@ class jpdata:
         :rtype: QString
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
-        return QCoreApplication.translate('jpdata', message)
-
+        return QCoreApplication.translate("jpdata", message)
 
     def add_action(
         self,
@@ -121,7 +121,8 @@ class jpdata:
         add_to_toolbar=True,
         status_tip=None,
         whats_this=None,
-        parent=None):
+        parent=None,
+    ):
         """Add a toolbar icon to the toolbar.
 
         :param icon_path: Path to the icon for this action. Can be a resource
@@ -176,31 +177,29 @@ class jpdata:
             self.toolbar.addAction(action)
 
         if add_to_menu:
-            self.iface.addPluginToMenu(
-                self.menu,
-                action)
+            self.iface.addPluginToMenu(self.menu, action)
 
         self.actions.append(action)
 
         return action
 
-
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
         self.add_action(
-            os.path.join(self.plugin_dir, 'icon.png'),
-            text=self.tr(u'jpdata'),
+            os.path.join(self.plugin_dir, "icon.png"),
+            text=self.tr("jpdata"),
             callback=self.run,
             add_to_toolbar=False,
-            parent=self.iface.mainWindow())
+            parent=self.iface.mainWindow(),
+        )
 
-    #--------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
 
     def onClosePlugin(self):
         """Cleanup necessary items here when plugin dockwidget is closed"""
 
-        #print "** CLOSING jpdata"
+        # print "** CLOSING jpdata"
 
         # disconnects
         self.dockwidget.closingPlugin.disconnect(self.onClosePlugin)
@@ -213,21 +212,18 @@ class jpdata:
 
         self.pluginIsActive = False
 
-
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
 
-        #print "** UNLOAD jpdata"
+        # print "** UNLOAD jpdata"
 
         for action in self.actions:
-            self.iface.removePluginMenu(
-                self.tr(u'&jpdata'),
-                action)
+            self.iface.removePluginMenu(self.tr("&jpdata"), action)
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
         del self.toolbar
 
-    #--------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
 
     def run(self):
         """Run method that loads and starts the plugin"""
@@ -235,7 +231,7 @@ class jpdata:
         if not self.pluginIsActive:
             self.pluginIsActive = True
 
-            #print "** STARTING jpdata"
+            # print "** STARTING jpdata"
 
             # dockwidget may not exist if:
             #    first run of plugin
@@ -246,42 +242,46 @@ class jpdata:
 
             # connect to provide cleanup on closing of dockwidget
             self.dockwidget.closingPlugin.connect(self.onClosePlugin)
-            
-            
-            
+
             # User defined
             self._downloader = jpDataDownloader.DownloadThread()
             self._downloader.progress.connect(self.dockwidget.progressBar.setValue)
             self._downloader.finished.connect(self.download_finished)
 
-            self.dockwidget.myPushButton2.setText(self.tr('Choose Folder'))
-            self.dockwidget.myPushButton2.setToolTip(self.tr('Choose Folder'))
+            self.dockwidget.myPushButton2.setText(self.tr("Choose Folder"))
+            self.dockwidget.myPushButton2.setToolTip(self.tr("Choose Folder"))
             self.dockwidget.myPushButton2.clicked.connect(self.chooseFolder)
 
-            self.dockwidget.myLabelStatus.setText('')
+            self.dockwidget.myLabelStatus.setText("")
 
             # Set Tab 1
-            self.dockwidget.myTabWidget.setTabText(0, self.tr('LandNumInfo'))
-            self.dockwidget.myPushButton11.setText(self.tr('Download'))
-            self.dockwidget.myPushButton11.setToolTip(self.tr('Download Land Numerical Information data'))
+            self.dockwidget.myTabWidget.setTabText(0, self.tr("LandNumInfo"))
+            self.dockwidget.myPushButton11.setText(self.tr("Download"))
+            self.dockwidget.myPushButton11.setToolTip(
+                self.tr("Download Land Numerical Information data")
+            )
             self.dockwidget.myPushButton11.clicked.connect(self.tab1DownloadAll)
-            self.dockwidget.myPushButton14.setText(self.tr('Add to Map'))
-            self.dockwidget.myPushButton14.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
+            self.dockwidget.myPushButton14.setText(self.tr("Add to Map"))
+            self.dockwidget.myPushButton14.setToolTip(
+                self.tr("Add Shapefile as a Layer to Map on QGIS")
+            )
             self.dockwidget.myPushButton14.clicked.connect(self.tab1AddMap)
-            self.dockwidget.myPushButton15.setText(self.tr('Web'))
-            self.dockwidget.myPushButton15.setToolTip(self.tr('Open the webpage with the standard browser'))
+            self.dockwidget.myPushButton15.setText(self.tr("Web"))
+            self.dockwidget.myPushButton15.setToolTip(
+                self.tr("Open the webpage with the standard browser")
+            )
             self.dockwidget.myPushButton15.clicked.connect(self.tab1Web)
             for row in self._LandNumInfo:
-                item = QListWidgetItem(row['name_j'])
-                if (row['availability'] != 'yes'):
+                item = QListWidgetItem(row["name_j"])
+                if row["availability"] != "yes":
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                     item.setForeground(Qt.gray)
                 self.dockwidget.myListWidget11.addItem(item)
             self.tab1CheckPrefsOrRegions()
             # Users cannot choose multiple maps
-            #self.dockwidget.myListWidget11.setSelectionMode(
+            # self.dockwidget.myListWidget11.setSelectionMode(
             #    QAbstractItemView.ExtendedSelection
-            #)
+            # )
             self.dockwidget.myListWidget11.clicked.connect(self.tab1CheckPrefsOrRegions)
             self.dockwidget.myListWidget12.clicked.connect(self.tab1CheckYear)
             self.myListWidget12_is_all_prefs = False
@@ -291,26 +291,32 @@ class jpdata:
             )
 
             # Set Tab 2
-            self.dockwidget.myTabWidget.setTabText(1, self.tr('GSI Tiles'))
-            self.dockwidget.myPushButton25.setText(self.tr('Add to Map'))
-            self.dockwidget.myPushButton25.setToolTip(self.tr('Add GSI xyz tile server to Map on QGIS'))
+            self.dockwidget.myTabWidget.setTabText(1, self.tr("GSI Tiles"))
+            self.dockwidget.myPushButton25.setText(self.tr("Add to Map"))
+            self.dockwidget.myPushButton25.setToolTip(
+                self.tr("Add GSI xyz tile server to Map on QGIS")
+            )
             self.dockwidget.myPushButton25.clicked.connect(self.addTile)
             for row in self._GSI:
-                self.dockwidget.myListWidget23.addItem(row['name_j'])
+                self.dockwidget.myListWidget23.addItem(row["name_j"])
 
             # Set Tab 3
-            self.dockwidget.myTabWidget.setTabText(2, self.tr('Census'))
-            self.dockwidget.myLabel31.setText(self.tr('Year'))
-            self.dockwidget.myComboBox31.addItem('2020')
-            self.dockwidget.myComboBox31.addItem('2015')
-            self.dockwidget.myComboBox31.addItem('2010')
-            self.dockwidget.myComboBox31.addItem('2005')
-            self.dockwidget.myComboBox31.addItem('2000')
-            self.dockwidget.myPushButton31.setText(self.tr('Download'))
-            self.dockwidget.myPushButton31.setToolTip(self.tr('Download census data by city'))
+            self.dockwidget.myTabWidget.setTabText(2, self.tr("Census"))
+            self.dockwidget.myLabel31.setText(self.tr("Year"))
+            self.dockwidget.myComboBox31.addItem("2020")
+            self.dockwidget.myComboBox31.addItem("2015")
+            self.dockwidget.myComboBox31.addItem("2010")
+            self.dockwidget.myComboBox31.addItem("2005")
+            self.dockwidget.myComboBox31.addItem("2000")
+            self.dockwidget.myPushButton31.setText(self.tr("Download"))
+            self.dockwidget.myPushButton31.setToolTip(
+                self.tr("Download census data by city")
+            )
             self.dockwidget.myPushButton31.clicked.connect(self.tab3DownloadAll)
-            self.dockwidget.myPushButton32.setText(self.tr('Add to Map'))
-            self.dockwidget.myPushButton32.setToolTip(self.tr('Add Shapefile as a Layer to Map on QGIS'))
+            self.dockwidget.myPushButton32.setText(self.tr("Add to Map"))
+            self.dockwidget.myPushButton32.setToolTip(
+                self.tr("Add Shapefile as a Layer to Map on QGIS")
+            )
             self.dockwidget.myPushButton32.clicked.connect(self.tab3AddMap)
             self.dockwidget.myListWidget31.itemClicked.connect(self.tab3SelectPref)
             self.dockwidget.myListWidget32.setSelectionMode(
@@ -318,32 +324,42 @@ class jpdata:
             )
 
             for code in range(1, 48):
-                self.dockwidget.myListWidget31.addItem(jpDataUtils.getPrefNameByCode(code))
+                self.dockwidget.myListWidget31.addItem(
+                    jpDataUtils.getPrefNameByCode(code)
+                )
 
             # Tab Setting
-            self.dockwidget.myTabWidget.setTabText(3, self.tr('Setting'))
+            self.dockwidget.myTabWidget.setTabText(3, self.tr("Setting"))
             self.dockwidget.myLineEditSetting1.textEdited.connect(self.setProxyServer)
             self.dockwidget.myLineEditSetting2.textEdited.connect(self.setProxyServer)
             self.dockwidget.myLineEditSetting3.textEdited.connect(self.setProxyServer)
             if self._folderPath:
                 self.dockwidget.myLabel1.setText(self._folderPath)
             else:
-                self.dockwidget.myLabel1.setText(self.tr('Choose folder for zip/shp files'))
+                self.dockwidget.myLabel1.setText(
+                    self.tr("Choose folder for zip/shp files")
+                )
                 self.dockwidget.myTabWidget.setCurrentIndex(3)
             if self._proxyServer:
                 self.dockwidget.myLineEditSetting1.setText(self._proxyServer)
-            self.dockwidget.myLineEditSetting2.setToolTip(self.tr('User/Password are not stored'))
-            self.dockwidget.myLineEditSetting3.setToolTip(self.tr('User/Password are not stored'))
+            self.dockwidget.myLineEditSetting2.setToolTip(
+                self.tr("User/Password are not stored")
+            )
+            self.dockwidget.myLineEditSetting3.setToolTip(
+                self.tr("User/Password are not stored")
+            )
 
-            self.dockwidget.myPushButtonTest.hide()
-            # self.dockwidget.myPushButtonTest.setText(self.tr('Test'))
-            # self.dockwidget.myPushButtonTest.clicked.connect(self.showMeshWindow)
+            # self.dockwidget.myPushButtonTest.hide()
+            self.dockwidget.myPushButtonTest.setText(self.tr("Test"))
+            self.dockwidget.myPushButtonTest.clicked.connect(self.showMeshWindow)
 
             # Mesh Window
-            self.meshWindow.meshLabel1.setText(self.tr('Prefecture'))
-            self.meshWindow.meshLabel2.setText(self.tr('Municipality'))
+            self.meshWindow.meshLabel1.setText(self.tr("Prefecture"))
+            self.meshWindow.meshLabel2.setText(self.tr("Municipality"))
             for code in range(1, 48):
-                self.meshWindow.meshListWidget1.addItem(jpDataUtils.getPrefNameByCode(code))
+                self.meshWindow.meshListWidget1.addItem(
+                    jpDataUtils.getPrefNameByCode(code)
+                )
             self.meshWindow.meshListWidget1.clicked.connect(self.meshPref)
             self.meshWindow.meshListWidget2.clicked.connect(self.meshMuni)
             self.meshWindow.setWindowFlags(Qt.WindowStaysOnTopHint)
@@ -353,38 +369,27 @@ class jpdata:
             self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
             self.dockwidget.show()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     def addTile(self):
         selected_items = self.dockwidget.myListWidget23.selectedItems()
 
         for current_gsi in self._GSI:
-            if current_gsi['name_j'] == str(selected_items[0].text()):
-                tile_name = current_gsi['name_j']
-                tile_url = current_gsi['url']
-                zoom_min = current_gsi['zoom_min']
-                zoom_max = current_gsi['zoom_max']
+            if current_gsi["name_j"] == str(selected_items[0].text()):
+                tile_name = current_gsi["name_j"]
+                tile_url = current_gsi["url"]
+                zoom_min = current_gsi["zoom_min"]
+                zoom_max = current_gsi["zoom_max"]
                 break
 
-        tile_url = 'type=xyz&url=' + tile_url + '&zmax=' + zoom_max + '&zmin=' + zoom_min + '&crs=EPSG3857'
-        layer = QgsRasterLayer(
-            tile_url,
-            tile_name, 'wms')
+        tile_url = (
+            "type=xyz&url="
+            + tile_url
+            + "&zmax="
+            + zoom_max
+            + "&zmin="
+            + zoom_min
+            + "&crs=EPSG3857"
+        )
+        layer = QgsRasterLayer(tile_url, tile_name, "wms")
         if not layer.isValid():
             return
         QgsProject.instance().addMapLayer(layer)
@@ -394,51 +399,67 @@ class jpdata:
         items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dockwidget.myListWidget11.selectedItems()[i].text()) == item['name_j']:
-                    if item['type_muni'].lower() == 'regional':
+                if (
+                    str(self.dockwidget.myListWidget11.selectedItems()[i].text())
+                    == item["name_j"]
+                ):
+                    if item["type_muni"].lower() == "regional":
                         if not self.myListWidget12_is_all_prefs:
                             self.dockwidget.myListWidget12.clear()
                         self.myListWidget12_is_all_prefs = True
-                        names_pref = jpDataLNI.getPrefsOrRegionsByMapCode(item['code_map'])
+                        names_pref = jpDataLNI.getPrefsOrRegionsByMapCode(
+                            item["code_map"]
+                        )
                         for name_pref in names_pref:
                             self.dockwidget.myListWidget12.addItem(name_pref)
-                    elif item['type_muni'].lower() == 'single':
+                    elif item["type_muni"].lower() == "single":
                         self.myListWidget12_is_all_prefs = False
                         self.dockwidget.myListWidget12.clear()
-                        self.dockwidget.myListWidget12.addItem(self.tr('Nation-wide'))
+                        self.dockwidget.myListWidget12.addItem(self.tr("Nation-wide"))
                     else:
                         self.myListWidget12_is_all_prefs = False
                         self.dockwidget.myListWidget12.clear()
                         for code_pref in range(1, 48):
-                            self.dockwidget.myListWidget12.addItem(jpDataUtils.getPrefNameByCode(code_pref))
+                            self.dockwidget.myListWidget12.addItem(
+                                jpDataUtils.getPrefNameByCode(code_pref)
+                            )
 
     def tab1CheckYear(self):
         items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dockwidget.myListWidget11.selectedItems()[i].text()) == item['name_j']:
+                if (
+                    str(self.dockwidget.myListWidget11.selectedItems()[i].text())
+                    == item["name_j"]
+                ):
                     self.dockwidget.myComboBox11.clear()
-                    if item['year'].lower() != 'csv':
-                        self.dockwidget.myListWidget12.setSelectionMode(QAbstractItemView.ExtendedSelection)
-                        self.dockwidget.myComboBox11.addItem(item['year'])
+                    if item["year"].lower() != "csv":
+                        self.dockwidget.myListWidget12.setSelectionMode(
+                            QAbstractItemView.ExtendedSelection
+                        )
+                        self.dockwidget.myComboBox11.addItem(item["year"])
                     else:
                         if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-                            name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
+                            name_pref = self.dockwidget.myListWidget12.selectedItems()[
+                                0
+                            ].text()
                         else:
                             name_pref = None
-                        self.dockwidget.myListWidget12.setSelectionMode(QAbstractItemView.SingleSelection)
-                        years = jpDataLNI.getYearsByMapCode(item['code_map'], name_pref)
+                        self.dockwidget.myListWidget12.setSelectionMode(
+                            QAbstractItemView.SingleSelection
+                        )
+                        years = jpDataLNI.getYearsByMapCode(item["code_map"], name_pref)
                         for year in years:
                             self.dockwidget.myComboBox11.addItem(year)
 
     def tab1DownloadAll(self):
         self.dockwidget.progressBar.setValue(0)
-        if self.dockwidget.myPushButton11.text() == self.tr('Cancel'):
-            self.dockwidget.myPushButton11.setText(self.tr('Download'))
+        if self.dockwidget.myPushButton11.text() == self.tr("Cancel"):
+            self.dockwidget.myPushButton11.setText(self.tr("Download"))
             self.cancel_download()
             return
 
-        self.dockwidget.myPushButton11.setText(self.tr('Cancel'))
+        self.dockwidget.myPushButton11.setText(self.tr("Cancel"))
         self.dockwidget.myPushButton14.setEnabled(False)
 
         items = self.dockwidget.myListWidget11.selectedItems()
@@ -453,35 +474,52 @@ class jpdata:
 
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dockwidget.myListWidget11.selectedItems()[i].text()) == item['name_j']:
-                    if item['type_muni'] != 'single':
+                if (
+                    str(self.dockwidget.myListWidget11.selectedItems()[i].text())
+                    == item["name_j"]
+                ):
+                    if item["type_muni"] != "single":
                         for x in range(len(pref_code)):
-                            if self.dockwidget.myPushButton11.text() == self.tr('Cancel'):
+                            if self.dockwidget.myPushButton11.text() == self.tr(
+                                "Cancel"
+                            ):
                                 # For the LNIs with specific pref/year combinations
-                                #if item['code_map'] == 'W05':
+                                # if item['code_map'] == 'W05':
                                 #    y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
                                 #    tempUrl = y['url']
                                 #    tempZipFileName = y['zip']
-                                if item['type_muni'].lower() == 'regional':
-                                    year = str(self.dockwidget.myComboBox11.currentText())
-                                    y = jpDataLNI.getUrlCodeZipByPrefName(item['code_map'], str(pref_name[x].text()), year)
-                                    tempUrl = y['url']
-                                    tempZipFileName = y['zip']
+                                if item["type_muni"].lower() == "regional":
+                                    year = str(
+                                        self.dockwidget.myComboBox11.currentText()
+                                    )
+                                    y = jpDataLNI.getUrlCodeZipByPrefName(
+                                        item["code_map"], str(pref_name[x].text()), year
+                                    )
+                                    tempUrl = y["url"]
+                                    tempZipFileName = y["zip"]
                                     ## self.dockwidget.myLabelStatus.setText(item['code_map'] + str(pref_name[x].text()) + y['zip']) ##
                                 else:
-                                    tempUrl = item['url'].replace('code_pref', pref_code[x])
-                                    tempZipFileName = item['zip'].replace('code_pref', pref_code[x])
-                                self.start_download(tempUrl, item['code_map'], tempZipFileName)
+                                    tempUrl = item["url"].replace(
+                                        "code_pref", pref_code[x]
+                                    )
+                                    tempZipFileName = item["zip"].replace(
+                                        "code_pref", pref_code[x]
+                                    )
+                                self.start_download(
+                                    tempUrl, item["code_map"], tempZipFileName
+                                )
                             else:
                                 break
                         break
                     else:
                         # The single .shp file covers the whole nation
                         # So, download only once.
-                        if self.dockwidget.myPushButton11.text() == self.tr('Cancel'):
-                            tempUrl = item['url']
-                            tempZipFileName = item['zip']
-                            self.start_download(tempUrl, item['code_map'], tempZipFileName)
+                        if self.dockwidget.myPushButton11.text() == self.tr("Cancel"):
+                            tempUrl = item["url"]
+                            tempZipFileName = item["zip"]
+                            self.start_download(
+                                tempUrl, item["code_map"], tempZipFileName
+                            )
                         else:
                             break
 
@@ -489,8 +527,11 @@ class jpdata:
         items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dockwidget.myListWidget11.selectedItems()[i].text()) == item['name_j']:
-                    url = QUrl(item['source'])
+                if (
+                    str(self.dockwidget.myListWidget11.selectedItems()[i].text())
+                    == item["name_j"]
+                ):
+                    url = QUrl(item["source"])
                     QDesktopServices.openUrl(url)
 
     def tab1AddMap(self):
@@ -506,109 +547,132 @@ class jpdata:
 
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if str(self.dockwidget.myListWidget11.selectedItems()[i].text()) == item['name_j']:
-                    if item['type_muni'] == 'single':
+                if (
+                    str(self.dockwidget.myListWidget11.selectedItems()[i].text())
+                    == item["name_j"]
+                ):
+                    if item["type_muni"] == "single":
                         seleted_prefs = [0]
                     else:
                         seleted_prefs = range(len(pref_code))
 
                     for x in seleted_prefs:
                         # For the LNIs with specific pref/year combinations
-                        #if item['code_map'] == 'W05':
+                        # if item['code_map'] == 'W05':
                         #    y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
                         #    item['zip'] = y['zip']
                         #    item['shp'] = y['shp']
                         #    item['altdir'] = y['altdir']
-                        if item['type_muni'].lower() == 'regional':
+                        if item["type_muni"].lower() == "regional":
                             year = self.dockwidget.myComboBox11.currentText()
-                            y = jpDataLNI.getUrlCodeZipByPrefName(item['code_map'], str(pref_name[x].text()), year)
-                            tempShpFileName = jpDataUtils.unzipAndGetShp(
-                                os.path.join(self._folderPath, item['code_map']),
-                                y['zip'],
-                                y['shp'],
-                                y['altdir'],
-                                '',
-                                epsg=item['epsg']
+                            y = jpDataLNI.getUrlCodeZipByPrefName(
+                                item["code_map"], str(pref_name[x].text()), year
                             )
-                        elif item['type_muni'].lower() == 'single':
+                            tempShpFileName = jpDataUtils.unzipAndGetShp(
+                                os.path.join(self._folderPath, item["code_map"]),
+                                y["zip"],
+                                y["shp"],
+                                y["altdir"],
+                                "",
+                                epsg=item["epsg"],
+                            )
+                        elif item["type_muni"].lower() == "single":
                             # The single .shp file covers the whole nation
                             tempShpFileName = jpDataUtils.unzipAndGetShp(
-                                os.path.join(self._folderPath, item['code_map']),
-                                item['zip'],
-                                item['shp'],
-                                item['altdir'],
-                                '',
-                                epsg=item['epsg']
+                                os.path.join(self._folderPath, item["code_map"]),
+                                item["zip"],
+                                item["shp"],
+                                item["altdir"],
+                                "",
+                                epsg=item["epsg"],
                             )
                         else:
                             tempShpFileName = jpDataUtils.unzipAndGetShp(
-                                os.path.join(self._folderPath, item['code_map']),
-                                item['zip'],
-                                item['shp'],
-                                item['altdir'],
+                                os.path.join(self._folderPath, item["code_map"]),
+                                item["zip"],
+                                item["shp"],
+                                item["altdir"],
                                 pref_code[x],
-                                epsg=item['epsg']
+                                epsg=item["epsg"],
                             )
 
                         if tempShpFileName is None:
-                            if item['type_muni'] == 'single':
+                            if item["type_muni"] == "single":
                                 self.dockwidget.myLabelStatus.setText(
-                                    self.tr('Cannot find the .shp file: ') + item['shp']
+                                    self.tr("Cannot find the .shp file: ") + item["shp"]
                                 )
                                 self.iface.messageBar().pushMessage(
-                                    'Error',
-                                    'Cannot find the .shp file: ' + item['shp'],
-                                    1, duration=10
+                                    "Error",
+                                    "Cannot find the .shp file: " + item["shp"],
+                                    1,
+                                    duration=10,
                                 )
                                 tempShpFileName, ok = QFileDialog.getOpenFileName(
                                     self.iface.mainWindow(),
-                                    'Select a File',
-                                    self._folderPath + '/' + item['code_map'],
-                                    'ESRI Shapefile (*.shp)'
+                                    "Select a File",
+                                    self._folderPath + "/" + item["code_map"],
+                                    "ESRI Shapefile (*.shp)",
                                 )
                             else:
                                 self.dockwidget.myLabelStatus.setText(
-                                    self.tr('Cannot find the .shp file: ') + item['shp'].replace('code_pref', pref_code[x])
+                                    self.tr("Cannot find the .shp file: ")
+                                    + item["shp"].replace("code_pref", pref_code[x])
                                 )
                                 self.iface.messageBar().pushMessage(
-                                    'Error',
-                                    'Cannot find the .shp file: ' + item['shp'].replace('code_pref', pref_code[x]),
-                                    1, duration=10
+                                    "Error",
+                                    "Cannot find the .shp file: "
+                                    + item["shp"].replace("code_pref", pref_code[x]),
+                                    1,
+                                    duration=10,
                                 )
                                 tempShpFileName, ok = QFileDialog.getOpenFileName(
                                     self.iface.mainWindow(),
-                                    'Select a File',
-                                    self._folderPath + '/' + item['code_map'],
-                                    'ESRI Shapefile (*.shp)'
+                                    "Select a File",
+                                    self._folderPath + "/" + item["code_map"],
+                                    "ESRI Shapefile (*.shp)",
                                 )
 
-                        if tempShpFileName != '':
-                            if item['type_muni'] == 'single':
+                        if tempShpFileName != "":
+                            if item["type_muni"] == "single":
                                 tempLayer = QgsVectorLayer(
-                                    tempShpFileName,
-                                    item['name_j'],
-                                    'ogr'
+                                    tempShpFileName, item["name_j"], "ogr"
                                 )
                             else:
                                 tempLayer = QgsVectorLayer(
                                     tempShpFileName,
-                                    item['name_j'] + ' (' + str(pref_name[x].text()) + ')',
-                                    'ogr'
+                                    item["name_j"]
+                                    + " ("
+                                    + str(pref_name[x].text())
+                                    + ")",
+                                    "ogr",
                                 )
 
-                            tempLayer.setProviderEncoding(item['encoding'])
+                            tempLayer.setProviderEncoding(item["encoding"])
                             if not os.path.exists(tempShpFileName[:-4] + ".qix"):
                                 tempLayer.dataProvider().createSpatialIndex()
 
-                            if os.path.isfile(os.path.join(self.plugin_dir, 'qml', item['qml'])):
+                            if os.path.isfile(
+                                os.path.join(self.plugin_dir, "qml", item["qml"])
+                            ):
                                 # For the qml files that use SVG images in the plugin folder
                                 with tempfile.TemporaryDirectory() as temp_dir:
-                                    with open(os.path.join(self.plugin_dir, 'qml', item['qml']), 'r') as file:
+                                    with open(
+                                        os.path.join(
+                                            self.plugin_dir, "qml", item["qml"]
+                                        ),
+                                        "r",
+                                    ) as file:
                                         file_contents = file.read()
-                                    new_contents = file_contents.replace('PLUGIN_DIR', self.plugin_dir)
-                                    with open(os.path.join(temp_dir, item['qml']), 'w') as file:
+                                    new_contents = file_contents.replace(
+                                        "PLUGIN_DIR", self.plugin_dir
+                                    )
+                                    with open(
+                                        os.path.join(temp_dir, item["qml"]), "w"
+                                    ) as file:
                                         file.write(new_contents)
-                                    if tempLayer.loadNamedStyle(os.path.join(temp_dir, item['qml'])):
+                                    if tempLayer.loadNamedStyle(
+                                        os.path.join(temp_dir, item["qml"])
+                                    ):
                                         tempLayer.triggerRepaint()
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
@@ -619,23 +683,29 @@ class jpdata:
 
         if not os.path.exists(os.path.join(self._folderPath, subFolder, zipFileName)):
             self.setProxyServer()
-            self.dockwidget.myLabelStatus.setText(self.tr('Downloading: ') + zipFileName)
+            self.dockwidget.myLabelStatus.setText(
+                self.tr("Downloading: ") + zipFileName
+            )
             self._downloader.setUrl(url)
-            self._downloader.setFilePath(os.path.join(self._folderPath, subFolder, zipFileName))
+            self._downloader.setFilePath(
+                os.path.join(self._folderPath, subFolder, zipFileName)
+            )
             self._downloader.start()
         else:
-            self.dockwidget.myLabelStatus.setText(self.tr('The zip file exists: ') + zipFileName)
-            self.dockwidget.myPushButton11.setText(self.tr('Download'))
-            self.dockwidget.myPushButton31.setText(self.tr('Download'))
+            self.dockwidget.myLabelStatus.setText(
+                self.tr("The zip file exists: ") + zipFileName
+            )
+            self.dockwidget.myPushButton11.setText(self.tr("Download"))
+            self.dockwidget.myPushButton31.setText(self.tr("Download"))
             self.dockwidget.myPushButton14.setEnabled(True)
             self.dockwidget.myPushButton32.setEnabled(True)
 
     def download_finished(self, success):
         current_text = self.dockwidget.myLabelStatus.text()
-        self.dockwidget.myLabelStatus.setText(current_text + self.tr('...Done'))
+        self.dockwidget.myLabelStatus.setText(current_text + self.tr("...Done"))
         # self.dockwidget.myLabelStatus.setText(self._downloader.getStatus())
-        self.dockwidget.myPushButton11.setText(self.tr('Download'))
-        self.dockwidget.myPushButton31.setText(self.tr('Download'))
+        self.dockwidget.myPushButton11.setText(self.tr("Download"))
+        self.dockwidget.myPushButton31.setText(self.tr("Download"))
         self.dockwidget.progressBar.setValue(100)
         self.dockwidget.myPushButton14.setEnabled(True)
         self.dockwidget.myPushButton32.setEnabled(True)
@@ -643,7 +713,9 @@ class jpdata:
     def cancel_download(self):
         if self._downloader is not None:
             current_text = self.dockwidget.myLabelStatus.text()
-            self.dockwidget.myLabelStatus.setText(current_text + self.tr('...Cancelled'))
+            self.dockwidget.myLabelStatus.setText(
+                current_text + self.tr("...Cancelled")
+            )
             self._downloader.stop()
         else:
             self._downloader = jpDataDownloader.DownloadThread()
@@ -656,16 +728,16 @@ class jpdata:
             rows = jpDataMuni.getMuniFromPrefName(str(item.text()))
             self.dockwidget.myListWidget32.clear()
             for row in rows:
-                self.dockwidget.myListWidget32.addItem(row['name_muni'])
+                self.dockwidget.myListWidget32.addItem(row["name_muni"])
 
     def tab3DownloadAll(self):
         self.dockwidget.progressBar.setValue(0)
-        if self.dockwidget.myPushButton31.text() == self.tr('Cancel'):
-            self.dockwidget.myPushButton31.setText(self.tr('Download'))
+        if self.dockwidget.myPushButton31.text() == self.tr("Cancel"):
+            self.dockwidget.myPushButton31.setText(self.tr("Download"))
             self.cancel_download()
             return
 
-        self.dockwidget.myPushButton31.setText(self.tr('Cancel'))
+        self.dockwidget.myPushButton31.setText(self.tr("Cancel"))
         self.dockwidget.myPushButton32.setEnabled(False)
 
         year = str(self.dockwidget.myComboBox31.currentText())
@@ -674,10 +746,12 @@ class jpdata:
 
         for muni_name in muni_names:
             row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
-            tempUrl = jpDataCensus.getUrl(year, row['code_pref'], row['code_muni'])
-            tempZipFileName = jpDataCensus.getZipFileName(year, row['code_pref'], row['code_muni'])
-            if self.dockwidget.myPushButton31.text() == self.tr('Cancel'):
-                self.start_download(tempUrl, 'Census', tempZipFileName)
+            tempUrl = jpDataCensus.getUrl(year, row["code_pref"], row["code_muni"])
+            tempZipFileName = jpDataCensus.getZipFileName(
+                year, row["code_pref"], row["code_muni"]
+            )
+            if self.dockwidget.myPushButton31.text() == self.tr("Cancel"):
+                self.start_download(tempUrl, "Census", tempZipFileName)
             else:
                 break
 
@@ -688,61 +762,66 @@ class jpdata:
 
         for muni_name in muni_names:
             row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
-            tempZipFileName = jpDataCensus.getZipFileName(year, row['code_pref'], row['code_muni'])
-            tempShpFileName = jpDataCensus.getShpFileName(year, row['code_pref'], row['code_muni'])
+            tempZipFileName = jpDataCensus.getZipFileName(
+                year, row["code_pref"], row["code_muni"]
+            )
+            tempShpFileName = jpDataCensus.getShpFileName(
+                year, row["code_pref"], row["code_muni"]
+            )
             tempShpFileName = jpDataUtils.unzipAndGetShp(
-                os.path.join(self._folderPath, 'Census'),
+                os.path.join(self._folderPath, "Census"),
                 tempZipFileName,
-                tempShpFileName
+                tempShpFileName,
             )
 
             if tempShpFileName is None:
                 tempShpFileName, ok = QFileDialog.getOpenFileName(
                     self.iface.mainWindow(),
-                    self.tr('Select a shp file'),
-                    os.path.join(self._folderPath, 'Census'),
-                    'ESRI Shapefile (*.shp)'
+                    self.tr("Select a shp file"),
+                    os.path.join(self._folderPath, "Census"),
+                    "ESRI Shapefile (*.shp)",
                 )
 
-            if tempShpFileName != '':
+            if tempShpFileName != "":
                 tempLayer = QgsVectorLayer(
-                    tempShpFileName,
-                    row['name_muni'] + ' (' + year + ')',
-                    'ogr'
+                    tempShpFileName, row["name_muni"] + " (" + year + ")", "ogr"
                 )
-                tempLayer.setProviderEncoding('CP932')
-                if not os.path.exists(tempShpFileName[:-4] + '.qix'):
+                tempLayer.setProviderEncoding("CP932")
+                if not os.path.exists(tempShpFileName[:-4] + ".qix"):
                     tempLayer.dataProvider().createSpatialIndex()
 
-                if os.path.exists(os.path.join(self.plugin_dir, 'qml', 'Census.qml')):
-                    if tempLayer.loadNamedStyle(os.path.join(self.plugin_dir, 'qml', 'Census.qml')):
+                if os.path.exists(os.path.join(self.plugin_dir, "qml", "Census.qml")):
+                    if tempLayer.loadNamedStyle(
+                        os.path.join(self.plugin_dir, "qml", "Census.qml")
+                    ):
                         tempLayer.triggerRepaint()
                 QgsProject.instance().addMapLayer(tempLayer)
 
     def chooseFolder(self):
         # Open a folder dialog to choose a folder
         self._folderPath = QFileDialog.getExistingDirectory(
-            self.iface.mainWindow(),
-            self.tr('Choose Folder')
+            self.iface.mainWindow(), self.tr("Choose Folder")
         )
         if not os.access(self._folderPath, os.W_OK):
-            self.dockwidget.myLabelStatus.setText(self.tr('The folder is not writable.'))
+            self.dockwidget.myLabelStatus.setText(
+                self.tr("The folder is not writable.")
+            )
 
         if self._folderPath:
             self.dockwidget.myLabel1.setText(self._folderPath)
             s = QgsSettings()
-            s.setValue('jpdata/FolderPath', self._folderPath)
+            s.setValue("jpdata/FolderPath", self._folderPath)
 
     def setProxyServer(self):
         _proxyServer = self.dockwidget.myLineEditSetting1.text()
         if len(_proxyServer) > 10:
             self._proxyServer = _proxyServer
-            QgsSettings().setValue('jpdata/ProxyServer', self._proxyServer)
+            QgsSettings().setValue("jpdata/ProxyServer", self._proxyServer)
             self._downloader.setProxyServer(self._proxyServer)
             self._downloader.setProxyUser(self.dockwidget.myLineEditSetting2.text())
             self._downloader.setProxyPassword(self.dockwidget.myLineEditSetting3.text())
         else:
-            QgsSettings().setValue('jpdata/ProxyServer', 'http://')
+            QgsSettings().setValue("jpdata/ProxyServer", "http://")
 
     def showMeshWindow(self):
         self.meshWindow.show()
@@ -753,7 +832,7 @@ class jpdata:
             rows = jpDataMuni.getMuniFromPrefName(str(item.text()))
             self.meshWindow.meshListWidget2.clear()
             for row in rows:
-                self.meshWindow.meshListWidget2.addItem(row['name_muni'])
+                self.meshWindow.meshListWidget2.addItem(row["name_muni"])
 
     def meshMuni(self):
         selectedItems = self.meshWindow.meshListWidget2.selectedItems()
@@ -761,4 +840,4 @@ class jpdata:
             rows = jpDataMuni.getMesh3FromPrefName(str(item.text()))
             self.meshWindow.meshListWidget3.clear()
             for row in rows:
-                self.meshWindow.meshListWidget3.addItem(row['code_mesh3'])
+                self.meshWindow.meshListWidget3.addItem(row["code_mesh3"])
