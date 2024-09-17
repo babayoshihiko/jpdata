@@ -13,9 +13,9 @@ class DownloadThread(QThread):
         QThread.__init__(self)
         self._is_running = True
         self.proxy_server = None
-        self.proxy_user = ''
-        self.proxy_password = ''
-        self.status_message = ''
+        self.proxy_user = ""
+        self.proxy_password = ""
+        self.status_message = ""
 
     def setProxyServer(self, proxy_server):
         if len(proxy_server) > 10:
@@ -34,7 +34,7 @@ class DownloadThread(QThread):
 
     def setFilePath(self, file_path):
         self.file_path = file_path
-    
+
     def setStatus(self, status_message):
         self.status_message = status_message
 
@@ -46,23 +46,28 @@ class DownloadThread(QThread):
         if self.url is None or self.file_path is None:
             return
         if self.proxy_server is not None:
-            if self.proxy_server[:8] == 'https://':
-                _proxy_server = self.proxy_server.replace('https://','')
-            elif self.proxy_server[:7] == 'http://':
-                _proxy_server = self.proxy_server.replace('http://','')
-            
-            if proxy_user != '':
-                _proxy_server = self.proxy_user + ':' + self.proxy_password + '@' + _proxy_server
+            if self.proxy_server[:8] == "https://":
+                _proxy_server = self.proxy_server.replace("https://", "")
+            elif self.proxy_server[:7] == "http://":
+                _proxy_server = self.proxy_server.replace("http://", "")
+
+            if proxy_user != "":
+                _proxy_server = (
+                    self.proxy_user + ":" + self.proxy_password + "@" + _proxy_server
+                )
             else:
                 _proxy_server = _proxy_server
-            proxies = {'http':'http://'+_proxy_server,'https':'https://'+_proxy_server}
+            proxies = {
+                "http": "http://" + _proxy_server,
+                "https": "https://" + _proxy_server,
+            }
 
         try:
-            with requests.get(self.url, stream = True, proxies = proxies) as r:
+            with requests.get(self.url, stream=True, proxies=proxies) as r:
                 r.raise_for_status()
-                total_length = r.headers.get('content-length')
+                total_length = r.headers.get("content-length")
 
-                with open(self.file_path, 'wb') as f:
+                with open(self.file_path, "wb") as f:
                     if total_length is None:  # no content length header
                         f.write(r.content)
                     else:
@@ -83,29 +88,35 @@ class DownloadThread(QThread):
             self.finished.emit(False)
 
     def stop(self):
-        self.setStatus('Download cancelled and removed: ' + self.file_path)
+        self.setStatus("Download cancelled and removed: " + self.file_path)
         self._is_running = False
         self.remove()
-    
+
     def remove(self):
         if os.path.exists(self.file_path):
             os.remove(self.file_path)
 
     def checkStatus(self):
         if self.file_path is None:
-            self.setStatus('The zipfile has not been defined.')
+            self.setStatus("The zipfile has not been defined.")
             return
         if os.path.exists(self.file_path):
             if os.stat(self.file_path).st_size == 0:
-                self.setStatus('The zipfile exists but the filesize is zero: ' + self.file_path)
+                self.setStatus(
+                    "The zipfile exists but the filesize is zero: " + self.file_path
+                )
             else:
                 try:
                     ret = zipfile.ZipFile(self.file_path).testzip()
                     if ret is not None:
-                        self.setStatus('The zipfile exists with a problem: ' + self.file_path)
+                        self.setStatus(
+                            "The zipfile exists with a problem: " + self.file_path
+                        )
                     else:
-                        self.setStatus('The zipfile exists: ' + self.file_path)
+                        self.setStatus("The zipfile exists: " + self.file_path)
                 except Exception as ex:
-                    self.setStatus('The zipfile exists but may be corrupt: ' + self.file_path)
+                    self.setStatus(
+                        "The zipfile exists but may be corrupt: " + self.file_path
+                    )
         else:
-            self.setStatus('The zipfile does not exist:' + self.file_path)
+            self.setStatus("The zipfile does not exist:" + self.file_path)
