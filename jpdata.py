@@ -497,7 +497,6 @@ class jpdata:
                                     )
                                     tempUrl = y["url"]
                                     tempZipFileName = y["zip"]
-                                    ## self.dockwidget.myLabelStatus.setText(item['code_map'] + str(pref_name[x].text()) + y['zip']) ##
                                 else:
                                     tempUrl = item["url"].replace(
                                         "code_pref", pref_code[x]
@@ -573,7 +572,7 @@ class jpdata:
                                 y["zip"],
                                 y["shp"],
                                 y["altdir"],
-                                "",
+                                pref_code[x],
                                 epsg=item["epsg"],
                             )
                         elif item["type_muni"].lower() == "single":

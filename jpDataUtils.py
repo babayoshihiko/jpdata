@@ -106,59 +106,61 @@ def getPrefNameByCode(pref_code):
 
 def getPrefCodeByName(pref_name):
     pref_code = ""
+    pref_name = pref_name.strip()
+    pref_name = pref_name.replace("県","")
     if pref_name == "北海道":
         pref_code = "01"
-    elif pref_name == "青森県":
+    elif pref_name == "青森":
         pref_code = "02"
-    elif pref_name == "岩手県":
+    elif pref_name == "岩手":
         pref_code = "03"
-    elif pref_name == "宮城県":
+    elif pref_name == "宮城":
         pref_code = "04"
-    elif pref_name == "秋田県":
+    elif pref_name == "秋田":
         pref_code = "05"
-    elif pref_name == "山形県":
+    elif pref_name == "山形":
         pref_code = "06"
-    elif pref_name == "福島県":
+    elif pref_name == "福島":
         pref_code = "07"
-    elif pref_name == "茨城県":
+    elif pref_name == "茨城":
         pref_code = "08"
-    elif pref_name == "栃木県":
+    elif pref_name == "栃木":
         pref_code = "09"
-    elif pref_name == "群馬県":
+    elif pref_name == "群馬":
         pref_code = "10"
-    elif pref_name == "埼玉県":
+    elif pref_name == "埼玉":
         pref_code = "11"
-    elif pref_name == "千葉県":
+    elif pref_name == "千葉":
         pref_code = "12"
-    elif pref_name == "東京都":
+    elif pref_name == "東京都" or pref_name == "東京":
         pref_code = "13"
-    elif pref_name == "神奈川県":
+    elif pref_name == "神奈川":
         pref_code = "14"
-    elif pref_name == "新潟県":
+    elif pref_name == "新潟":
         pref_code = "15"
-    elif pref_name == "富山県":
+    elif pref_name == "富山":
         pref_code = "16"
-    elif pref_name == "石川県":
+    elif pref_name == "石川":
         pref_code = "17"
-    elif pref_name == "福井県":
+    elif pref_name == "福井":
         pref_code = "18"
-    elif pref_name == "山梨県":
+    elif pref_name == "山梨":
         pref_code = "19"
-    elif pref_name == "長野県":
+    elif pref_name == "長野":
         pref_code = "20"
-    elif pref_name == "岐阜県":
+    elif pref_name == "岐阜":
         pref_code = "21"
-    elif pref_name == "静岡県":
+    elif pref_name == "静岡":
         pref_code = "22"
-    elif pref_name == "愛知県":
+    elif pref_name == "愛知":
         pref_code = "23"
-    elif pref_name == "三重県":
+    elif pref_name == "三重":
         pref_code = "24"
-    elif pref_name == "滋賀県":
+    elif pref_name == "滋賀":
         pref_code = "25"
-    elif pref_name == "京都府":
+    elif pref_name == "京都府" or pref_name == "京都":
         pref_code = "26"
-    elif pref_name == "大阪府":
+    elif pref_name == "大阪府" or pref_name == "大阪":
         pref_code = "27"
     elif pref_name == "兵庫県":
         pref_code = "28"
