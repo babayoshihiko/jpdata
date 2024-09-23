@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, csv
 from . import jpDataUtils
-from qgis.core import QgsMessageLog, Qgis
 
 def getPrefsOrRegionsByMapCode(code_map):
     file_path = os.path.join(
@@ -46,12 +45,6 @@ def getUrlCodeZipByPrefName(code_map, name_pref, year):
     )
     filtered_rows = []
     code_pref = jpDataUtils.getPrefCodeByName(name_pref)
-    QgsMessageLog.logMessage(
-        "name_pref " + name_pref, "jpdata", level=Qgis.Warning
-    )
-    QgsMessageLog.logMessage(
-        "code_pref " + code_pref, "jpdata", level=Qgis.Warning
-    )
     x = {
         "year": "",
         "url": "",
