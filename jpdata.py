@@ -483,11 +483,6 @@ class jpdata:
                             if self.dockwidget.myPushButton11.text() == self.tr(
                                 "Cancel"
                             ):
-                                # For the LNIs with specific pref/year combinations
-                                # if item['code_map'] == 'W05':
-                                #    y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
-                                #    tempUrl = y['url']
-                                #    tempZipFileName = y['zip']
                                 if item["type_muni"].lower() == "regional":
                                     year = str(
                                         self.dockwidget.myComboBox11.currentText()

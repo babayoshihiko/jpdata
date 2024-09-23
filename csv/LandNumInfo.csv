@@ -1,7 +1,7 @@
 name_j,availability,code_map,type_muni,name_e,year,url,zip,shp,geojson,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg,filesize
 1. 国土（水・土地）,,,,,,,,,,,,,,,,,,,,,
 【水域】,,,,,,,,,,,,,,,,,,,,,
-海岸線,yes,C23,,Coastline,2006,https://nlftp.mlit.go.jp/ksj/gml/data/C23/C23-06/C23-06_code_pref_GML.zip,C23-06_code_pref_GML.zip,C23-06_code_pref-g_Coastline.shp,,C23-06_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C23.html,,,,,C23_001,code_pref_muni,CP932,C23.qml,4612,10.5
+海岸線,yes,C23,regional,Coastline,2006,https://nlftp.mlit.go.jp/ksj/gml/data/C23/C23-06/C23-06_code_pref_GML.zip,C23-06_code_pref_GML.zip,C23-06_code_pref-g_Coastline.shp,,C23-06_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C23.html,,,,,C23_001,code_pref_muni,CP932,C23.qml,4612,
 海岸保全施設（ライン）,yes,P23,,Coastal Facilities (Line),2012,https://nlftp.mlit.go.jp/ksj/gml/data/P23/P23-12/P23-12_13_GML.zip,P23-12_code_pref_GML.zip,P23b-12_code_pref.shp,,P23-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P23.html,,,,,,,CP932,P23b.qml,4612,
 海岸保全施設（ポイント） ,yes,P23,,Coastal Facilities (Point),2012,https://nlftp.mlit.go.jp/ksj/gml/data/P23/P23-12/P23-12_13_GML.zip,P23-12_code_pref_GML.zip,P23a-12_code_pref.shp,,P23-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P23.html,,,,,,,CP932,P23a.qml,4612,
 湖沼,yes,W09,single,Lake,2005,https://nlftp.mlit.go.jp/ksj/gml/data/W09/W09-05/W09-05_GML.zip,W09-05_GML.zip,W09-05-g_Lake.shp,,W09-05_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W09-2005.html,,,,,,,CP932,W09.qml,4612,
@@ -197,8 +197,8 @@ Facility",2014,https://nlftp.mlit.go.jp/ksj/gml/data/P34/P34-14/P34-14_code_pref
 パーソントリップ・交通変動量,,,,,,,,,,,,,,,,,,,,,
 発生・集中量（ポリゴン）（ライン）,,S05-a,region,,,,,,,,,,,,,,,,,,
 OD量（ポリゴン）（ライン）,,S05-b,region,,,,,,,,,,,,,,,,,,
-貨物旅客地域流動量（旅客地域流動量）,yes,S05-d,single,Passenger Region Flow,2018,https://nlftp.mlit.go.jp/ksj/gml/data/S05-d/S05-d-18/S05-d-18_GML.zip,S05-d-18_GML.zip,S05-d-18-g_PassengerRegionFlow.shp,S05-d-18-g_PassengerRegionFlow.geojson,S05-d-18_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S05-d-2018.html,,,,,,,CP932,,6668,1
-貨物旅客地域流動量（貨物地域流動量）,yes,S05-d,single,Cargo Region Flow,2018,https://nlftp.mlit.go.jp/ksj/gml/data/S05-d/S05-d-18/S05-d-18_GML.zip,S05-d-18_GML.zip,S05-d-18-g_CargoRegionFlow.shp,S05-d-18-g_CargoRegionFlow.geojson,S05-d-18_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S05-d-2018.html,,,,,,,CP932,,6668,1
+貨物旅客地域流動量（旅客地域流動量）,yes,S05-d,single,Passenger Region Flow,2018,https://nlftp.mlit.go.jp/ksj/gml/data/S05-d/S05-d-18/S05-d-18_GML.zip,S05-d-18_GML.zip,S05-d-18-g_PassengerRegionFlow.shp,S05-d-18-g_PassengerRegionFlow.geojson,S05-d-18_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S05-d-2018.html,,,,,,,CP932,,6668,
+貨物旅客地域流動量（貨物地域流動量）,yes,S05-d,single,Cargo Region Flow,2018,https://nlftp.mlit.go.jp/ksj/gml/data/S05-d/S05-d-18/S05-d-18_GML.zip,S05-d-18_GML.zip,S05-d-18-g_CargoRegionFlow.shp,S05-d-18-g_CargoRegionFlow.geojson,S05-d-18_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S05-d-2018.html,,,,,,,CP932,,6668,
 5. 各種統計,,,,,,,,,,,,,,,,,,,,,
 1kmメッシュ別将来推計人口（H29国政局推計）,,mesh1000,,,,,,,,,,,,,,,,,,,
 500mメッシュ別将来推計人口（H29国政局推計）,,mesh500,,,,,,,,,,,,,,,,,,,
