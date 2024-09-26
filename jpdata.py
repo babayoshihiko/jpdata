@@ -551,12 +551,6 @@ class jpdata:
                         seleted_prefs = range(len(pref_code))
 
                     for x in seleted_prefs:
-                        # For the LNIs with specific pref/year combinations
-                        # if item['code_map'] == 'W05':
-                        #    y = jpDataLNI.getUrlCodeZip_W05(pref_code[x])
-                        #    item['zip'] = y['zip']
-                        #    item['shp'] = y['shp']
-                        #    item['altdir'] = y['altdir']
                         if item["type_muni"].lower() == "regional":
                             year = self.dockwidget.myComboBox11.currentText()
                             y = jpDataLNI.getUrlCodeZipByPrefName(
