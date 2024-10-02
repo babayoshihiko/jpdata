@@ -13,40 +13,57 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QSplitter" name="splitter">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <widget class="QWidget" name="verticalLayoutWidget">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLabel" name="meshLabel1">
-         <property name="text">
-          <string>meshLabel1</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QListWidget" name="meshListWidget1"/>
-       </item>
-       <item>
-        <widget class="QLabel" name="meshLabel2">
-         <property name="text">
-          <string>meshLabel2</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QListWidget" name="meshListWidget2"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QListWidget" name="meshListWidget3"/>
-    </widget>
-   </item>
-  </layout>
+  <widget class="QSplitter" name="splitter">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>12</y>
+     <width>516</width>
+     <height>444</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="meshLabel1">
+       <property name="text">
+        <string>meshLabel1</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="meshListWidget1"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="meshLabel2">
+       <property name="text">
+        <string>meshLabel2</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="meshListWidget2"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QListWidget" name="meshListWidget3"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>
