@@ -51,7 +51,7 @@ class DownloadThread(QThread):
             elif self.proxy_server[:7] == "http://":
                 _proxy_server = self.proxy_server.replace("http://", "")
 
-            if proxy_user != "":
+            if self.proxy_user != "":
                 _proxy_server = (
                     self.proxy_user + ":" + self.proxy_password + "@" + _proxy_server
                 )
