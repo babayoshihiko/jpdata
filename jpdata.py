@@ -284,11 +284,13 @@ class jpdata:
             # )
             self.dockwidget.myListWidget11.clicked.connect(self.tab1CheckPrefsOrRegions)
             self.dockwidget.myListWidget12.clicked.connect(self.tab1CheckYear)
+            self.dockwidget.myComboBox11.currentIndexChanged.connect(self.tab1SetLW13)
             self.myListWidget12_is_all_prefs = False
             # Users cannot choose multiple prefctures
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
+            self.dockwidget.myListWidget13.hide()
 
             # Set Tab 2
             self.dockwidget.myTabWidget.setTabText(1, self.tr("GSI Tiles"))
@@ -349,8 +351,8 @@ class jpdata:
                 self.tr("User/Password are not stored")
             )
 
-            # self.dockwidget.myPushButtonTest.hide()
-            self.dockwidget.myPushButtonTest.setText(self.tr("Test"))
+            self.dockwidget.myPushButtonTest.hide()
+            # self.dockwidget.myPushButtonTest.setText(self.tr("Test"))
             self.dockwidget.myPushButtonTest.clicked.connect(self.showMeshWindow)
 
             # Mesh Window
@@ -403,10 +405,10 @@ class jpdata:
                     str(self.dockwidget.myListWidget11.selectedItems()[i].text())
                     == item["name_j"]
                 ):
-                    if item["type_muni"].lower() == "regional":
+                    if item["type_muni"].lower() == "regional" or item["type_muni"].lower() == "detail":
                         if not self.myListWidget12_is_all_prefs:
                             self.dockwidget.myListWidget12.clear()
-                        self.myListWidget12_is_all_prefs = True
+                        self.myListWidget12_is_all_prefs = False
                         names_pref = jpDataLNI.getPrefsOrRegionsByMapCode(
                             item["code_map"]
                         )
@@ -417,7 +419,7 @@ class jpdata:
                         self.dockwidget.myListWidget12.clear()
                         self.dockwidget.myListWidget12.addItem(self.tr("Nation-wide"))
                     else:
-                        self.myListWidget12_is_all_prefs = False
+                        self.myListWidget12_is_all_prefs = True
                         self.dockwidget.myListWidget12.clear()
                         for code_pref in range(1, 48):
                             self.dockwidget.myListWidget12.addItem(
@@ -440,9 +442,7 @@ class jpdata:
                         self.dockwidget.myComboBox11.addItem(item["year"])
                     else:
                         if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-                            name_pref = self.dockwidget.myListWidget12.selectedItems()[
-                                0
-                            ].text()
+                            name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
                         else:
                             name_pref = None
                         self.dockwidget.myListWidget12.setSelectionMode(
@@ -451,6 +451,27 @@ class jpdata:
                         years = jpDataLNI.getYearsByMapCode(item["code_map"], name_pref)
                         for year in years:
                             self.dockwidget.myComboBox11.addItem(year)
+        
+    def tab1SetLW13(self):
+        # name_j and year
+        items = self.dockwidget.myListWidget11.selectedItems()
+        for i in range(len(items)):
+            for item in self._LandNumInfo:
+                if (
+                    str(self.dockwidget.myListWidget11.selectedItems()[i].text())
+                    == item["name_j"]
+                ):
+                    name_j = item["name_j"]
+                    map_code = item["code_map"]
+        if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+            name_pref = str(self.dockwidget.myListWidget12.selectedItems()[0].text())
+        
+            year = self.dockwidget.myComboBox11.currentText()
+            self.dockwidget.myListWidget13.show()
+            
+            details = jpDataLNI.getDetailsByMapCodePrefNameYear(map_code, name_pref, year)
+            for details in details:
+                self.dockwidget.myListWidget13.addItem(details)
 
     def tab1DownloadAll(self):
         self.dockwidget.progressBar.setValue(0)
@@ -538,6 +559,11 @@ class jpdata:
                     str(self.dockwidget.myListWidget12.selectedItems()[i].text())
                 )
             )
+        
+        if len(self.dockwidget.myListWidget13.selectedItems()) > 0:
+            detail = str(self.dockwidget.myListWidget13.selectedItems()[i].text())
+        else:
+            detail = None
 
         for i in range(len(items)):
             for item in self._LandNumInfo:
@@ -551,10 +577,10 @@ class jpdata:
                         seleted_prefs = range(len(pref_code))
 
                     for x in seleted_prefs:
-                        if item["type_muni"].lower() == "regional":
+                        if item["type_muni"].lower() == "regional" or item["type_muni"].lower() == "detail":
                             year = self.dockwidget.myComboBox11.currentText()
                             y = jpDataLNI.getUrlCodeZipByPrefName(
-                                item["code_map"], str(pref_name[x].text()), year
+                                item["code_map"], str(pref_name[x].text()), year, detail
                             )
                             tempShpFileName = jpDataUtils.unzipAndGetShp(
                                 os.path.join(self._folderPath, item["code_map"]),

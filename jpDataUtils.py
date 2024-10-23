@@ -288,7 +288,10 @@ def unzipAndGetShp(
     )
     if shpFileName is None:
         QgsMessageLog.logMessage(
-            "Cannot find the file " + shp_file, "jpdata", level=Qgis.Warning
+            "jpDataUtils.unzipAndGetShp: Cannot find the file " + shp_file + " in " + folder_path +
+            " or in " + os.path.join(folder_path,altdir),
+            "jpdata", 
+            level=Qgis.Warning
         )
     else:
         if not os.path.exists(shpFileName[:-4] + ".prj") and epsg != "":
