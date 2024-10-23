@@ -202,6 +202,24 @@ def getPrefCodeByName(pref_name):
         pref_code = "46"
     elif pref_name == "沖縄県":
         pref_code = "47"
+    elif pref_name == "北海道開発局":
+        pref_code = "81"
+    elif pref_name == "東北地方整備局":
+        pref_code = "82"
+    elif pref_name == "関東地方整備局":
+        pref_code = "83"
+    elif pref_name == "北陸地方整備局":
+        pref_code = "84"
+    elif pref_name == "中部地方整備局":
+        pref_code = "85"
+    elif pref_name == "近畿地方整備局":
+        pref_code = "86"
+    elif pref_name == "中国地方整備局":
+        pref_code = "87"
+    elif pref_name == "四国地方整備局":
+        pref_code = "88"
+    elif pref_name == "九州地方整備局":
+        pref_code = "89"
 
     return pref_code
 
@@ -232,10 +250,25 @@ def findShpFile2(folderPath, shp, altdir, code_pref, code_muni="", name_muni="")
     altDir = altDir.replace("name_muni", name_muni)
     if os.path.exists(os.path.join(folderPath, shpFileTarget)):
         shpFile = os.path.join(folderPath, shpFileTarget)
+        QgsMessageLog.logMessage(
+            "jpDataUtils.findShpFile2: Found 1 " + shpFile,
+            "jpdata", 
+            level=Qgis.Warning
+        )
     elif os.path.exists(os.path.join(folderPath, altDir, shpFileTarget)):
         shpFile = os.path.join(folderPath, altDir, shpFileTarget)
+        QgsMessageLog.logMessage(
+            "jpDataUtils.findShpFile2: Found 2 " + shpFile,
+            "jpdata", 
+            level=Qgis.Warning
+        )
     elif os.path.exists(os.path.join(folderPath, altDir + "\\" + shpFileTarget)):
         shpFile = os.path.join(folderPath, altDir + "\\" + shpFileTarget)
+        QgsMessageLog.logMessage(
+            "jpDataUtils.findShpFile2: Found 3 " + shpFile,
+            "jpdata", 
+            level=Qgis.Warning
+        )
 
     return shpFile
 
@@ -250,6 +283,11 @@ def unzipAndGetShp(
     name_muni="",
     epsg="",
 ):
+    QgsMessageLog.logMessage(
+            "jpDataUtils.unzipAndGetShp",
+            "jpdata", 
+            level=Qgis.Warning
+    )
     shpFileName = findShpFile2(
         folder_path, shp_file, altdir, code_pref, code_muni, name_muni
     )
@@ -264,6 +302,7 @@ def unzipAndGetShp(
         zipFileName = zip_file.replace("code_pref", code_pref)
         zipFileName = zipFileName.replace("code_muni", code_muni)
         zipFileName = zipFileName.replace("name_muni", name_muni)
+
         # Below is a workaround for a zip file with Japanese filenames/foldernames
         if os.path.exists(os.path.join(folder_path, zipFileName)):
             with zipfile.ZipFile(os.path.join(folder_path, zipFileName), "r") as zf:
