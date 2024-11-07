@@ -456,7 +456,7 @@ class jpdata:
                             self.dockwidget.myComboBox11.addItem(year)
         
     def tab1SetLW13(self):
-        # name_j and year
+        # map_code and year
         if len(self.dockwidget.myListWidget11.selectedItems()) == 0: return
         if len(self.dockwidget.myListWidget12.selectedItems()) == 0: return
         if self.dockwidget.myComboBox11.currentText().strip() == "": return
@@ -838,9 +838,10 @@ class jpdata:
     def setProxyServer(self):
         _proxyServer = self.dockwidget.myLineEditSetting1.text()
         if len(_proxyServer) > 10:
-            self._proxyServer = _proxyServer
-            QgsSettings().setValue("jpdata/ProxyServer", self._proxyServer)
-            self._downloader.setProxyServer(self._proxyServer)
+            if self._proxyServer != _proxyServer:
+                self._proxyServer = _proxyServer
+                QgsSettings().setValue("jpdata/ProxyServer", self._proxyServer)
+                self._downloader.setProxyServer(self._proxyServer)
             self._downloader.setProxyUser(self.dockwidget.myLineEditSetting2.text())
             self._downloader.setProxyPassword(self.dockwidget.myLineEditSetting3.text())
         else:
