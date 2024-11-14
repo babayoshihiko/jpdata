@@ -1,301 +1,522 @@
-name_j,availability,year,url,zip,shp,altdir,source,encoding,qml,epsg,filesize,detail1,detail2
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip,01_計画規模/A31-10-20_0100170001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,興部川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0100210001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,佐呂間別川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0100210002.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,芭露川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0100640001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,向別川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101220001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,松倉川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101220002.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,鮫川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101540001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,朱太川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101620001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,古平川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101740001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,星置川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101750001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,新川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101750004.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,中の川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101750015.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,琴似発寒川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101910001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,古丹別川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101910002.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,三毛別川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8101080072.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,足寄川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8101080184.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,ペケレベツ川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8101110024.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,無加川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8101110025.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,小町川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8101110037.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,訓子府川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8202080006.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,常磐川,計画規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100170001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,興部川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100210001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,佐呂間別川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100210002.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,芭露川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100270001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,斜里川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100640001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,向別川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100710001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,静内川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100720001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,真沼津川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100790001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,厚真川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100800001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,安平川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100800002.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,勇払川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101220001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,松倉川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101220002.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,鮫川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101250001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,久根別川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101540001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,朱太川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101620001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,古平川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101740001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,星置川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101750001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,新川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101750004.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,中の川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101750015.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,琴似発寒川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101750019.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,琴似川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101910001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,古丹別川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101910002.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,三毛別川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101040001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,尻別川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101040023.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,倶登山川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101080034.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,利別川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101080072.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,足寄川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101080166.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,美生川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101080172.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,ピウカ川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101080184.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,ペケレベツ川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101090001.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,釧路川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101090012.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,別保川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101110024.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,ヌマオロ川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101110025.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,オソベツ川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101110037.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,鐺別川,想定最大規模
-洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8202080006.shp,A31-20_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,常磐川,想定最大規模
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2020（第2.2版/A31-10-20_8101030001.shp,A31-20_81_SHP,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31-2020.html,CP932,,6668,,鵡川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2020（第2.2版/A31-10-20_8101030409.shp,A31-20_81_SHP,,CP932,,6668,,忠別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2020（第2.2版/A31-10-20_8101030410.shp,A31-20_81_SHP,,CP932,,6668,,美瑛川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2020（第2.2版/A31-10-20_8101060001.shp,A31-20_81_SHP,,CP932,,6668,,鵡川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-101-名寄川.shp,A31-20_81_SHP,,CP932,,6668,,名寄川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-101-天塩川.shp,A31-20_81_SHP,,CP932,,6668,,天塩川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-101-風連別川.shp,A31-20_81_SHP,,CP932,,6668,,風連別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-漁川.shp,A31-20_81_SHP,,CP932,,6668,,漁川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-千歳川.shp,A31-20_81_SHP,,CP932,,6668,,千歳川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-厚別川.shp,A31-20_81_SHP,,CP932,,6668,,厚別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-夕張川.shp,A31-20_81_SHP,,CP932,,6668,,夕張川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-嶮淵川.shp,A31-20_81_SHP,,CP932,,6668,,嶮淵川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-幌向川.shp,A31-20_81_SHP,,CP932,,6668,,幌向川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-当別川.shp,A31-20_81_SHP,,CP932,,6668,,当別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-徳富川.shp,A31-20_81_SHP,,CP932,,6668,,徳富川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-月寒川.shp,A31-20_81_SHP,,CP932,,6668,,月寒川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-石狩川.shp,A31-20_81_SHP,,CP932,,6668,,石狩川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-空知川.shp,A31-20_81_SHP,,CP932,,6668,,空知川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-篠津川.shp,A31-20_81_SHP,,CP932,,6668,,篠津川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-美唄川.shp,A31-20_81_SHP,,CP932,,6668,,美唄川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-豊平川.shp,A31-20_81_SHP,,CP932,,6668,,豊平川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-辺別川.shp,A31-20_81_SHP,,CP932,,6668,,辺別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-雨竜川.shp,A31-20_81_SHP,,CP932,,6668,,雨竜川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-奈井江川.shp,A31-20_81_SHP,,CP932,,6668,,奈井江川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-幾春別川.shp,A31-20_81_SHP,,CP932,,6668,,幾春別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-恵岱別川.shp,A31-20_81_SHP,,CP932,,6668,,恵岱別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-旧夕張川.shp,A31-20_81_SHP,,CP932,,6668,,旧夕張川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-旧美唄川.shp,A31-20_81_SHP,,CP932,,6668,,旧美唄川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-望月寒川.shp,A31-20_81_SHP,,CP932,,6668,,望月寒川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-永山新川.shp,A31-20_81_SHP,,CP932,,6668,,永山新川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-牛朱別川.shp,A31-20_81_SHP,,CP932,,6668,,牛朱別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-須部都川.shp,A31-20_81_SHP,,CP932,,6668,,須部都川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-尾白利加川.shp,A31-20_81_SHP,,CP932,,6668,,尾白利加川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-産化美唄川.shp,A31-20_81_SHP,,CP932,,6668,,産化美唄川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-オサラッペ川.shp,A31-20_81_SHP,,CP932,,6668,,オサラッペ川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-104-尻別川.shp,A31-20_81_SHP,,CP932,,6668,,尻別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-105-後志利別川.shp,A31-20_81_SHP,,CP932,,6668,,後志利別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-107-沙流川.shp,A31-20_81_SHP,,CP932,,6668,,沙流川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-利別川.shp,A31-20_81_SHP,,CP932,,6668,,利別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-十勝川.shp,A31-20_81_SHP,,CP932,,6668,,十勝川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-十弗川.shp,A31-20_81_SHP,,CP932,,6668,,十弗川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-帯広川.shp,A31-20_81_SHP,,CP932,,6668,,帯広川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-札内川.shp,A31-20_81_SHP,,CP932,,6668,,札内川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-浦幌川.shp,A31-20_81_SHP,,CP932,,6668,,浦幌川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-猿別川.shp,A31-20_81_SHP,,CP932,,6668,,猿別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-途別川.shp,A31-20_81_SHP,,CP932,,6668,,途別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-音更川.shp,A31-20_81_SHP,,CP932,,6668,,音更川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-下頃辺川.shp,A31-20_81_SHP,,CP932,,6668,,下頃辺川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-浦幌十勝川.shp,A31-20_81_SHP,,CP932,,6668,,浦幌十勝川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-109-釧路川.shp,A31-20_81_SHP,,CP932,,6668,,釧路川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-109-新釧路川.shp,A31-20_81_SHP,,CP932,,6668,,新釧路川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-110-網走川.shp,A31-20_81_SHP,,CP932,,6668,,網走川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-110-美幌川.shp,A31-20_81_SHP,,CP932,,6668,,美幌川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-111-常呂川.shp,A31-20_81_SHP,,CP932,,6668,,常呂川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-111-無加川.shp,A31-20_81_SHP,,CP932,,6668,,無加川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-112-湧別川.shp,A31-20_81_SHP,,CP932,,6668,,湧別川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-113-渚滑川.shp,A31-20_81_SHP,,CP932,,6668,,渚滑川,計画規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2020（第2.2版/A31-20-20_8101030001（旭川開発建設部）.shp,A31-20_81_SHP,,CP932,,6668,,石狩川（旭川）,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2020（第2.2版/A31-20-20_8101030001（札幌開発建設部）.shp,A31-20_81_SHP,,CP932,,6668,,石狩川（札幌）,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2020（第2.2版/A31-20-20_8101030409.shp,A31-20_81_SHP,,CP932,,6668,,忠別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2020（第2.2版/A31-20-20_8101030410.shp,A31-20_81_SHP,,CP932,,6668,,美瑛川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2020（第2.2版/A31-20-20_8101060001.shp,A31-20_81_SHP,,CP932,,6668,,鵡川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-剣淵川.shp,A31-20_81_SHP,,CP932,,6668,,剣淵川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-名寄川.shp,A31-20_81_SHP,,CP932,,6668,,名寄川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-天塩川.shp,A31-20_81_SHP,,CP932,,6668,,天塩川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-問寒別川.shp,A31-20_81_SHP,,CP932,,6668,,問寒別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-雄信内川.shp,A31-20_81_SHP,,CP932,,6668,,雄信内川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-風連別川.shp,A31-20_81_SHP,,CP932,,6668,,風連別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-102-留萠川.shp,A31-20_81_SHP,,CP932,,6668,,留萠川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-漁川.shp,A31-20_81_SHP,,CP932,,6668,,漁川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-千歳川.shp,A31-20_81_SHP,,CP932,,6668,,千歳川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-厚別川.shp,A31-20_81_SHP,,CP932,,6668,,厚別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-夕張川.shp,A31-20_81_SHP,,CP932,,6668,,夕張川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-嶮淵川.shp,A31-20_81_SHP,,CP932,,6668,,嶮淵川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-幌向川.shp,A31-20_81_SHP,,CP932,,6668,,幌向川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-当別川.shp,A31-20_81_SHP,,CP932,,6668,,当別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-徳富川.shp,A31-20_81_SHP,,CP932,,6668,,徳富川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-忠別川.shp,A31-20_81_SHP,,CP932,,6668,,忠別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-月寒川.shp,A31-20_81_SHP,,CP932,,6668,,月寒川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-石狩川.shp,A31-20_81_SHP,,CP932,,6668,,石狩川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-空知川.shp,A31-20_81_SHP,,CP932,,6668,,空知川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-篠津川.shp,A31-20_81_SHP,,CP932,,6668,,篠津川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-美唄川.shp,A31-20_81_SHP,,CP932,,6668,,美唄川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-美瑛川.shp,A31-20_81_SHP,,CP932,,6668,,美瑛川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-豊平川.shp,A31-20_81_SHP,,CP932,,6668,,豊平川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-辺別川.shp,A31-20_81_SHP,,CP932,,6668,,辺別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-雨竜川.shp,A31-20_81_SHP,,CP932,,6668,,雨竜川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-奈井江川.shp,A31-20_81_SHP,,CP932,,6668,,奈井江川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-幾春別川.shp,A31-20_81_SHP,,CP932,,6668,,幾春別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-恵岱別川.shp,A31-20_81_SHP,,CP932,,6668,,恵岱別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-旧夕張川.shp,A31-20_81_SHP,,CP932,,6668,,旧夕張川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-旧美唄川.shp,A31-20_81_SHP,,CP932,,6668,,旧美唄川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-望月寒川.shp,A31-20_81_SHP,,CP932,,6668,,望月寒川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-永山新川.shp,A31-20_81_SHP,,CP932,,6668,,永山新川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-牛朱別川.shp,A31-20_81_SHP,,CP932,,6668,,牛朱別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-須部都川.shp,A31-20_81_SHP,,CP932,,6668,,須部都川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-尾白利加川.shp,A31-20_81_SHP,,CP932,,6668,,尾白利加川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-産化美唄川.shp,A31-20_81_SHP,,CP932,,6668,,産化美唄川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-オサラッペ川.shp,A31-20_81_SHP,,CP932,,6668,,オサラッペ川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-104-尻別川.shp,A31-20_81_SHP,,CP932,,6668,,尻別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-105-後志利別川.shp,A31-20_81_SHP,,CP932,,6668,,後志利別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-106-鵡川.shp,A31-20_81_SHP,,CP932,,6668,,鵡川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-107-沙流川.shp,A31-20_81_SHP,,CP932,,6668,,沙流川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-利別川.shp,A31-20_81_SHP,,CP932,,6668,,利別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-十勝川.shp,A31-20_81_SHP,,CP932,,6668,,十勝川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-十弗川.shp,A31-20_81_SHP,,CP932,,6668,,十弗川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-帯広川.shp,A31-20_81_SHP,,CP932,,6668,,帯広川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-札内川.shp,A31-20_81_SHP,,CP932,,6668,,札内川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-浦幌川.shp,A31-20_81_SHP,,CP932,,6668,,浦幌川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-猿別川.shp,A31-20_81_SHP,,CP932,,6668,,猿別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-途別川.shp,A31-20_81_SHP,,CP932,,6668,,途別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-音更川.shp,A31-20_81_SHP,,CP932,,6668,,音更川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-下頃辺川.shp,A31-20_81_SHP,,CP932,,6668,,下頃辺川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-浦幌十勝川.shp,A31-20_81_SHP,,CP932,,6668,,浦幌十勝川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-109-釧路川.shp,A31-20_81_SHP,,CP932,,6668,,釧路川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-109-新釧路川.shp,A31-20_81_SHP,,CP932,,6668,,新釧路川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-110-網走川.shp,A31-20_81_SHP,,CP932,,6668,,網走川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-110-美幌川.shp,A31-20_81_SHP,,CP932,,6668,,美幌川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-111-常呂川.shp,A31-20_81_SHP,,CP932,,6668,,常呂川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-111-無加川.shp,A31-20_81_SHP,,CP932,,6668,,無加川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-112-湧別川.shp,A31-20_81_SHP,,CP932,,6668,,湧別川,想定最大規模
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-113-渚滑川.shp,A31-20_81_SHP,,CP932,,6668,,渚滑川,想定最大規模
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101030001.shp,A31-20_81_SHP,,CP932,,6668,,石狩川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101030250.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101030409.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101030410.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101040001.shp,A31-20_81_SHP,,CP932,,6668,,尻別川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101060001.shp,A31-20_81_SHP,,CP932,,6668,,鵡川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101090044.shp,A31-20_81_SHP,,CP932,,6668,,新釧路川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101100001.shp,A31-20_81_SHP,,CP932,,6668,,網走川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101110001.shp,A31-20_81_SHP,,CP932,,6668,,常呂川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101010001.shp,A31-20_81_SHP,,CP932,,6668,,天塩川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101010085.shp,A31-20_81_SHP,,CP932,,6668,,ペンケニウブ川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101010102.shp,A31-20_81_SHP,,CP932,,6668,,ペンケニウブ川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101010114.shp,A31-20_81_SHP,,CP932,,6668,,ペンケニウブ川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030001.shp,A31-20_81_SHP,,CP932,,6668,,石狩川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030024.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030031.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030032.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030050.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030051.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030077.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030081.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030085.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030104.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030110.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030119.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030121.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030182.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030195.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030202.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030209.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030215.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030227.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030250.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030317.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030331.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030334.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030341.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030398.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030416.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030442.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030514.shp,A31-20_81_SHP,,CP932,,6668,,永山新川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101040001.shp,A31-20_81_SHP,,CP932,,6668,,尻別川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101050001.shp,A31-20_81_SHP,,CP932,,6668,,後志利別川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101070001.shp,A31-20_81_SHP,,CP932,,6668,,沙流川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080001.shp,A31-20_81_SHP,,CP932,,6668,,十勝川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080006.shp,A31-20_81_SHP,,CP932,,6668,,下頃辺川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080007.shp,A31-20_81_SHP,,CP932,,6668,,浦幌十勝川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080008.shp,A31-20_81_SHP,,CP932,,6668,,浦幌川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080034.shp,A31-20_81_SHP,,CP932,,6668,,瀬多来川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080035.shp,A31-20_81_SHP,,CP932,,6668,,瀬多来川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080093.shp,A31-20_81_SHP,,CP932,,6668,,瀬多来川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080104.shp,A31-20_81_SHP,,CP932,,6668,,石狩川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080114.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080129.shp,A31-20_81_SHP,,CP932,,6668,,茨戸耕北川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080139.shp,A31-20_81_SHP,,CP932,,6668,,後志利別川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101090001.shp,A31-20_81_SHP,,CP932,,6668,,鵡川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101100010.shp,A31-20_81_SHP,,CP932,,6668,,十勝川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101110024.shp,A31-20_81_SHP,,CP932,,6668,,下頃辺川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101120001.shp,A31-20_81_SHP,,CP932,,6668,,瀬多来川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101130001.shp,A31-20_81_SHP,,CP932,,6668,,瀬多来川,浸水継続時間
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101030001.shp,A31-20_81_SHP,,CP932,,6668,,瀬多来川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101030409.shp,A31-20_81_SHP,,CP932,,6668,,網走川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101030410.shp,A31-20_81_SHP,,CP932,,6668,,瀬多来川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101050001.shp,A31-20_81_SHP,,CP932,,6668,,瀬多来川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101060001.shp,A31-20_81_SHP,,CP932,,6668,,瀬多来川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101080001.shp,A31-20_81_SHP,,CP932,,6668,,瀬多来川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101080006.shp,A31-20_81_SHP,,CP932,,6668,,釧路川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101080034.shp,A31-20_81_SHP,,CP932,,6668,,美幌川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101080035.shp,A31-20_81_SHP,,CP932,,6668,,トコロホロナイ川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101080139.shp,A31-20_81_SHP,,CP932,,6668,,湧別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101100001.shp,A31-20_81_SHP,,CP932,,6668,,渚滑川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-101-剣淵川.shp,A31-20_81_SHP,,CP932,,6668,,剣淵川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-101-名寄川.shp,A31-20_81_SHP,,CP932,,6668,,名寄川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-101-天塩川.shp,A31-20_81_SHP,,CP932,,6668,,天塩川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-101-風連別川.shp,A31-20_81_SHP,,CP932,,6668,,風連別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-漁川.shp,A31-20_81_SHP,,CP932,,6668,,漁川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-千歳川.shp,A31-20_81_SHP,,CP932,,6668,,千歳川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-厚別川.shp,A31-20_81_SHP,,CP932,,6668,,厚別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-夕張川.shp,A31-20_81_SHP,,CP932,,6668,,夕張川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-嶮淵川.shp,A31-20_81_SHP,,CP932,,6668,,嶮淵川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-幌向川.shp,A31-20_81_SHP,,CP932,,6668,,幌向川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-当別川.shp,A31-20_81_SHP,,CP932,,6668,,当別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-徳富川.shp,A31-20_81_SHP,,CP932,,6668,,徳富川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-月寒川.shp,A31-20_81_SHP,,CP932,,6668,,月寒川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-石狩川.shp,A31-20_81_SHP,,CP932,,6668,,石狩川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-空知川.shp,A31-20_81_SHP,,CP932,,6668,,空知川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-篠津川.shp,A31-20_81_SHP,,CP932,,6668,,篠津川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-美唄川.shp,A31-20_81_SHP,,CP932,,6668,,美唄川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-豊平川.shp,A31-20_81_SHP,,CP932,,6668,,豊平川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-辺別川.shp,A31-20_81_SHP,,CP932,,6668,,辺別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-雨竜川.shp,A31-20_81_SHP,,CP932,,6668,,雨竜川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-奈井江川.shp,A31-20_81_SHP,,CP932,,6668,,奈井江川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-幾春別川.shp,A31-20_81_SHP,,CP932,,6668,,幾春別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-恵岱別川.shp,A31-20_81_SHP,,CP932,,6668,,恵岱別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-旧夕張川.shp,A31-20_81_SHP,,CP932,,6668,,旧夕張川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-旧美唄川.shp,A31-20_81_SHP,,CP932,,6668,,旧美唄川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-望月寒川.shp,A31-20_81_SHP,,CP932,,6668,,望月寒川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-永山新川.shp,A31-20_81_SHP,,CP932,,6668,,永山新川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-牛朱別川.shp,A31-20_81_SHP,,CP932,,6668,,牛朱別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-須部都川.shp,A31-20_81_SHP,,CP932,,6668,,須部都川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-尾白利加川.shp,A31-20_81_SHP,,CP932,,6668,,尾白利加川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-産化美唄川.shp,A31-20_81_SHP,,CP932,,6668,,産化美唄川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-オサラッペ川.shp,A31-20_81_SHP,,CP932,,6668,,オサラッペ川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-104-尻別川.shp,A31-20_81_SHP,,CP932,,6668,,尻別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-105-後志利別川.shp,A31-20_81_SHP,,CP932,,6668,,後志利別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-107-沙流川.shp,A31-20_81_SHP,,CP932,,6668,,沙流川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-利別川.shp,A31-20_81_SHP,,CP932,,6668,,利別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-十勝川.shp,A31-20_81_SHP,,CP932,,6668,,十勝川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-帯広川.shp,A31-20_81_SHP,,CP932,,6668,,帯広川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-札内川.shp,A31-20_81_SHP,,CP932,,6668,,札内川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-浦幌川.shp,A31-20_81_SHP,,CP932,,6668,,浦幌川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-猿別川.shp,A31-20_81_SHP,,CP932,,6668,,猿別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-途別川.shp,A31-20_81_SHP,,CP932,,6668,,途別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-音更川.shp,A31-20_81_SHP,,CP932,,6668,,音更川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-浦幌十勝川.shp,A31-20_81_SHP,,CP932,,6668,,浦幌十勝川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-109-釧路川.shp,A31-20_81_SHP,,CP932,,6668,,釧路川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-109-新釧路川.shp,A31-20_81_SHP,,CP932,,6668,,新釧路川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-110-網走川.shp,A31-20_81_SHP,,CP932,,6668,,網走川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-110-美幌川.shp,A31-20_81_SHP,,CP932,,6668,,美幌川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-111-常呂川.shp,A31-20_81_SHP,,CP932,,6668,,常呂川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-111-無加川.shp,A31-20_81_SHP,,CP932,,6668,,無加川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-112-湧別川.shp,A31-20_81_SHP,,CP932,,6668,,湧別川,家屋倒壊等氾濫想定区域
-洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-113-渚滑川.shp,A31-20_81_SHP,,CP932,,6668,,渚滑川,家屋倒壊等氾濫想定区域
+name_j,availability,year,url,zip,shp,altdir,epsg,detail1,detail2
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip,01_計画規模/A31-10-20_0100170001.shp,A31-20_code_pref_GML,6668,興部川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0100210001.shp,A31-20_code_pref_GML,6668,佐呂間別川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0100210002.shp,A31-20_code_pref_GML,6668,芭露川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0100640001.shp,A31-20_code_pref_GML,6668,向別川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101220001.shp,A31-20_code_pref_GML,6668,松倉川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101220002.shp,A31-20_code_pref_GML,6668,鮫川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101540001.shp,A31-20_code_pref_GML,6668,朱太川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101620001.shp,A31-20_code_pref_GML,6668,古平川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101740001.shp,A31-20_code_pref_GML,6668,星置川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101750001.shp,A31-20_code_pref_GML,6668,新川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101750004.shp,A31-20_code_pref_GML,6668,中の川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101750015.shp,A31-20_code_pref_GML,6668,琴似発寒川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101910001.shp,A31-20_code_pref_GML,6668,古丹別川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_0101910002.shp,A31-20_code_pref_GML,6668,三毛別川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8101080072.shp,A31-20_code_pref_GML,6668,足寄川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8101080184.shp,A31-20_code_pref_GML,6668,ペケレベツ川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8101110024.shp,A31-20_code_pref_GML,6668,無加川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8101110025.shp,A31-20_code_pref_GML,6668,小町川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8101110037.shp,A31-20_code_pref_GML,6668,訓子府川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 01_計画規模/A31-10-20_8202080006.shp,A31-20_code_pref_GML,6668,常磐川,計画規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100170001.shp,A31-20_code_pref_GML,6668,興部川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100210001.shp,A31-20_code_pref_GML,6668,佐呂間別川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100210002.shp,A31-20_code_pref_GML,6668,芭露川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100270001.shp,A31-20_code_pref_GML,6668,斜里川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100640001.shp,A31-20_code_pref_GML,6668,向別川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100710001.shp,A31-20_code_pref_GML,6668,静内川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100720001.shp,A31-20_code_pref_GML,6668,真沼津川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100790001.shp,A31-20_code_pref_GML,6668,厚真川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100800001.shp,A31-20_code_pref_GML,6668,安平川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0100800002.shp,A31-20_code_pref_GML,6668,勇払川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101220001.shp,A31-20_code_pref_GML,6668,松倉川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101220002.shp,A31-20_code_pref_GML,6668,鮫川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101250001.shp,A31-20_code_pref_GML,6668,久根別川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101540001.shp,A31-20_code_pref_GML,6668,朱太川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101620001.shp,A31-20_code_pref_GML,6668,古平川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101740001.shp,A31-20_code_pref_GML,6668,星置川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101750001.shp,A31-20_code_pref_GML,6668,新川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101750004.shp,A31-20_code_pref_GML,6668,中の川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101750015.shp,A31-20_code_pref_GML,6668,琴似発寒川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101750019.shp,A31-20_code_pref_GML,6668,琴似川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101910001.shp,A31-20_code_pref_GML,6668,古丹別川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_0101910002.shp,A31-20_code_pref_GML,6668,三毛別川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101040001.shp,A31-20_code_pref_GML,6668,尻別川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101040023.shp,A31-20_code_pref_GML,6668,倶登山川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101080034.shp,A31-20_code_pref_GML,6668,利別川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101080072.shp,A31-20_code_pref_GML,6668,足寄川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101080166.shp,A31-20_code_pref_GML,6668,美生川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101080172.shp,A31-20_code_pref_GML,6668,ピウカ川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101080184.shp,A31-20_code_pref_GML,6668,ペケレベツ川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101090001.shp,A31-20_code_pref_GML,6668,釧路川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101090012.shp,A31-20_code_pref_GML,6668,別保川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101110024.shp,A31-20_code_pref_GML,6668,ヌマオロ川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101110025.shp,A31-20_code_pref_GML,6668,オソベツ川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8101110037.shp,A31-20_code_pref_GML,6668,鐺別川,想定最大規模
+洪水浸水想定区域,北海道,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_code_pref_GML.zip,A31-20_code_pref_GML.zip, 02_想定最大規模/A31-20-20_8202080006.shp,A31-20_code_pref_GML,6668,常磐川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2020（第2.2版/A31-10-20_8101030001.shp,A31-20_81_SHP,6668,鵡川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2020（第2.2版/A31-10-20_8101030409.shp,A31-20_81_SHP,6668,忠別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2020（第2.2版/A31-10-20_8101030410.shp,A31-20_81_SHP,6668,美瑛川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2020（第2.2版/A31-10-20_8101060001.shp,A31-20_81_SHP,6668,鵡川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-101-名寄川.shp,A31-20_81_SHP,6668,名寄川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-101-天塩川.shp,A31-20_81_SHP,6668,天塩川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-101-風連別川.shp,A31-20_81_SHP,6668,風連別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-漁川.shp,A31-20_81_SHP,6668,漁川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-千歳川.shp,A31-20_81_SHP,6668,千歳川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-厚別川.shp,A31-20_81_SHP,6668,厚別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-夕張川.shp,A31-20_81_SHP,6668,夕張川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-嶮淵川.shp,A31-20_81_SHP,6668,嶮淵川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-幌向川.shp,A31-20_81_SHP,6668,幌向川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-当別川.shp,A31-20_81_SHP,6668,当別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-徳富川.shp,A31-20_81_SHP,6668,徳富川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-月寒川.shp,A31-20_81_SHP,6668,月寒川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-石狩川.shp,A31-20_81_SHP,6668,石狩川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-空知川.shp,A31-20_81_SHP,6668,空知川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-篠津川.shp,A31-20_81_SHP,6668,篠津川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-美唄川.shp,A31-20_81_SHP,6668,美唄川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-豊平川.shp,A31-20_81_SHP,6668,豊平川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-辺別川.shp,A31-20_81_SHP,6668,辺別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-雨竜川.shp,A31-20_81_SHP,6668,雨竜川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-奈井江川.shp,A31-20_81_SHP,6668,奈井江川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-幾春別川.shp,A31-20_81_SHP,6668,幾春別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-恵岱別川.shp,A31-20_81_SHP,6668,恵岱別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-旧夕張川.shp,A31-20_81_SHP,6668,旧夕張川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-旧美唄川.shp,A31-20_81_SHP,6668,旧美唄川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-望月寒川.shp,A31-20_81_SHP,6668,望月寒川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-永山新川.shp,A31-20_81_SHP,6668,永山新川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-牛朱別川.shp,A31-20_81_SHP,6668,牛朱別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-須部都川.shp,A31-20_81_SHP,6668,須部都川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-尾白利加川.shp,A31-20_81_SHP,6668,尾白利加川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-産化美唄川.shp,A31-20_81_SHP,6668,産化美唄川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-103-オサラッペ川.shp,A31-20_81_SHP,6668,オサラッペ川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-104-尻別川.shp,A31-20_81_SHP,6668,尻別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-105-後志利別川.shp,A31-20_81_SHP,6668,後志利別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-107-沙流川.shp,A31-20_81_SHP,6668,沙流川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-利別川.shp,A31-20_81_SHP,6668,利別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-十勝川.shp,A31-20_81_SHP,6668,十勝川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-十弗川.shp,A31-20_81_SHP,6668,十弗川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-帯広川.shp,A31-20_81_SHP,6668,帯広川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-札内川.shp,A31-20_81_SHP,6668,札内川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-浦幌川.shp,A31-20_81_SHP,6668,浦幌川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-猿別川.shp,A31-20_81_SHP,6668,猿別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-途別川.shp,A31-20_81_SHP,6668,途別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-音更川.shp,A31-20_81_SHP,6668,音更川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-下頃辺川.shp,A31-20_81_SHP,6668,下頃辺川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-108-浦幌十勝川.shp,A31-20_81_SHP,6668,浦幌十勝川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-109-釧路川.shp,A31-20_81_SHP,6668,釧路川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-109-新釧路川.shp,A31-20_81_SHP,6668,新釧路川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-110-網走川.shp,A31-20_81_SHP,6668,網走川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-110-美幌川.shp,A31-20_81_SHP,6668,美幌川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-111-常呂川.shp,A31-20_81_SHP,6668,常呂川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-111-無加川.shp,A31-20_81_SHP,6668,無加川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-112-湧別川.shp,A31-20_81_SHP,6668,湧別川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,01_計画規模/2019（第2.1版/A31-10-19_81-113-渚滑川.shp,A31-20_81_SHP,6668,渚滑川,計画規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2020（第2.2版/A31-20-20_8101030001（旭川開発建設部）.shp,A31-20_81_SHP,6668,石狩川（旭川）,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2020（第2.2版/A31-20-20_8101030001（札幌開発建設部）.shp,A31-20_81_SHP,6668,石狩川（札幌）,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2020（第2.2版/A31-20-20_8101030409.shp,A31-20_81_SHP,6668,忠別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2020（第2.2版/A31-20-20_8101030410.shp,A31-20_81_SHP,6668,美瑛川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2020（第2.2版/A31-20-20_8101060001.shp,A31-20_81_SHP,6668,鵡川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-剣淵川.shp,A31-20_81_SHP,6668,剣淵川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-名寄川.shp,A31-20_81_SHP,6668,名寄川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-天塩川.shp,A31-20_81_SHP,6668,天塩川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-問寒別川.shp,A31-20_81_SHP,6668,問寒別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-雄信内川.shp,A31-20_81_SHP,6668,雄信内川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-101-風連別川.shp,A31-20_81_SHP,6668,風連別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-102-留萠川.shp,A31-20_81_SHP,6668,留萠川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-漁川.shp,A31-20_81_SHP,6668,漁川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-千歳川.shp,A31-20_81_SHP,6668,千歳川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-厚別川.shp,A31-20_81_SHP,6668,厚別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-夕張川.shp,A31-20_81_SHP,6668,夕張川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-嶮淵川.shp,A31-20_81_SHP,6668,嶮淵川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-幌向川.shp,A31-20_81_SHP,6668,幌向川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-当別川.shp,A31-20_81_SHP,6668,当別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-徳富川.shp,A31-20_81_SHP,6668,徳富川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-忠別川.shp,A31-20_81_SHP,6668,忠別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-月寒川.shp,A31-20_81_SHP,6668,月寒川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-石狩川.shp,A31-20_81_SHP,6668,石狩川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-空知川.shp,A31-20_81_SHP,6668,空知川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-篠津川.shp,A31-20_81_SHP,6668,篠津川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-美唄川.shp,A31-20_81_SHP,6668,美唄川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-美瑛川.shp,A31-20_81_SHP,6668,美瑛川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-豊平川.shp,A31-20_81_SHP,6668,豊平川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-辺別川.shp,A31-20_81_SHP,6668,辺別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-雨竜川.shp,A31-20_81_SHP,6668,雨竜川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-奈井江川.shp,A31-20_81_SHP,6668,奈井江川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-幾春別川.shp,A31-20_81_SHP,6668,幾春別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-恵岱別川.shp,A31-20_81_SHP,6668,恵岱別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-旧夕張川.shp,A31-20_81_SHP,6668,旧夕張川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-旧美唄川.shp,A31-20_81_SHP,6668,旧美唄川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-望月寒川.shp,A31-20_81_SHP,6668,望月寒川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-永山新川.shp,A31-20_81_SHP,6668,永山新川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-牛朱別川.shp,A31-20_81_SHP,6668,牛朱別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-須部都川.shp,A31-20_81_SHP,6668,須部都川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-尾白利加川.shp,A31-20_81_SHP,6668,尾白利加川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-産化美唄川.shp,A31-20_81_SHP,6668,産化美唄川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-103-オサラッペ川.shp,A31-20_81_SHP,6668,オサラッペ川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-104-尻別川.shp,A31-20_81_SHP,6668,尻別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-105-後志利別川.shp,A31-20_81_SHP,6668,後志利別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-106-鵡川.shp,A31-20_81_SHP,6668,鵡川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-107-沙流川.shp,A31-20_81_SHP,6668,沙流川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-利別川.shp,A31-20_81_SHP,6668,利別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-十勝川.shp,A31-20_81_SHP,6668,十勝川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-十弗川.shp,A31-20_81_SHP,6668,十弗川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-帯広川.shp,A31-20_81_SHP,6668,帯広川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-札内川.shp,A31-20_81_SHP,6668,札内川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-浦幌川.shp,A31-20_81_SHP,6668,浦幌川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-猿別川.shp,A31-20_81_SHP,6668,猿別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-途別川.shp,A31-20_81_SHP,6668,途別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-音更川.shp,A31-20_81_SHP,6668,音更川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-下頃辺川.shp,A31-20_81_SHP,6668,下頃辺川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-108-浦幌十勝川.shp,A31-20_81_SHP,6668,浦幌十勝川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-109-釧路川.shp,A31-20_81_SHP,6668,釧路川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-109-新釧路川.shp,A31-20_81_SHP,6668,新釧路川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-110-網走川.shp,A31-20_81_SHP,6668,網走川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-110-美幌川.shp,A31-20_81_SHP,6668,美幌川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-111-常呂川.shp,A31-20_81_SHP,6668,常呂川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-111-無加川.shp,A31-20_81_SHP,6668,無加川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-112-湧別川.shp,A31-20_81_SHP,6668,湧別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,02_想定最大規模/2019（第2.1版）/A31-20-19_81-113-渚滑川.shp,A31-20_81_SHP,6668,渚滑川,想定最大規模
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101030001.shp,A31-20_81_SHP,6668,石狩川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101030250.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101030409.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101030410.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101040001.shp,A31-20_81_SHP,6668,尻別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101060001.shp,A31-20_81_SHP,6668,鵡川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101090044.shp,A31-20_81_SHP,6668,新釧路川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101100001.shp,A31-20_81_SHP,6668,網走川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2020（第2.2版/A31-30-20_8101110001.shp,A31-20_81_SHP,6668,常呂川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101010001.shp,A31-20_81_SHP,6668,天塩川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101010085.shp,A31-20_81_SHP,6668,ペンケニウブ川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101010102.shp,A31-20_81_SHP,6668,ペンケニウブ川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101010114.shp,A31-20_81_SHP,6668,ペンケニウブ川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030001.shp,A31-20_81_SHP,6668,石狩川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030024.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030031.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030032.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030050.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030051.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030077.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030081.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030085.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030104.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030110.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030119.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030121.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030182.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030195.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030202.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030209.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030215.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030227.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030250.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030317.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030331.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030334.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030341.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030398.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030416.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030442.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101030514.shp,A31-20_81_SHP,6668,永山新川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101040001.shp,A31-20_81_SHP,6668,尻別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101050001.shp,A31-20_81_SHP,6668,後志利別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101070001.shp,A31-20_81_SHP,6668,沙流川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080001.shp,A31-20_81_SHP,6668,十勝川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080006.shp,A31-20_81_SHP,6668,下頃辺川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080007.shp,A31-20_81_SHP,6668,浦幌十勝川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080008.shp,A31-20_81_SHP,6668,浦幌川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080034.shp,A31-20_81_SHP,6668,瀬多来川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080035.shp,A31-20_81_SHP,6668,瀬多来川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080093.shp,A31-20_81_SHP,6668,瀬多来川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080104.shp,A31-20_81_SHP,6668,石狩川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080114.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080129.shp,A31-20_81_SHP,6668,茨戸耕北川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101080139.shp,A31-20_81_SHP,6668,後志利別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101090001.shp,A31-20_81_SHP,6668,鵡川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101100010.shp,A31-20_81_SHP,6668,十勝川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101110024.shp,A31-20_81_SHP,6668,下頃辺川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101120001.shp,A31-20_81_SHP,6668,瀬多来川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,03_浸水継続時間/2019（第2.2版）/A31-30-19_8101130001.shp,A31-20_81_SHP,6668,瀬多来川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101030001.shp,A31-20_81_SHP,6668,瀬多来川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101030409.shp,A31-20_81_SHP,6668,網走川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101030410.shp,A31-20_81_SHP,6668,瀬多来川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101050001.shp,A31-20_81_SHP,6668,瀬多来川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101060001.shp,A31-20_81_SHP,6668,瀬多来川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101080001.shp,A31-20_81_SHP,6668,瀬多来川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101080006.shp,A31-20_81_SHP,6668,釧路川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101080034.shp,A31-20_81_SHP,6668,美幌川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101080035.shp,A31-20_81_SHP,6668,トコロホロナイ川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101080139.shp,A31-20_81_SHP,6668,湧別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2020（第2.2版/A31-40-20_8101100001.shp,A31-20_81_SHP,6668,渚滑川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-101-剣淵川.shp,A31-20_81_SHP,6668,剣淵川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-101-名寄川.shp,A31-20_81_SHP,6668,名寄川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-101-天塩川.shp,A31-20_81_SHP,6668,天塩川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-101-風連別川.shp,A31-20_81_SHP,6668,風連別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-漁川.shp,A31-20_81_SHP,6668,漁川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-千歳川.shp,A31-20_81_SHP,6668,千歳川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-厚別川.shp,A31-20_81_SHP,6668,厚別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-夕張川.shp,A31-20_81_SHP,6668,夕張川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-嶮淵川.shp,A31-20_81_SHP,6668,嶮淵川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-幌向川.shp,A31-20_81_SHP,6668,幌向川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-当別川.shp,A31-20_81_SHP,6668,当別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-徳富川.shp,A31-20_81_SHP,6668,徳富川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-月寒川.shp,A31-20_81_SHP,6668,月寒川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-石狩川.shp,A31-20_81_SHP,6668,石狩川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-空知川.shp,A31-20_81_SHP,6668,空知川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-篠津川.shp,A31-20_81_SHP,6668,篠津川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-美唄川.shp,A31-20_81_SHP,6668,美唄川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-豊平川.shp,A31-20_81_SHP,6668,豊平川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-辺別川.shp,A31-20_81_SHP,6668,辺別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-雨竜川.shp,A31-20_81_SHP,6668,雨竜川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-奈井江川.shp,A31-20_81_SHP,6668,奈井江川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-幾春別川.shp,A31-20_81_SHP,6668,幾春別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-恵岱別川.shp,A31-20_81_SHP,6668,恵岱別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-旧夕張川.shp,A31-20_81_SHP,6668,旧夕張川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-旧美唄川.shp,A31-20_81_SHP,6668,旧美唄川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-望月寒川.shp,A31-20_81_SHP,6668,望月寒川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-永山新川.shp,A31-20_81_SHP,6668,永山新川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-牛朱別川.shp,A31-20_81_SHP,6668,牛朱別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-須部都川.shp,A31-20_81_SHP,6668,須部都川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-尾白利加川.shp,A31-20_81_SHP,6668,尾白利加川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-産化美唄川.shp,A31-20_81_SHP,6668,産化美唄川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-103-オサラッペ川.shp,A31-20_81_SHP,6668,オサラッペ川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-104-尻別川.shp,A31-20_81_SHP,6668,尻別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-105-後志利別川.shp,A31-20_81_SHP,6668,後志利別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-107-沙流川.shp,A31-20_81_SHP,6668,沙流川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-利別川.shp,A31-20_81_SHP,6668,利別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-十勝川.shp,A31-20_81_SHP,6668,十勝川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-帯広川.shp,A31-20_81_SHP,6668,帯広川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-札内川.shp,A31-20_81_SHP,6668,札内川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-浦幌川.shp,A31-20_81_SHP,6668,浦幌川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-猿別川.shp,A31-20_81_SHP,6668,猿別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-途別川.shp,A31-20_81_SHP,6668,途別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-音更川.shp,A31-20_81_SHP,6668,音更川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-108-浦幌十勝川.shp,A31-20_81_SHP,6668,浦幌十勝川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-109-釧路川.shp,A31-20_81_SHP,6668,釧路川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-109-新釧路川.shp,A31-20_81_SHP,6668,新釧路川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-110-網走川.shp,A31-20_81_SHP,6668,網走川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-110-美幌川.shp,A31-20_81_SHP,6668,美幌川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-111-常呂川.shp,A31-20_81_SHP,6668,常呂川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-111-無加川.shp,A31-20_81_SHP,6668,無加川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-112-湧別川.shp,A31-20_81_SHP,6668,湧別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2020,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-20/A31-20_81_SHP.zip,A31-20_81_SHP.zip,04_家屋倒壊等氾濫想定区域/2019（第2.1版/A31-40-19_81-113-渚滑川.shp,A31-20_81_SHP,6668,渚滑川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-101-名寄川.shp,A31-19_81_SHP,6668,名寄川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-101-天塩川.shp,A31-19_81_SHP,6668,天塩川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-101-風連別川.shp,,,風連別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-漁川.shp,,,漁川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-千歳川.shp,,,千歳川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-厚別川.shp,,,厚別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-夕張川.shp,,,夕張川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-嶮淵川.shp,,,嶮淵川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-幌向川.shp,,,幌向川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-当別川.shp,,,当別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-徳富川.shp,,,徳富川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-月寒川.shp,,,月寒川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-石狩川.shp,,,石狩川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-空知川.shp,,,空知川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-篠津川.shp,,,篠津川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-美唄川.shp,,,美唄川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-豊平川.shp,,,豊平川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-辺別川.shp,,,辺別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-雨竜川.shp,,,雨竜川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-奈井江川.shp,,,奈井江川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-幾春別川.shp,,,幾春別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-恵岱別川.shp,,,恵岱別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-旧夕張川.shp,,,旧夕張川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-旧美唄川.shp,,,旧美唄川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-望月寒川.shp,,,望月寒川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-永山新川.shp,,,永山新川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-牛朱別川.shp,,,牛朱別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-須部都川.shp,,,須部都川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-尾白利加川.shp,,,尾白利加川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-産化美唄川.shp,,,産化美唄川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-103-オサラッペ川.shp,,,オサラッペ川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-104-尻別川.shp,,,尻別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-105-後志利別川.shp,,,後志利別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-107-沙流川.shp,,,沙流川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-利別川.shp,,,利別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-十勝川.shp,,,十勝川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-十弗川.shp,,,十弗川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-帯広川.shp,,,帯広川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-札内川.shp,,,札内川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-浦幌川.shp,,,浦幌川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-猿別川.shp,,,猿別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-途別川.shp,,,途別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-音更川.shp,,,音更川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-下頃辺川.shp,,,下頃辺川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-108-浦幌十勝川.shp,,,浦幌十勝川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-109-釧路川.shp,,,釧路川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-109-新釧路川.shp,,,新釧路川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-110-網走川.shp,,,網走川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-110-美幌川.shp,,,美幌川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-111-常呂川.shp,,,常呂川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-111-無加川.shp,,,無加川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-112-湧別川.shp,,,湧別川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/01_計画規模/A31-10-19_81-113-渚滑川.shp,,,渚滑川,計画規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-101-剣淵川.shp,,,剣淵川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-101-名寄川.shp,,,名寄川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-101-天塩川.shp,,,天塩川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-101-問寒別川.shp,,,問寒別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-101-雄信内川.shp,,,雄信内川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-101-風連別川.shp,,,風連別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-102-留萠川.shp,,,留萠川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-漁川.shp,,,漁川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-千歳川.shp,,,千歳川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-厚別川.shp,,,厚別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-夕張川.shp,,,夕張川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-嶮淵川.shp,,,嶮淵川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-幌向川.shp,,,幌向川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-当別川.shp,,,当別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-徳富川.shp,,,徳富川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-忠別川.shp,,,忠別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-月寒川.shp,,,月寒川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-石狩川.shp,,,石狩川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-空知川.shp,,,空知川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-篠津川.shp,,,篠津川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-美唄川.shp,,,美唄川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-美瑛川.shp,,,美瑛川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-豊平川.shp,,,豊平川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-辺別川.shp,,,辺別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-雨竜川.shp,,,雨竜川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-奈井江川.shp,,,奈井江川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-幾春別川.shp,,,幾春別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-恵岱別川.shp,,,恵岱別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-旧夕張川.shp,,,旧夕張川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-旧美唄川.shp,,,旧美唄川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-望月寒川.shp,,,望月寒川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-永山新川.shp,,,永山新川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-牛朱別川.shp,,,牛朱別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-須部都川.shp,,,須部都川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-尾白利加川.shp,,,尾白利加川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-産化美唄川.shp,,,産化美唄川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-103-オサラッペ川.shp,,,オサラッペ川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-104-尻別川.shp,,,尻別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-105-後志利別川.shp,,,後志利別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-106-鵡川.shp,,,鵡川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-107-沙流川.shp,,,沙流川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-利別川.shp,,,利別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-十勝川.shp,,,十勝川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-十弗川.shp,,,十弗川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-帯広川.shp,,,帯広川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-札内川.shp,,,札内川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-浦幌川.shp,,,浦幌川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-猿別川.shp,,,猿別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-途別川.shp,,,途別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-音更川.shp,,,音更川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-下頃辺川.shp,,,下頃辺川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-108-浦幌十勝川.shp,,,浦幌十勝川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-109-釧路川.shp,,,釧路川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-109-新釧路川.shp,,,新釧路川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-110-網走川.shp,,,網走川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-110-美幌川.shp,,,美幌川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-111-常呂川.shp,,,常呂川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-111-無加川.shp,,,無加川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-112-湧別川.shp,,,湧別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-19_81-113-渚滑川.shp,,,渚滑川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-20_81-103-忠別川.shp,,,忠別川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-20_81-103-美瑛川.shp,,,美瑛川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-20_81-103-石狩川（旭川開発建設部）.shp,,,石狩川（旭川開発建設部）,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-20_81-103-石狩川（札幌開発建設部）.shp,,,石狩川（札幌開発建設部）,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/02_想定最大規模/A31-20-20_81-106-鵡川.shp,,,鵡川,想定最大規模
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-101-剣淵川.shp,,,剣淵川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-101-名寄川.shp,,,名寄川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-101-天塩川.shp,,,天塩川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-101-風連別川.shp,,,風連別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-漁川.shp,,,漁川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-千歳川.shp,,,千歳川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-厚別川.shp,,,厚別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-夕張川.shp,,,夕張川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-嶮淵川.shp,,,嶮淵川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-幌向川.shp,,,幌向川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-当別川.shp,,,当別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-徳富川.shp,,,徳富川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-月寒川.shp,,,月寒川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-石狩川.shp,,,石狩川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-空知川.shp,,,空知川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-篠津川.shp,,,篠津川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-美唄川.shp,,,美唄川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-豊平川.shp,,,豊平川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-辺別川.shp,,,辺別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-雨竜川.shp,,,雨竜川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-奈井江川.shp,,,奈井江川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-幾春別川.shp,,,幾春別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-恵岱別川.shp,,,恵岱別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-旧夕張川.shp,,,旧夕張川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-旧美唄川.shp,,,旧美唄川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-望月寒川.shp,,,望月寒川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-永山新川.shp,,,永山新川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-牛朱別川.shp,,,牛朱別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-須部都川.shp,,,須部都川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-尾白利加川.shp,,,尾白利加川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-産化美唄川.shp,,,産化美唄川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-103-オサラッペ川.shp,,,オサラッペ川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-104-尻別川.shp,,,尻別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-105-後志利別川.shp,,,後志利別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-107-沙流川.shp,,,沙流川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-利別川.shp,,,利別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-十勝川.shp,,,十勝川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-十弗川.shp,,,十弗川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-帯広川.shp,,,帯広川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-札内川.shp,,,札内川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-浦幌川.shp,,,浦幌川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-猿別川.shp,,,猿別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-途別川.shp,,,途別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-音更川.shp,,,音更川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-下頃辺川.shp,,,下頃辺川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-108-浦幌十勝川.shp,,,浦幌十勝川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-109-釧路川.shp,,,釧路川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-110-美幌川.shp,,,美幌川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-111-無加川.shp,,,無加川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-112-湧別川.shp,,,湧別川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/03_浸水継続時間/A31-30-19_81-113-渚滑川.shp,,,渚滑川,浸水継続時間
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-101-剣淵川.shp,,,剣淵川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-101-名寄川.shp,,,名寄川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-101-天塩川.shp,,,天塩川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-101-風連別川.shp,,,風連別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-漁川.shp,,,漁川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-千歳川.shp,,,千歳川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-厚別川.shp,,,厚別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-夕張川.shp,,,夕張川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-嶮淵川.shp,,,嶮淵川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-幌向川.shp,,,幌向川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-当別川.shp,,,当別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-徳富川.shp,,,徳富川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-月寒川.shp,,,月寒川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-石狩川.shp,,,石狩川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-空知川.shp,,,空知川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-篠津川.shp,,,篠津川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-美唄川.shp,,,美唄川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-豊平川.shp,,,豊平川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-辺別川.shp,,,辺別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-雨竜川.shp,,,雨竜川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-奈井江川.shp,,,奈井江川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-幾春別川.shp,,,幾春別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-恵岱別川.shp,,,恵岱別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-旧夕張川.shp,,,旧夕張川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-旧美唄川.shp,,,旧美唄川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-望月寒川.shp,,,望月寒川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-永山新川.shp,,,永山新川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-牛朱別川.shp,,,牛朱別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-須部都川.shp,,,須部都川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-尾白利加川.shp,,,尾白利加川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-産化美唄川.shp,,,産化美唄川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-103-オサラッペ川.shp,,,オサラッペ川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-104-尻別川.shp,,,尻別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-105-後志利別川.shp,,,後志利別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-107-沙流川.shp,,,沙流川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-108-利別川.shp,,,利別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-108-十勝川.shp,,,十勝川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-108-帯広川.shp,,,帯広川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-108-札内川.shp,,,札内川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-108-浦幌川.shp,,,浦幌川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-108-猿別川.shp,,,猿別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-108-途別川.shp,,,途別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-108-音更川.shp,,,音更川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-108-浦幌十勝川.shp,,,浦幌十勝川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-109-釧路川.shp,,,釧路川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-109-新釧路川.shp,,,新釧路川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-110-網走川.shp,,,網走川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-110-美幌川.shp,,,美幌川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-111-常呂川.shp,,,常呂川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-111-無加川.shp,,,無加川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-112-湧別川.shp,,,湧別川,家屋倒壊等氾濫想定区域
+洪水浸水想定区域,北海道開発局,2019,https://nlftp.mlit.go.jp/ksj/gml/data/A31/A31-19/A31-19_81_SHP.zip,A31-19_81_SHP.zip,02_シェープファイル/04_家屋倒壊等氾濫想定区域/A31-40-19_81-113-渚滑川.shp,,,渚滑川,家屋倒壊等氾濫想定区域
