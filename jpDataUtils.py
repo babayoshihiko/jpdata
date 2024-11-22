@@ -107,7 +107,7 @@ def getPrefNameByCode(pref_code):
 def getPrefCodeByName(pref_name):
     pref_code = ""
     pref_name = pref_name.strip()
-    pref_name = pref_name.replace("県","")
+    pref_name = pref_name.replace("県", "")
     if pref_name == "北海道":
         pref_code = "01"
     elif pref_name == "青森":
@@ -251,23 +251,17 @@ def findShpFile2(folderPath, shp, altdir, code_pref, code_muni="", name_muni="")
     if os.path.exists(os.path.join(folderPath, shpFileTarget)):
         shpFile = os.path.join(folderPath, shpFileTarget)
         QgsMessageLog.logMessage(
-            "jpDataUtils.findShpFile2: Found 1 " + shpFile,
-            "jpdata", 
-            level=Qgis.Warning
+            "jpDataUtils.findShpFile2: Found 1 " + shpFile, "jpdata", level=Qgis.Warning
         )
     elif os.path.exists(os.path.join(folderPath, altDir, shpFileTarget)):
         shpFile = os.path.join(folderPath, altDir, shpFileTarget)
         QgsMessageLog.logMessage(
-            "jpDataUtils.findShpFile2: Found 2 " + shpFile,
-            "jpdata", 
-            level=Qgis.Warning
+            "jpDataUtils.findShpFile2: Found 2 " + shpFile, "jpdata", level=Qgis.Warning
         )
     elif os.path.exists(os.path.join(folderPath, altDir + "\\" + shpFileTarget)):
         shpFile = os.path.join(folderPath, altDir + "\\" + shpFileTarget)
         QgsMessageLog.logMessage(
-            "jpDataUtils.findShpFile2: Found 3 " + shpFile,
-            "jpdata", 
-            level=Qgis.Warning
+            "jpDataUtils.findShpFile2: Found 3 " + shpFile, "jpdata", level=Qgis.Warning
         )
 
     return shpFile
@@ -283,11 +277,7 @@ def unzipAndGetShp(
     name_muni="",
     epsg="",
 ):
-    QgsMessageLog.logMessage(
-            "jpDataUtils.unzipAndGetShp",
-            "jpdata", 
-            level=Qgis.Warning
-    )
+    QgsMessageLog.logMessage("jpDataUtils.unzipAndGetShp", "jpdata", level=Qgis.Warning)
     shpFileName = findShpFile2(
         folder_path, shp_file, altdir, code_pref, code_muni, name_muni
     )
@@ -326,11 +316,13 @@ def unzipAndGetShp(
         folder_path, shp_file, altdir, code_pref, code_muni, name_muni
     )
     if shpFileName is None:
-        QgsMessageLog.logMessage(
-            "jpDataUtils.unzipAndGetShp: Cannot find the file " + shp_file + " in " + folder_path +
-            " or in " + os.path.join(folder_path,altdir),
-            "jpdata", 
-            level=Qgis.Warning
+        printLog(
+            "jpDataUtils.unzipAndGetShp: Cannot find the file "
+            + shp_file
+            + " in "
+            + folder_path
+            + " or in "
+            + os.path.join(folder_path, altdir)
         )
     else:
         if not os.path.exists(shpFileName[:-4] + ".prj") and epsg != "":
@@ -339,3 +331,7 @@ def unzipAndGetShp(
                 prj_file.write(crs.toWkt())
 
     return shpFileName
+
+
+def printLog(message):
+    QgsMessageLog.logMessage(message, "jpdata", level=Qgis.Warning)
