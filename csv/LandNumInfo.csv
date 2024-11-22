@@ -72,7 +72,7 @@ DID人口集中地区,,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A16/A
 半島振興対策実施地域,yes,A18,regional,Peninsulas Development Implementation Area,2016,https://nlftp.mlit.go.jp/ksj/gml/data/A18/A18-16/A18-16_code_pref_GML.zip,A18-16_code_pref_GML.zip,A18-16_code_pref.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A18-2016.html,,,,,A18_002,code_pref_muni,CP932,A18-2016.qml,6668,
 半島振興対策実施地域統計情報（ポリゴン）,,A18s-a,,,,,,,,,,,,,,,,,,,
 半島循環道路（ポリゴン）（ライン）,,A37,,,,,,,,,,,,,,,,,,,
-豪雪地帯,yes,A22,,Heavy Snowfall Area,2016,https://nlftp.mlit.go.jp/ksj/gml/data/A22/A22-16/A22-16_code_pref_GML.zip,A22-16_code_pref_GML.zip,A22-16_code_pref.shp,,A22-16_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A22-2016.html,,,,,,,CP932,A22-2016.qml,6668,
+豪雪地帯,yes,A22,regional,Heavy Snowfall Area,csv,https://nlftp.mlit.go.jp/ksj/gml/data/A22/A22-16/A22-16_code_pref_GML.zip,A22-16_code_pref_GML.zip,A22-16_code_pref.shp,,A22-16_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A22-2016.html,,,,,,,CP932,A22-2016.qml,6668,
 豪雪地帯（気象データ）（ポリゴン）（ポイント）,,A22-m,,,,,,,,,,,,,,,,,,,
 豪雪地帯統計情報（ポリゴン）,,A22s,,,,,,,,,,,,,,,,,,,
 特殊土壌地帯,yes,A23,regional,Particular Soil Zone,2016,https://nlftp.mlit.go.jp/ksj/gml/data/A23/A23-16/A23-16_code_pref_GML.zip,A23-16_code_pref_GML.zip,A23-16_code_pref.shp,,A23-16_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A23-2016.html,,,,,,,CP932,A23-2016.qml,6668,

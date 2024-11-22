@@ -436,32 +436,30 @@ class jpdata:
                 break
 
     def tab1CheckYear(self):
-        items = self.dockwidget.myListWidget11.selectedItems()
-        for i in range(len(items)):
-            for item in self._LandNumInfo:
-                if (
-                    str(self.dockwidget.myListWidget11.selectedItems()[i].text())
-                    == item["name_j"]
-                ):
-                    self.dockwidget.myComboBox11.clear()
-                    if item["year"].lower() != "csv":
-                        self.dockwidget.myListWidget12.setSelectionMode(
-                            QAbstractItemView.ExtendedSelection
-                        )
-                        self.dockwidget.myComboBox11.addItem(item["year"])
+        for item in self._LandNumInfo:
+            if (
+                str(self.dockwidget.myListWidget11.selectedItems()[0].text())
+                == item["name_j"]
+            ):
+                self.dockwidget.myComboBox11.clear()
+                if item["year"].lower() != "csv":
+                    self.dockwidget.myListWidget12.setSelectionMode(
+                        QAbstractItemView.ExtendedSelection
+                    )
+                    self.dockwidget.myComboBox11.addItem(item["year"])
+                else:
+                    if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+                        name_pref = self.dockwidget.myListWidget12.selectedItems()[
+                            0
+                        ].text()
                     else:
-                        if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-                            name_pref = self.dockwidget.myListWidget12.selectedItems()[
-                                0
-                            ].text()
-                        else:
-                            name_pref = None
-                        self.dockwidget.myListWidget12.setSelectionMode(
-                            QAbstractItemView.SingleSelection
-                        )
-                        years = jpDataLNI.getYearsByMapCode(item["code_map"], name_pref)
-                        for year in years:
-                            self.dockwidget.myComboBox11.addItem(year)
+                        name_pref = None
+                    self.dockwidget.myListWidget12.setSelectionMode(
+                        QAbstractItemView.SingleSelection
+                    )
+                    years = jpDataLNI.getYearsByMapCode(item["code_map"], name_pref)
+                    for year in years:
+                        self.dockwidget.myComboBox11.addItem(year)
 
     def tab1SetLW13(self):
         # map_code and year
@@ -478,6 +476,8 @@ class jpdata:
                 str(self.dockwidget.myListWidget11.selectedItems()[0].text())
                 == item["name_j"]
             ):
+                if item["type_muni"].lower() != "detail":
+                    return
                 map_code = item["code_map"]
                 break
 
