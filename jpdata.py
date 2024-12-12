@@ -33,7 +33,7 @@ from .jpdata_dockwidget import jpdataDockWidget
 import os.path
 
 # User defined
-import os, tempfile
+import os, tempfile, posixpath
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem
 from qgis.PyQt.QtWidgets import QAbstractItemView
 from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
@@ -64,7 +64,7 @@ class jpdata:
 
         # initialize locale
         locale = QSettings().value("locale/userLocale")[0:2]
-        locale_path = os.path.join(
+        locale_path = posixpath.join(
             self.plugin_dir, "i18n", "jpdata_{}.qm".format(locale)
         )
 
@@ -187,7 +187,7 @@ class jpdata:
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
         self.add_action(
-            os.path.join(self.plugin_dir, "icon.png"),
+            posixpath.join(self.plugin_dir, "icon.png"),
             text=self.tr("jpdata"),
             callback=self.run,
             add_to_toolbar=False,
@@ -608,7 +608,7 @@ class jpdata:
                                 item["code_map"], str(pref_name[x].text()), year, detail
                             )
                             tempShpFileName = jpDataUtils.unzipAndGetShp(
-                                os.path.join(self._folderPath, item["code_map"]),
+                                posixpath.join(self._folderPath, item["code_map"]),
                                 y["zip"],
                                 y["shp"],
                                 y["altdir"],
@@ -618,7 +618,7 @@ class jpdata:
                         elif item["type_muni"].lower() == "single":
                             # The single .shp file covers the whole nation
                             tempShpFileName = jpDataUtils.unzipAndGetShp(
-                                os.path.join(self._folderPath, item["code_map"]),
+                                posixpath.join(self._folderPath, item["code_map"]),
                                 item["zip"],
                                 item["shp"],
                                 item["altdir"],
@@ -627,7 +627,7 @@ class jpdata:
                             )
                         else:
                             tempShpFileName = jpDataUtils.unzipAndGetShp(
-                                os.path.join(self._folderPath, item["code_map"]),
+                                posixpath.join(self._folderPath, item["code_map"]),
                                 item["zip"],
                                 item["shp"],
                                 item["altdir"],
@@ -691,12 +691,12 @@ class jpdata:
                                 tempLayer.dataProvider().createSpatialIndex()
 
                             if os.path.isfile(
-                                os.path.join(self.plugin_dir, "qml", item["qml"])
+                                posixpath.join(self.plugin_dir, "qml", item["qml"])
                             ):
                                 # For the qml files that use SVG images in the plugin folder
                                 with tempfile.TemporaryDirectory() as temp_dir:
                                     with open(
-                                        os.path.join(
+                                        posixpath.join(
                                             self.plugin_dir, "qml", item["qml"]
                                         ),
                                         "r",
@@ -706,28 +706,28 @@ class jpdata:
                                         "PLUGIN_DIR", self.plugin_dir
                                     )
                                     with open(
-                                        os.path.join(temp_dir, item["qml"]), "w"
+                                        posixpath.join(temp_dir, item["qml"]), "w"
                                     ) as file:
                                         file.write(new_contents)
                                     if tempLayer.loadNamedStyle(
-                                        os.path.join(temp_dir, item["qml"])
+                                        posixpath.join(temp_dir, item["qml"])
                                     ):
                                         tempLayer.triggerRepaint()
                             QgsProject.instance().addMapLayer(tempLayer)
                     break
 
     def start_download(self, url, subFolder, zipFileName):
-        if not os.path.exists(os.path.join(self._folderPath, subFolder)):
-            os.mkdir(os.path.join(self._folderPath, subFolder))
+        if not os.path.exists(posixpath.join(self._folderPath, subFolder)):
+            os.mkdir(posixpath.join(self._folderPath, subFolder))
 
-        if not os.path.exists(os.path.join(self._folderPath, subFolder, zipFileName)):
+        if not os.path.exists(posixpath.join(self._folderPath, subFolder, zipFileName)):
             self.setProxyServer()
             self.dockwidget.myLabelStatus.setText(
                 self.tr("Downloading: ") + zipFileName
             )
             self._downloader.setUrl(url)
             self._downloader.setFilePath(
-                os.path.join(self._folderPath, subFolder, zipFileName)
+                posixpath.join(self._folderPath, subFolder, zipFileName)
             )
             self._downloader.start()
         else:
@@ -808,7 +808,7 @@ class jpdata:
                 year, row["code_pref"], row["code_muni"]
             )
             tempShpFileName = jpDataUtils.unzipAndGetShp(
-                os.path.join(self._folderPath, "Census"),
+                posixpath.join(self._folderPath, "Census"),
                 tempZipFileName,
                 tempShpFileName,
             )
@@ -817,7 +817,7 @@ class jpdata:
                 tempShpFileName, ok = QFileDialog.getOpenFileName(
                     self.iface.mainWindow(),
                     self.tr("Select a shp file"),
-                    os.path.join(self._folderPath, "Census"),
+                    posixpath.join(self._folderPath, "Census"),
                     "ESRI Shapefile (*.shp)",
                 )
 
@@ -829,9 +829,9 @@ class jpdata:
                 if not os.path.exists(tempShpFileName[:-4] + ".qix"):
                     tempLayer.dataProvider().createSpatialIndex()
 
-                if os.path.exists(os.path.join(self.plugin_dir, "qml", "Census.qml")):
+                if os.path.exists(posixpath.join(self.plugin_dir, "qml", "Census.qml")):
                     if tempLayer.loadNamedStyle(
-                        os.path.join(self.plugin_dir, "qml", "Census.qml")
+                        posixpath.join(self.plugin_dir, "qml", "Census.qml")
                     ):
                         tempLayer.triggerRepaint()
                 QgsProject.instance().addMapLayer(tempLayer)

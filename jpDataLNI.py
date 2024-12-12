@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-import os, csv
+import os, csv, posixpath
 from . import jpDataUtils
 
 
 def getPrefsOrRegionsByMapCode(code_map):
-    file_path = os.path.join(
+    file_path = posixpath.join(
         os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
     )
     prefs_or_regions = []
@@ -20,7 +20,7 @@ def getPrefsOrRegionsByMapCode(code_map):
     return unique_prefs_or_regions
 
 def getYearsByMapCode(code_map, name_pref=None):
-    file_path = os.path.join(
+    file_path = posixpath.join(
         os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
     )
     years = []
@@ -38,7 +38,7 @@ def getYearsByMapCode(code_map, name_pref=None):
     return unique_years
 
 def getDetailsByMapCodePrefNameYear(code_map, name_pref, year):
-    file_path = os.path.join(
+    file_path = posixpath.join(
         os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
     )
     details = []
@@ -54,7 +54,7 @@ def getDetailsByMapCodePrefNameYear(code_map, name_pref, year):
     return unique_details
 
 def getShapeByMapCodePrefNameYearDetail(code_map, name_pref, year, detail):
-    file_path = os.path.join(
+    file_path = posixpath.join(
         os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
     )
     details = []
@@ -71,7 +71,7 @@ def getShapeByMapCodePrefNameYearDetail(code_map, name_pref, year, detail):
 
 def getUrlCodeZipByPrefName(code_map, name_pref, year, detail = None):
     # name_pref = jpDataUtils.getPrefNameByCode(code_pref)
-    file_path = os.path.join(
+    file_path = posixpath.join(
         os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
     )
 
