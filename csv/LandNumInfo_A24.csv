@@ -1,0 +1,11 @@
+availability,year,url,zip,shp,altdir,source,encoding,qml,epsg,filesize
+北海道,2016,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-16/A24-16_01_GML.zip,A24-16_code_pref_01.zip,A24-16_01.shp,A24-16_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-2016.html,CP932,A24-2016.qml,6668,
+北海道,2007,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-07/A24-070402_01_GML.zip,A24-070402_01_GML.zip,A24-070402_01_DevelopmentMountainVillage.shp,,,,,,
+北海道,2005,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-05/A24-051001_01_GML.zip,A24-051001_01_GML.zip,A24-051001_01_DevelopmentMountainVillage.shp,,,,,,
+北海道,2000,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-00/A24-001001_01_GML.zip,A24-001001_01_GML.zip,A24-001001_01_DevelopmentMountainVillage.shp,,,,,,
+北海道,1995,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-95/A24-951001_01_GML.zip,A24-951001_01_GML.zip,A24-951001_01_DevelopmentMountainVillage.shp,,,,,,
+北海道,1990,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-90/A24-901001_01_GML.zip,A24-901001_01_GML.zip,A24-901001_01_DevelopmentMountainVillage.shp,,,,,,
+北海道,1985,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-85/A24-851001_01_GML.zip,A24-851001_01_GML.zip,A24-851001_01_DevelopmentMountainVillage.shp,,,,,,
+北海道,1975,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-80/A24-801001_01_GML.zip,A24-801001_01_GML.zip,A24-801001_01_DevelopmentMountainVillage.shp,,,,,,
+北海道,1970,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-75/A24-751001_01_GML.zip,A24-751001_01_GML.zip,A24-751001_01_DevelopmentMountainVillage.shp,,,,,,
+北海道,1966,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-66/A24-660331_01_GML.zip,A24-660331_01_GML.zip,A24-660331_01_DevelopmentMountainVillage.shp,,,,,,
