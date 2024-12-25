@@ -867,6 +867,7 @@ class jpdata:
             )
 
         if self._folderPath:
+            self.enable_download()
             self.dockwidget.myLabel1.setText(self._folderPath)
             s = QgsSettings()
             s.setValue("jpdata/FolderPath", self._folderPath)
