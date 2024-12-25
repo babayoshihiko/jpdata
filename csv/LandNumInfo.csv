@@ -3,7 +3,7 @@ name_j,availability,code_map,type_muni,name_e,year,url,zip,shp,geojson,altdir,so
 【水域】,,,,,,,,,,,,,,,,,,,,,
 海岸線,yes,C23,regional,Coastline,2006,https://nlftp.mlit.go.jp/ksj/gml/data/C23/C23-06/C23-06_code_pref_GML.zip,C23-06_code_pref_GML.zip,C23-06_code_pref-g_Coastline.shp,,C23-06_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C23.html,,,,,C23_001,code_pref_muni,CP932,C23.qml,4612,
 海岸保全施設（ライン）,yes,P23,,Coastal Facilities (Line),2012,https://nlftp.mlit.go.jp/ksj/gml/data/P23/P23-12/P23-12_13_GML.zip,P23-12_code_pref_GML.zip,P23b-12_code_pref.shp,,P23-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P23.html,,,,,,,CP932,P23b.qml,4612,
-海岸保全施設（ポイント） ,yes,P23,,Coastal Facilities (Point),2012,https://nlftp.mlit.go.jp/ksj/gml/data/P23/P23-12/P23-12_13_GML.zip,P23-12_code_pref_GML.zip,P23a-12_code_pref.shp,,P23-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P23.html,,,,,,,CP932,P23a.qml,4612,
+海岸保全施設（ポイント）,yes,P23,,Coastal Facilities (Point),2012,https://nlftp.mlit.go.jp/ksj/gml/data/P23/P23-12/P23-12_13_GML.zip,P23-12_code_pref_GML.zip,P23a-12_code_pref.shp,,P23-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P23.html,,,,,,,CP932,P23a.qml,4612,
 湖沼,yes,W09,single,Lake,2005,https://nlftp.mlit.go.jp/ksj/gml/data/W09/W09-05/W09-05_GML.zip,W09-05_GML.zip,W09-05-g_Lake.shp,,W09-05_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W09-2005.html,,,,,,,CP932,W09.qml,4612,
 流域メッシュ ,,W07,mesh,,,,,,,,,,,,,,,,,,
 ダム,yes,W01,single,Dam,2014,https://nlftp.mlit.go.jp/ksj/gml/data/W01/W01-14/W01-14_GML.zip,W01-14_GML.zip,W01-14-g_Dam.shp,,W01-14_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W01.html,,,,,,,CP932,W01-2014.qml,6668,
@@ -60,8 +60,8 @@ DID人口集中地区,,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A16/A
 都市公園,yes,P13,,,2011,https://nlftp.mlit.go.jp/ksj/gml/data/P13/P13-11/P13-11_code_pref_GML.zip,P13-11_code_pref_GML.zip,P13-11_code_pref.shp,,P13-11_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P13.html,,,,,,,CP932,P13-2011.qml,4612,
 【大都市圏・条件不利地域】,,,,,,,,,,,,,,,,,,,,,
 三大都市圏計画区域,yes,A03,regional,Three Major Metro Plan Area,2003,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A03.html,,,,,A03_001,code_pref_muni,CP932,A03-2003_ThreeMajorMetroPlanArea.qml,4301,
-過疎地域,yes,A17,,Underpopulated Area,2017,https://nlftp.mlit.go.jp/ksj/gml/data/A17/A17-17/A17-17_code_pref_GML.zip,A17-17_code_pref_GML.zip,A17-17_code_pref.shp,,A17-17_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A17-2017.html,,,,,,,CP932,A17-2017.qml,6668,
-振興山村,yes,A24,regional,Development Mountain Village,csv,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-16/A24-16_code_pref_GML.zip,A24-16_code_pref_GML.zip,A24-16_code_pref.shp,,A24-16_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-2016.html,,,,,,,CP932,A24-2017.qml,6668,
+過疎地域,yes,A17,regional,Underpopulated Area,csv,https://nlftp.mlit.go.jp/ksj/gml/data/A17/A17-17/A17-17_code_pref_GML.zip,A17-17_code_pref_GML.zip,A17-17_code_pref.shp,,A17-17_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A17-2017.html,,,,,,,CP932,A17-2017.qml,6668,
+振興山村,yes,A24,regional,Development Mountain Village,csv,https://nlftp.mlit.go.jp/ksj/gml/data/A24/A24-16/A24-16_code_pref_GML.zip,A24-16_code_pref_GML.zip,A24-16_code_pref.shp,,A24-16_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-2016.html,,,,,,,CP932,A24-2016.qml,6668,
 特定農山村地域,yes,A25,,Designated Rural Area,2016,https://nlftp.mlit.go.jp/ksj/gml/data/A25/A25-16/A25-16_code_pref_GML.zip,A25-16_code_pref_GML.zip,A25-16_code_pref.shp,,A25-16_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A25-2016.html,,,,,,,CP932,A25-2017.qml,6668,
 離島振興対策実施地域,yes,A19,,Remote Island Development Implementation Area,2017,https://nlftp.mlit.go.jp/ksj/gml/data/A19/A19-17/A19-17_code_pref_GML.zip,A19-17_code_pref_GML.zip,A19-17_code_pref.shp,,A19-17_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A19-2017.html,,,,,A19_002,code_pref_muni,CP932,A19-2017.qml,6668,
 離島振興対策実施地域統計情報（ポリゴン）,,A19s,,,,,,,,,,,,,,,,,,,
@@ -98,13 +98,13 @@ DID人口集中地区,,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A16/A
 3. 地域,,,,,,,,,,,,,,,,,,,,,
 【施設】,,,,,,,,,,,,,,,,,,,,,
 国・都道府県の機関,yes,P28,,Governmental Agency,2022,https://nlftp.mlit.go.jp/ksj/gml/data/P28/P28-22/P28-22_code_pref.zip,P28-22_code_pref.zip,P28-22_code_pref.shp,,P28-22_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P28-2022.html,,,,,,,CP932,P02.qml,6668,
-市町村役場等及び公的集会施設,yes,P05,,"Local Government
+市町村役場等及び公的集会施設,yes,P05,,Local Government
 Office,
 etc. and Public
 Meeting
-Facility",2022,https://nlftp.mlit.go.jp/ksj/gml/data/P05/P05-22/P05-22_code_pref_GML.zip,P05-22_code_pref_GML.zip,P05-22_code_pref.shp,,P05-22_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P05-2022.html,,,,,,,CP932,P05-2022.qml,6668,
-市区町村役場,yes,P34,,"Local Government Office And Public Meeting
-Facility",2014,https://nlftp.mlit.go.jp/ksj/gml/data/P34/P34-14/P34-14_code_pref_GML.zip,P34-14_code_pref_GML.zip,P34-14_code_pref.shp,,P34-14_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P34.html,,,,,,,CP932,P34-2014.qml,4612,
+Facility,2022,https://nlftp.mlit.go.jp/ksj/gml/data/P05/P05-22/P05-22_code_pref_GML.zip,P05-22_code_pref_GML.zip,P05-22_code_pref.shp,,P05-22_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P05-2022.html,,,,,,,CP932,P05-2022.qml,6668,
+市区町村役場,yes,P34,,Local Government Office And Public Meeting
+Facility,2014,https://nlftp.mlit.go.jp/ksj/gml/data/P34/P34-14/P34-14_code_pref_GML.zip,P34-14_code_pref_GML.zip,P34-14_code_pref.shp,,P34-14_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P34.html,,,,,,,CP932,P34-2014.qml,4612,
 公共施設,yes,P02,,Public Facility,2006,https://nlftp.mlit.go.jp/ksj/gml/data/P02/P02-06/P02-06_code_pref_GML.zip,P02-06_code_pref_GML.zip,P02-06_code_pref-g_PublicFacility.shp,,P02-06_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P02-2006.html,,,,,,,CP932,P02-2006.qml,4612,
 警察署,yes,P18,,Police Station,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P18/P18-12/P18-12_code_pref_GML.zip,P18-12_code_pref_GML.zip,P18-12_code_pref_PoliceStation.shp,,P18-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P18.html,,,,,,,CP932,P18-2012.qml,4612,
 警察署管轄範囲,yes,P18,,Police Station Jurisdiction,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P18/P18-12/P18-12_code_pref_GML.zip,P18-12_code_pref_GML.zip,P18-12_code_pref_PoliceStationJurisdiction.shp,,P18-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P18.html,,,,,,,CP932,P18_Jurisdiction-2012.qml,4612,
