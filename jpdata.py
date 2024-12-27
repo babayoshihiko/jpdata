@@ -427,6 +427,7 @@ class jpdata:
                     or item["type_muni"].lower() == "detail"
                 ):
                     self.dockwidget.myListWidget12.clear()
+                    self.dockwidget.myListWidget13.clear()
                     self.dockwidget.myListWidget13.hide()
                     self.myListWidget12_is_all_prefs = False
                     names_pref = jpDataLNI.getPrefsOrRegionsByMapCode(item["code_map"])
@@ -435,12 +436,14 @@ class jpdata:
                 elif item["type_muni"].lower() == "single":
                     self.myListWidget12_is_all_prefs = False
                     self.dockwidget.myListWidget12.clear()
+                    self.dockwidget.myListWidget13.clear()
                     self.dockwidget.myListWidget13.hide()
                     self.dockwidget.myListWidget12.addItem(self.tr("Nation-wide"))
                 else:
                     if not self.myListWidget12_is_all_prefs:
                         self.myListWidget12_is_all_prefs = True
                         self.dockwidget.myListWidget12.clear()
+                        self.dockwidget.myListWidget13.clear()
                         self.dockwidget.myListWidget13.hide()
                         for code_pref in range(1, 48):
                             self.dockwidget.myListWidget12.addItem(
@@ -617,6 +620,9 @@ class jpdata:
                             pref_code[x],
                             epsg=item["epsg"],
                         )
+                        if "qml" in y:
+                            item["qml"] = y["qml"]
+
                     else:
                         tempShpFileName = jpDataUtils.unzipAndGetShp(
                             posixpath.join(self._folderPath, item["code_map"]),
