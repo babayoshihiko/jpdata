@@ -8,9 +8,9 @@ this.rows = None
 
 def get_name_from_code(code):
     for row in this.rows:
-        if row["code"].strip() == code.strip():
+        if int(row["code"]) == int(code):
             return row["name"]
-    return ""
+    return code
 
 
 def get_name_from_shp(shp):
@@ -92,6 +92,7 @@ def list_files_in_zip(zip_filepath, output_txt_path, url, year, name, code_filep
 
                             detail1 = get_name_from_shp(filename)
                             detail2 = get_detail2(filename)
+                            qml = get_qml(filename)
                             txt_file.write(
                                 name
                                 + ","
@@ -124,16 +125,16 @@ if __name__ == "__main__":
     # zip_path = input("Enter the path to the ZIP file: ").strip()
     # output_path = input("Enter the path for the output text file: ").strip()
     # code_filepath = input("Enter the path for the code csv: ").strip()
-    name = sys.argv[0]
-    year = sys.argv[1]
-    code = sys.argv[2]
+    name = sys.argv[1]
+    year = sys.argv[2]
+    code = sys.argv[3]
     url = (
         "https://nlftp.mlit.go.jp/ksj/gml/data/A31a/A31a-23/A31a-23_"
         + code
         + "_10_SHP.zip"
     )
-    zip_path = "/Users/baba/Downloads/A31a-23_" + code + "_10_SHP.zip"
-    output_path = "/Users/baba/Downloads/A31a-23_" + code + "_10_SHP.txt"
-    code_filepath = "/Users/baba/github/RiverCode.csv"
+    zip_path = os.path.expanduser("~/Downloads/A31a-23_" + code + "_10_SHP.zip")
+    output_path = os.path.expanduser("~/Downloads/A31a-23_" + code + "_10_SHP.csv")
+    code_filepath = os.path.expanduser("~/github/jpdata/helper_script/RiverCode.csv")
 
-    list_files_in_zip(zip_path, output_path, url, year, name, code_filepath, qml)
+    list_files_in_zip(zip_path, output_path, url, year, name, code_filepath)
