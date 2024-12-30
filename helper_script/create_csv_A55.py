@@ -8,13 +8,13 @@ this.rows = None
 
 def get_name_from_code(code):
     for row in this.rows:
-        if int(row["code_pref"]) * 1000 * int(row["code_muni"]) == int(code):
+        if int(row["code_pref"]) * 1000 + int(row["code_muni"]) == int(code):
             return row["name_muni"]
     return code
 
 
 def get_name_from_shp(shp):
-    code = re.findall("[0-9]{5}", shp)[0]
+    code = re.findall("[0-9]{5}", shp)[2]
     if code is None:
         return ""
     else:
@@ -28,49 +28,86 @@ def get_detail2(shp):
         return "地区計画"
     elif len(re.findall("douro", shp)) == 1:
         return "都市計画道路"
+    elif len(re.findall("fukkousaiseikyoten", shp)) == 1:
+        return "一団地の復興再生拠点市街地形成施設"
     elif len(re.findall("koudori", shp)) == 1:
         return "高度利用地区"
     elif len(re.findall("koudoti", shp)) == 1:
         return "高度地区"
     elif len(re.findall("kouen", shp)) == 1:
         return "都市公園"
+    elif len(re.findall("kousoujyukyo", shp)) == 1:
+        return "高層住居誘導地区"
+    elif len(re.findall("kyojyuchosei", shp)) == 1:
+        return "居住調整地域"
+    elif len(re.findall("rekifuu", shp)) == 1:
+        return "歴史的風土保存地区・特別保存地区"
+    elif len(re.findall("ritteki", shp)) == 1:
+        return "立地適正化計画"
+    elif len(re.findall("ryokukachiiki", shp)) == 1:
+        return "緑化地域"
     elif len(re.findall("senbiki", shp)) == 1:
         return "区域区分"
+    elif len(re.findall("soubou", shp)) == 1:
+        return "航空機騒音障害防止地区"
     elif len(re.findall("tkbt", shp)) == 1:
         return "特別用途地域"
     elif len(re.findall("tochiku", shp)) == 1:
         return "土地区画整理事業"
     elif len(re.findall("tokei", shp)) == 1:
         return "都市計画区域"
+    elif len(re.findall("tokureiyouseki", shp)) == 1:
+        return "特例容積率適用地区"
+    elif len(re.findall("tokuteiyuudou", shp)) == 1:
+        return "特定用途誘導地区"
     elif len(re.findall("youto", shp)) == 1:
         return "用途地域"
     else:
+        print(shp)
         return ""
 
 
 def get_qml(shp):
     if len(re.findall("bouka", shp)) == 1:
-        return "A55-2023_bouka.qml"
+        return "A55-2022_bouka.qml"
     elif len(re.findall("chikukei", shp)) == 1:
-        return "A55-2023_chikukei.qml"
+        return "A55-2022_chikukei.qml"
     elif len(re.findall("douro", shp)) == 1:
-        return "A55-2023_douro.qml"
+        return "A55-2022_douro.qml"
+    elif len(re.findall("fukkousaiseikyoten", shp)) == 1:
+        return "A55-2022_fukkousaiseikyoten.qml"
     elif len(re.findall("koudori", shp)) == 1:
-        return "A55-2023_koudori.qml"
+        return "A55-2022_koudori.qml"
     elif len(re.findall("koudoti", shp)) == 1:
-        return "A55-2023_koudoti.qml"
+        return "A55-2022_koudoti.qml"
     elif len(re.findall("kouen", shp)) == 1:
-        return "A55-2023_kouen.qml"
+        return "A55-2022_kouen.qml"
+    elif len(re.findall("kousoujyukyo", shp)) == 1:
+        return "A55-2022_kousoujyukyo.qml"
+    elif len(re.findall("kyojyuchosei", shp)) == 1:
+        return "A55-2022_kyojyuchosei.qml"
+    elif len(re.findall("rekifuu", shp)) == 1:
+        return "A55-rekifuu.qml"
+    elif len(re.findall("ritteki", shp)) == 1:
+        return "A55-2022_ritteki.qml"
+    elif len(re.findall("ryokukachiiki", shp)) == 1:
+        return "A55-2022_ryokukachiiki.qml"
     elif len(re.findall("senbiki", shp)) == 1:
-        return "A55-2023_senbiki.qml"
+        return "A55-2022_senbiki.qml"
+    elif len(re.findall("soubou", shp)) == 1:
+        return "A55-2022_soubou.qml"
     elif len(re.findall("tkbt", shp)) == 1:
-        return "A55-2023_tkbt.qml"
+        return "A55-2022_tkbt.qml"
     elif len(re.findall("tochiku", shp)) == 1:
-        return "A55-2023_tochiku.qml"
+        return "A55-2022_tochiku.qml"
     elif len(re.findall("tokei", shp)) == 1:
-        return "A55-2023_tokei.qml"
+        return "A55-2022_tokei.qml"
+    elif len(re.findall("tokureiyouseki", shp)) == 1:
+        return "A55-2022_tokureiyouseki.qml"
+    elif len(re.findall("tokuteiyuudou", shp)) == 1:
+        return "A55-2022_tokuteiyuudou.qml"
     elif len(re.findall("youto", shp)) == 1:
-        return "A55-2023_youto.qml"
+        return "A55-2022_youto.qml"
     else:
         return ""
 
@@ -157,8 +194,8 @@ if __name__ == "__main__":
         + code
         + "_10_SHP.zip"
     )
-    zip_path = os.path.expanduser("~/Downloads/A55-22_" + code + "000_SHP.zip")
-    output_path = os.path.expanduser("~/Downloads/A55-22_" + code + "000_SHP.csv")
+    zip_path = os.path.expanduser("~/data.noindex/A55/A55-22_" + code + "000_SHP.zip")
+    output_path = os.path.expanduser("~/data.noindex/A55/A55-22_" + code + "000_SHP.csv")
     code_filepath = os.path.expanduser("~/github/jpdata/csv/code_pref_muni.csv")
 
     list_files_in_zip(zip_path, output_path, url, year, name, code_filepath)
