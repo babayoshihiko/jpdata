@@ -508,7 +508,7 @@ class jpdata:
         for details in details:
             self.dockwidget.myListWidget13.addItem(details)
 
-    def tab1DownloadAll(self):
+    def tab1DownloadAll(self, iter=0):
         self.dockwidget.progressBar.setValue(0)
         _start_download = False
         if self.dockwidget.myPushButton11.text() == self.tr("Cancel"):
@@ -529,39 +529,42 @@ class jpdata:
                 str(self.dockwidget.myListWidget11.selectedItems()[0].text())
                 == item["name_j"]
             ):
-                for x in range(len(pref_code)):
-                    if (
-                        item["type_muni"].lower() == "regional"
-                        or item["type_muni"].lower() == "detail"
-                    ):
-                        year = str(self.dockwidget.myComboBox11.currentText())
-                        y = jpDataLNI.getUrlCodeZipByPrefName(
-                            item["code_map"], str(pref_name[x].text()), year
-                        )
-                        tempUrl = y["url"]
-                        tempZipFileName = y["zip"]
-                    else:
-                        tempUrl = item["url"]
-                        tempZipFileName = item["zip"]
-                    tempUrl = tempUrl.replace("code_pref", pref_code[x])
-                    tempZipFileName = tempZipFileName.replace("code_pref", pref_code[x])
-                    if not os.path.exists(
-                        posixpath.join(
-                            self._folderPath,
-                            item["code_map"],
-                            tempZipFileName,
-                        )
-                    ):
-                        tempSubFolder = item["code_map"]
-                        _start_download = True
-                        break
-                    else:
-                        self.dockwidget.myLabelStatus.setText(
-                            self.tr("The zip file exists: ") + tempZipFileName
-                        )
+                break
+
+        for x in range(iter, len(pref_code)):
+            if (
+                item["type_muni"].lower() == "regional"
+                or item["type_muni"].lower() == "detail"
+            ):
+                year = str(self.dockwidget.myComboBox11.currentText())
+                y = jpDataLNI.getUrlCodeZipByPrefName(
+                    item["code_map"], str(pref_name[x].text()), year
+                )
+                tempUrl = y["url"]
+                tempZipFileName = y["zip"]
+            else:
+                tempUrl = item["url"]
+                tempZipFileName = item["zip"]
+            tempUrl = tempUrl.replace("code_pref", pref_code[x])
+            tempZipFileName = tempZipFileName.replace("code_pref", pref_code[x])
+            if not os.path.exists(
+                posixpath.join(
+                    self._folderPath,
+                    item["code_map"],
+                    tempZipFileName,
+                )
+            ):
+                tempSubFolder = item["code_map"]
+                _start_download = True
+                break
+            else:
+                self.dockwidget.myLabelStatus.setText(
+                    self.tr("The zip file exists: ") + tempZipFileName
+                )
+
         if _start_download:
             self.enable_download(False)
-            self._downloaderStatus = "tab1"
+            self._downloaderStatus = "tab1-" + str(x)
             self.start_download(tempUrl, tempSubFolder, tempZipFileName)
         else:
             self.enable_download()
@@ -719,9 +722,11 @@ class jpdata:
         self.dockwidget.myLabelStatus.setText(current_text + self.tr("...Done"))
         self.enable_download()
         self.dockwidget.progressBar.setValue(100)
+        jpDataUtils.printLog(self._downloader.checkStatus())
 
-        if self._downloaderStatus == "tab1":
-            self.tab1DownloadAll()
+        if self._downloaderStatus in "tab1":
+            iter = int(self._downloaderStatus.replace("tab1-")) + 1
+            self.tab1DownloadAll(iter)
         elif self._downloaderStatus == "tab3":
             self.tab3DownloadAll()
 
@@ -772,10 +777,9 @@ class jpdata:
                 _start_download = True
                 break
             else:
-                if self._downloaderStatus != "tab3":
-                    self.dockwidget.myLabelStatus.setText(
-                        self.tr("The zip file exists: ") + tempZipFileName
-                    )
+                self.dockwidget.myLabelStatus.setText(
+                    self.tr("The zip file exists: ") + tempZipFileName
+                )
         if _start_download:
             self.enable_download(False)
             self._downloaderStatus = "tab3"

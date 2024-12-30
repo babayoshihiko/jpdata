@@ -190,9 +190,9 @@ if __name__ == "__main__":
     year = sys.argv[2]
     code = sys.argv[3]
     url = (
-        "https://nlftp.mlit.go.jp/ksj/gml/data/A55a/A55a-23/A55a-23_"
+        "https://nlftp.mlit.go.jp/ksj/gml/data/A55/A55-22/A55-22_"
         + code
-        + "_10_SHP.zip"
+        + "000_SHP.zip"
     )
     zip_path = os.path.expanduser("~/data.noindex/A55/A55-22_" + code + "000_SHP.zip")
     output_path = os.path.expanduser(
