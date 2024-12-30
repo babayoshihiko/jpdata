@@ -604,6 +604,7 @@ class jpdata:
                     seleted_prefs = range(len(pref_code))
 
                 for x in seleted_prefs:
+                    tempQml = item["qml"]
                     if (
                         item["type_muni"].lower() == "regional"
                         or item["type_muni"].lower() == "detail"
@@ -620,8 +621,8 @@ class jpdata:
                             pref_code[x],
                             epsg=item["epsg"],
                         )
-                        if "qml" in y:
-                            item["qml"] = y["qml"]
+                        if y["qml"] != "":
+                            tempQml = y["qml"]
 
                     else:
                         tempShpFileName = jpDataUtils.unzipAndGetShp(
@@ -669,12 +670,12 @@ class jpdata:
                             tempLayer.dataProvider().createSpatialIndex()
 
                         if os.path.isfile(
-                            posixpath.join(self.plugin_dir, "qml", item["qml"])
+                            posixpath.join(self.plugin_dir, "qml", tempQml)
                         ):
                             # For the qml files that use SVG images in the plugin folder
                             with tempfile.TemporaryDirectory() as temp_dir:
                                 with open(
-                                    posixpath.join(self.plugin_dir, "qml", item["qml"]),
+                                    posixpath.join(self.plugin_dir, "qml", tempQml),
                                     "r",
                                 ) as file:
                                     file_contents = file.read()
@@ -682,11 +683,11 @@ class jpdata:
                                     "PLUGIN_DIR", self.plugin_dir
                                 )
                                 with open(
-                                    posixpath.join(temp_dir, item["qml"]), "w"
+                                    posixpath.join(temp_dir, tempQml), "w"
                                 ) as file:
                                     file.write(new_contents)
                                 if tempLayer.loadNamedStyle(
-                                    posixpath.join(temp_dir, item["qml"])
+                                    posixpath.join(temp_dir, tempQml)
                                 ):
                                     tempLayer.triggerRepaint()
                         QgsProject.instance().addMapLayer(tempLayer)

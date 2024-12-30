@@ -83,6 +83,7 @@ def getUrlCodeZipByPrefName(code_map, name_pref, year, detail = None):
         "zip": "",
         "shp": "",
         "altdir": "",
+        "qml": ""
     }
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
@@ -92,17 +93,14 @@ def getUrlCodeZipByPrefName(code_map, name_pref, year, detail = None):
                 and row["availability"] == name_pref
                 and row["year"] == year
             ):
-                if detail is None:
+                if detail is None or detail == row["detail1"] + ' ' + row["detail2"]:
                     x["year"] = row["year"]
                     x["url"] = row["url"].replace("code_pref",code_pref)
                     x["zip"] = row["zip"].replace("code_pref",code_pref)
                     x["shp"] = row["shp"].replace("code_pref",code_pref)
                     x["altdir"] = row["altdir"].replace("code_pref",code_pref)
-                elif detail == row["detail1"] + ' ' + row["detail2"]:
-                    x["year"] = row["year"]
-                    x["url"] = row["url"].replace("code_pref",code_pref)
-                    x["zip"] = row["zip"].replace("code_pref",code_pref)
-                    x["shp"] = row["shp"].replace("code_pref",code_pref)
-                    x["altdir"] = row["altdir"].replace("code_pref",code_pref)
+                    if "qml" in row:
+                        x["qml"] = row["qml"].replace("code_pref",code_pref)
+                    break
     return x
 
