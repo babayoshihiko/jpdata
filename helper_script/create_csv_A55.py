@@ -51,7 +51,7 @@ def get_detail2(shp):
     elif len(re.findall("soubou", shp)) == 1:
         return "航空機騒音障害防止地区"
     elif len(re.findall("tkbt", shp)) == 1:
-        return "特別用途地域"
+        return "特別用途地区"
     elif len(re.findall("tochiku", shp)) == 1:
         return "土地区画整理事業"
     elif len(re.findall("tokei", shp)) == 1:
@@ -195,7 +195,9 @@ if __name__ == "__main__":
         + "_10_SHP.zip"
     )
     zip_path = os.path.expanduser("~/data.noindex/A55/A55-22_" + code + "000_SHP.zip")
-    output_path = os.path.expanduser("~/data.noindex/A55/A55-22_" + code + "000_SHP.csv")
+    output_path = os.path.expanduser(
+        "~/data.noindex/A55/A55-22_" + code + "000_SHP.csv"
+    )
     code_filepath = os.path.expanduser("~/github/jpdata/csv/code_pref_muni.csv")
 
     list_files_in_zip(zip_path, output_path, url, year, name, code_filepath)
