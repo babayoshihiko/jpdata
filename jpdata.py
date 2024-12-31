@@ -620,6 +620,12 @@ class jpdata:
                             tempLayer = QgsVectorLayer(
                                 tempShpFileName, item["name_j"], "ogr"
                             )
+                        elif item["type_muni"] == "detail":
+                            tempLayer = QgsVectorLayer(
+                                tempShpFileName,
+                                detail,
+                                "ogr",
+                            )
                         else:
                             tempLayer = QgsVectorLayer(
                                 tempShpFileName,
