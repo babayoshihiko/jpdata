@@ -19,6 +19,7 @@ def getPrefsOrRegionsByMapCode(code_map):
             unique_prefs_or_regions.append(x)
     return unique_prefs_or_regions
 
+
 def getYearsByMapCode(code_map, name_pref=None):
     file_path = posixpath.join(
         os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
@@ -37,6 +38,7 @@ def getYearsByMapCode(code_map, name_pref=None):
             unique_years.append(x)
     return unique_years
 
+
 def getDetailsByMapCodePrefNameYear(code_map, name_pref, year):
     file_path = posixpath.join(
         os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
@@ -45,13 +47,18 @@ def getDetailsByMapCodePrefNameYear(code_map, name_pref, year):
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
-            if len(row) >= 2 and row["availability"] == name_pref and row["year"] == year:
-                details.append(row["detail1"] + ' ' + row["detail2"])
+            if (
+                len(row) >= 2
+                and row["availability"] == name_pref
+                and row["year"] == year
+            ):
+                details.append(row["detail1"] + " " + row["detail2"])
     unique_details = []
     for x in details:
         if x not in unique_details:
             unique_details.append(x)
     return unique_details
+
 
 def getShapeByMapCodePrefNameYearDetail(code_map, name_pref, year, detail):
     file_path = posixpath.join(
@@ -61,7 +68,12 @@ def getShapeByMapCodePrefNameYearDetail(code_map, name_pref, year, detail):
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
-            if len(row) >= 2 and row["availability"] == name_pref and row["year"] == year and row["detail1"] + ' ' +  row["detail2"] == detail:
+            if (
+                len(row) >= 2
+                and row["availability"] == name_pref
+                and row["year"] == year
+                and row["detail1"] + " " + row["detail2"] == detail
+            ):
                 details.append(row["shp"])
     unique_details = []
     for x in details:
@@ -69,13 +81,19 @@ def getShapeByMapCodePrefNameYearDetail(code_map, name_pref, year, detail):
             unique_details.append(x)
     return unique_details
 
-def getUrlCodeZipByPrefName(code_map, name_pref, year, detail = None):
-    # name_pref = jpDataUtils.getPrefNameByCode(code_pref)
+
+def getUrlCodeZipByPrefName(code_map, name_pref, year, detail=None):
+    code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+    return getUrlCodeZipByPrefCode(code_map, code_pref, year, detail, name_pref)
+
+
+def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=None):
+    if name_pref is None:
+        name_pref = jpDataUtils.getPrefNameByCode(code_pref)
     file_path = posixpath.join(
         os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
     )
 
-    code_pref = jpDataUtils.getPrefCodeByName(name_pref)
     x = {
         "year": "",
         "url": "",
@@ -83,7 +101,7 @@ def getUrlCodeZipByPrefName(code_map, name_pref, year, detail = None):
         "zip": "",
         "shp": "",
         "altdir": "",
-        "qml": ""
+        "qml": "",
     }
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
@@ -93,14 +111,13 @@ def getUrlCodeZipByPrefName(code_map, name_pref, year, detail = None):
                 and row["availability"] == name_pref
                 and row["year"] == year
             ):
-                if detail is None or detail == row["detail1"] + ' ' + row["detail2"]:
+                if detail is None or detail == row["detail1"] + " " + row["detail2"]:
                     x["year"] = row["year"]
-                    x["url"] = row["url"].replace("code_pref",code_pref)
-                    x["zip"] = row["zip"].replace("code_pref",code_pref)
-                    x["shp"] = row["shp"].replace("code_pref",code_pref)
-                    x["altdir"] = row["altdir"].replace("code_pref",code_pref)
+                    x["url"] = row["url"].replace("code_pref", code_pref)
+                    x["zip"] = row["zip"].replace("code_pref", code_pref)
+                    x["shp"] = row["shp"].replace("code_pref", code_pref)
+                    x["altdir"] = row["altdir"].replace("code_pref", code_pref)
                     if "qml" in row:
-                        x["qml"] = row["qml"].replace("code_pref",code_pref)
+                        x["qml"] = row["qml"].replace("code_pref", code_pref)
                     break
     return x
-

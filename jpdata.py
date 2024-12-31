@@ -91,6 +91,8 @@ class jpdata:
         self._LandNumInfo = jpDataUtils.getMapsFromCsv()
         self._GSI = jpDataUtils.getTilesFromCsv()
         self._downloaderStatus = ""
+        self._dl_code = []
+        self._dl_iter = 0
         # Create an action that triggers the folder chooser
         self.action = QAction("Choose Folder", self.iface.mainWindow())
         self.action.triggered.connect(self.chooseFolder)
@@ -353,19 +355,6 @@ class jpdata:
             )
 
             self.dockwidget.myPushButtonTest.hide()
-            # self.dockwidget.myPushButtonTest.setText(self.tr("Test"))
-            self.dockwidget.myPushButtonTest.clicked.connect(self.showMeshWindow)
-
-            # Mesh Window
-            self.meshWindow.meshLabel1.setText(self.tr("Prefecture"))
-            self.meshWindow.meshLabel2.setText(self.tr("Municipality"))
-            for code in range(1, 48):
-                self.meshWindow.meshListWidget1.addItem(
-                    jpDataUtils.getPrefNameByCode(code)
-                )
-            self.meshWindow.meshListWidget1.clicked.connect(self.meshPref)
-            self.meshWindow.meshListWidget2.clicked.connect(self.meshMuni)
-            self.meshWindow.setWindowFlags(Qt.WindowStaysOnTopHint)
 
             # show the dockwidget
             # TODO: fix to allow choice of dock location
@@ -508,67 +497,37 @@ class jpdata:
         for details in details:
             self.dockwidget.myListWidget13.addItem(details)
 
-    def tab1DownloadAll(self, iter=0):
-        self.dockwidget.progressBar.setValue(0)
-        _start_download = False
+    def tab1DownloadAll(self):
         if self.dockwidget.myPushButton11.text() == self.tr("Cancel"):
             self.cancel_download()
             return
 
-        pref_name = self.dockwidget.myListWidget12.selectedItems()
-        pref_code = []
-        for i in range(len(pref_name)):
-            pref_code.append(
-                jpDataUtils.getPrefCodeByName(
-                    str(self.dockwidget.myListWidget12.selectedItems()[i].text())
-                )
-            )
-
+        year = str(self.dockwidget.myComboBox11.currentText())
         for item in self._LandNumInfo:
             if (
                 str(self.dockwidget.myListWidget11.selectedItems()[0].text())
                 == item["name_j"]
             ):
                 break
-
-        for x in range(iter, len(pref_code)):
-            if (
-                item["type_muni"].lower() == "regional"
-                or item["type_muni"].lower() == "detail"
-            ):
-                year = str(self.dockwidget.myComboBox11.currentText())
-                y = jpDataLNI.getUrlCodeZipByPrefName(
-                    item["code_map"], str(pref_name[x].text()), year
-                )
-                tempUrl = y["url"]
-                tempZipFileName = y["zip"]
-            else:
-                tempUrl = item["url"]
-                tempZipFileName = item["zip"]
-            tempUrl = tempUrl.replace("code_pref", pref_code[x])
-            tempZipFileName = tempZipFileName.replace("code_pref", pref_code[x])
-            if not os.path.exists(
-                posixpath.join(
-                    self._folderPath,
-                    item["code_map"],
-                    tempZipFileName,
-                )
-            ):
-                tempSubFolder = item["code_map"]
-                _start_download = True
-                break
-            else:
-                self.dockwidget.myLabelStatus.setText(
-                    self.tr("The zip file exists: ") + tempZipFileName
-                )
-
-        if _start_download:
-            self.enable_download(False)
-            self._downloaderStatus = "tab1-" + str(x)
-            self.start_download(tempUrl, tempSubFolder, tempZipFileName)
-        else:
-            self.enable_download()
-            self._downloaderStatus = ""
+        pref_name = self.dockwidget.myListWidget12.selectedItems()
+        self._dl_code = []
+        self._dl_iter = 0
+        for i in range(len(pref_name)):
+            self._dl_code.append(
+                {
+                    "year": year,
+                    "code_map": item["code_map"],
+                    "type_muni": item["type_muni"],
+                    "code_pref": jpDataUtils.getPrefCodeByName(
+                        str(pref_name[i].text())
+                    ),
+                    "name_pref": str(pref_name[i].text()),
+                    "name_muni": "",
+                    "url": item["url"],
+                    "zip": item["zip"],
+                }
+            )
+        self._download_iter()
 
     def tab1Web(self):
         items = self.dockwidget.myListWidget11.selectedItems()
@@ -722,16 +681,17 @@ class jpdata:
         self.dockwidget.myLabelStatus.setText(current_text + self.tr("...Done"))
         self.enable_download()
         self.dockwidget.progressBar.setValue(100)
-        jpDataUtils.printLog(self._downloader.checkStatus())
+        # jpDataUtils.printLog(self._downloader.checkStatus())
 
-        if self._downloaderStatus in "tab1":
-            iter = int(self._downloaderStatus.replace("tab1-")) + 1
-            self.tab1DownloadAll(iter)
-        elif self._downloaderStatus == "tab3":
-            self.tab3DownloadAll()
+        if len(self._dl_code) > 0 and self._dl_iter < len(self._dl_code):
+            self._download_iter()
+        else:
+            self._dl_iter = 0
+            self._dl_code = []
 
     def cancel_download(self):
         self._downloaderStatus = ""
+        self._dl_code = []
         if self._downloader is not None:
             current_text = self.dockwidget.myLabelStatus.text()
             self.dockwidget.myLabelStatus.setText(
@@ -748,11 +708,36 @@ class jpdata:
             rows = jpDataMuni.getMuniFromPrefName(str(item.text()))
             self.dockwidget.myListWidget32.clear()
             for row in rows:
-                self.dockwidget.myListWidget32.addItem(row["name_muni"])
+                if row["name_muni"] != "":
+                    item = QListWidgetItem(row["name_muni"])
+                    if row["name_muni"] in [
+                        "札幌市",
+                        "仙台市",
+                        "千葉市",
+                        "さいたま市",
+                        "横浜市",
+                        "川崎市",
+                        "相模原市",
+                        "新潟市",
+                        "静岡市",
+                        "浜松市",
+                        "名古屋市",
+                        "京都市",
+                        "大阪市",
+                        "堺市",
+                        "神戸市",
+                        "岡山市",
+                        "広島市",
+                        "福岡市",
+                        "北九州市",
+                        "熊本市",
+                    ]:
+                        jpDataUtils.printLog("736")
+                        item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
+                        item.setForeground(Qt.gray)
+                    self.dockwidget.myListWidget32.addItem(item)
 
     def tab3DownloadAll(self):
-        _start_download = False
-        self.dockwidget.progressBar.setValue(0)
         if self.dockwidget.myPushButton31.text() == self.tr("Cancel"):
             self.cancel_download()
             return
@@ -760,33 +745,17 @@ class jpdata:
         year = str(self.dockwidget.myComboBox31.currentText())
         pref_name = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
         muni_names = self.dockwidget.myListWidget32.selectedItems()
-
         for muni_name in muni_names:
-            row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
-            tempUrl = jpDataCensus.getUrl(year, row["code_pref"], row["code_muni"])
-            tempZipFileName = jpDataCensus.getZipFileName(
-                year, row["code_pref"], row["code_muni"]
+            self._dl_code.append(
+                {
+                    "year": year,
+                    "code_map": "Census",
+                    "type_muni": "census",
+                    "name_pref": pref_name,
+                    "name_muni": str(muni_name.text()),
+                }
             )
-            if not os.path.exists(
-                posixpath.join(
-                    self._folderPath,
-                    "Census",
-                    tempZipFileName,
-                )
-            ):
-                _start_download = True
-                break
-            else:
-                self.dockwidget.myLabelStatus.setText(
-                    self.tr("The zip file exists: ") + tempZipFileName
-                )
-        if _start_download:
-            self.enable_download(False)
-            self._downloaderStatus = "tab3"
-            self.start_download(tempUrl, "Census", tempZipFileName)
-        else:
-            self.enable_download()
-            self._downloaderStatus = ""
+        self._download_iter()
 
     def tab3AddMap(self):
         year = str(self.dockwidget.myComboBox31.currentText())
@@ -858,21 +827,70 @@ class jpdata:
         else:
             QgsSettings().setValue("jpdata/ProxyServer", "http://")
 
-    def showMeshWindow(self):
-        self.meshWindow.show()
+    # year = 2023 and so on
+    # type must be on of ["regional","detail","single","","census"]
+    # selection_code is a dictionary of codes
+    #     (prefectural codes, municipal codes and so on)
+    # a list of "code_pref"s (type = "" or "region")
+    # or a list of "code_muni"s (type = "census")
+    def _download_iter(self):
+        _start_download = False
 
-    def meshPref(self):
-        selectedItems = self.meshWindow.meshListWidget1.selectedItems()
-        for item in selectedItems:
-            rows = jpDataMuni.getMuniFromPrefName(str(item.text()))
-            self.meshWindow.meshListWidget2.clear()
-            for row in rows:
-                self.meshWindow.meshListWidget2.addItem(row["name_muni"])
-
-    def meshMuni(self):
-        selectedItems = self.meshWindow.meshListWidget2.selectedItems()
-        for item in selectedItems:
-            rows = jpDataMuni.getMesh3FromPrefName(str(item.text()))
-            self.meshWindow.meshListWidget3.clear()
-            for row in rows:
-                self.meshWindow.meshListWidget3.addItem(row["code_mesh3"])
+        jpDataUtils.printLog("len(self._dl_code): " + str(len(self._dl_code)))
+        for x in range(self._dl_iter, len(self._dl_code)):
+            jpDataUtils.printLog("x: " + str(x))
+            if self._dl_code[x]["type_muni"] == "census":
+                row = jpDataMuni.getRowFromNames(
+                    self._dl_code[x]["name_pref"], self._dl_code[x]["name_muni"]
+                )
+                tempUrl = jpDataCensus.getUrl(
+                    self._dl_code[x]["year"], row["code_pref"], row["code_muni"]
+                )
+                tempZipFileName = jpDataCensus.getZipFileName(
+                    self._dl_code[x]["year"], row["code_pref"], row["code_muni"]
+                )
+                self._dl_code[x]["code_pref"] = row["code_pref"]
+                tempSubFolder = "Census"
+            elif (
+                self._dl_code[x]["type_muni"] == "regional"
+                or self._dl_code[x]["type_muni"] == "detail"
+            ):
+                row = jpDataLNI.getUrlCodeZipByPrefName(
+                    self._dl_code[x]["code_map"],
+                    self._dl_code[x]["name_pref"],
+                    self._dl_code[x]["year"],
+                )
+                tempUrl = row["url"]
+                tempZipFileName = row["zip"]
+                tempSubFolder = self._dl_code[x]["code_map"]
+            else:
+                tempUrl = self._dl_code[x]["url"]
+                tempZipFileName = self._dl_code[x]["zip"]
+                tempSubFolder = self._dl_code[x]["code_map"]
+            tempUrl = tempUrl.replace("code_pref", self._dl_code[x]["code_pref"])
+            tempZipFileName = tempZipFileName.replace(
+                "code_pref", self._dl_code[x]["code_pref"]
+            )
+            jpDataUtils.printLog("name_pref: " + self._dl_code[x]["name_pref"])
+            jpDataUtils.printLog("code_map: " + self._dl_code[x]["code_map"])
+            if not os.path.exists(
+                posixpath.join(
+                    self._folderPath,
+                    tempSubFolder,
+                    tempZipFileName,
+                )
+            ):
+                _start_download = True
+                break
+            else:
+                self.dockwidget.myLabelStatus.setText(
+                    self.tr("The zip file exists: ") + tempZipFileName
+                )
+        if _start_download:
+            self.dockwidget.progressBar.setValue(0)
+            self.enable_download(False)
+            self._dl_iter = x + 1
+            self.start_download(tempUrl, tempSubFolder, tempZipFileName)
+        else:
+            self.enable_download()
+            self._dl_iter = 0
