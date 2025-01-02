@@ -121,3 +121,4 @@ def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=No
                         x["qml"] = row["qml"].replace("code_pref", code_pref)
                     break
     return x
+
