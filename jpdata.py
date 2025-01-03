@@ -584,7 +584,16 @@ class jpdata:
                         )
                         if y["qml"] != "":
                             tempQml = y["qml"]
-
+                    elif item["type_muni"].lower() == "mesh1":
+                        str_code_mesh1 = str(self.dockwidget.myListWidget13.selectedItems()[0].text())
+                        tempShpFileName = jpDataUtils.unzipAndGetShp(
+                            posixpath.join(self._folderPath, item["code_map"]),
+                            item["zip"].replace("code_mesh1", str_code_mesh1),
+                            item["shp"].replace("code_mesh1", str_code_mesh1),
+                            item["altdir"],
+                            pref_code[x],
+                            epsg=item["epsg"],
+                        )
                     else:
                         tempShpFileName = jpDataUtils.unzipAndGetShp(
                             posixpath.join(self._folderPath, item["code_map"]),
@@ -737,7 +746,6 @@ class jpdata:
                         "北九州市",
                         "熊本市",
                     ]:
-                        jpDataUtils.printLog("736")
                         item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                         item.setForeground(Qt.gray)
                     self.dockwidget.myListWidget32.addItem(item)
@@ -841,9 +849,7 @@ class jpdata:
     def _download_iter(self):
         _start_download = False
 
-        jpDataUtils.printLog("len(self._dl_code): " + str(len(self._dl_code)))
         for x in range(self._dl_iter, len(self._dl_code)):
-            jpDataUtils.printLog("x: " + str(x))
             if self._dl_code[x]["type_muni"] == "census":
                 row = jpDataMuni.getRowFromNames(
                     self._dl_code[x]["name_pref"], self._dl_code[x]["name_muni"]
@@ -868,6 +874,11 @@ class jpdata:
                 tempUrl = row["url"]
                 tempZipFileName = row["zip"]
                 tempSubFolder = self._dl_code[x]["code_map"]
+            elif self._dl_code[x]["type_muni"] == "mesh1":
+                str_code_mesh1 = str(self.dockwidget.myListWidget13.selectedItems()[0].text())
+                tempUrl = self._dl_code[x]["url"].replace("code_mesh1", str_code_mesh1)
+                tempZipFileName = self._dl_code[x]["zip"].replace("code_mesh1", str_code_mesh1)
+                tempSubFolder = self._dl_code[x]["code_map"]
             else:
                 tempUrl = self._dl_code[x]["url"]
                 tempZipFileName = self._dl_code[x]["zip"]
@@ -876,8 +887,6 @@ class jpdata:
             tempZipFileName = tempZipFileName.replace(
                 "code_pref", self._dl_code[x]["code_pref"]
             )
-            jpDataUtils.printLog("name_pref: " + self._dl_code[x]["name_pref"])
-            jpDataUtils.printLog("code_map: " + self._dl_code[x]["code_map"])
             if not os.path.exists(
                 posixpath.join(
                     self._folderPath,
