@@ -42,7 +42,7 @@ from . import jpDataDownloader
 from . import jpDataMuni
 from . import jpDataCensus
 from . import jpDataLNI
-from .jpdata_mesh import jpdataMeshWidget
+from . import jpDataMesh
 
 
 class jpdata:
@@ -96,8 +96,6 @@ class jpdata:
         # Create an action that triggers the folder chooser
         self.action = QAction("Choose Folder", self.iface.mainWindow())
         self.action.triggered.connect(self.chooseFolder)
-
-        self.meshWindow = jpdataMeshWidget()
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -476,26 +474,27 @@ class jpdata:
             return
 
         map_code = ""
+        str_name_j = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
+        str_name_pref = str(self.dockwidget.myListWidget12.selectedItems()[0].text())
+        str_year = self.dockwidget.myComboBox11.currentText()
+
         for item in self._LandNumInfo:
-            if (
-                str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-                == item["name_j"]
-            ):
-                if item["type_muni"].lower() != "detail":
+            if str_name_j == item["name_j"]:
+                if item["type_muni"].lower() != "detail" and item["type_muni"].lower() != "mesh1":
                     return
                 map_code = item["code_map"]
                 break
 
-        name_pref = str(self.dockwidget.myListWidget12.selectedItems()[0].text())
-
-        year = self.dockwidget.myComboBox11.currentText()
-
         self.dockwidget.myListWidget13.clear()
         self.dockwidget.myListWidget13.show()
 
-        details = jpDataLNI.getDetailsByMapCodePrefNameYear(map_code, name_pref, year)
-        for details in details:
-            self.dockwidget.myListWidget13.addItem(details)
+        if item["type_muni"].lower() == "detail":
+            details = jpDataLNI.getDetailsByMapCodePrefNameYear(map_code, str_name_pref, str_year)
+        else:
+            details = jpDataMesh.getMesh1ByPrefName(str_name_pref)
+
+        for detail in details:
+            self.dockwidget.myListWidget13.addItem(detail)
 
     def tab1DownloadAll(self):
         if self.dockwidget.myPushButton11.text() == self.tr("Cancel"):
