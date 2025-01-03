@@ -18,7 +18,7 @@ rm -f jpdata/CITATION.cff
 rm -f jpdata/zip_plugin.sh
 rm -f jpdata/i18n/jpdata_ja.ts
 rm -f jpdata/i18n/jpdata.pro
-rm -f jpdata/helper_script
+rm -rf jpdata/helper_script
 
 zip -rX jpdata.zip jpdata
 
