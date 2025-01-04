@@ -7,7 +7,7 @@
 name=jpdata
 qgisMinimumVersion=3.0
 description=Download and load various data of Japan
-version=0.6.8
+version=0.6.9
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 
@@ -22,6 +22,8 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+      0.6.9:
+        * Land Numeric Info: G04a, G04c, G04d, L03-a
       0.6.8:
         * Land Numeric Info: A31, A55
         * Rewrote downloading functions
