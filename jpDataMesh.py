@@ -73,8 +73,8 @@ def getMesh3ByPrefMuniCode(code_pref, code_muni):
 def getMeshExpression(code_map):
     str_expression = ""
     if code_map == "L03-a":
-        str_expression = "CASE WHEN "
-        str_expression += '"田" > "他農用地" AND "田" > "森林" AND "田" > "荒地" AND "田" > "建物用地" AND "田" > "道路" AND "田" > "鉄道" AND "田" > "他用地" AND "田" > "河川湖沼" AND "田" > "海水域" AND "田" > "ゴルフ場" AND "田" > "範囲外" THEN \'田\' '
+        str_expression = "CASE "
+        str_expression += 'WHEN "田" > "他農用地" AND "田" > "森林" AND "田" > "荒地" AND "田" > "建物用地" AND "田" > "道路" AND "田" > "鉄道" AND "田" > "他用地" AND "田" > "河川湖沼" AND "田" > "海水域" AND "田" > "ゴルフ場" AND "田" > "範囲外" THEN \'田\' '
         str_expression += 'WHEN "他農用地" > "森林" AND "他農用地" > "荒地" AND "他農用地" > "建物用地" AND "他農用地" > "道路" AND "他農用地" > "鉄道" AND "他農用地" > "他用地" AND "他農用地" > "河川湖沼" AND "他農用地" > "海水域" AND "他農用地" > "ゴルフ場" AND "他農用地" > "範囲外" THEN \'他農用地\' '
         str_expression += 'WHEN "森林" > "荒地" AND "森林" > "建物用地" AND "森林" > "道路" AND "森林" > "鉄道" AND "森林" > "他用地" AND "森林" > "河川湖沼" AND "森林" > "海水域" AND "森林" > "ゴルフ場" AND "森林" > "範囲外" THEN \'森林\' '
         str_expression += 'WHEN "荒地" > "建物用地" AND "荒地" > "道路" AND "荒地" > "鉄道" AND "荒地" > "他用地" AND "荒地" > "河川湖沼" AND "荒地" > "海水域" AND "荒地" > "ゴルフ場" AND "荒地" > "範囲外" THEN \'荒地\' '
