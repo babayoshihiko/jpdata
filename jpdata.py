@@ -21,7 +21,14 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QUrl
+from qgis.PyQt.QtCore import (
+    QSettings,
+    QTranslator,
+    QCoreApplication,
+    Qt,
+    QUrl,
+    QVariant,
+)
 from qgis.PyQt.QtGui import QIcon, QDesktopServices
 from qgis.PyQt.QtWidgets import QAction
 
@@ -36,7 +43,14 @@ import os.path
 import os, tempfile, posixpath
 from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem
 from qgis.PyQt.QtWidgets import QAbstractItemView
-from qgis.core import QgsProject, QgsSettings, QgsVectorLayer, QgsRasterLayer
+from qgis.core import (
+    QgsProject,
+    QgsSettings,
+    QgsVectorLayer,
+    QgsRasterLayer,
+    QgsExpression,
+    QgsField,
+)
 from . import jpDataUtils
 from . import jpDataDownloader
 from . import jpDataMuni
@@ -480,7 +494,10 @@ class jpdata:
 
         for item in self._LandNumInfo:
             if str_name_j == item["name_j"]:
-                if item["type_muni"].lower() != "detail" and item["type_muni"].lower() != "mesh1":
+                if (
+                    item["type_muni"].lower() != "detail"
+                    and item["type_muni"].lower() != "mesh1"
+                ):
                     return
                 map_code = item["code_map"]
                 break
@@ -489,7 +506,9 @@ class jpdata:
         self.dockwidget.myListWidget13.show()
 
         if item["type_muni"].lower() == "detail":
-            details = jpDataLNI.getDetailsByMapCodePrefNameYear(map_code, str_name_pref, str_year)
+            details = jpDataLNI.getDetailsByMapCodePrefNameYear(
+                map_code, str_name_pref, str_year
+            )
         else:
             details = jpDataMesh.getMesh1ByPrefName(str_name_pref)
 
@@ -540,134 +559,141 @@ class jpdata:
                     QDesktopServices.openUrl(url)
 
     def tab1AddMap(self):
+        # Variables used in the function:
+        # item:
+        # pref_name: The name of selected prefectures or regions  in LW12
+        # pref_code: The corresponding codes
+        # year
+        # detail: The names of selected in LW13
+        for item in self._LandNumInfo:
+            if (
+                str(self.dockwidget.myListWidget11.selectedItems()[0].text())
+                == item["name_j"]
+            ):
+                break
         pref_name = self.dockwidget.myListWidget12.selectedItems()
         pref_code = []
+        year = self.dockwidget.myComboBox11.currentText()
         for i in range(len(pref_name)):
             pref_code.append(
                 jpDataUtils.getPrefCodeByName(
                     str(self.dockwidget.myListWidget12.selectedItems()[i].text())
                 )
             )
-
         if len(self.dockwidget.myListWidget13.selectedItems()) > 0:
-            detail = str(self.dockwidget.myListWidget13.selectedItems()[i].text())
+            detail = str(self.dockwidget.myListWidget13.selectedItems()[0].text())
         else:
             detail = None
+        if item["type_muni"] == "single":
+            pref_code = [""]
 
-        for item in self._LandNumInfo:
+        for x in range(len(pref_code)):
+            tempQml = item["qml"]
             if (
-                str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-                == item["name_j"]
+                item["type_muni"].lower() == "regional"
+                or item["type_muni"].lower() == "detail"
             ):
-                if item["type_muni"] == "single":
-                    seleted_prefs = [0]
+                y = jpDataLNI.getUrlCodeZipByPrefName(
+                    item["code_map"], str(pref_name[x].text()), year, detail
+                )
+                tempShpFileName = jpDataUtils.unzipAndGetShp(
+                    posixpath.join(self._folderPath, item["code_map"]),
+                    y["zip"],
+                    y["shp"],
+                    y["altdir"],
+                    pref_code[x],
+                    epsg=item["epsg"],
+                )
+                if y["qml"] != "":
+                    tempQml = y["qml"]
+            elif item["type_muni"].lower() == "mesh1":
+                str_code_mesh1 = str(
+                    self.dockwidget.myListWidget13.selectedItems()[0].text()
+                )
+                tempShpFileName = jpDataUtils.unzipAndGetShp(
+                    posixpath.join(self._folderPath, item["code_map"]),
+                    item["zip"].replace("code_mesh1", str_code_mesh1),
+                    item["shp"].replace("code_mesh1", str_code_mesh1),
+                    item["altdir"],
+                    pref_code[x],
+                    epsg=item["epsg"],
+                )
+            else:
+                tempShpFileName = jpDataUtils.unzipAndGetShp(
+                    posixpath.join(self._folderPath, item["code_map"]),
+                    item["zip"],
+                    item["shp"],
+                    item["altdir"],
+                    pref_code[x],
+                    epsg=item["epsg"],
+                )
+
+            if tempShpFileName is None:
+                self.dockwidget.myLabelStatus.setText(
+                    self.tr("Cannot find the .shp file: ")
+                    + item["shp"].replace("code_pref", pref_code[x])
+                )
+                self.iface.messageBar().pushMessage(
+                    "Error",
+                    "Cannot find the .shp file: "
+                    + item["shp"].replace("code_pref", pref_code[x]),
+                    1,
+                    duration=10,
+                )
+                tempShpFileName, ok = QFileDialog.getOpenFileName(
+                    self.iface.mainWindow(),
+                    "Select a File",
+                    self._folderPath + "/" + item["code_map"],
+                    "ESRI Shapefile (*.shp)",
+                )
+
+            if tempShpFileName != "":
+                if item["type_muni"].lower() == "single":
+                    tempLayer = QgsVectorLayer(tempShpFileName, item["name_j"], "ogr")
+                elif item["type_muni"].lower() == "detail":
+                    tempLayer = QgsVectorLayer(
+                        tempShpFileName,
+                        detail,
+                        "ogr",
+                    )
+                elif item["type_muni"].lower() == "mesh1":
+                    tempLayer = QgsVectorLayer(
+                        tempShpFileName,
+                        item["name_j"] + " (" + str(pref_name[x].text()) + ")",
+                        "ogr",
+                    )
+                    if item["code_map"] == "L03-a":
+                        tempLayer.addExpressionField(
+                            jpDataMesh.getMeshExpression(item["code_map"]),
+                            QgsField("Altitude", QVariant.String),
+                        )
                 else:
-                    seleted_prefs = range(len(pref_code))
+                    tempLayer = QgsVectorLayer(
+                        tempShpFileName,
+                        item["name_j"] + " (" + str(pref_name[x].text()) + ")",
+                        "ogr",
+                    )
 
-                for x in seleted_prefs:
-                    tempQml = item["qml"]
-                    if (
-                        item["type_muni"].lower() == "regional"
-                        or item["type_muni"].lower() == "detail"
-                    ):
-                        year = self.dockwidget.myComboBox11.currentText()
-                        y = jpDataLNI.getUrlCodeZipByPrefName(
-                            item["code_map"], str(pref_name[x].text()), year, detail
-                        )
-                        tempShpFileName = jpDataUtils.unzipAndGetShp(
-                            posixpath.join(self._folderPath, item["code_map"]),
-                            y["zip"],
-                            y["shp"],
-                            y["altdir"],
-                            pref_code[x],
-                            epsg=item["epsg"],
-                        )
-                        if y["qml"] != "":
-                            tempQml = y["qml"]
-                    elif item["type_muni"].lower() == "mesh1":
-                        str_code_mesh1 = str(self.dockwidget.myListWidget13.selectedItems()[0].text())
-                        tempShpFileName = jpDataUtils.unzipAndGetShp(
-                            posixpath.join(self._folderPath, item["code_map"]),
-                            item["zip"].replace("code_mesh1", str_code_mesh1),
-                            item["shp"].replace("code_mesh1", str_code_mesh1),
-                            item["altdir"],
-                            pref_code[x],
-                            epsg=item["epsg"],
-                        )
-                    else:
-                        tempShpFileName = jpDataUtils.unzipAndGetShp(
-                            posixpath.join(self._folderPath, item["code_map"]),
-                            item["zip"],
-                            item["shp"],
-                            item["altdir"],
-                            pref_code[x],
-                            epsg=item["epsg"],
-                        )
+                tempLayer.setProviderEncoding(item["encoding"])
+                if not os.path.exists(tempShpFileName[:-4] + ".qix"):
+                    tempLayer.dataProvider().createSpatialIndex()
 
-                    if tempShpFileName is None:
-                        self.dockwidget.myLabelStatus.setText(
-                            self.tr("Cannot find the .shp file: ")
-                            + item["shp"].replace("code_pref", pref_code[x])
+                if os.path.isfile(posixpath.join(self.plugin_dir, "qml", tempQml)):
+                    # For the qml files that use SVG images in the plugin folder
+                    with tempfile.TemporaryDirectory() as temp_dir:
+                        with open(
+                            posixpath.join(self.plugin_dir, "qml", tempQml),
+                            "r",
+                        ) as file:
+                            file_contents = file.read()
+                        new_contents = file_contents.replace(
+                            "PLUGIN_DIR", self.plugin_dir
                         )
-                        self.iface.messageBar().pushMessage(
-                            "Error",
-                            "Cannot find the .shp file: "
-                            + item["shp"].replace("code_pref", pref_code[x]),
-                            1,
-                            duration=10,
-                        )
-                        tempShpFileName, ok = QFileDialog.getOpenFileName(
-                            self.iface.mainWindow(),
-                            "Select a File",
-                            self._folderPath + "/" + item["code_map"],
-                            "ESRI Shapefile (*.shp)",
-                        )
-
-                    if tempShpFileName != "":
-                        if item["type_muni"] == "single":
-                            tempLayer = QgsVectorLayer(
-                                tempShpFileName, item["name_j"], "ogr"
-                            )
-                        elif item["type_muni"] == "detail":
-                            tempLayer = QgsVectorLayer(
-                                tempShpFileName,
-                                detail,
-                                "ogr",
-                            )
-                        else:
-                            tempLayer = QgsVectorLayer(
-                                tempShpFileName,
-                                item["name_j"] + " (" + str(pref_name[x].text()) + ")",
-                                "ogr",
-                            )
-
-                        tempLayer.setProviderEncoding(item["encoding"])
-                        if not os.path.exists(tempShpFileName[:-4] + ".qix"):
-                            tempLayer.dataProvider().createSpatialIndex()
-
-                        if os.path.isfile(
-                            posixpath.join(self.plugin_dir, "qml", tempQml)
-                        ):
-                            # For the qml files that use SVG images in the plugin folder
-                            with tempfile.TemporaryDirectory() as temp_dir:
-                                with open(
-                                    posixpath.join(self.plugin_dir, "qml", tempQml),
-                                    "r",
-                                ) as file:
-                                    file_contents = file.read()
-                                new_contents = file_contents.replace(
-                                    "PLUGIN_DIR", self.plugin_dir
-                                )
-                                with open(
-                                    posixpath.join(temp_dir, tempQml), "w"
-                                ) as file:
-                                    file.write(new_contents)
-                                if tempLayer.loadNamedStyle(
-                                    posixpath.join(temp_dir, tempQml)
-                                ):
-                                    tempLayer.triggerRepaint()
-                        QgsProject.instance().addMapLayer(tempLayer)
-                break
+                        with open(posixpath.join(temp_dir, tempQml), "w") as file:
+                            file.write(new_contents)
+                        if tempLayer.loadNamedStyle(posixpath.join(temp_dir, tempQml)):
+                            tempLayer.triggerRepaint()
+                QgsProject.instance().addMapLayer(tempLayer)
 
     def start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(posixpath.join(self._folderPath, subFolder)):
@@ -875,9 +901,13 @@ class jpdata:
                 tempZipFileName = row["zip"]
                 tempSubFolder = self._dl_code[x]["code_map"]
             elif self._dl_code[x]["type_muni"] == "mesh1":
-                str_code_mesh1 = str(self.dockwidget.myListWidget13.selectedItems()[0].text())
+                str_code_mesh1 = str(
+                    self.dockwidget.myListWidget13.selectedItems()[0].text()
+                )
                 tempUrl = self._dl_code[x]["url"].replace("code_mesh1", str_code_mesh1)
-                tempZipFileName = self._dl_code[x]["zip"].replace("code_mesh1", str_code_mesh1)
+                tempZipFileName = self._dl_code[x]["zip"].replace(
+                    "code_mesh1", str_code_mesh1
+                )
                 tempSubFolder = self._dl_code[x]["code_map"]
             else:
                 tempUrl = self._dl_code[x]["url"]
