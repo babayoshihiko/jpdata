@@ -15,6 +15,8 @@ def getMesh1ByPrefName(name_pref):
 
 
 def getMesh1ByPrefCode(code_pref):
+    if code_pref == "":
+        return ""
     int_code_pref = int(code_pref)
     tempMesh1 = []
 

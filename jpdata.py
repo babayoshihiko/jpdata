@@ -48,7 +48,6 @@ from qgis.core import (
     QgsSettings,
     QgsVectorLayer,
     QgsRasterLayer,
-    QgsExpression,
     QgsField,
 )
 from . import jpDataUtils
