@@ -23,7 +23,7 @@ hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
       0.6.9:
-        * Land Numeric Info: G04a, G04c, G04d, L03-a
+        * Land Numeric Info: A31b*, G04*, L03-a, L03-b*, W07
       0.6.8:
         * Land Numeric Info: A31, A55
         * Rewrote downloading functions
