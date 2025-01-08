@@ -106,6 +106,8 @@ class jpdata:
         self._downloaderStatus = ""
         self._dl_code = []
         self._dl_iter = 0
+        self._LW11_first_click = True
+        self._LW31_first_click = True
         # Create an action that triggers the folder chooser
         self.action = QAction("Choose Folder", self.iface.mainWindow())
         self.action.triggered.connect(self.chooseFolder)
@@ -291,13 +293,19 @@ class jpdata:
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                     item.setForeground(Qt.gray)
                 self.dockwidget.myListWidget11.addItem(item)
-            self.tab1CheckPrefsOrRegions()
+            # self.tab1CheckPrefsOrRegions()
             # Users cannot choose multiple maps
             # self.dockwidget.myListWidget11.setSelectionMode(
             #    QAbstractItemView.ExtendedSelection
             # )
-            self.dockwidget.myListWidget11.clicked.connect(self.tab1CheckPrefsOrRegions)
+            self.dockwidget.myListWidget11.clicked.connect(self._LW11_clicked)
+            self.dockwidget.myListWidget11.currentItemChanged.connect(
+                self._LW11_currentItemChanged
+            )
             self.dockwidget.myListWidget12.clicked.connect(self.tab1CheckYear)
+            self.dockwidget.myListWidget12.currentItemChanged.connect(
+                self.tab1CheckYear
+            )
             self.dockwidget.myComboBox11.currentIndexChanged.connect(self.tab1SetLW13)
             self.myListWidget12_is_all_prefs = False
             self.myListWidget12_is_mesh1 = False
@@ -335,7 +343,10 @@ class jpdata:
                 self.tr("Add Shapefile as a Layer to Map on QGIS")
             )
             self.dockwidget.myPushButton32.clicked.connect(self.tab3AddMap)
-            self.dockwidget.myListWidget31.itemClicked.connect(self.tab3SelectPref)
+            self.dockwidget.myListWidget31.clicked.connect(self._LW31_clicked)
+            self.dockwidget.myListWidget31.currentItemChanged.connect(
+                self._LW31_currentItemChanged
+            )
             self.dockwidget.myListWidget32.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
@@ -410,7 +421,18 @@ class jpdata:
             self.dockwidget.myPushButton14.setEnabled(False)
             self.dockwidget.myPushButton32.setEnabled(False)
 
-    # When ListWdiget11 (LNI map) is clicked, set ListWidget12.
+    def _LW11_clicked(self, index):
+        if self._LW11_first_click:
+            self.tab1CheckPrefsOrRegions()
+        self._LW11_first_click = False
+
+    def _LW11_currentItemChanged(self, current, previous):
+        if previous is None:
+            self.tab1CheckPrefsOrRegions()
+        elif current.text() != previous.text():
+            self.tab1CheckPrefsOrRegions()
+
+    # When ListWdiget11 (LNI map) is clicked or changed, set ListWidget12.
     # The default is all prefectures (self.myListWidget12_is_all_prefs = True).
     # Otherwise, read the CSV and add items in ListWidget12.
     def tab1CheckPrefsOrRegions(self):
@@ -771,6 +793,17 @@ class jpdata:
         else:
             self._downloader = jpDataDownloader.DownloadThread()
         self.enable_download()
+
+    def _LW31_clicked(self, index):
+        if self._LW31_first_click:
+            self.tab3SelectPref()
+        self._LW31_first_click = False
+
+    def _LW31_currentItemChanged(self, current, previous):
+        if previous is None:
+            self.tab3SelectPref()
+        elif current.text() != previous.text():
+            self.tab3SelectPref()
 
     def tab3SelectPref(self):
         selectedItems = self.dockwidget.myListWidget31.selectedItems()

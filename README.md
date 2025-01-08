@@ -92,7 +92,7 @@ For QGIS 3:
 * ElevationTile4JP (https://plugins.qgis.org/plugins/ElevationTile4JP/)
 * QuickDEM4JP (https://plugins.qgis.org/plugins/QuickDEM4JP/)
 * Japanese Grid Mesh (https://plugins.qgis.org/plugins/japanese_grids/)
-* PLATEAU QGIS Plugin  (https://plugins.qgis.org/plugins/plateau_plugin/)
+* PLATEAU QGIS Plugin (https://plugins.qgis.org/plugins/plateau_plugin/)
 * MOJXML Loader (https://plugins.qgis.org/plugins/mojxml_plugin/)
 
 # Roadmap
