@@ -357,6 +357,10 @@ class jpdata:
             self.dockwidget.myListWidget32.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
+            self.dockwidget.myListWidget33.hide()
+            self.dockwidget.myListWidget33.setSelectionMode(
+                QAbstractItemView.ExtendedSelection
+            )
 
             for code in range(1, 48):
                 self.dockwidget.myListWidget31.addItem(
