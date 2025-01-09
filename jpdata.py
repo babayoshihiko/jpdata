@@ -918,6 +918,7 @@ class jpdata:
             if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
                 row = jpDataMuni.getRowFromNames(name_pref, name_muni)
                 code_muni = row["code_muni"]
+                tempSubFolder = "Census"
                 tempZipFileName = jpDataCensus.getZipFileName(
                     year,
                     code_pref,
@@ -931,6 +932,23 @@ class jpdata:
                     str(self.dockwidget.myComboBox32.currentText()),
                 )
             else:
+                if (
+                    str(self.dockwidget.myComboBox32.currentText())
+                    == "3次メッシュ（1kmメッシュ）"
+                ):
+                    tempSubFolder = "Census/SDDSWS"
+                elif (
+                    str(self.dockwidget.myComboBox32.currentText())
+                    == "4次メッシュ（500mメッシュ）"
+                ):
+                    tempSubFolder = "Census/HDDSWH"
+                elif (
+                    str(self.dockwidget.myComboBox32.currentText())
+                    == "5次メッシュ（250mメッシュ）"
+                ):
+                    tempSubFolder = "Census/QDDSWQ"
+                else:
+                    tempSubFolder = "Census"
                 code_muni = name_muni
                 tempZipFileName = jpDataCensus.getZipFileName(
                     year,
@@ -945,7 +963,7 @@ class jpdata:
                     str(self.dockwidget.myComboBox32.currentText()),
                 )
             tempShpFileName = jpDataUtils.unzipAndGetShp(
-                posixpath.join(self._folderPath, "Census"),
+                posixpath.join(self._folderPath, tempSubFolder),
                 tempZipFileName,
                 tempShpFileName,
             )
@@ -954,7 +972,7 @@ class jpdata:
                 tempShpFileName, ok = QFileDialog.getOpenFileName(
                     self.iface.mainWindow(),
                     self.tr("Select a shp file"),
-                    posixpath.join(self._folderPath, "Census"),
+                    posixpath.join(self._folderPath, tempSubFolder),
                     "ESRI Shapefile (*.shp)",
                 )
 
@@ -1024,7 +1042,23 @@ class jpdata:
                     self._dl_code[x]["code_muni"],
                     str(self.dockwidget.myComboBox32.currentText()),
                 )
-                tempSubFolder = "Census"
+                if (
+                    str(self.dockwidget.myComboBox32.currentText())
+                    == "3次メッシュ（1kmメッシュ）"
+                ):
+                    tempSubFolder = "Census/SDDSWS"
+                elif (
+                    str(self.dockwidget.myComboBox32.currentText())
+                    == "4次メッシュ（500mメッシュ）"
+                ):
+                    tempSubFolder = "Census/HDDSWH"
+                elif (
+                    str(self.dockwidget.myComboBox32.currentText())
+                    == "5次メッシュ（250mメッシュ）"
+                ):
+                    tempSubFolder = "Census/QDDSWQ"
+                else:
+                    tempSubFolder = "Census"
             elif (
                 self._dl_code[x]["type_muni"] == "regional"
                 or self._dl_code[x]["type_muni"] == "detail"
