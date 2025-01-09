@@ -333,6 +333,10 @@ class jpdata:
             self.dockwidget.myComboBox31.addItem("2010")
             self.dockwidget.myComboBox31.addItem("2005")
             self.dockwidget.myComboBox31.addItem("2000")
+            self.dockwidget.myComboBox32.addItem("小地域")
+            self.dockwidget.myComboBox32.addItem("3次メッシュ（1kmメッシュ）")
+            self.dockwidget.myComboBox32.addItem("4次メッシュ（500mメッシュ）")
+            self.dockwidget.myComboBox32.addItem("5次メッシュ（250mメッシュ）")
             self.dockwidget.myPushButton31.setText(self.tr("Download"))
             self.dockwidget.myPushButton31.setToolTip(
                 self.tr("Download census data by city")
@@ -517,19 +521,19 @@ class jpdata:
                 str(self.dockwidget.myListWidget11.selectedItems()[0].text())
                 == item["name_j"]
             ):
-                self.dockwidget.myComboBox11.clear()
-                if item["year"].lower() != "csv":
-                    self.dockwidget.myComboBox11.addItem(item["year"])
+                break
+
+            self.dockwidget.myComboBox11.clear()
+            if item["year"].lower() != "csv":
+                self.dockwidget.myComboBox11.addItem(item["year"])
+            else:
+                if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+                    name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
                 else:
-                    if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-                        name_pref = self.dockwidget.myListWidget12.selectedItems()[
-                            0
-                        ].text()
-                    else:
-                        name_pref = None
-                    years = jpDataLNI.getYearsByMapCode(item["code_map"], name_pref)
-                    for year in years:
-                        self.dockwidget.myComboBox11.addItem(year)
+                    name_pref = None
+                years = jpDataLNI.getYearsByMapCode(item["code_map"], name_pref)
+                for year in years:
+                    self.dockwidget.myComboBox11.addItem(year)
 
     def tab1SetLW13(self):
         # map_code and year
@@ -604,12 +608,10 @@ class jpdata:
         items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
             for item in self._LandNumInfo:
-                if (
-                    str(self.dockwidget.myListWidget11.selectedItems()[i].text())
-                    == item["name_j"]
-                ):
+                if str(items[i].text()) == item["name_j"]:
                     url = QUrl(item["source"])
                     QDesktopServices.openUrl(url)
+                    break
 
     def tab1AddMap(self):
         # Variables used in the function:
@@ -806,72 +808,142 @@ class jpdata:
             self.tab3SelectPref()
 
     def tab3SelectPref(self):
-        selectedItems = self.dockwidget.myListWidget31.selectedItems()
-        for item in selectedItems:
-            rows = jpDataMuni.getMuniFromPrefName(str(item.text()))
-            self.dockwidget.myListWidget32.clear()
-            for row in rows:
-                if row["name_muni"] != "":
-                    item = QListWidgetItem(row["name_muni"])
-                    if row["name_muni"] in [
-                        "札幌市",
-                        "仙台市",
-                        "千葉市",
-                        "さいたま市",
-                        "横浜市",
-                        "川崎市",
-                        "相模原市",
-                        "新潟市",
-                        "静岡市",
-                        "浜松市",
-                        "名古屋市",
-                        "京都市",
-                        "大阪市",
-                        "堺市",
-                        "神戸市",
-                        "岡山市",
-                        "広島市",
-                        "福岡市",
-                        "北九州市",
-                        "熊本市",
-                    ]:
-                        item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
-                        item.setForeground(Qt.gray)
-                    self.dockwidget.myListWidget32.addItem(item)
+        # selectedItems = self.dockwidget.myListWidget31.selectedItems()
+        if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
+            return
+        item = selectedItems = self.dockwidget.myListWidget31.selectedItems()[0]
+        # for item in selectedItems:
+        rows = jpDataMuni.getMuniFromPrefName(str(item.text()))
+        self.dockwidget.myListWidget32.clear()
+        for row in rows:
+            if row["name_muni"] != "":
+                item = QListWidgetItem(row["name_muni"])
+                if row["name_muni"] in [
+                    "札幌市",
+                    "仙台市",
+                    "千葉市",
+                    "さいたま市",
+                    "横浜市",
+                    "川崎市",
+                    "相模原市",
+                    "新潟市",
+                    "静岡市",
+                    "浜松市",
+                    "名古屋市",
+                    "京都市",
+                    "大阪市",
+                    "堺市",
+                    "神戸市",
+                    "岡山市",
+                    "広島市",
+                    "福岡市",
+                    "北九州市",
+                    "熊本市",
+                ]:
+                    item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
+                    item.setForeground(Qt.gray)
+                self.dockwidget.myListWidget32.addItem(item)
+        self._tab3_set_mesh()
+
+    def _tab3_set_mesh(self):
+        if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+            self.dockwidget.myListWidget33.clear()
+            self.dockwidget.myListWidget33.hide()
+            return
+
+        str_name_pref = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
+
+        self.dockwidget.myListWidget33.clear()
+        self.dockwidget.myListWidget33.show()
+
+        details = jpDataMesh.getMesh1ByPrefName(str_name_pref)
+
+        for detail in details:
+            self.dockwidget.myListWidget33.addItem(detail)
 
     def tab3DownloadAll(self):
         if self.dockwidget.myPushButton31.text() == self.tr("Cancel"):
             self.cancel_download()
             return
 
+        self._dl_code = []
+        self._dl_iter = 0
         year = str(self.dockwidget.myComboBox31.currentText())
-        pref_name = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
-        muni_names = self.dockwidget.myListWidget32.selectedItems()
-        for muni_name in muni_names:
-            self._dl_code.append(
-                {
-                    "year": year,
-                    "code_map": "Census",
-                    "type_muni": "census",
-                    "name_pref": pref_name,
-                    "name_muni": str(muni_name.text()),
-                }
-            )
+        name_pref = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
+        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+
+        if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+            muni_names = self.dockwidget.myListWidget32.selectedItems()
+            for muni_name in muni_names:
+                row = jpDataMuni.getRowFromNames(name_pref, str(muni_name.text()))
+                self._dl_code.append(
+                    {
+                        "year": year,
+                        "code_map": "Census",
+                        "type_muni": "census",
+                        "code_pref": code_pref,
+                        "code_muni": row["code_muni"],
+                        "name_pref": name_pref,
+                        "name_muni": str(muni_name.text()),
+                    }
+                )
+        else:
+            muni_names = self.dockwidget.myListWidget33.selectedItems()
+            for muni_name in muni_names:
+                self._dl_code.append(
+                    {
+                        "year": year,
+                        "code_map": "Census",
+                        "type_muni": "census",
+                        "code_pref": code_pref,
+                        "code_muni": str(muni_name.text()),
+                        "name_pref": name_pref,
+                        "name_muni": str(muni_name.text()),
+                    }
+                )
         self._download_iter()
 
     def tab3AddMap(self):
         year = str(self.dockwidget.myComboBox31.currentText())
-        pref_name = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
-        muni_names = self.dockwidget.myListWidget32.selectedItems()
+        name_pref = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
+        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+
+        if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+            muni_names = self.dockwidget.myListWidget32.selectedItems()
+        else:
+            muni_names = self.dockwidget.myListWidget33.selectedItems()
 
         for muni_name in muni_names:
-            row = jpDataMuni.getRowFromNames(pref_name, str(muni_name.text()))
-            tempZipFileName = jpDataCensus.getZipFileName(
-                year, row["code_pref"], row["code_muni"]
-            )
-            tempShpFileName = jpDataCensus.getShpFileName(
-                year, row["code_pref"], row["code_muni"]
-            )
+            name_muni = str(muni_name.text())
+            if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+                row = jpDataMuni.getRowFromNames(name_pref, name_muni)
+                code_muni = row["code_muni"]
+                tempZipFileName = jpDataCensus.getZipFileName(
+                    year,
+                    code_pref,
+                    code_muni,
+                    str(self.dockwidget.myComboBox32.currentText()),
+                )
+                tempShpFileName = jpDataCensus.getShpFileName(
+                    year,
+                    code_pref,
+                    code_muni,
+                    str(self.dockwidget.myComboBox32.currentText()),
+                )
+            else:
+                code_muni = name_muni
+                tempZipFileName = jpDataCensus.getZipFileName(
+                    year,
+                    code_pref,
+                    code_muni,
+                    str(self.dockwidget.myComboBox32.currentText()),
+                )
+                tempShpFileName = jpDataCensus.getShpFileName(
+                    year,
+                    code_pref,
+                    code_muni,
+                    str(self.dockwidget.myComboBox32.currentText()),
+                )
             tempShpFileName = jpDataUtils.unzipAndGetShp(
                 posixpath.join(self._folderPath, "Census"),
                 tempZipFileName,
@@ -888,7 +960,7 @@ class jpdata:
 
             if tempShpFileName != "":
                 tempLayer = QgsVectorLayer(
-                    tempShpFileName, row["name_muni"] + " (" + year + ")", "ogr"
+                    tempShpFileName, name_muni + " (" + year + ")", "ogr"
                 )
                 tempLayer.setProviderEncoding("CP932")
                 if not os.path.exists(tempShpFileName[:-4] + ".qix"):
@@ -940,16 +1012,18 @@ class jpdata:
 
         for x in range(self._dl_iter, len(self._dl_code)):
             if self._dl_code[x]["type_muni"] == "census":
-                row = jpDataMuni.getRowFromNames(
-                    self._dl_code[x]["name_pref"], self._dl_code[x]["name_muni"]
-                )
                 tempUrl = jpDataCensus.getUrl(
-                    self._dl_code[x]["year"], row["code_pref"], row["code_muni"]
+                    self._dl_code[x]["year"],
+                    self._dl_code[x]["code_pref"],
+                    self._dl_code[x]["code_muni"],
+                    str(self.dockwidget.myComboBox32.currentText()),
                 )
                 tempZipFileName = jpDataCensus.getZipFileName(
-                    self._dl_code[x]["year"], row["code_pref"], row["code_muni"]
+                    self._dl_code[x]["year"],
+                    self._dl_code[x]["code_pref"],
+                    self._dl_code[x]["code_muni"],
+                    str(self.dockwidget.myComboBox32.currentText()),
                 )
-                self._dl_code[x]["code_pref"] = row["code_pref"]
                 tempSubFolder = "Census"
             elif (
                 self._dl_code[x]["type_muni"] == "regional"

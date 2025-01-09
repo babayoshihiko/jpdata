@@ -15,13 +15,6 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="9" column="0">
-     <widget class="QLabel" name="myLabelStatus">
-      <property name="text">
-       <string>myLabelStatus</string>
-      </property>
-     </widget>
-    </item>
     <item row="8" column="0">
      <widget class="QProgressBar" name="progressBar">
       <property name="sizePolicy">
@@ -35,10 +28,17 @@
       </property>
      </widget>
     </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="myLabelStatus">
+      <property name="text">
+       <string>myLabelStatus</string>
+      </property>
+     </widget>
+    </item>
     <item row="7" column="0">
      <widget class="QTabWidget" name="myTabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -156,72 +156,83 @@
        <attribute name="title">
         <string>tab_3</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_5">
+       <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QSplitter" name="splitter_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <widget class="QWidget" name="verticalLayoutWidget">
-             <layout class="QVBoxLayout" name="verticalLayout">
+         <widget class="QSplitter" name="splitter_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QWidget" name="verticalLayoutWidget">
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_3">
-                <item>
-                 <widget class="QLabel" name="myLabel31">
-                  <property name="text">
-                   <string>myLabel31</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="myComboBox31">
-                  <property name="currentText">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <widget class="QLabel" name="myLabel31">
+                <property name="text">
+                 <string>myLabel31</string>
+                </property>
+               </widget>
               </item>
               <item>
-               <widget class="QListWidget" name="myListWidget31"/>
+               <widget class="QComboBox" name="myComboBox31">
+                <property name="currentText">
+                 <string/>
+                </property>
+               </widget>
               </item>
              </layout>
-            </widget>
-            <widget class="QListWidget" name="myListWidget32"/>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            </item>
             <item>
-             <spacer name="horizontalSpacer_2">
+             <widget class="QComboBox" name="myComboBox32"/>
+            </item>
+            <item>
+             <widget class="QListWidget" name="myListWidget31"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="verticalLayoutWidget_2">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QSplitter" name="splitter_2">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Vertical</enum>
               </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="myPushButton31">
-              <property name="text">
-               <string>myPushButton31</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="myPushButton32">
-              <property name="text">
-               <string>myPushButton32</string>
-              </property>
+              <widget class="QListWidget" name="myListWidget32"/>
+              <widget class="QListWidget" name="myListWidget33"/>
              </widget>
             </item>
            </layout>
+          </widget>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="myPushButton31">
+            <property name="text">
+             <string>myPushButton31</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="myPushButton32">
+            <property name="text">
+             <string>myPushButton32</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>

@@ -232,6 +232,17 @@ def getMapsFromCsv():
         return rows
 
 
+def getMapsFromCsv2():
+    filePath = posixpath.join(os.path.dirname(__file__), "csv", "LandNumInfo.csv")
+    new_dict = dict()
+
+    with open(filePath, "r") as f:
+        csvreader = csv.DictReader(f)
+        for row in csvreader:
+            new_dict.update({row["name_j"]: row})
+    return new_dict
+
+
 def getTilesFromCsv():
     filePath = posixpath.join(os.path.dirname(__file__), "csv", "GSI.csv")
     with open(filePath, "r") as f:
@@ -334,4 +345,4 @@ def unzipAndGetShp(
 
 
 def printLog(message):
-    QgsMessageLog.logMessage(message, "jpdata", level=Qgis.Warning)
+    QgsMessageLog.logMessage(str(message), "jpdata", level=Qgis.Warning)
