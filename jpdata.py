@@ -337,6 +337,9 @@ class jpdata:
             self.dockwidget.myComboBox32.addItem("3次メッシュ（1kmメッシュ）")
             self.dockwidget.myComboBox32.addItem("4次メッシュ（500mメッシュ）")
             self.dockwidget.myComboBox32.addItem("5次メッシュ（250mメッシュ）")
+            self.dockwidget.myComboBox32.currentIndexChanged.connect(
+                self._tab3_set_mesh
+            )
             self.dockwidget.myPushButton31.setText(self.tr("Download"))
             self.dockwidget.myPushButton31.setToolTip(
                 self.tr("Download census data by city")
