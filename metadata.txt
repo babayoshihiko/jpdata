@@ -22,6 +22,8 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+      0.6.10:
+        * Census mesh
       0.6.9:
         * Land Numeric Info: A31b*, G04*, L03-a, L03-b*, W07
         * Mesh
