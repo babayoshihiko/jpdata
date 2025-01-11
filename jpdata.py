@@ -1019,7 +1019,8 @@ class jpdata:
                         tempLayer.triggerRepaint()
 
                 QgsProject.instance().addMapLayer(tempLayer)
-                        
+                
+                # The below does not work.
                 if str(self.dockwidget.myComboBox32.currentText()) != "小地域":
                     # Define the join
                     join_info = QgsVectorLayerJoinInfo()
@@ -1027,7 +1028,6 @@ class jpdata:
                     join_info.joinFieldName = "KEY_CODE"  # Field in the CSV to join on
                     join_info.targetFieldName = "KEY_CODE"  # Field in the vector layer to join on
                     join_info.memoryCache = True  # Cache the joined attributes in memory
-                    jpDataUtils.printLog("join")
                     tempLayer.addJoin(join_info)
 
             
