@@ -49,6 +49,7 @@ from qgis.core import (
     QgsVectorLayer,
     QgsRasterLayer,
     QgsField,
+    QgsVectorLayerJoinInfo
 )
 from . import jpDataUtils
 from . import jpDataDownloader
@@ -433,15 +434,17 @@ class jpdata:
             self.dockwidget.myPushButton32.setEnabled(False)
 
     def _LW11_clicked(self, index):
-        if self._LW11_first_click:
-            self.tab1CheckPrefsOrRegions()
-        self._LW11_first_click = False
+        #if self._LW11_first_click:
+        #    self.tab1CheckPrefsOrRegions()
+        #self._LW11_first_click = False
+        self.tab1CheckPrefsOrRegions()
 
     def _LW11_currentItemChanged(self, current, previous):
-        if previous is None:
-            self.tab1CheckPrefsOrRegions()
-        elif current.text() != previous.text():
-            self.tab1CheckPrefsOrRegions()
+        #if previous is None:
+        #    self.tab1CheckPrefsOrRegions()
+        #elif current.text() != previous.text():
+        #    self.tab1CheckPrefsOrRegions()
+        self.tab1CheckPrefsOrRegions()
 
     # When ListWdiget11 (LNI map) is clicked or changed, set ListWidget12.
     # The default is all prefectures (self.myListWidget12_is_all_prefs = True).
@@ -804,15 +807,17 @@ class jpdata:
         self.enable_download()
 
     def _LW31_clicked(self, index):
-        if self._LW31_first_click:
-            self.tab3SelectPref()
-        self._LW31_first_click = False
+        #if self._LW31_first_click:
+        #    self.tab3SelectPref()
+        #self._LW31_first_click = False
+        self.tab3SelectPref()
 
     def _LW31_currentItemChanged(self, current, previous):
-        if previous is None:
-            self.tab3SelectPref()
-        elif current.text() != previous.text():
-            self.tab3SelectPref()
+        #if previous is None:
+        #    self.tab3SelectPref()
+        #elif current.text() != previous.text():
+        #    self.tab3SelectPref()
+        self.tab3SelectPref()
 
     def tab3SelectPref(self):
         # selectedItems = self.dockwidget.myListWidget31.selectedItems()
@@ -880,6 +885,8 @@ class jpdata:
         code_pref = jpDataUtils.getPrefCodeByName(name_pref)
 
         if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+            # Get attribute data first
+            jpDataCensus.downloadCsv(self._folderPath, year, code_pref, "", )
             muni_names = self.dockwidget.myListWidget32.selectedItems()
             for muni_name in muni_names:
                 row = jpDataMuni.getRowFromNames(name_pref, str(muni_name.text()))
@@ -897,6 +904,8 @@ class jpdata:
         else:
             muni_names = self.dockwidget.myListWidget33.selectedItems()
             for muni_name in muni_names:
+                # Get attribute data for each mesh
+                jpDataCensus.downloadCsv(self._folderPath, year, "", str(muni_name.text()), str(self.dockwidget.myComboBox32.currentText()))
                 self._dl_code.append(
                     {
                         "year": year,
@@ -969,6 +978,18 @@ class jpdata:
                     code_muni,
                     str(self.dockwidget.myComboBox32.currentText()),
                 )
+                tempCsvFileName = posixpath.join(
+                    self._folderPath, 
+                    tempSubFolder, 
+                    jpDataCensus.getAttrCsvFileName(year, code_pref, code_muni, str(self.dockwidget.myComboBox32.currentText()))
+                )
+                tempCsvFileName = "file://" + tempCsvFileName
+                tempCsvFileName += "?type=csv&detectTypes=yes&delimiter=%s&encoding==%s" % (",","CP932")
+                tempCsvLayer = QgsVectorLayer(
+                    tempCsvFileName, name_muni + " Attribute (" + year + ")", "delimitedtext"
+                )
+                QgsProject.instance().addMapLayer(tempCsvLayer)
+
             tempShpFileName = jpDataUtils.unzipAndGetShp(
                 posixpath.join(self._folderPath, tempSubFolder),
                 tempZipFileName,
@@ -996,7 +1017,20 @@ class jpdata:
                         posixpath.join(self.plugin_dir, "qml", "Census.qml")
                     ):
                         tempLayer.triggerRepaint()
+
                 QgsProject.instance().addMapLayer(tempLayer)
+                        
+                if str(self.dockwidget.myComboBox32.currentText()) != "小地域":
+                    # Define the join
+                    join_info = QgsVectorLayerJoinInfo()
+                    join_info.joinLayerId = tempCsvLayer.id()  # ID of the CSV layer
+                    join_info.joinFieldName = "KEY_CODE"  # Field in the CSV to join on
+                    join_info.targetFieldName = "KEY_CODE"  # Field in the vector layer to join on
+                    join_info.memoryCache = True  # Cache the joined attributes in memory
+                    jpDataUtils.printLog("join")
+                    tempLayer.addJoin(join_info)
+
+            
 
     def chooseFolder(self):
         # Open a folder dialog to choose a folder
