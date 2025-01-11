@@ -948,24 +948,27 @@ class jpdata:
                     str(self.dockwidget.myComboBox32.currentText()),
                 )
             else:
+                code_muni = name_muni
                 if (
                     str(self.dockwidget.myComboBox32.currentText())
                     == "3次メッシュ（1kmメッシュ）"
                 ):
                     tempSubFolder = "Census/SDDSWS"
+                    name_muni = name_muni + " 3次"
                 elif (
                     str(self.dockwidget.myComboBox32.currentText())
                     == "4次メッシュ（500mメッシュ）"
                 ):
                     tempSubFolder = "Census/HDDSWH"
+                    name_muni = name_muni + " 4次"
                 elif (
                     str(self.dockwidget.myComboBox32.currentText())
                     == "5次メッシュ（250mメッシュ）"
                 ):
                     tempSubFolder = "Census/QDDSWQ"
+                    name_muni = name_muni + " 5次"
                 else:
                     tempSubFolder = "Census"
-                code_muni = name_muni
                 tempZipFileName = jpDataCensus.getZipFileName(
                     year,
                     code_pref,

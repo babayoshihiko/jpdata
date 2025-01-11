@@ -352,7 +352,10 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni="小地域"):
         folder_path = posixpath.join(folder, "Census", "HDDSWH")
     elif type_muni == "5次メッシュ（250mメッシュ）":
         folder_path = posixpath.join(folder, "Census", "QDDSWQ")
-        
+    
+    if os.path.exists(posixpath.join(folder_path, attrZip)):
+        return
+    
     if not os.path.exists(folder_path):
         os.makedirs(folder_path, exist_ok=True)
 
