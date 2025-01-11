@@ -7,7 +7,7 @@
 name=jpdata
 qgisMinimumVersion=3.0
 description=Download and load various data of Japan
-version=0.6.10
+version=0.6.11
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 
@@ -22,6 +22,8 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+      0.6.11:
+        * Census mesh attribute
       0.6.10:
         * Census mesh
       0.6.9:
