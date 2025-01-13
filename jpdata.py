@@ -863,6 +863,9 @@ class jpdata:
             self.dockwidget.myListWidget33.hide()
             return
 
+        if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
+            return
+
         str_name_pref = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
 
         self.dockwidget.myListWidget33.clear()
