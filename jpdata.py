@@ -49,7 +49,6 @@ from qgis.core import (
     QgsVectorLayer,
     QgsRasterLayer,
     QgsField,
-    QgsVectorLayerJoinInfo
 )
 from . import jpDataUtils
 from . import jpDataDownloader
@@ -434,15 +433,15 @@ class jpdata:
             self.dockwidget.myPushButton32.setEnabled(False)
 
     def _LW11_clicked(self, index):
-        #if self._LW11_first_click:
+        # if self._LW11_first_click:
         #    self.tab1CheckPrefsOrRegions()
-        #self._LW11_first_click = False
+        # self._LW11_first_click = False
         self.tab1CheckPrefsOrRegions()
 
     def _LW11_currentItemChanged(self, current, previous):
-        #if previous is None:
+        # if previous is None:
         #    self.tab1CheckPrefsOrRegions()
-        #elif current.text() != previous.text():
+        # elif current.text() != previous.text():
         #    self.tab1CheckPrefsOrRegions()
         self.tab1CheckPrefsOrRegions()
 
@@ -705,12 +704,7 @@ class jpdata:
                     1,
                     duration=10,
                 )
-                tempShpFileName, ok = QFileDialog.getOpenFileName(
-                    self.iface.mainWindow(),
-                    "Select a File",
-                    self._folderPath + "/" + item["code_map"],
-                    "ESRI Shapefile (*.shp)",
-                )
+                return
 
             if tempShpFileName != "":
                 if item["type_muni"].lower() == "single":
@@ -807,15 +801,15 @@ class jpdata:
         self.enable_download()
 
     def _LW31_clicked(self, index):
-        #if self._LW31_first_click:
+        # if self._LW31_first_click:
         #    self.tab3SelectPref()
-        #self._LW31_first_click = False
+        # self._LW31_first_click = False
         self.tab3SelectPref()
 
     def _LW31_currentItemChanged(self, current, previous):
-        #if previous is None:
+        # if previous is None:
         #    self.tab3SelectPref()
-        #elif current.text() != previous.text():
+        # elif current.text() != previous.text():
         #    self.tab3SelectPref()
         self.tab3SelectPref()
 
@@ -889,7 +883,12 @@ class jpdata:
 
         if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
             # Get attribute data first
-            jpDataCensus.downloadCsv(self._folderPath, year, code_pref, "", )
+            jpDataCensus.downloadCsv(
+                self._folderPath,
+                year,
+                code_pref,
+                "",
+            )
             muni_names = self.dockwidget.myListWidget32.selectedItems()
             for muni_name in muni_names:
                 row = jpDataMuni.getRowFromNames(name_pref, str(muni_name.text()))
@@ -908,7 +907,13 @@ class jpdata:
             muni_names = self.dockwidget.myListWidget33.selectedItems()
             for muni_name in muni_names:
                 # Get attribute data for each mesh
-                jpDataCensus.downloadCsv(self._folderPath, year, "", str(muni_name.text()), str(self.dockwidget.myComboBox32.currentText()))
+                jpDataCensus.downloadCsv(
+                    self._folderPath,
+                    year,
+                    "",
+                    str(muni_name.text()),
+                    str(self.dockwidget.myComboBox32.currentText()),
+                )
                 self._dl_code.append(
                     {
                         "year": year,
@@ -984,17 +989,6 @@ class jpdata:
                     code_muni,
                     str(self.dockwidget.myComboBox32.currentText()),
                 )
-                tempCsvFileName = posixpath.join(
-                    self._folderPath, 
-                    tempSubFolder, 
-                    jpDataCensus.getAttrCsvFileName(year, code_pref, code_muni, str(self.dockwidget.myComboBox32.currentText()))
-                )
-                tempCsvFileName = "file://" + tempCsvFileName
-                tempCsvFileName += "?type=csv&detectTypes=yes&delimiter=%s&encoding==%s" % (",","CP932")
-                tempCsvLayer = QgsVectorLayer(
-                    tempCsvFileName, name_muni + " Attribute (" + year + ")", "delimitedtext"
-                )
-                QgsProject.instance().addMapLayer(tempCsvLayer)
 
             tempShpFileName = jpDataUtils.unzipAndGetShp(
                 posixpath.join(self._folderPath, tempSubFolder),
@@ -1003,14 +997,36 @@ class jpdata:
             )
 
             if tempShpFileName is None:
-                tempShpFileName, ok = QFileDialog.getOpenFileName(
-                    self.iface.mainWindow(),
-                    self.tr("Select a shp file"),
-                    posixpath.join(self._folderPath, tempSubFolder),
-                    "ESRI Shapefile (*.shp)",
+                self.dockwidget.myLabelStatus.setText(
+                    self.tr("Cannot find the .shp file: ")
+                    + item["shp"].replace("code_pref", pref_code[x])
                 )
+                self.iface.messageBar().pushMessage(
+                    "Error",
+                    "Cannot find the .shp file: "
+                    + item["shp"].replace("code_pref", pref_code[x]),
+                    1,
+                    duration=10,
+                )
+                return
 
             if tempShpFileName != "":
+                if str(self.dockwidget.myComboBox32.currentText()) != "小地域":
+                    tempCsvFileName = jpDataCensus.getAttrCsvFileName(
+                        year,
+                        code_pref,
+                        code_muni,
+                        str(self.dockwidget.myComboBox32.currentText()),
+                    )
+                    jpDataUtils.printLog(tempShpFileName)
+                    jpDataUtils.printLog(tempCsvFileName)
+                    jpDataCensus.performJoin(
+                        posixpath.join(self._folderPath, tempSubFolder),
+                        tempShpFileName,
+                        tempCsvFileName,
+                    )
+                    tempShpFileName = tempShpFileName.replace(".shp", "_Joined.shp")
+
                 tempLayer = QgsVectorLayer(
                     tempShpFileName, name_muni + " (" + year + ")", "ogr"
                 )
@@ -1025,18 +1041,6 @@ class jpdata:
                         tempLayer.triggerRepaint()
 
                 QgsProject.instance().addMapLayer(tempLayer)
-                
-                # The below does not work.
-                if str(self.dockwidget.myComboBox32.currentText()) != "小地域":
-                    # Define the join
-                    join_info = QgsVectorLayerJoinInfo()
-                    join_info.joinLayerId = tempCsvLayer.id()  # ID of the CSV layer
-                    join_info.joinFieldName = "KEY_CODE"  # Field in the CSV to join on
-                    join_info.targetFieldName = "KEY_CODE"  # Field in the vector layer to join on
-                    join_info.memoryCache = True  # Cache the joined attributes in memory
-                    tempLayer.addJoin(join_info)
-
-            
 
     def chooseFolder(self):
         # Open a folder dialog to choose a folder

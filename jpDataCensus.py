@@ -3,6 +3,8 @@ import requests
 import posixpath
 import os.path
 import zipfile
+from qgis import processing
+
 
 def getUrl(year, code_pref, code_muni, type_muni="小地域"):
     url = None
@@ -338,7 +340,7 @@ def getAttrCsvFileName(year, code_pref, code_muni, type_muni="小地域"):
 
 
 def downloadCsv(folder, year, code_pref, code_muni, type_muni="小地域"):
-    
+
     attrUrl = getAttrUrl(year, code_pref, code_muni, type_muni)
     attrZip = getAttrZipFileName(year, code_pref, code_muni, type_muni)
     attrCsv = getAttrCsvFileName(year, code_pref, code_muni, type_muni)
@@ -352,17 +354,15 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni="小地域"):
         folder_path = posixpath.join(folder, "Census", "HDDSWH")
     elif type_muni == "5次メッシュ（250mメッシュ）":
         folder_path = posixpath.join(folder, "Census", "QDDSWQ")
-    
-    if os.path.exists(posixpath.join(folder_path, attrZip)):
-        return
-    
+
     if not os.path.exists(folder_path):
         os.makedirs(folder_path, exist_ok=True)
 
     urlData = requests.get(attrUrl).content
-    with open(posixpath.join(folder_path, attrZip), mode='wb') as f: # wb でバイト型を書き込める
+    with open(
+        posixpath.join(folder_path, attrZip), mode="wb"
+    ) as f:  # wb でバイト型を書き込める
         f.write(urlData)
-
 
     # Below is a workaround for a zip file with Japanese filenames/foldernames
     if os.path.exists(posixpath.join(folder_path, attrZip)):
@@ -383,3 +383,48 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni="小地域"):
                     with zf.open(zip_info) as file:
                         with open(output_file_path, "wb") as out_file:
                             out_file.write(file.read())
+
+
+def performJoin(folder, shp, csv):
+    if not shp in folder:
+        shp = posixpath.join(folder, shp)
+    output = shp.replace(".shp", "_Joined.shp")
+    if os.path.exists(output):
+        return
+
+    if not csv in folder:
+        csv = posixpath.join(folder, csv)
+        if csv[-4:] == ".txt":
+            if not os.path.exists(csv.replace(".txt", ".csv")):
+                line_no = 0
+                fout = open(csv.replace(".txt", ".csv"), "w+", encoding="UTF-8")
+                with open(csv, "r", encoding="CP932") as fp:
+                    for line in fp:
+                        line_no = line_no + 1
+                        if line_no != 2:
+                            fout.write(line.replace("*", ""))
+                        else:
+                            count = line.count(",")
+                            csvt = "String,Integer,String"
+                            for _ in range(count - 2):
+                                csvt += ",Integer"
+                                fout2 = open(
+                                    csv.replace(".txt", ".csvt"), "w+", encoding="UTF-8"
+                                )
+                                fout2.write(csvt)
+                                fout2.close()
+
+                fout.close()
+
+            csv = csv.replace(".txt", ".csv")
+
+    # Now all file names are full path
+    if os.path.exists(shp) and os.path.exists(csv):
+        joinInfo = {
+            "INPUT": posixpath.join(folder, shp),
+            "FIELD": "KEY_CODE",
+            "INPUT_2": posixpath.join(folder, csv),
+            "FIELD_2": "KEY_CODE",
+            "OUTPUT": posixpath.join(folder, output),
+        }
+        processing.run("qgis:joinattributestable", joinInfo)
