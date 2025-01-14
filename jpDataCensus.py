@@ -428,3 +428,10 @@ def performJoin(folder, year, shp, csv):
             "OUTPUT": output,
         }
         processing.run("qgis:joinattributestable", joinInfo)
+
+
+def getToolTip(type):
+    if type == "year":
+        return "小地域は2000年以降<br />5次メッシュは2005根年以降"
+    elif type == "region":
+        return "小地域: 基本単位区別，町丁・字別人口<br />3次メッシュ: 1 km メッシュ<br />4次メッシュ: 500 m メッシュ<br />5次メッシュ: 250 m メッシュ"

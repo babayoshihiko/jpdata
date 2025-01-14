@@ -333,10 +333,12 @@ class jpdata:
             self.dockwidget.myComboBox31.addItem("2010")
             self.dockwidget.myComboBox31.addItem("2005")
             self.dockwidget.myComboBox31.addItem("2000")
+            self.dockwidget.myComboBox31.setToolTip(jpDataCensus.getToolTip("year"))
             self.dockwidget.myComboBox32.addItem("小地域")
             self.dockwidget.myComboBox32.addItem("3次メッシュ（1kmメッシュ）")
             self.dockwidget.myComboBox32.addItem("4次メッシュ（500mメッシュ）")
             self.dockwidget.myComboBox32.addItem("5次メッシュ（250mメッシュ）")
+            self.dockwidget.myComboBox32.setToolTip(jpDataCensus.getToolTip("region"))
             self.dockwidget.myComboBox32.currentIndexChanged.connect(
                 self._tab3_set_mesh
             )
