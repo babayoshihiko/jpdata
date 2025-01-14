@@ -955,6 +955,7 @@ class jpdata:
                     code_muni,
                     str(self.dockwidget.myComboBox32.currentText()),
                 )
+                tempQmlFile = "Census.qml"
             else:
                 code_muni = name_muni
                 if (
@@ -963,18 +964,21 @@ class jpdata:
                 ):
                     tempSubFolder = "Census/SDDSWS"
                     name_muni = name_muni + " 3次"
+                    tempQmlFile = "Census-SDDSWS.qml"
                 elif (
                     str(self.dockwidget.myComboBox32.currentText())
                     == "4次メッシュ（500mメッシュ）"
                 ):
                     tempSubFolder = "Census/HDDSWH"
                     name_muni = name_muni + " 4次"
+                    tempQmlFile = "Census-HDDSWH.qml"
                 elif (
                     str(self.dockwidget.myComboBox32.currentText())
                     == "5次メッシュ（250mメッシュ）"
                 ):
                     tempSubFolder = "Census/QDDSWQ"
                     name_muni = name_muni + " 5次"
+                    tempQmlFile = "Census-QDDSWQ.qml"
                 else:
                     tempSubFolder = "Census"
                 tempZipFileName = jpDataCensus.getZipFileName(
@@ -1034,9 +1038,9 @@ class jpdata:
                 if not os.path.exists(tempShpFileName[:-4] + ".qix"):
                     tempLayer.dataProvider().createSpatialIndex()
 
-                if os.path.exists(posixpath.join(self.plugin_dir, "qml", "Census.qml")):
+                if os.path.exists(posixpath.join(self.plugin_dir, "qml", tempQmlFile)):
                     if tempLayer.loadNamedStyle(
-                        posixpath.join(self.plugin_dir, "qml", "Census.qml")
+                        posixpath.join(self.plugin_dir, "qml", tempQmlFile)
                     ):
                         tempLayer.triggerRepaint()
 
