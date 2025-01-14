@@ -999,12 +999,12 @@ class jpdata:
             if tempShpFileName is None:
                 self.dockwidget.myLabelStatus.setText(
                     self.tr("Cannot find the .shp file: ")
-                    + item["shp"].replace("code_pref", pref_code[x])
+                    + name_muni
                 )
                 self.iface.messageBar().pushMessage(
                     "Error",
                     "Cannot find the .shp file: "
-                    + item["shp"].replace("code_pref", pref_code[x]),
+                    + name_muni,
                     1,
                     duration=10,
                 )

@@ -4,6 +4,7 @@ import posixpath
 import os.path
 import zipfile
 from qgis import processing
+from . import jpDataUtils
 
 
 def getUrl(year, code_pref, code_muni, type_muni="小地域"):
@@ -386,45 +387,44 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni="小地域"):
 
 
 def performJoin(folder, shp, csv):
-    if not shp in folder:
+    if not folder in shp:
         shp = posixpath.join(folder, shp)
     output = shp.replace(".shp", "_Joined.shp")
     if os.path.exists(output):
         return
-
-    if not csv in folder:
+    if not folder in csv:
         csv = posixpath.join(folder, csv)
-        if csv[-4:] == ".txt":
-            if not os.path.exists(csv.replace(".txt", ".csv")):
-                line_no = 0
-                fout = open(csv.replace(".txt", ".csv"), "w+", encoding="UTF-8")
-                with open(csv, "r", encoding="CP932") as fp:
-                    for line in fp:
-                        line_no = line_no + 1
-                        if line_no != 2:
-                            fout.write(line.replace("*", ""))
-                        else:
-                            count = line.count(",")
-                            csvt = "String,Integer,String"
-                            for _ in range(count - 2):
-                                csvt += ",Integer"
-                                fout2 = open(
-                                    csv.replace(".txt", ".csvt"), "w+", encoding="UTF-8"
-                                )
-                                fout2.write(csvt)
-                                fout2.close()
+    if csv[-4:] == ".txt":
+        if not os.path.exists(csv.replace(".txt", ".csv")):
+            line_no = 0
+            fout = open(csv.replace(".txt", ".csv"), "w+", encoding="UTF-8")
+            with open(csv, "r", encoding="CP932") as fp:
+                for line in fp:
+                    line_no = line_no + 1
+                    if line_no != 2:
+                        fout.write(line.replace("*", ""))
+                    else:
+                        count = line.count(",")
+                        csvt = "String,Integer,String"
+                        for _ in range(count - 2):
+                            csvt += ",Integer"
+                            fout2 = open(
+                                csv.replace(".txt", ".csvt"), "w+", encoding="UTF-8"
+                            )
+                            fout2.write(csvt)
+                            fout2.close()
 
-                fout.close()
+            fout.close()
 
-            csv = csv.replace(".txt", ".csv")
+        csv = csv.replace(".txt", ".csv")
 
     # Now all file names are full path
     if os.path.exists(shp) and os.path.exists(csv):
         joinInfo = {
-            "INPUT": posixpath.join(folder, shp),
+            "INPUT": shp,
             "FIELD": "KEY_CODE",
-            "INPUT_2": posixpath.join(folder, csv),
+            "INPUT_2": csv,
             "FIELD_2": "KEY_CODE",
-            "OUTPUT": posixpath.join(folder, output),
+            "OUTPUT": output,
         }
         processing.run("qgis:joinattributestable", joinInfo)
