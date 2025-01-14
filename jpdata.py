@@ -106,8 +106,8 @@ class jpdata:
         self._downloaderStatus = ""
         self._dl_code = []
         self._dl_iter = 0
-        self._LW11_first_click = True
-        self._LW31_first_click = True
+        self._LW11_Prev = ""
+        self._LW31_Prev = ""
         # Create an action that triggers the folder chooser
         self.action = QAction("Choose Folder", self.iface.mainWindow())
         self.action.triggered.connect(self.chooseFolder)
@@ -433,16 +433,9 @@ class jpdata:
             self.dockwidget.myPushButton32.setEnabled(False)
 
     def _LW11_clicked(self, index):
-        # if self._LW11_first_click:
-        #    self.tab1CheckPrefsOrRegions()
-        # self._LW11_first_click = False
         self.tab1CheckPrefsOrRegions()
 
     def _LW11_currentItemChanged(self, current, previous):
-        # if previous is None:
-        #    self.tab1CheckPrefsOrRegions()
-        # elif current.text() != previous.text():
-        #    self.tab1CheckPrefsOrRegions()
         self.tab1CheckPrefsOrRegions()
 
     # When ListWdiget11 (LNI map) is clicked or changed, set ListWidget12.
@@ -451,13 +444,15 @@ class jpdata:
     def tab1CheckPrefsOrRegions(self):
         if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
             return
+        if self._LW11_Prev != "" and self._LW11_Prev == str(
+            self.dockwidget.myListWidget11.selectedItems()[0].text()
+        ):
+            return
 
+        self._LW11_Prev = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
         self.tab1CheckYear()
         for item in self._LandNumInfo:
-            if (
-                str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-                == item["name_j"]
-            ):
+            if self._LW11_Prev == item["name_j"]:
                 break
         if (
             item["type_muni"].lower() == "regional"
@@ -780,7 +775,6 @@ class jpdata:
         self.dockwidget.myLabelStatus.setText(current_text + self.tr("...Done"))
         self.enable_download()
         self.dockwidget.progressBar.setValue(100)
-        # jpDataUtils.printLog(self._downloader.checkStatus())
 
         if len(self._dl_code) > 0 and self._dl_iter < len(self._dl_code):
             self._download_iter()
@@ -801,25 +795,23 @@ class jpdata:
         self.enable_download()
 
     def _LW31_clicked(self, index):
-        # if self._LW31_first_click:
-        #    self.tab3SelectPref()
-        # self._LW31_first_click = False
         self.tab3SelectPref()
 
     def _LW31_currentItemChanged(self, current, previous):
-        # if previous is None:
-        #    self.tab3SelectPref()
-        # elif current.text() != previous.text():
-        #    self.tab3SelectPref()
-        self.tab3SelectPref()
+        if current is None or current != previous:
+            self.tab3SelectPref()
 
     def tab3SelectPref(self):
-        # selectedItems = self.dockwidget.myListWidget31.selectedItems()
         if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
             return
-        item = selectedItems = self.dockwidget.myListWidget31.selectedItems()[0]
-        # for item in selectedItems:
-        rows = jpDataMuni.getMuniFromPrefName(str(item.text()))
+
+        if self._LW31_Prev == str(
+            self.dockwidget.myListWidget31.selectedItems()[0].text()
+        ):
+            return
+
+        self._LW31_Prev = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
+        rows = jpDataMuni.getMuniFromPrefName(self._LW31_Prev)
         self.dockwidget.myListWidget32.clear()
         for row in rows:
             if row["name_muni"] != "":
@@ -860,12 +852,10 @@ class jpdata:
         if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
             return
 
-        str_name_pref = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
-
         self.dockwidget.myListWidget33.clear()
         self.dockwidget.myListWidget33.show()
 
-        details = jpDataMesh.getMesh1ByPrefName(str_name_pref)
+        details = jpDataMesh.getMesh1ByPrefName(self._LW31_Prev)
 
         for detail in details:
             self.dockwidget.myListWidget33.addItem(detail)
@@ -879,7 +869,7 @@ class jpdata:
         self._dl_iter = 0
         year = str(self.dockwidget.myComboBox31.currentText())
         name_pref = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
-        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+        code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
 
         if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
             # Get attribute data first
@@ -891,7 +881,7 @@ class jpdata:
             )
             muni_names = self.dockwidget.myListWidget32.selectedItems()
             for muni_name in muni_names:
-                row = jpDataMuni.getRowFromNames(name_pref, str(muni_name.text()))
+                row = jpDataMuni.getRowFromNames(self._LW31_Prev, str(muni_name.text()))
                 self._dl_code.append(
                     {
                         "year": year,
@@ -899,7 +889,7 @@ class jpdata:
                         "type_muni": "census",
                         "code_pref": code_pref,
                         "code_muni": row["code_muni"],
-                        "name_pref": name_pref,
+                        "name_pref": self._LW31_Prev,
                         "name_muni": str(muni_name.text()),
                     }
                 )
@@ -921,7 +911,7 @@ class jpdata:
                         "type_muni": "census",
                         "code_pref": code_pref,
                         "code_muni": str(muni_name.text()),
-                        "name_pref": name_pref,
+                        "name_pref": self._LW31_Prev,
                         "name_muni": str(muni_name.text()),
                     }
                 )
@@ -929,8 +919,7 @@ class jpdata:
 
     def tab3AddMap(self):
         year = str(self.dockwidget.myComboBox31.currentText())
-        name_pref = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
-        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+        code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
 
         if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
             muni_names = self.dockwidget.myListWidget32.selectedItems()
@@ -940,7 +929,7 @@ class jpdata:
         for muni_name in muni_names:
             name_muni = str(muni_name.text())
             if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
-                row = jpDataMuni.getRowFromNames(name_pref, name_muni)
+                row = jpDataMuni.getRowFromNames(self._LW31_Prev, name_muni)
                 code_muni = row["code_muni"]
                 tempSubFolder = "Census"
                 tempZipFileName = jpDataCensus.getZipFileName(
@@ -1002,13 +991,11 @@ class jpdata:
 
             if tempShpFileName is None:
                 self.dockwidget.myLabelStatus.setText(
-                    self.tr("Cannot find the .shp file: ")
-                    + name_muni
+                    self.tr("Cannot find the .shp file: ") + name_muni
                 )
                 self.iface.messageBar().pushMessage(
                     "Error",
-                    "Cannot find the .shp file: "
-                    + name_muni,
+                    "Cannot find the .shp file: " + name_muni,
                     1,
                     duration=10,
                 )
@@ -1028,7 +1015,9 @@ class jpdata:
                         tempShpFileName,
                         tempCsvFileName,
                     )
-                    tempShpFileName = tempShpFileName.replace(".shp", "-" + year + ".shp")
+                    tempShpFileName = tempShpFileName.replace(
+                        ".shp", "-" + year + ".shp"
+                    )
 
                 tempLayer = QgsVectorLayer(
                     tempShpFileName, name_muni + " (" + year + ")", "ogr"
