@@ -386,10 +386,10 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni="小地域"):
                             out_file.write(file.read())
 
 
-def performJoin(folder, shp, csv):
+def performJoin(folder, year, shp, csv):
     if not folder in shp:
         shp = posixpath.join(folder, shp)
-    output = shp.replace(".shp", "_Joined.shp")
+    output = shp.replace(".shp", "-" + year + ".shp")
     if os.path.exists(output):
         return
     if not folder in csv:

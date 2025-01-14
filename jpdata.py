@@ -1022,14 +1022,13 @@ class jpdata:
                         code_muni,
                         str(self.dockwidget.myComboBox32.currentText()),
                     )
-                    jpDataUtils.printLog(tempShpFileName)
-                    jpDataUtils.printLog(tempCsvFileName)
                     jpDataCensus.performJoin(
                         posixpath.join(self._folderPath, tempSubFolder),
+                        year,
                         tempShpFileName,
                         tempCsvFileName,
                     )
-                    tempShpFileName = tempShpFileName.replace(".shp", "_Joined.shp")
+                    tempShpFileName = tempShpFileName.replace(".shp", "-" + year + ".shp")
 
                 tempLayer = QgsVectorLayer(
                     tempShpFileName, name_muni + " (" + year + ")", "ogr"
