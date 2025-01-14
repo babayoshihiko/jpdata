@@ -261,19 +261,12 @@ def findShpFile2(folderPath, shp, altdir, code_pref, code_muni="", name_muni="")
     altDir = altDir.replace("name_muni", name_muni)
     if os.path.exists(posixpath.join(folderPath, shpFileTarget)):
         shpFile = posixpath.join(folderPath, shpFileTarget)
-        QgsMessageLog.logMessage(
-            "jpDataUtils.findShpFile2: Found 1 " + shpFile, "jpdata", level=Qgis.Warning
-        )
     elif os.path.exists(posixpath.join(folderPath, altDir, shpFileTarget)):
         shpFile = posixpath.join(folderPath, altDir, shpFileTarget)
-        QgsMessageLog.logMessage(
-            "jpDataUtils.findShpFile2: Found 2 " + shpFile, "jpdata", level=Qgis.Warning
-        )
+        printLog("jpDataUtils.findShpFile2: Found in the alternative directory.")
     elif os.path.exists(posixpath.join(folderPath, altDir + "\\" + shpFileTarget)):
         shpFile = posixpath.join(folderPath, altDir + "\\" + shpFileTarget)
-        QgsMessageLog.logMessage(
-            "jpDataUtils.findShpFile2: Found 3 " + shpFile, "jpdata", level=Qgis.Warning
-        )
+        printLog("jpDataUtils.findShpFile2: Found as an errorneous filename.")
 
     return shpFile
 
