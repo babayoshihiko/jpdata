@@ -31,19 +31,19 @@ def getUrl(year, code_pref, code_muni, type_muni="小地域"):
                 + code_muni
                 + "&coordSys=2&format=shape&downloadType=5&datum=2000"
             )
-    elif type_muni == "3次メッシュ（1kmメッシュ）":
+    elif type_muni == "3次メッシュ":
         url = (
             "https://www.e-stat.go.jp/gis/statmap-search/data?dlserveyId=S&code="
             + code_muni
             + "&coordSys=1&format=shape&downloadType=5"
         )
-    elif type_muni == "4次メッシュ（500mメッシュ）":
+    elif type_muni == "4次メッシュ":
         url = (
             "https://www.e-stat.go.jp/gis/statmap-search/data?dlserveyId=H&code="
             + code_muni
             + "&coordSys=1&format=shape&downloadType=5"
         )
-    elif type_muni == "5次メッシュ（250mメッシュ）":
+    elif type_muni == "5次メッシュ":
         url = (
             "https://www.e-stat.go.jp/gis/statmap-search/data?dlserveyId=Q&code="
             + code_muni
@@ -63,11 +63,11 @@ def getZipFileName(year, code_pref, code_muni, type_muni="小地域"):
             )
         else:
             zipFileName = "A00200521" + year + "XYSWC" + code_pref + code_muni + ".zip"
-    elif type_muni == "3次メッシュ（1kmメッシュ）":
+    elif type_muni == "3次メッシュ":
         zipFileName = "SDDSWS" + code_muni + ".zip"
-    elif type_muni == "4次メッシュ（500mメッシュ）":
+    elif type_muni == "4次メッシュ":
         zipFileName = "HDDSWH" + code_muni + ".zip"
-    elif type_muni == "5次メッシュ（250mメッシュ）":
+    elif type_muni == "5次メッシュ":
         zipFileName = "QDDSWQ" + code_muni + ".zip"
     return zipFileName
 
@@ -87,11 +87,11 @@ def getShpFileName(year, code_pref, code_muni, type_muni="小地域"):
             shpFileName = "h17ka" + code_pref + code_muni + ".shp"
         elif year == "2000":
             shpFileName = "h12ka" + code_pref + code_muni + ".shp"
-    elif type_muni == "3次メッシュ（1kmメッシュ）":
+    elif type_muni == "3次メッシュ":
         shpFileName = "MESH0" + code_muni + ".shp"
-    elif type_muni == "4次メッシュ（500mメッシュ）":
+    elif type_muni == "4次メッシュ":
         shpFileName = "MESH0" + code_muni + ".shp"
-    elif type_muni == "5次メッシュ（250mメッシュ）":
+    elif type_muni == "5次メッシュ":
         shpFileName = "MESH0" + code_muni + ".shp"
     return shpFileName
 
@@ -132,7 +132,7 @@ def getAttrUrl(year, code_pref, code_muni, type_muni="小地域"):
                 + code_pref
                 + "&downloadType=2"
             )
-    elif type_muni == "3次メッシュ（1kmメッシュ）":
+    elif type_muni == "3次メッシュ":
         if year == "2020":
             url = (
                 "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T001140&code="
@@ -169,7 +169,7 @@ def getAttrUrl(year, code_pref, code_muni, type_muni="小地域"):
                 + code_muni
                 + "&downloadType=2"
             )
-    elif type_muni == "4次メッシュ（500mメッシュ）":
+    elif type_muni == "4次メッシュ":
         if year == "2020":
             url = (
                 "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T001141&code="
@@ -206,7 +206,7 @@ def getAttrUrl(year, code_pref, code_muni, type_muni="小地域"):
                 + code_muni
                 + "&downloadType=2"
             )
-    elif type_muni == "5次メッシュ（250mメッシュ）":
+    elif type_muni == "5次メッシュ":
         if year == "2020":
             url = (
                 "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T001142&code="
@@ -249,7 +249,7 @@ def getAttrZipFileName(year, code_pref, code_muni, type_muni="小地域"):
             zipFileName = "tblT000051C" + code_pref + ".zip"
         elif year == "2000":
             zipFileName = "tblT000002C" + code_pref + ".zip"
-    elif type_muni == "3次メッシュ（1kmメッシュ）":
+    elif type_muni == "3次メッシュ":
         if year == "2020":
             zipFileName = "tblT001140S" + code_muni + ".zip"
         elif year == "2015":
@@ -262,7 +262,7 @@ def getAttrZipFileName(year, code_pref, code_muni, type_muni="小地域"):
             zipFileName = "tblT000146S" + code_muni + ".zip"
         elif year == "1995":
             zipFileName = "tblT000751S" + code_muni + ".zip"
-    elif type_muni == "4次メッシュ（500mメッシュ）":
+    elif type_muni == "4次メッシュ":
         if year == "2020":
             zipFileName = "tblT001141H" + code_muni + ".zip"
         elif year == "2015":
@@ -275,7 +275,7 @@ def getAttrZipFileName(year, code_pref, code_muni, type_muni="小地域"):
             zipFileName = "tblT000386H" + code_muni + ".zip"
         elif year == "1995":
             zipFileName = "tblT000752H" + code_muni + ".zip"
-    elif type_muni == "5次メッシュ（250mメッシュ）":
+    elif type_muni == "5次メッシュ":
         if year == "2020":
             zipFileName = "tblT001142Q" + code_muni + ".zip"
         elif year == "2015":
@@ -302,7 +302,7 @@ def getAttrCsvFileName(year, code_pref, code_muni, type_muni="小地域"):
             csvFileName = "tblT000051C" + code_pref + ".txt"
         elif year == "2000":
             csvFileName = "tblT000002C" + code_pref + ".txt"
-    elif type_muni == "3次メッシュ（1kmメッシュ）":
+    elif type_muni == "3次メッシュ":
         if year == "2020":
             csvFileName = "tblT001140S" + code_muni + ".txt"
         elif year == "2015":
@@ -315,7 +315,7 @@ def getAttrCsvFileName(year, code_pref, code_muni, type_muni="小地域"):
             csvFileName = "tblT000146S" + code_muni + ".txt"
         elif year == "1995":
             csvFileName = "tblT000751S" + code_muni + ".txt"
-    elif type_muni == "4次メッシュ（500mメッシュ）":
+    elif type_muni == "4次メッシュ":
         if year == "2020":
             csvFileName = "tblT001141H" + code_muni + ".txt"
         elif year == "2015":
@@ -328,7 +328,7 @@ def getAttrCsvFileName(year, code_pref, code_muni, type_muni="小地域"):
             csvFileName = "tblT000386H" + code_muni + ".txt"
         elif year == "1995":
             csvFileName = "tblT000752H" + code_muni + ".txt"
-    elif type_muni == "5次メッシュ（250mメッシュ）":
+    elif type_muni == "5次メッシュ":
         if year == "2020":
             csvFileName = "tblT001142Q" + code_muni + ".txt"
         elif year == "2015":
@@ -349,11 +349,11 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni="小地域"):
         os.makedirs(posixpath.join(folder, "Census"), exist_ok=True)
     if type_muni == "小地域":
         folder_path = posixpath.join(folder, "Census")
-    elif type_muni == "3次メッシュ（1kmメッシュ）":
+    elif type_muni == "3次メッシュ":
         folder_path = posixpath.join(folder, "Census", "SDDSWS")
-    elif type_muni == "4次メッシュ（500mメッシュ）":
+    elif type_muni == "4次メッシュ":
         folder_path = posixpath.join(folder, "Census", "HDDSWH")
-    elif type_muni == "5次メッシュ（250mメッシュ）":
+    elif type_muni == "5次メッシュ":
         folder_path = posixpath.join(folder, "Census", "QDDSWQ")
 
     if not os.path.exists(folder_path):
@@ -432,6 +432,17 @@ def performJoin(folder, year, shp, csv):
 
 def getToolTip(type):
     if type == "year":
-        return "小地域は2000年以降<br />5次メッシュは2005根年以降"
+        return "小地域: 2000年以降<br />5次メッシュ: 2005年以降<br />その他: 1995年以降"
     elif type == "region":
         return "小地域: 基本単位区別，町丁・字別人口<br />3次メッシュ: 1 km メッシュ<br />4次メッシュ: 500 m メッシュ<br />5次メッシュ: 250 m メッシュ"
+
+
+def getRegionTypeAsString(type == 0):
+    if type == 0:
+        return "小地域"
+    elif type == 3:
+        return "3次メッシュ"
+    elif type == 4:
+        return "4次メッシュ"
+    elif type == 5:
+        return "5次メッシュ"

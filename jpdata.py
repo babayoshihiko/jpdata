@@ -335,9 +335,9 @@ class jpdata:
             self.dockwidget.myComboBox31.addItem("2000")
             self.dockwidget.myComboBox31.setToolTip(jpDataCensus.getToolTip("year"))
             self.dockwidget.myComboBox32.addItem("小地域")
-            self.dockwidget.myComboBox32.addItem("3次メッシュ（1kmメッシュ）")
-            self.dockwidget.myComboBox32.addItem("4次メッシュ（500mメッシュ）")
-            self.dockwidget.myComboBox32.addItem("5次メッシュ（250mメッシュ）")
+            self.dockwidget.myComboBox32.addItem("3次メッシュ")
+            self.dockwidget.myComboBox32.addItem("4次メッシュ")
+            self.dockwidget.myComboBox32.addItem("5次メッシュ")
             self.dockwidget.myComboBox32.setToolTip(jpDataCensus.getToolTip("region"))
             self.dockwidget.myComboBox32.currentIndexChanged.connect(
                 self._tab3_set_mesh
@@ -452,7 +452,7 @@ class jpdata:
             return
 
         self._LW11_Prev = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-        self.tab1CheckYear()
+
         for item in self._LandNumInfo:
             if self._LW11_Prev == item["name_j"]:
                 break
@@ -515,6 +515,7 @@ class jpdata:
                     self.dockwidget.myListWidget12.addItem(
                         jpDataUtils.getPrefNameByCode(code_pref)
                     )
+        self.tab1CheckYear()
 
     def _tab1_clear(self):
         self.dockwidget.myListWidget12.clear()
@@ -523,23 +524,21 @@ class jpdata:
 
     def tab1CheckYear(self):
         for item in self._LandNumInfo:
-            if (
-                str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-                == item["name_j"]
-            ):
+            if self._LW11_Prev == item["name_j"]:
                 break
 
-            self.dockwidget.myComboBox11.clear()
-            if item["year"].lower() != "csv":
-                self.dockwidget.myComboBox11.addItem(item["year"])
+        jpDataUtils.printLog(item["name_j"])
+        self.dockwidget.myComboBox11.clear()
+        if item["year"].lower() != "csv":
+            self.dockwidget.myComboBox11.addItem(item["year"])
+        else:
+            if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+                name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
             else:
-                if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-                    name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
-                else:
-                    name_pref = None
-                years = jpDataLNI.getYearsByMapCode(item["code_map"], name_pref)
-                for year in years:
-                    self.dockwidget.myComboBox11.addItem(year)
+                name_pref = None
+            years = jpDataLNI.getYearsByMapCode(item["code_map"], name_pref)
+            for year in years:
+                self.dockwidget.myComboBox11.addItem(year)
 
     def tab1SetLW13(self):
         # map_code and year
@@ -949,24 +948,15 @@ class jpdata:
                 tempQmlFile = "Census.qml"
             else:
                 code_muni = name_muni
-                if (
-                    str(self.dockwidget.myComboBox32.currentText())
-                    == "3次メッシュ（1kmメッシュ）"
-                ):
+                if str(self.dockwidget.myComboBox32.currentText()) == "3次メッシュ":
                     tempSubFolder = "Census/SDDSWS"
                     name_muni = name_muni + " 3次"
                     tempQmlFile = "Census-SDDSWS.qml"
-                elif (
-                    str(self.dockwidget.myComboBox32.currentText())
-                    == "4次メッシュ（500mメッシュ）"
-                ):
+                elif str(self.dockwidget.myComboBox32.currentText()) == "4次メッシュ":
                     tempSubFolder = "Census/HDDSWH"
                     name_muni = name_muni + " 4次"
                     tempQmlFile = "Census-HDDSWH.qml"
-                elif (
-                    str(self.dockwidget.myComboBox32.currentText())
-                    == "5次メッシュ（250mメッシュ）"
-                ):
+                elif str(self.dockwidget.myComboBox32.currentText()) == "5次メッシュ":
                     tempSubFolder = "Census/QDDSWQ"
                     name_muni = name_muni + " 5次"
                     tempQmlFile = "Census-QDDSWQ.qml"
@@ -1087,20 +1077,11 @@ class jpdata:
                     self._dl_code[x]["code_muni"],
                     str(self.dockwidget.myComboBox32.currentText()),
                 )
-                if (
-                    str(self.dockwidget.myComboBox32.currentText())
-                    == "3次メッシュ（1kmメッシュ）"
-                ):
+                if str(self.dockwidget.myComboBox32.currentText()) == "3次メッシュ":
                     tempSubFolder = "Census/SDDSWS"
-                elif (
-                    str(self.dockwidget.myComboBox32.currentText())
-                    == "4次メッシュ（500mメッシュ）"
-                ):
+                elif str(self.dockwidget.myComboBox32.currentText()) == "4次メッシュ":
                     tempSubFolder = "Census/HDDSWH"
-                elif (
-                    str(self.dockwidget.myComboBox32.currentText())
-                    == "5次メッシュ（250mメッシュ）"
-                ):
+                elif str(self.dockwidget.myComboBox32.currentText()) == "5次メッシュ":
                     tempSubFolder = "Census/QDDSWQ"
                 else:
                     tempSubFolder = "Census"
