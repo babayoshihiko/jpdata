@@ -435,14 +435,3 @@ def getToolTip(type):
         return "小地域: 2000年以降<br />5次メッシュ: 2005年以降<br />その他: 1995年以降"
     elif type == "region":
         return "小地域: 基本単位区別，町丁・字別人口<br />3次メッシュ: 1 km メッシュ<br />4次メッシュ: 500 m メッシュ<br />5次メッシュ: 250 m メッシュ"
-
-
-def getRegionTypeAsString(type == 0):
-    if type == 0:
-        return "小地域"
-    elif type == 3:
-        return "3次メッシュ"
-    elif type == 4:
-        return "4次メッシュ"
-    elif type == 5:
-        return "5次メッシュ"

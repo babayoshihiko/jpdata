@@ -527,7 +527,6 @@ class jpdata:
             if self._LW11_Prev == item["name_j"]:
                 break
 
-        jpDataUtils.printLog(item["name_j"])
         self.dockwidget.myComboBox11.clear()
         if item["year"].lower() != "csv":
             self.dockwidget.myComboBox11.addItem(item["year"])
@@ -648,7 +647,7 @@ class jpdata:
             pref_code = [""]
 
         for x in range(len(pref_code)):
-            tempQml = item["qml"]
+            tempQmlFile = item["qml"]
             if (
                 item["type_muni"].lower() == "regional"
                 or item["type_muni"].lower() == "detail"
@@ -665,7 +664,7 @@ class jpdata:
                     epsg=item["epsg"],
                 )
                 if y["qml"] != "":
-                    tempQml = y["qml"]
+                    tempQmlFile = y["qml"]
             elif item["type_muni"].lower() == "mesh1":
                 str_code_mesh1 = str(
                     self.dockwidget.myListWidget13.selectedItems()[0].text()
@@ -700,55 +699,23 @@ class jpdata:
                     1,
                     duration=10,
                 )
-                return
+                break
 
             if tempShpFileName != "":
                 if item["type_muni"].lower() == "single":
-                    tempLayer = QgsVectorLayer(tempShpFileName, item["name_j"], "ogr")
+                    tempLayerName = item["name_j"]
                 elif item["type_muni"].lower() == "detail":
-                    tempLayer = QgsVectorLayer(
-                        tempShpFileName,
-                        detail,
-                        "ogr",
-                    )
+                    tempLayerName = detail
                 elif item["type_muni"].lower() == "mesh1":
-                    tempLayer = QgsVectorLayer(
-                        tempShpFileName,
-                        item["name_j"] + " (" + str(pref_name[x].text()) + ")",
-                        "ogr",
+                    tempLayerName = (
+                        item["name_j"] + " (" + str(pref_name[x].text()) + ")"
                     )
-                    if item["code_map"] == "L03-a":
-                        tempLayer.addExpressionField(
-                            jpDataMesh.getMeshExpression(item["code_map"]),
-                            QgsField("Altitude", QVariant.String),
-                        )
                 else:
-                    tempLayer = QgsVectorLayer(
-                        tempShpFileName,
-                        item["name_j"] + " (" + str(pref_name[x].text()) + ")",
-                        "ogr",
+                    tempLayerName = (
+                        item["name_j"] + " (" + str(pref_name[x].text()) + ")"
                     )
 
-                tempLayer.setProviderEncoding(item["encoding"])
-                if not os.path.exists(tempShpFileName[:-4] + ".qix"):
-                    tempLayer.dataProvider().createSpatialIndex()
-
-                if os.path.isfile(posixpath.join(self.plugin_dir, "qml", tempQml)):
-                    # For the qml files that use SVG images in the plugin folder
-                    with tempfile.TemporaryDirectory() as temp_dir:
-                        with open(
-                            posixpath.join(self.plugin_dir, "qml", tempQml),
-                            "r",
-                        ) as file:
-                            file_contents = file.read()
-                        new_contents = file_contents.replace(
-                            "PLUGIN_DIR", self.plugin_dir
-                        )
-                        with open(posixpath.join(temp_dir, tempQml), "w") as file:
-                            file.write(new_contents)
-                        if tempLayer.loadNamedStyle(posixpath.join(temp_dir, tempQml)):
-                            tempLayer.triggerRepaint()
-                QgsProject.instance().addMapLayer(tempLayer)
+                self._add_map(tempShpFileName, tempLayerName, tempQmlFile)
 
     def start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(posixpath.join(self._folderPath, subFolder)):
@@ -924,56 +891,57 @@ class jpdata:
 
         if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
             muni_names = self.dockwidget.myListWidget32.selectedItems()
+            code_muni = name_muni
+            tempSubFolder = "Census"
+            tempQmlFile = "Census.qml"
+            tempZipFileName = jpDataCensus.getZipFileName(
+                year,
+                code_pref,
+                code_muni,
+                str(self.dockwidget.myComboBox32.currentText()),
+            )
+            tempShpFileName = jpDataCensus.getShpFileName(
+                year,
+                code_pref,
+                code_muni,
+                str(self.dockwidget.myComboBox32.currentText()),
+            )
+            name_muni_suffix = ""
         else:
             muni_names = self.dockwidget.myListWidget33.selectedItems()
+            if str(self.dockwidget.myComboBox32.currentText()) == "3次メッシュ":
+                tempSubFolder = "Census/SDDSWS"
+                tempQmlFile = "Census-SDDSWS.qml"
+                name_muni_suffix = " 3次"
+            elif str(self.dockwidget.myComboBox32.currentText()) == "4次メッシュ":
+                tempSubFolder = "Census/HDDSWH"
+                tempQmlFile = "Census-HDDSWH.qml"
+                name_muni_suffix = " 4次"
+            elif str(self.dockwidget.myComboBox32.currentText()) == "5次メッシュ":
+                tempSubFolder = "Census/QDDSWQ"
+                tempQmlFile = "Census-QDDSWQ.qml"
+                name_muni_suffix = " 5次"
 
         for muni_name in muni_names:
             name_muni = str(muni_name.text())
             if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
                 row = jpDataMuni.getRowFromNames(self._LW31_Prev, name_muni)
                 code_muni = row["code_muni"]
-                tempSubFolder = "Census"
-                tempZipFileName = jpDataCensus.getZipFileName(
-                    year,
-                    code_pref,
-                    code_muni,
-                    str(self.dockwidget.myComboBox32.currentText()),
-                )
-                tempShpFileName = jpDataCensus.getShpFileName(
-                    year,
-                    code_pref,
-                    code_muni,
-                    str(self.dockwidget.myComboBox32.currentText()),
-                )
-                tempQmlFile = "Census.qml"
             else:
                 code_muni = name_muni
-                if str(self.dockwidget.myComboBox32.currentText()) == "3次メッシュ":
-                    tempSubFolder = "Census/SDDSWS"
-                    name_muni = name_muni + " 3次"
-                    tempQmlFile = "Census-SDDSWS.qml"
-                elif str(self.dockwidget.myComboBox32.currentText()) == "4次メッシュ":
-                    tempSubFolder = "Census/HDDSWH"
-                    name_muni = name_muni + " 4次"
-                    tempQmlFile = "Census-HDDSWH.qml"
-                elif str(self.dockwidget.myComboBox32.currentText()) == "5次メッシュ":
-                    tempSubFolder = "Census/QDDSWQ"
-                    name_muni = name_muni + " 5次"
-                    tempQmlFile = "Census-QDDSWQ.qml"
-                else:
-                    tempSubFolder = "Census"
-                tempZipFileName = jpDataCensus.getZipFileName(
-                    year,
-                    code_pref,
-                    code_muni,
-                    str(self.dockwidget.myComboBox32.currentText()),
-                )
-                tempShpFileName = jpDataCensus.getShpFileName(
-                    year,
-                    code_pref,
-                    code_muni,
-                    str(self.dockwidget.myComboBox32.currentText()),
-                )
+
+            tempZipFileName = jpDataCensus.getZipFileName(
+                year,
+                code_pref,
+                code_muni,
+                str(self.dockwidget.myComboBox32.currentText()),
+            )
+            tempShpFileName = jpDataCensus.getShpFileName(
+                year,
+                code_pref,
+                code_muni,
+                str(self.dockwidget.myComboBox32.currentText()),
+            )
 
             tempShpFileName = jpDataUtils.unzipAndGetShp(
                 posixpath.join(self._folderPath, tempSubFolder),
@@ -991,7 +959,7 @@ class jpdata:
                     1,
                     duration=10,
                 )
-                return
+                break
 
             if tempShpFileName != "":
                 if str(self.dockwidget.myComboBox32.currentText()) != "小地域":
@@ -1010,21 +978,33 @@ class jpdata:
                     tempShpFileName = tempShpFileName.replace(
                         ".shp", "-" + year + ".shp"
                     )
-
-                tempLayer = QgsVectorLayer(
-                    tempShpFileName, name_muni + " (" + year + ")", "ogr"
+                self._add_map(
+                    tempShpFileName,
+                    name_muni + name_muni_suffix + " (" + year + ")",
+                    tempQmlFile,
                 )
-                tempLayer.setProviderEncoding("CP932")
-                if not os.path.exists(tempShpFileName[:-4] + ".qix"):
-                    tempLayer.dataProvider().createSpatialIndex()
 
-                if os.path.exists(posixpath.join(self.plugin_dir, "qml", tempQmlFile)):
-                    if tempLayer.loadNamedStyle(
-                        posixpath.join(self.plugin_dir, "qml", tempQmlFile)
-                    ):
-                        tempLayer.triggerRepaint()
+    def _add_map(self, shpFileFullPath, layerName, qmlFileName):
+        tempLayer = QgsVectorLayer(shpFileFullPath, layerName, "ogr")
+        tempLayer.setProviderEncoding("CP932")
+        if not os.path.exists(shpFileFullPath[:-4] + ".qix"):
+            tempLayer.dataProvider().createSpatialIndex()
 
-                QgsProject.instance().addMapLayer(tempLayer)
+        if os.path.isfile(posixpath.join(self.plugin_dir, "qml", qmlFileName)):
+            # For the qml files that use SVG images in the plugin folder
+            with tempfile.TemporaryDirectory() as temp_dir:
+                with open(
+                    posixpath.join(self.plugin_dir, "qml", qmlFileName),
+                    "r",
+                ) as file:
+                    file_contents = file.read()
+                new_contents = file_contents.replace("PLUGIN_DIR", self.plugin_dir)
+                with open(posixpath.join(temp_dir, qmlFileName), "w") as file:
+                    file.write(new_contents)
+                if tempLayer.loadNamedStyle(posixpath.join(temp_dir, qmlFileName)):
+                    tempLayer.triggerRepaint()
+        QgsProject.instance().addMapLayer(tempLayer)
+        return tempLayer
 
     def chooseFolder(self):
         # Open a folder dialog to choose a folder
