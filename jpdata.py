@@ -27,7 +27,6 @@ from qgis.PyQt.QtCore import (
     QCoreApplication,
     Qt,
     QUrl,
-    QVariant,
 )
 from qgis.PyQt.QtGui import QIcon, QDesktopServices
 from qgis.PyQt.QtWidgets import QAction
@@ -48,7 +47,6 @@ from qgis.core import (
     QgsSettings,
     QgsVectorLayer,
     QgsRasterLayer,
-    QgsField,
 )
 from . import jpDataUtils
 from . import jpDataDownloader
@@ -389,7 +387,6 @@ class jpdata:
             self.dockwidget.myLineEditSetting3.setToolTip(
                 self.tr("User/Password are not stored")
             )
-
             self.dockwidget.myPushButtonTest.hide()
 
             # show the dockwidget
@@ -1000,8 +997,7 @@ class jpdata:
         if self._folderPath:
             self.enable_download()
             self.dockwidget.myLabel1.setText(self._folderPath)
-            s = QgsSettings()
-            s.setValue("jpdata/FolderPath", self._folderPath)
+            QgsSettings().setValue("jpdata/FolderPath", self._folderPath)
 
     def setProxyServer(self):
         _proxyServer = self.dockwidget.myLineEditSetting1.text()
