@@ -27,7 +27,6 @@ from qgis.PyQt.QtCore import (
     QCoreApplication,
     Qt,
     QUrl,
-    QVariant,
 )
 from qgis.PyQt.QtGui import QIcon, QDesktopServices
 from qgis.PyQt.QtWidgets import QAction
@@ -48,7 +47,6 @@ from qgis.core import (
     QgsSettings,
     QgsVectorLayer,
     QgsRasterLayer,
-    QgsField,
 )
 from . import jpDataUtils
 from . import jpDataDownloader
@@ -836,7 +834,6 @@ class jpdata:
         self._dl_code = []
         self._dl_iter = 0
         year = str(self.dockwidget.myComboBox31.currentText())
-        name_pref = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
         code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
 
         if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
