@@ -6,6 +6,21 @@ import zipfile
 from qgis import processing
 from . import jpDataUtils
 
+def getZipShp(year, code_pref, code_muni, type_muni="小地域"):
+    tempZipFileName = getZipFileName(
+                year,
+                code_pref,
+                code_muni,
+                type_muni,
+            )
+    tempShpFileName = getShpFileName(
+                year,
+                code_pref,
+                code_muni,
+                type_muni,
+            )
+    return tempZipFileName, tempShpFileName
+
 
 def getUrl(year, code_pref, code_muni, type_muni="小地域"):
     url = None

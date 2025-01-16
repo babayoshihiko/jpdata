@@ -387,7 +387,6 @@ class jpdata:
             self.dockwidget.myLineEditSetting3.setToolTip(
                 self.tr("User/Password are not stored")
             )
-
             self.dockwidget.myPushButtonTest.hide()
 
             # show the dockwidget
@@ -653,7 +652,7 @@ class jpdata:
                 y = jpDataLNI.getUrlCodeZipByPrefName(
                     item["code_map"], str(pref_name[x].text()), year, detail
                 )
-                tempShpFileName = jpDataUtils.unzipAndGetShp(
+                tempShpFullPath = jpDataUtils.unzipAndGetShp(
                     posixpath.join(self._folderPath, item["code_map"]),
                     y["zip"],
                     y["shp"],
@@ -667,7 +666,7 @@ class jpdata:
                 str_code_mesh1 = str(
                     self.dockwidget.myListWidget13.selectedItems()[0].text()
                 )
-                tempShpFileName = jpDataUtils.unzipAndGetShp(
+                tempShpFullPath = jpDataUtils.unzipAndGetShp(
                     posixpath.join(self._folderPath, item["code_map"]),
                     item["zip"].replace("code_mesh1", str_code_mesh1),
                     item["shp"].replace("code_mesh1", str_code_mesh1),
@@ -676,7 +675,7 @@ class jpdata:
                     epsg=item["epsg"],
                 )
             else:
-                tempShpFileName = jpDataUtils.unzipAndGetShp(
+                tempShpFullPath = jpDataUtils.unzipAndGetShp(
                     posixpath.join(self._folderPath, item["code_map"]),
                     item["zip"],
                     item["shp"],
@@ -685,7 +684,7 @@ class jpdata:
                     epsg=item["epsg"],
                 )
 
-            if tempShpFileName is None:
+            if tempShpFullPath is None:
                 self.dockwidget.myLabelStatus.setText(
                     self.tr("Cannot find the .shp file: ")
                     + item["shp"].replace("code_pref", pref_code[x])
@@ -699,7 +698,7 @@ class jpdata:
                 )
                 break
 
-            if tempShpFileName != "":
+            if tempShpFullPath != "":
                 if item["type_muni"].lower() == "single":
                     tempLayerName = item["name_j"]
                 elif item["type_muni"].lower() == "detail":
@@ -713,7 +712,7 @@ class jpdata:
                         item["name_j"] + " (" + str(pref_name[x].text()) + ")"
                     )
 
-                self._add_map(tempShpFileName, tempLayerName, tempQmlFile)
+                self._add_map(tempShpFullPath, tempLayerName, tempQmlFile)
 
     def start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(posixpath.join(self._folderPath, subFolder)):
@@ -888,21 +887,8 @@ class jpdata:
 
         if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
             muni_names = self.dockwidget.myListWidget32.selectedItems()
-            code_muni = name_muni
             tempSubFolder = "Census"
             tempQmlFile = "Census.qml"
-            tempZipFileName = jpDataCensus.getZipFileName(
-                year,
-                code_pref,
-                code_muni,
-                str(self.dockwidget.myComboBox32.currentText()),
-            )
-            tempShpFileName = jpDataCensus.getShpFileName(
-                year,
-                code_pref,
-                code_muni,
-                str(self.dockwidget.myComboBox32.currentText()),
-            )
             name_muni_suffix = ""
         else:
             muni_names = self.dockwidget.myListWidget33.selectedItems()
@@ -927,26 +913,20 @@ class jpdata:
             else:
                 code_muni = name_muni
 
-            tempZipFileName = jpDataCensus.getZipFileName(
-                year,
-                code_pref,
-                code_muni,
-                str(self.dockwidget.myComboBox32.currentText()),
-            )
-            tempShpFileName = jpDataCensus.getShpFileName(
+            tempZipFileName, tempShpFileName = jpDataCensus.getZipShp(
                 year,
                 code_pref,
                 code_muni,
                 str(self.dockwidget.myComboBox32.currentText()),
             )
 
-            tempShpFileName = jpDataUtils.unzipAndGetShp(
+            tempShpFullPath = jpDataUtils.unzipAndGetShp(
                 posixpath.join(self._folderPath, tempSubFolder),
                 tempZipFileName,
                 tempShpFileName,
             )
 
-            if tempShpFileName is None:
+            if tempShpFullPath is None:
                 self.dockwidget.myLabelStatus.setText(
                     self.tr("Cannot find the .shp file: ") + name_muni
                 )
@@ -958,7 +938,7 @@ class jpdata:
                 )
                 break
 
-            if tempShpFileName != "":
+            if tempShpFullPath != "":
                 if str(self.dockwidget.myComboBox32.currentText()) != "小地域":
                     tempCsvFileName = jpDataCensus.getAttrCsvFileName(
                         year,
@@ -972,11 +952,11 @@ class jpdata:
                         tempShpFileName,
                         tempCsvFileName,
                     )
-                    tempShpFileName = tempShpFileName.replace(
+                    tempShpFullPath = tempShpFullPath.replace(
                         ".shp", "-" + year + ".shp"
                     )
                 self._add_map(
-                    tempShpFileName,
+                    tempShpFullPath,
                     name_muni + name_muni_suffix + " (" + year + ")",
                     tempQmlFile,
                 )
@@ -1016,8 +996,7 @@ class jpdata:
         if self._folderPath:
             self.enable_download()
             self.dockwidget.myLabel1.setText(self._folderPath)
-            s = QgsSettings()
-            s.setValue("jpdata/FolderPath", self._folderPath)
+            QgsSettings().setValue("jpdata/FolderPath", self._folderPath)
 
     def setProxyServer(self):
         _proxyServer = self.dockwidget.myLineEditSetting1.text()

@@ -281,7 +281,6 @@ def unzipAndGetShp(
     name_muni="",
     epsg="",
 ):
-    QgsMessageLog.logMessage("jpDataUtils.unzipAndGetShp", "jpdata", level=Qgis.Warning)
     shpFileName = findShpFile2(
         folder_path, shp_file, altdir, code_pref, code_muni, name_muni
     )
