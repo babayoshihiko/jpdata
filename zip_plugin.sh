@@ -1,7 +1,7 @@
 #!/bin/sh -eV
 
-git tag -a v0.6.11 -m 'version 0.6.11'
-git push origin v0.6.11
+git tag -a v0.6.12 -m 'version 0.6.12'
+git push origin v0.6.12
 
 mkdir ../qgis_plugins
 
@@ -10,6 +10,8 @@ rm -rf jpdata
 rm -f jpdata.zip 
 
 cp -R ../jpdata ./jpdata
+perl -pi -e "s|self._verbose = True|self._verbose = False" jpdata.py
+
 rm -f jpdata/.gitignore
 rm -rf jpdata/__pycache__
 rm -rf jpdata/.git
