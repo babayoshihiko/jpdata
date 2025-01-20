@@ -988,7 +988,7 @@ class jpdata:
         if self.dockwidget.myComboBox32.currentIndex() == 0:
             muni_names = self.dockwidget.myListWidget32.selectedItems()
             tempSubFolder = "Census"
-            tempQmlFile = "Census.qml"
+            tempQmlFile = "Census-" + year + ".qml"
             name_muni_suffix = ""
         else:
             muni_names = self.dockwidget.myListWidget33.selectedItems()
@@ -1113,7 +1113,7 @@ class jpdata:
             QgsSettings().setValue("jpdata/ProxyServer", "http://")
 
     # year = 2023 and so on
-    # type must be on of ["regional","detail","single","","census"]
+    # type must be one of ["regional","detail","single","","census"]
     # selection_code is a dictionary of codes
     #     (prefectural codes, municipal codes and so on)
     # a list of "code_pref"s (type = "" or "region")
