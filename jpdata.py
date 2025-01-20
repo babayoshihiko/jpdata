@@ -320,12 +320,16 @@ class jpdata:
             self.dockwidget.myComboBox31.addItem("2010")
             self.dockwidget.myComboBox31.addItem("2005")
             self.dockwidget.myComboBox31.addItem("2000")
-            self.dockwidget.myComboBox31.setToolTip(jpDataCensus.getToolTip("year"))
+            self.dockwidget.myComboBox31.setToolTip(
+                "小地域: 2000年以降<br />5次メッシュ: 2005年以降<br />その他: 1995年以降"
+            )
             self.dockwidget.myComboBox32.addItem("小地域")
             self.dockwidget.myComboBox32.addItem("3次メッシュ")
             self.dockwidget.myComboBox32.addItem("4次メッシュ")
             self.dockwidget.myComboBox32.addItem("5次メッシュ")
-            self.dockwidget.myComboBox32.setToolTip(jpDataCensus.getToolTip("region"))
+            self.dockwidget.myComboBox32.setToolTip(
+                "小地域: 基本単位区別，町丁・字別人口<br />3次メッシュ: 1 km メッシュ<br />4次メッシュ: 500 m メッシュ<br />5次メッシュ: 250 m メッシュ"
+            )
             self.dockwidget.myComboBox32.currentIndexChanged.connect(
                 self._tab3_set_mesh
             )
@@ -662,10 +666,10 @@ class jpdata:
         # pref_code: The corresponding codes
         # year
         # detail: The names of selected in LW13
-        for item in self._LandNumInfo:
+        for thisLandNum in self._LandNumInfo:
             if (
                 str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-                == item["name_j"]
+                == thisLandNum["name_j"]
             ):
                 break
         pref_name = self.dockwidget.myListWidget12.selectedItems()
@@ -681,20 +685,20 @@ class jpdata:
             detail = str(self.dockwidget.myListWidget13.selectedItems()[0].text())
         else:
             detail = None
-        if item["type_muni"] == "single":
+        if thisLandNum["type_muni"] == "single":
             pref_code = [""]
 
         for x in range(len(pref_code)):
-            tempQmlFile = item["qml"]
+            tempQmlFile = thisLandNum["qml"]
             if (
-                item["type_muni"].lower() == "regional"
-                or item["type_muni"].lower() == "detail"
+                thisLandNum["type_muni"].lower() == "regional"
+                or thisLandNum["type_muni"].lower() == "detail"
             ):
                 y = jpDataLNI.getUrlCodeZipByPrefName(
-                    item["code_map"], str(pref_name[x].text()), year, detail
+                    thisLandNum["code_map"], str(pref_name[x].text()), year, detail
                 )
                 tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                    posixpath.join(self._folderPath, item["code_map"]),
+                    posixpath.join(self._folderPath, thisLandNum["code_map"]),
                     y["zip"],
                     y["shp"],
                     y["altdir"],
@@ -703,32 +707,32 @@ class jpdata:
                 )
                 if y["qml"] != "":
                     tempQmlFile = y["qml"]
-            elif item["type_muni"].lower() == "mesh1":
+            elif thisLandNum["type_muni"].lower() == "mesh1":
                 str_code_mesh1 = str(
                     self.dockwidget.myListWidget13.selectedItems()[0].text()
                 )
                 tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                    posixpath.join(self._folderPath, item["code_map"]),
-                    item["zip"].replace("code_mesh1", str_code_mesh1),
-                    item["shp"].replace("code_mesh1", str_code_mesh1),
-                    item["altdir"],
+                    posixpath.join(self._folderPath, thisLandNum["code_map"]),
+                    thisLandNum["zip"].replace("code_mesh1", str_code_mesh1),
+                    thisLandNum["shp"].replace("code_mesh1", str_code_mesh1),
+                    thisLandNum["altdir"],
                     pref_code[x],
-                    epsg=item["epsg"],
+                    epsg=thisLandNum["epsg"],
                 )
             else:
                 tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                    posixpath.join(self._folderPath, item["code_map"]),
-                    item["zip"],
-                    item["shp"],
-                    item["altdir"],
+                    posixpath.join(self._folderPath, thisLandNum["code_map"]),
+                    thisLandNum["zip"],
+                    thisLandNum["shp"],
+                    thisLandNum["altdir"],
                     pref_code[x],
-                    epsg=item["epsg"],
+                    epsg=thisLandNum["epsg"],
                 )
 
             if tempShpFullPath is None:
                 self.setLabel(
                     self.tr("Cannot find the .shp file: ")
-                    + item["shp"].replace("code_pref", pref_code[x])
+                    + thisLandNum["shp"].replace("code_pref", pref_code[x])
                 )
                 self.iface.messageBar().pushMessage(
                     "Error",
@@ -740,21 +744,21 @@ class jpdata:
                 break
 
             if tempShpFullPath != "":
-                if item["type_muni"].lower() == "single":
-                    tempLayerName = item["name_j"]
-                elif item["type_muni"].lower() == "detail":
+                if thisLandNum["type_muni"].lower() == "single":
+                    tempLayerName = thisLandNum["name_j"]
+                elif thisLandNum["type_muni"].lower() == "detail":
                     tempLayerName = detail
-                elif item["type_muni"].lower() == "mesh1":
+                elif thisLandNum["type_muni"].lower() == "mesh1":
                     tempLayerName = (
-                        item["name_j"] + " (" + str(pref_name[x].text()) + ")"
+                        thisLandNum["name_j"] + " (" + str(pref_name[x].text()) + ")"
                     )
                 else:
                     tempLayerName = (
-                        item["name_j"] + " (" + str(pref_name[x].text()) + ")"
+                        thisLandNum["name_j"] + " (" + str(pref_name[x].text()) + ")"
                     )
                 if (
-                    item["encoding"].lower() == "utf-8"
-                    or item["encoding"].lower() == "utf8"
+                    thisLandNum["encoding"].lower() == "utf-8"
+                    or thisLandNum["encoding"].lower() == "utf8"
                 ):
                     encoding = "UTF-8"
                 else:
@@ -784,14 +788,14 @@ class jpdata:
         self.enable_download()
         self.dockwidget.progressBar.setValue(100)
 
-        if len(self._dl_code) > 0 and self._dl_iter < len(self._dl_code):
+        if len(self._dl_url_zip) > 0 and self._dl_iter < len(self._dl_url_zip):
             self._download_iter_2()
         else:
             self._dl_iter = 0
-            self._dl_code = []
+            self._dl_url_zip = []
 
     def cancel_download(self):
-        self._dl_code = []
+        self._dl_url_zip = []
         if self._downloader is not None:
             current_text = self.dockwidget.myLabelStatus.text()
             self.setLabel(current_text + self.tr("...Cancelled"))
@@ -850,7 +854,7 @@ class jpdata:
         self._tab3_set_mesh()
 
     def _tab3_set_mesh(self):
-        if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+        if self.dockwidget.myComboBox32.currentIndex() == 0:
             self.dockwidget.myListWidget33.clear()
             self.dockwidget.myListWidget33.hide()
             return
@@ -876,7 +880,7 @@ class jpdata:
         year = str(self.dockwidget.myComboBox31.currentText())
         code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
 
-        if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+        if self.dockwidget.myComboBox32.currentIndex() == 0:
             # Get attribute data first
             jpDataCensus.downloadCsv(
                 self._folderPath,
@@ -907,7 +911,7 @@ class jpdata:
                     year,
                     "",
                     str(muni_name.text()),
-                    str(self.dockwidget.myComboBox32.currentText()),
+                    self.dockwidget.myComboBox32.currentIndex(),
                 )
                 self._dl_code.append(
                     {
@@ -931,7 +935,7 @@ class jpdata:
         self._dl_iter = 0
         year = str(self.dockwidget.myComboBox31.currentText())
         code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
-        if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+        if self.dockwidget.myComboBox32.currentIndex() == 0:
             muni_names = self.dockwidget.myListWidget32.selectedItems()
         else:
             muni_names = self.dockwidget.myListWidget33.selectedItems()
@@ -939,7 +943,7 @@ class jpdata:
             # Usually, attributes are in one file, so for loop is not
             # really necessary
             row = jpDataMuni.getRowFromNames(self._LW31_Prev, str(muni_name.text()))
-            if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+            if self.dockwidget.myComboBox32.currentIndex() == 0:
                 code_muni = row["code_muni"]
             else:
                 code_muni = str(muni_name.text())
@@ -949,7 +953,7 @@ class jpdata:
                 year,
                 code_pref,
                 code_muni,
-                str(self.dockwidget.myComboBox32.currentText()),
+                self.dockwidget.myComboBox32.currentIndex(),
             )
             self._dl_url_zip.append(
                 {
@@ -964,7 +968,7 @@ class jpdata:
                 year,
                 code_pref,
                 code_muni,
-                str(self.dockwidget.myComboBox32.currentText()),
+                self.dockwidget.myComboBox32.currentIndex(),
             )
             self._dl_url_zip.append(
                 {
@@ -981,39 +985,38 @@ class jpdata:
         year = str(self.dockwidget.myComboBox31.currentText())
         code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
 
-        if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+        if self.dockwidget.myComboBox32.currentIndex() == 0:
             muni_names = self.dockwidget.myListWidget32.selectedItems()
             tempSubFolder = "Census"
             tempQmlFile = "Census.qml"
             name_muni_suffix = ""
         else:
             muni_names = self.dockwidget.myListWidget33.selectedItems()
-            if str(self.dockwidget.myComboBox32.currentText()) == "3次メッシュ":
+            if self.dockwidget.myComboBox32.currentIndex() == 1:
                 tempSubFolder = "Census/SDDSWS"
-                tempQmlFile = "Census-SDDSWS.qml"
+                tempQmlFile = "Census-SDDSWS-" + year + ".qml"
                 name_muni_suffix = " 3次"
-            elif str(self.dockwidget.myComboBox32.currentText()) == "4次メッシュ":
+            elif self.dockwidget.myComboBox32.currentIndex() == 2:
                 tempSubFolder = "Census/HDDSWH"
-                tempQmlFile = "Census-HDDSWH.qml"
+                tempQmlFile = "Census-HDDSWH-" + year + ".qml"
                 name_muni_suffix = " 4次"
-            elif str(self.dockwidget.myComboBox32.currentText()) == "5次メッシュ":
+            elif self.dockwidget.myComboBox32.currentIndex() == 3:
                 tempSubFolder = "Census/QDDSWQ"
-                tempQmlFile = "Census-QDDSWQ.qml"
+                tempQmlFile = "Census-QDDSWQ-" + year + ".qml"
                 name_muni_suffix = " 5次"
 
         for muni_name in muni_names:
             name_muni = str(muni_name.text())
-            if str(self.dockwidget.myComboBox32.currentText()) == "小地域":
+            if self.dockwidget.myComboBox32.currentIndex() == 0:
                 row = jpDataMuni.getRowFromNames(self._LW31_Prev, name_muni)
                 code_muni = row["code_muni"]
             else:
                 code_muni = name_muni
-            jpDataUtils.printLog("1003: " + year + code_pref + code_muni)
             tempZipFileName, tempShpFileName = jpDataCensus.getZipShp(
                 year,
                 code_pref,
                 code_muni,
-                str(self.dockwidget.myComboBox32.currentText()),
+                self.dockwidget.myComboBox32.currentIndex(),
             )
 
             tempShpFullPath = jpDataUtils.unzipAndGetShp(
@@ -1037,13 +1040,13 @@ class jpdata:
                     year,
                     code_pref,
                     code_muni,
-                    str(self.dockwidget.myComboBox32.currentText()),
+                    self.dockwidget.myComboBox32.currentIndex(),
                 )
                 tempUrl, tempZip, tempSubFolder = jpDataCensus.getAttr(
                     year,
                     code_pref,
                     code_muni,
-                    str(self.dockwidget.myComboBox32.currentText()),
+                    self.dockwidget.myComboBox32.currentIndex(),
                 )
                 jpDataCensus.unzipAttr(
                     posixpath.join(self._folderPath, tempSubFolder), tempZip
@@ -1124,19 +1127,19 @@ class jpdata:
                     self._dl_code[x]["year"],
                     self._dl_code[x]["code_pref"],
                     self._dl_code[x]["code_muni"],
-                    str(self.dockwidget.myComboBox32.currentText()),
+                    self.dockwidget.myComboBox32.currentIndex(),
                 )
                 tempZipFileName = jpDataCensus.getZipFileName(
                     self._dl_code[x]["year"],
                     self._dl_code[x]["code_pref"],
                     self._dl_code[x]["code_muni"],
-                    str(self.dockwidget.myComboBox32.currentText()),
+                    self.dockwidget.myComboBox32.currentIndex(),
                 )
-                if str(self.dockwidget.myComboBox32.currentText()) == "3次メッシュ":
+                if self.dockwidget.myComboBox32.currentIndex() == 1:
                     tempSubFolder = "Census/SDDSWS"
-                elif str(self.dockwidget.myComboBox32.currentText()) == "4次メッシュ":
+                elif self.dockwidget.myComboBox32.currentIndex() == 2:
                     tempSubFolder = "Census/HDDSWH"
-                elif str(self.dockwidget.myComboBox32.currentText()) == "5次メッシュ":
+                elif self.dockwidget.myComboBox32.currentIndex() == 3:
                     tempSubFolder = "Census/QDDSWQ"
                 else:
                     tempSubFolder = "Census"
@@ -1193,7 +1196,7 @@ class jpdata:
         _start_download = False
 
         for x in range(self._dl_iter, len(self._dl_url_zip)):
-            self.setLabel("Fetching " + self._dl_url_zip[x]["url"])
+            self.setLabel("Fetching " + str(x) + " in " + str(len(self._dl_url_zip)))
             tempUrl = self._dl_url_zip[x]["url"]
             tempZipFileName = self._dl_url_zip[x]["zip"]
             tempSubFolder = self._dl_url_zip[x]["subfolder"]
@@ -1208,7 +1211,6 @@ class jpdata:
                 break
             else:
                 self.setLabel(self.tr("The zip file exists: ") + tempZipFileName)
-            jpDataUtils.printLog("1195:" + tempSubFolder)
         if _start_download:
             self.dockwidget.progressBar.setValue(0)
             self.enable_download(False)
