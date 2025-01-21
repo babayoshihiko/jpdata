@@ -321,14 +321,18 @@ class jpdata:
             self.dockwidget.myComboBox31.addItem("2005")
             self.dockwidget.myComboBox31.addItem("2000")
             self.dockwidget.myComboBox31.setToolTip(
-                "小地域: 2000年以降<br />5次メッシュ: 2005年以降<br />その他: 1995年以降"
+                self.tr(
+                    "Nieghbourhood: Since 2000<br />5th Mesh: Since2005<br />Others: Since 1995"
+                )
             )
-            self.dockwidget.myComboBox32.addItem("小地域")
-            self.dockwidget.myComboBox32.addItem("3次メッシュ")
-            self.dockwidget.myComboBox32.addItem("4次メッシュ")
-            self.dockwidget.myComboBox32.addItem("5次メッシュ")
+            self.dockwidget.myComboBox32.addItem(self.tr("小地域"))
+            self.dockwidget.myComboBox32.addItem(self.tr("3rd Mesh"))
+            self.dockwidget.myComboBox32.addItem(self.tr("4th Mesh"))
+            self.dockwidget.myComboBox32.addItem(self.tr("5th Mesh"))
             self.dockwidget.myComboBox32.setToolTip(
-                "小地域: 基本単位区別，町丁・字別人口<br />3次メッシュ: 1 km メッシュ<br />4次メッシュ: 500 m メッシュ<br />5次メッシュ: 250 m メッシュ"
+                self.tr(
+                    "Nieghbourhood: population of cho, aza, etc.<br />3rd Mesh: 1 km mesh<br />54h Mesh: 500 m mesh<br />5th Mesh: 250 m mesh"
+                )
             )
             self.dockwidget.myComboBox32.currentIndexChanged.connect(
                 self._tab3_set_mesh

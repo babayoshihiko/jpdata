@@ -11,11 +11,11 @@ def getSubFolder(type_muni):
     if type_muni == 0:
         tempSubFolder = "Census"
     if type_muni == 1:
-        tempSubFolder = posixpath.join("Census", "SDDSWS")
+        tempSubFolder = "Census-SDDSWS"
     elif type_muni == 2:
-        tempSubFolder = posixpath.join("Census", "HDDSWH")
+        tempSubFolder = "Census-HDDSWH"
     elif type_muni == 3:
-        tempSubFolder = posixpath.join("Census", "QDDSWQ")
+        tempSubFolder = "Census-QDDSWQ"
     return tempSubFolder
 
 
@@ -468,15 +468,12 @@ def performJoin(folder, year, shp, csv):
                         csvt = "String,Integer,String"
                         for _ in range(count - 2):
                             csvt += ",Integer"
-                            fout2 = open(
-                                csv[:-4] + ".csvt", "w+", encoding="UTF-8"
-                            )
+                            fout2 = open(csv[:-4] + ".csvt", "w+", encoding="UTF-8")
                             fout2.write(csvt)
                             fout2.close()
             fout.close()
 
         csv = csv[:-4] + ".csv"
-
 
     # Now all file names are full path
 
@@ -492,16 +489,16 @@ def performJoin(folder, year, shp, csv):
                 "OUTPUT": output,
             }
             processing.run("qgis:joinattributestable", joinInfo)
-    
+
     cfg = output[:-4] + ".cpg"
-    encoding = ""
-    with open(cfg, "r") as fp:
-        for line in fp:
-            if "shift_jis" in line.lower():
-                encoding = "CP932"
-                break
-            elif "utf-8" in line.lower():
-                encoding = "UTF-8"
-                break
+    encoding = "UTF-8"
+    if os.path.exists(cfg):
+        with open(cfg, "r") as fp:
+            for line in fp:
+                if "shift_jis" in line.lower():
+                    encoding = "CP932"
+                    break
+                elif "utf-8" in line.lower():
+                    break
 
     return encoding
