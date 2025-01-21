@@ -274,9 +274,9 @@ class jpdata:
                 self.tr("Open the webpage with the standard browser")
             )
             self.dockwidget.myPushButton15.clicked.connect(self.tab1Web)
-            for row in self._LandNumInfo:
-                item = QListWidgetItem(row["name_j"])
-                if row["availability"] != "yes":
+            for thisLandNum in self._LandNumInfo:
+                item = QListWidgetItem(thisLandNum["name_j"])
+                if thisLandNum["availability"] != "yes":
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                     item.setForeground(Qt.gray)
                 self.dockwidget.myListWidget11.addItem(item)
