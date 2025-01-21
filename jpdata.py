@@ -325,7 +325,7 @@ class jpdata:
                     "Nieghbourhood: Since 2000<br />5th Mesh: Since2005<br />Others: Since 1995"
                 )
             )
-            self.dockwidget.myComboBox32.addItem(self.tr("小地域"))
+            self.dockwidget.myComboBox32.addItem(self.tr("Neighbourhood"))
             self.dockwidget.myComboBox32.addItem(self.tr("3rd Mesh"))
             self.dockwidget.myComboBox32.addItem(self.tr("4th Mesh"))
             self.dockwidget.myComboBox32.addItem(self.tr("5th Mesh"))

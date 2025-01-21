@@ -159,11 +159,6 @@
         <translation>5次</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="328"/>
-        <source>小地域</source>
-        <translation>Neighbourhood</translation>
-    </message>
-    <message>
         <location filename="../jpdata.py" line="329"/>
         <source>3rd Mesh</source>
         <translation>3次メッシュ</translation>
@@ -177,6 +172,11 @@
         <location filename="../jpdata.py" line="331"/>
         <source>5th Mesh</source>
         <translation>5次メッシュ</translation>
+    </message>
+    <message>
+        <location filename="../jpdata.py" line="328"/>
+        <source>Neighbourhood</source>
+        <translation>小地域</translation>
     </message>
 </context>
 <context>
