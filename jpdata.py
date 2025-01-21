@@ -969,7 +969,6 @@ class jpdata:
                     tempShpFileName,
                     tempCsvFileName,
                 )
-                self.setLabel(encoding)
                 tempShpFullPath = tempShpFullPath.replace(".shp", "-" + year + ".shp")
                 self._add_map(
                     tempShpFullPath,
