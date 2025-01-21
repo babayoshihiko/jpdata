@@ -611,6 +611,7 @@ class jpdata:
 
             self._dl_url_zip.append(
                 {
+                    "year": year,
                     "url": tempUrl,
                     "zip": tempZipFileName,
                     "subfolder": tempSubFolder,
@@ -677,10 +678,17 @@ class jpdata:
                 if y["qml"] != "":
                     tempQmlFile = y["qml"]
                 tempLayerName = (
-                    thisLandNum["name_j"] + " (" + str(pref_name[x].text()) + "," + year + ")"
+                    thisLandNum["name_j"]
+                    + " ("
+                    + str(pref_name[x].text())
+                    + ","
+                    + year
+                    + ")"
                 )
                 if thisLandNum["type_muni"].lower() == "detail":
-                    tempLayerName = thisLandNum["name_j"] + " (" + detail + "," + year + ")"
+                    tempLayerName = (
+                        thisLandNum["name_j"] + " (" + detail + "," + year + ")"
+                    )
             elif thisLandNum["type_muni"].lower() == "mesh1":
                 str_code_mesh1 = str(
                     self.dockwidget.myListWidget13.selectedItems()[0].text()
@@ -693,7 +701,9 @@ class jpdata:
                     pref_code[x],
                     epsg=thisLandNum["epsg"],
                 )
-                tempLayerName = thisLandNum["name_j"] + " (" + str_code_mesh1 + "," + year + ")"
+                tempLayerName = (
+                    thisLandNum["name_j"] + " (" + str_code_mesh1 + "," + year + ")"
+                )
             else:
                 tempShpFullPath = jpDataUtils.unzipAndGetShp(
                     posixpath.join(self._folderPath, thisLandNum["code_map"]),
@@ -820,7 +830,30 @@ class jpdata:
         if self.dockwidget.myComboBox32.currentIndex() == 0:
             self.dockwidget.myListWidget33.clear()
             self.dockwidget.myListWidget33.hide()
+            self.dockwidget.myComboBox31.clear()
+            self.dockwidget.myComboBox31.addItem("2020")
+            self.dockwidget.myComboBox31.addItem("2015")
+            self.dockwidget.myComboBox31.addItem("2010")
+            self.dockwidget.myComboBox31.addItem("2005")
+            self.dockwidget.myComboBox31.addItem("2000")
             return
+        elif (
+            self.dockwidget.myComboBox32.currentIndex() == 1
+            or self.dockwidget.myComboBox32.currentIndex() == 2
+        ):
+            self.dockwidget.myComboBox31.clear()
+            self.dockwidget.myComboBox31.addItem("2020")
+            self.dockwidget.myComboBox31.addItem("2015")
+            self.dockwidget.myComboBox31.addItem("2010")
+            self.dockwidget.myComboBox31.addItem("2005")
+            self.dockwidget.myComboBox31.addItem("2000")
+            self.dockwidget.myComboBox31.addItem("1995")
+        else:
+            self.dockwidget.myComboBox31.clear()
+            self.dockwidget.myComboBox31.addItem("2020")
+            self.dockwidget.myComboBox31.addItem("2015")
+            self.dockwidget.myComboBox31.addItem("2010")
+            self.dockwidget.myComboBox31.addItem("2005")
 
         if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
             return
@@ -862,14 +895,15 @@ class jpdata:
                 code_muni,
                 self.dockwidget.myComboBox32.currentIndex(),
             )
-            self._dl_url_zip.append(
-                {
-                    "year": year,
-                    "url": tempUrl,
-                    "zip": tempZip,
-                    "subfolder": tempSubFolder,
-                }
-            )
+            if temptempZip is not None:
+                self._dl_url_zip.append(
+                    {
+                        "year": year,
+                        "url": tempUrl,
+                        "zip": tempZip,
+                        "subfolder": tempSubFolder,
+                    }
+                )
             # Append the shp data
             tempUrl, tempZip, tempSubFolder = jpDataCensus.getZip(
                 year,
@@ -877,40 +911,40 @@ class jpdata:
                 code_muni,
                 self.dockwidget.myComboBox32.currentIndex(),
             )
-            self._dl_url_zip.append(
-                {
-                    "year": year,
-                    "url": tempUrl,
-                    "zip": tempZip,
-                    "subfolder": tempSubFolder,
-                }
-            )
+            if temptempZip is not None:
+                self._dl_url_zip.append(
+                    {
+                        "year": year,
+                        "url": tempUrl,
+                        "zip": tempZip,
+                        "subfolder": tempSubFolder,
+                    }
+                )
 
         self._download_iter_2()
 
     def tab3AddMap(self):
         year = str(self.dockwidget.myComboBox31.currentText())
         code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
+        tempSubFolder = jpDataCensus.getSubFolder(
+            self.dockwidget.myComboBox32.currentIndex()
+        )
 
         if self.dockwidget.myComboBox32.currentIndex() == 0:
             muni_names = self.dockwidget.myListWidget32.selectedItems()
-            tempSubFolder = "Census"
             tempQmlFile = "Census-" + year + ".qml"
             name_muni_suffix = ""
         else:
             muni_names = self.dockwidget.myListWidget33.selectedItems()
             if self.dockwidget.myComboBox32.currentIndex() == 1:
-                tempSubFolder = "Census/SDDSWS"
                 tempQmlFile = "Census-SDDSWS-" + year + ".qml"
-                name_muni_suffix = " 3次"
+                name_muni_suffix = " " + self.tr("3rd")
             elif self.dockwidget.myComboBox32.currentIndex() == 2:
-                tempSubFolder = "Census/HDDSWH"
                 tempQmlFile = "Census-HDDSWH-" + year + ".qml"
-                name_muni_suffix = " 4次"
+                name_muni_suffix = " " + self.tr("4th")
             elif self.dockwidget.myComboBox32.currentIndex() == 3:
-                tempSubFolder = "Census/QDDSWQ"
                 tempQmlFile = "Census-QDDSWQ-" + year + ".qml"
-                name_muni_suffix = " 5次"
+                name_muni_suffix = " " + self.tr("5th")
 
         for muni_name in muni_names:
             name_muni = str(muni_name.text())
@@ -933,10 +967,10 @@ class jpdata:
             )
 
             if tempShpFullPath is None:
-                self.setLabel(self.tr("Cannot find the .shp file: ") + name_muni)
+                self.setLabel(self.tr("Cannot find the .shp file: ") + tempShpFileName)
                 self.iface.messageBar().pushMessage(
                     "Error",
-                    "Cannot find the .shp file: " + name_muni,
+                    "Cannot find the .shp file: " + tempShpFileName,
                     1,
                     duration=10,
                 )
@@ -964,7 +998,7 @@ class jpdata:
                     tempShpFileName,
                     tempCsvFileName,
                 )
-                tempShpFullPath = tempShpFullPath.replace(".shp", "-" + year + ".shp")
+                tempShpFullPath = tempShpFullPath[:-4] + "-" + year + ".shp"
                 self._add_map(
                     tempShpFullPath,
                     name_muni + name_muni_suffix + " (" + year + ")",
@@ -1033,6 +1067,8 @@ class jpdata:
             tempUrl = self._dl_url_zip[x]["url"]
             tempZipFileName = self._dl_url_zip[x]["zip"]
             tempSubFolder = self._dl_url_zip[x]["subfolder"]
+            self.setLabel(self._folderPath)
+            self.setLabel(tempZipFileName)
             if not os.path.exists(
                 posixpath.join(
                     self._folderPath,
