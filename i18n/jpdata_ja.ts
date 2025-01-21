@@ -140,7 +140,7 @@
     </message>
     <message>
         <location filename="../jpdata.py" line="332"/>
-        <source>Nieghbourhood: population of cho, aza, etc.&lt;br /&gt;3rd Mesh: 1 km mesh&lt;br /&gt;54h Mesh: 500 m mesh&lt;br /&gt;5th Mesh: 250 m mesh</source>
+        <source>Nieghbourhood: population of cho, aza, etc.&lt;br /&gt;3rd Mesh: 1 km mesh&lt;br /&gt;4th Mesh: 500 m mesh&lt;br /&gt;5th Mesh: 250 m mesh</source>
         <translation>小地域: 基本単位区別，町丁・字別人口&lt;br /&gt;3次メッシュ: 1 km メッシュ&lt;br /&gt;4次メッシュ: 500 m メッシュ&lt;br /&gt;5次メッシュ: 250 m メッシュ</translation>
     </message>
     <message>

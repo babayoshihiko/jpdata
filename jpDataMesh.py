@@ -14,6 +14,23 @@ def getMesh1ByPrefName(name_pref):
     return unique_mesh1s
 
 
+def getMesh1ByPrefMuniName(name_pref, name_muni):
+    str_code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+    int_code_pref = int(str_code_pref)
+    tempMesh1 = []
+
+    filePath = posixpath.join(os.path.dirname(__file__), "csv", "muni_mesh1.csv")
+    with open(filePath, "r") as f:
+        csvreader = csv.DictReader(f)
+        rows = list(csvreader)
+
+    for row in rows:
+        if int(row["code_pref"]) == int_code_pref and row["name_muni"] == name_muni:
+            tempMesh1.append(row["code_mesh1"])
+
+    return tempMesh1
+
+
 def getMesh1ByPrefCode(code_pref):
     if code_pref == "":
         return ""
@@ -35,7 +52,7 @@ def getMesh1ByPrefCode(code_pref):
 def getMesh1ByPrefMuniCode(code_pref, code_muni):
     int_code_pref = int(code_pref)
     int_code_muni = int(code_muni)
-    tempMesh3 = []
+    tempMesh1 = []
 
     filePath = posixpath.join(os.path.dirname(__file__), "csv", "muni_mesh1.csv")
     with open(filePath, "r") as f:
@@ -47,9 +64,9 @@ def getMesh1ByPrefMuniCode(code_pref, code_muni):
             int(row["code_pref"]) == int_code_pref
             and int(row["code_muni"]) == int_code_muni
         ):
-            tempMesh3.append(row)
+            tempMesh1.append(row)
 
-    return tempMesh3
+    return tempMesh1
 
 
 def getMesh3ByPrefMuniCode(code_pref, code_muni):

@@ -331,7 +331,7 @@ class jpdata:
             self.dockwidget.myComboBox32.addItem(self.tr("5th Mesh"))
             self.dockwidget.myComboBox32.setToolTip(
                 self.tr(
-                    "Nieghbourhood: population of cho, aza, etc.<br />3rd Mesh: 1 km mesh<br />54h Mesh: 500 m mesh<br />5th Mesh: 250 m mesh"
+                    "Nieghbourhood: population of cho, aza, etc.<br />3rd Mesh: 1 km mesh<br />4th Mesh: 500 m mesh<br />5th Mesh: 250 m mesh"
                 )
             )
             self.dockwidget.myComboBox32.currentIndexChanged.connect(
@@ -350,6 +350,10 @@ class jpdata:
             self.dockwidget.myListWidget31.clicked.connect(self._LW31_clicked)
             self.dockwidget.myListWidget31.currentItemChanged.connect(
                 self._LW31_currentItemChanged
+            )
+            self.dockwidget.myListWidget32.clicked.connect(self._LW32_clicked)
+            self.dockwidget.myListWidget32.currentItemChanged.connect(
+                self._LW32_currentItemChanged
             )
             self.dockwidget.myListWidget32.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
@@ -788,6 +792,13 @@ class jpdata:
         if current is None or current != previous:
             self.tab3SelectPref()
 
+    def _LW32_clicked(self, index):
+        self._tab3_set_mesh()
+
+    def _LW32_currentItemChanged(self, current, previous):
+        if current is None or current != previous:
+            self._tab3_set_mesh()
+
     def tab3SelectPref(self):
         if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
             return
@@ -865,7 +876,13 @@ class jpdata:
         self.dockwidget.myListWidget33.clear()
         self.dockwidget.myListWidget33.show()
 
-        details = jpDataMesh.getMesh1ByPrefName(self._LW31_Prev)
+        if len(self.dockwidget.myListWidget32.selectedItems()) == 0:
+            details = jpDataMesh.getMesh1ByPrefName(self._LW31_Prev)
+        else:
+            str_name_muni = str(
+                self.dockwidget.myListWidget32.selectedItems()[0].text()
+            )
+            details = jpDataMesh.getMesh1ByPrefMuniName(self._LW31_Prev, str_name_muni)
 
         for detail in details:
             self.dockwidget.myListWidget33.addItem(detail)
