@@ -566,38 +566,6 @@ class jpdata:
         for detail in details:
             self.dockwidget.myListWidget13.addItem(detail)
 
-    def tab1DownloadAll(self):
-        if self.dockwidget.myPushButton11.text() == self.tr("Cancel"):
-            self.cancel_download()
-            return
-
-        year = str(self.dockwidget.myComboBox11.currentText())
-        for item in self._LandNumInfo:
-            if (
-                str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-                == item["name_j"]
-            ):
-                break
-        pref_name = self.dockwidget.myListWidget12.selectedItems()
-        self._dl_code = []
-        self._dl_iter = 0
-        for i in range(len(pref_name)):
-            self._dl_code.append(
-                {
-                    "year": year,
-                    "code_map": item["code_map"],
-                    "type_muni": item["type_muni"],
-                    "code_pref": jpDataUtils.getPrefCodeByName(
-                        str(pref_name[i].text())
-                    ),
-                    "name_pref": str(pref_name[i].text()),
-                    "name_muni": "",
-                    "url": item["url"],
-                    "zip": item["zip"],
-                }
-            )
-        self._download_iter_2()
-
     def tab1DownloadAll2(self):
         if self.dockwidget.myPushButton11.text() == self.tr("Cancel"):
             self.cancel_download()
@@ -870,62 +838,6 @@ class jpdata:
         for detail in details:
             self.dockwidget.myListWidget33.addItem(detail)
 
-    def tab3DownloadAll(self):
-        if self.dockwidget.myPushButton31.text() == self.tr("Cancel"):
-            self.cancel_download()
-            return
-
-        self._dl_code = []
-        self._dl_iter = 0
-        year = str(self.dockwidget.myComboBox31.currentText())
-        code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
-
-        if self.dockwidget.myComboBox32.currentIndex() == 0:
-            # Get attribute data first
-            jpDataCensus.downloadCsv(
-                self._folderPath,
-                year,
-                code_pref,
-                "",
-            )
-            muni_names = self.dockwidget.myListWidget32.selectedItems()
-            for muni_name in muni_names:
-                row = jpDataMuni.getRowFromNames(self._LW31_Prev, str(muni_name.text()))
-                self._dl_code.append(
-                    {
-                        "year": year,
-                        "code_map": "Census",
-                        "type_muni": "census",
-                        "code_pref": code_pref,
-                        "code_muni": row["code_muni"],
-                        "name_pref": self._LW31_Prev,
-                        "name_muni": str(muni_name.text()),
-                    }
-                )
-        else:
-            muni_names = self.dockwidget.myListWidget33.selectedItems()
-            for muni_name in muni_names:
-                # Get attribute data for each mesh
-                jpDataCensus.downloadCsv(
-                    self._folderPath,
-                    year,
-                    "",
-                    str(muni_name.text()),
-                    self.dockwidget.myComboBox32.currentIndex(),
-                )
-                self._dl_code.append(
-                    {
-                        "year": year,
-                        "code_map": "Census",
-                        "type_muni": "census",
-                        "code_pref": code_pref,
-                        "code_muni": str(muni_name.text()),
-                        "name_pref": self._LW31_Prev,
-                        "name_muni": str(muni_name.text()),
-                    }
-                )
-        self._download_iter_2()
-
     def tab3DownloadAll2(self):
         if self.dockwidget.myPushButton31.text() == self.tr("Cancel"):
             self.cancel_download()
@@ -1118,80 +1030,6 @@ class jpdata:
     #     (prefectural codes, municipal codes and so on)
     # a list of "code_pref"s (type = "" or "region")
     # or a list of "code_muni"s (type = "census")
-    def _download_iter(self):
-        _start_download = False
-
-        for x in range(self._dl_iter, len(self._dl_code)):
-            if self._dl_code[x]["type_muni"] == "census":
-                tempUrl = jpDataCensus.getUrl(
-                    self._dl_code[x]["year"],
-                    self._dl_code[x]["code_pref"],
-                    self._dl_code[x]["code_muni"],
-                    self.dockwidget.myComboBox32.currentIndex(),
-                )
-                tempZipFileName = jpDataCensus.getZipFileName(
-                    self._dl_code[x]["year"],
-                    self._dl_code[x]["code_pref"],
-                    self._dl_code[x]["code_muni"],
-                    self.dockwidget.myComboBox32.currentIndex(),
-                )
-                if self.dockwidget.myComboBox32.currentIndex() == 1:
-                    tempSubFolder = "Census/SDDSWS"
-                elif self.dockwidget.myComboBox32.currentIndex() == 2:
-                    tempSubFolder = "Census/HDDSWH"
-                elif self.dockwidget.myComboBox32.currentIndex() == 3:
-                    tempSubFolder = "Census/QDDSWQ"
-                else:
-                    tempSubFolder = "Census"
-            elif (
-                self._dl_code[x]["type_muni"] == "regional"
-                or self._dl_code[x]["type_muni"] == "detail"
-            ):
-                row = jpDataLNI.getUrlCodeZipByPrefName(
-                    self._dl_code[x]["code_map"],
-                    self._dl_code[x]["name_pref"],
-                    self._dl_code[x]["year"],
-                )
-                tempUrl = row["url"]
-                tempZipFileName = row["zip"]
-                tempSubFolder = self._dl_code[x]["code_map"]
-            elif self._dl_code[x]["type_muni"] == "mesh1":
-                str_code_mesh1 = str(
-                    self.dockwidget.myListWidget13.selectedItems()[0].text()
-                )
-                tempUrl = self._dl_code[x]["url"].replace("code_mesh1", str_code_mesh1)
-                tempZipFileName = self._dl_code[x]["zip"].replace(
-                    "code_mesh1", str_code_mesh1
-                )
-                tempSubFolder = self._dl_code[x]["code_map"]
-            else:
-                tempUrl = self._dl_code[x]["url"]
-                tempZipFileName = self._dl_code[x]["zip"]
-                tempSubFolder = self._dl_code[x]["code_map"]
-            tempUrl = tempUrl.replace("code_pref", self._dl_code[x]["code_pref"])
-            tempZipFileName = tempZipFileName.replace(
-                "code_pref", self._dl_code[x]["code_pref"]
-            )
-            if not os.path.exists(
-                posixpath.join(
-                    self._folderPath,
-                    tempSubFolder,
-                    tempZipFileName,
-                )
-            ):
-                _start_download = True
-                break
-            else:
-                self.setLabel(self.tr("The zip file exists: ") + tempZipFileName)
-        if _start_download:
-            self.dockwidget.progressBar.setValue(0)
-            self.enable_download(False)
-            self._dl_iter = x + 1
-            self.start_download(tempUrl, tempSubFolder, tempZipFileName)
-        else:
-            self.enable_download()
-            self._dl_iter = 0
-
     def _download_iter_2(self):
         _start_download = False
 
