@@ -451,9 +451,7 @@ def unzipAttr(folder_path, attrZip):
 def performJoin(folder, year, shp, csv):
     if not folder in shp:
         shp = posixpath.join(folder, shp)
-    output = shp.replace(".shp", "-" + year + ".shp")
-    if os.path.exists(output):
-        return
+    output = shp[:-4] + "-" + year + ".shp"
     if not folder in csv:
         csv = posixpath.join(folder, csv)
     if csv[-4:] == ".txt":
@@ -471,22 +469,39 @@ def performJoin(folder, year, shp, csv):
                         for _ in range(count - 2):
                             csvt += ",Integer"
                             fout2 = open(
-                                csv.replace(".txt", ".csvt"), "w+", encoding="UTF-8"
+                                csv[:-4] + ".csvt", "w+", encoding="UTF-8"
                             )
                             fout2.write(csvt)
                             fout2.close()
-
             fout.close()
 
-        csv = csv.replace(".txt", ".csv")
+        csv = csv[:-4] + ".csv"
+
 
     # Now all file names are full path
-    if os.path.exists(shp) and os.path.exists(csv):
-        joinInfo = {
-            "INPUT": shp,
-            "FIELD": "KEY_CODE",
-            "INPUT_2": csv,
-            "FIELD_2": "KEY_CODE",
-            "OUTPUT": output,
-        }
-        processing.run("qgis:joinattributestable", joinInfo)
+
+    if not os.path.exists(output):
+        # See https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeneral.html#join-attributes-by-field-value
+        # Or type `processing.algorithmHelp("qgis:joinattributestable")`  in QGIS Python console.
+        if os.path.exists(shp) and os.path.exists(csv):
+            joinInfo = {
+                "INPUT": shp,
+                "FIELD": "KEY_CODE",
+                "INPUT_2": csv,
+                "FIELD_2": "KEY_CODE",
+                "OUTPUT": output,
+            }
+            processing.run("qgis:joinattributestable", joinInfo)
+    
+    cfg = output[:-4] + ".cpg"
+    encoding = ""
+    with open(cfg, "r") as fp:
+        for line in fp:
+            if "shift_jis" in line.lower():
+                encoding = "CP932"
+                break
+            elif "utf-8" in line.lower():
+                encoding = "UTF-8"
+                break
+
+    return encoding

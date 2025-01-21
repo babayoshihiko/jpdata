@@ -963,18 +963,19 @@ class jpdata:
                 jpDataCensus.unzipAttr(
                     posixpath.join(self._folderPath, tempSubFolder), tempZip
                 )
-                jpDataCensus.performJoin(
+                encoding = jpDataCensus.performJoin(
                     posixpath.join(self._folderPath, tempSubFolder),
                     year,
                     tempShpFileName,
                     tempCsvFileName,
                 )
+                self.setLabel(encoding)
                 tempShpFullPath = tempShpFullPath.replace(".shp", "-" + year + ".shp")
                 self._add_map(
                     tempShpFullPath,
                     name_muni + name_muni_suffix + " (" + year + ")",
                     tempQmlFile,
-                    encoding="UTF-8",
+                    encoding=encoding,
                 )
 
     def _add_map(self, shpFileFullPath, layerName, qmlFileName, encoding="CP932"):
