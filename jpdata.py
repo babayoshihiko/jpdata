@@ -879,10 +879,10 @@ class jpdata:
         if len(self.dockwidget.myListWidget32.selectedItems()) == 0:
             details = jpDataMesh.getMesh1ByPrefName(self._LW31_Prev)
         else:
-            str_name_muni = str(
-                self.dockwidget.myListWidget32.selectedItems()[0].text()
-            )
-            details = jpDataMesh.getMesh1ByPrefMuniName(self._LW31_Prev, str_name_muni)
+            name_munis = []
+            for name_muni in self.dockwidget.myListWidget32.selectedItems():
+                name_munis.append(str(name_muni.text()))
+            details = jpDataMesh.getMesh1ByPrefMuniName(self._LW31_Prev, name_munis)
 
         for detail in details:
             self.dockwidget.myListWidget33.addItem(detail)

@@ -14,7 +14,7 @@ def getMesh1ByPrefName(name_pref):
     return unique_mesh1s
 
 
-def getMesh1ByPrefMuniName(name_pref, name_muni):
+def getMesh1ByPrefMuniName(name_pref, name_munis):
     str_code_pref = jpDataUtils.getPrefCodeByName(name_pref)
     int_code_pref = int(str_code_pref)
     tempMesh1 = []
@@ -25,8 +25,10 @@ def getMesh1ByPrefMuniName(name_pref, name_muni):
         rows = list(csvreader)
 
     for row in rows:
-        if int(row["code_pref"]) == int_code_pref and row["name_muni"] == name_muni:
-            tempMesh1.append(row["code_mesh1"])
+        for name_muni in name_munis:
+            if int(row["code_pref"]) == int_code_pref and row["name_muni"] == name_muni:
+                if row["code_mesh1"] not in tempMesh1:
+                    tempMesh1.append(row["code_mesh1"])
 
     return tempMesh1
 
