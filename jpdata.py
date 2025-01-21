@@ -658,6 +658,7 @@ class jpdata:
 
         for x in range(len(pref_code)):
             tempQmlFile = thisLandNum["qml"]
+            tempLayerName = thisLandNum["name_j"] + " (" + year + ")"
             if (
                 thisLandNum["type_muni"].lower() == "regional"
                 or thisLandNum["type_muni"].lower() == "detail"
@@ -675,6 +676,11 @@ class jpdata:
                 )
                 if y["qml"] != "":
                     tempQmlFile = y["qml"]
+                tempLayerName = (
+                    thisLandNum["name_j"] + " (" + str(pref_name[x].text()) + "," + year + ")"
+                )
+                if thisLandNum["type_muni"].lower() == "detail":
+                    tempLayerName = thisLandNum["name_j"] + " (" + detail + "," + year + ")"
             elif thisLandNum["type_muni"].lower() == "mesh1":
                 str_code_mesh1 = str(
                     self.dockwidget.myListWidget13.selectedItems()[0].text()
@@ -687,6 +693,7 @@ class jpdata:
                     pref_code[x],
                     epsg=thisLandNum["epsg"],
                 )
+                tempLayerName = thisLandNum["name_j"] + " (" + str_code_mesh1 + "," + year + ")"
             else:
                 tempShpFullPath = jpDataUtils.unzipAndGetShp(
                     posixpath.join(self._folderPath, thisLandNum["code_map"]),
@@ -712,18 +719,6 @@ class jpdata:
                 break
 
             if tempShpFullPath != "":
-                if thisLandNum["type_muni"].lower() == "single":
-                    tempLayerName = thisLandNum["name_j"]
-                elif thisLandNum["type_muni"].lower() == "detail":
-                    tempLayerName = detail
-                elif thisLandNum["type_muni"].lower() == "mesh1":
-                    tempLayerName = (
-                        thisLandNum["name_j"] + " (" + str(pref_name[x].text()) + ")"
-                    )
-                else:
-                    tempLayerName = (
-                        thisLandNum["name_j"] + " (" + str(pref_name[x].text()) + ")"
-                    )
                 if (
                     thisLandNum["encoding"].lower() == "utf-8"
                     or thisLandNum["encoding"].lower() == "utf8"
