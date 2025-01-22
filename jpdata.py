@@ -586,10 +586,10 @@ class jpdata:
                 == thisLandNum["name_j"]
             ):
                 break
-        pref_name = self.dockwidget.myListWidget12.selectedItems()
+        pref_names = self.dockwidget.myListWidget12.selectedItems()
         self._dl_url_zip = []
         self._dl_iter = 0
-        for _ in range(len(pref_name)):
+        for pref_name in pref_names:
 
             if (
                 thisLandNum["type_muni"] == "regional"
@@ -597,7 +597,7 @@ class jpdata:
             ):
                 row = jpDataLNI.getUrlCodeZipByPrefName(
                     thisLandNum["code_map"],
-                    thisLandNum["name_pref"],
+                    str(pref_name.text()),
                     year,
                 )
                 tempUrl = row["url"]
@@ -643,21 +643,23 @@ class jpdata:
         # pref_code: The corresponding codes
         # year
         # detail: The names of selected in LW13
+        if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
+            self.setLabel(self.tr("Please choose a map."))
+            return
+        if len(self.dockwidget.myListWidget12.selectedItems()) == 0:
+            self.setLabel(self.tr("Please choose a prefecture or region."))
+            return
         for thisLandNum in self._LandNumInfo:
             if (
                 str(self.dockwidget.myListWidget11.selectedItems()[0].text())
                 == thisLandNum["name_j"]
             ):
                 break
-        pref_name = self.dockwidget.myListWidget12.selectedItems()
+        pref_names = self.dockwidget.myListWidget12.selectedItems()
         pref_code = []
         year = self.dockwidget.myComboBox11.currentText()
-        for i in range(len(pref_name)):
-            pref_code.append(
-                jpDataUtils.getPrefCodeByName(
-                    str(self.dockwidget.myListWidget12.selectedItems()[i].text())
-                )
-            )
+        for pref_name in pref_names:
+            pref_code.append(jpDataUtils.getPrefCodeByName(str(pref_name.text())))
         if len(self.dockwidget.myListWidget13.selectedItems()) > 0:
             detail = str(self.dockwidget.myListWidget13.selectedItems()[0].text())
         else:
@@ -681,7 +683,7 @@ class jpdata:
                     y["shp"],
                     y["altdir"],
                     pref_code[x],
-                    epsg=item["epsg"],
+                    epsg=thisLandNum["epsg"],
                 )
                 if y["qml"] != "":
                     tempQmlFile = y["qml"]
@@ -916,7 +918,7 @@ class jpdata:
                 code_muni,
                 self.dockwidget.myComboBox32.currentIndex(),
             )
-            if temptempZip is not None:
+            if tempZip is not None:
                 self._dl_url_zip.append(
                     {
                         "year": year,
@@ -932,7 +934,7 @@ class jpdata:
                 code_muni,
                 self.dockwidget.myComboBox32.currentIndex(),
             )
-            if temptempZip is not None:
+            if tempZip is not None:
                 self._dl_url_zip.append(
                     {
                         "year": year,
