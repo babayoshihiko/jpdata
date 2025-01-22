@@ -451,12 +451,12 @@ class jpdata:
 
         self._LW11_Prev = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
 
-        for item in self._LandNumInfo:
-            if self._LW11_Prev == item["name_j"]:
+        for thisLandNum in self._LandNumInfo:
+            if self._LW11_Prev == thisLandNum["name_j"]:
                 break
         if (
-            item["type_muni"].lower() == "regional"
-            or item["type_muni"].lower() == "detail"
+            thisLandNum["type_muni"].lower() == "regional"
+            or thisLandNum["type_muni"].lower() == "detail"
         ):
             self.myListWidget12_is_all_prefs = False
             self.myListWidget12_is_mesh1 = False
@@ -464,18 +464,18 @@ class jpdata:
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.SingleSelection
             )
-            names_pref = jpDataLNI.getPrefsOrRegionsByMapCode(item["code_map"])
+            names_pref = jpDataLNI.getPrefsOrRegionsByMapCode(thisLandNum["code_map"])
             for name_pref in names_pref:
                 self.dockwidget.myListWidget12.addItem(name_pref)
-        elif item["type_muni"].lower() == "mesh1":
-            if not self.myListWidget12_is_mesh1 or item["code_map"] == "L03-b-c":
+        elif thisLandNum["type_muni"].lower() == "mesh1":
+            if not self.myListWidget12_is_mesh1 or thisLandNum["code_map"] == "L03-b-c":
                 self.myListWidget12_is_all_prefs = False
                 self.myListWidget12_is_mesh1 = True
                 self._tab1_clear()
                 self.dockwidget.myListWidget12.setSelectionMode(
                     QAbstractItemView.SingleSelection
                 )
-                if item["code_map"] != "L03-b-c":
+                if thisLandNum["code_map"] != "L03-b-c":
                     for code_pref in range(1, 48):
                         self.dockwidget.myListWidget12.addItem(
                             jpDataUtils.getPrefNameByCode(code_pref)
@@ -496,7 +496,7 @@ class jpdata:
                         self.dockwidget.myListWidget12.addItem(
                             jpDataUtils.getPrefNameByCode(code_pref)
                         )
-        elif item["type_muni"].lower() == "single":
+        elif thisLandNum["type_muni"].lower() == "single":
             self.myListWidget12_is_all_prefs = False
             self.myListWidget12_is_mesh1 = False
             self._tab1_clear()
@@ -521,19 +521,19 @@ class jpdata:
         self.dockwidget.myListWidget13.hide()
 
     def tab1CheckYear(self):
-        for item in self._LandNumInfo:
-            if self._LW11_Prev == item["name_j"]:
+        for thisLandNum in self._LandNumInfo:
+            if self._LW11_Prev == thisLandNum["name_j"]:
                 break
 
         self.dockwidget.myComboBox11.clear()
-        if item["year"].lower() != "csv":
-            self.dockwidget.myComboBox11.addItem(item["year"])
+        if thisLandNum["year"].lower() != "csv":
+            self.dockwidget.myComboBox11.addItem(thisLandNum["year"])
         else:
             if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
                 name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
             else:
                 name_pref = None
-            years = jpDataLNI.getYearsByMapCode(item["code_map"], name_pref)
+            years = jpDataLNI.getYearsByMapCode(thisLandNum["code_map"], name_pref)
             for year in years:
                 self.dockwidget.myComboBox11.addItem(year)
 
@@ -551,20 +551,20 @@ class jpdata:
         str_name_pref = str(self.dockwidget.myListWidget12.selectedItems()[0].text())
         str_year = self.dockwidget.myComboBox11.currentText()
 
-        for item in self._LandNumInfo:
-            if str_name_j == item["name_j"]:
+        for thisLandNum in self._LandNumInfo:
+            if str_name_j == thisLandNum["name_j"]:
                 if (
-                    item["type_muni"].lower() != "detail"
-                    and item["type_muni"].lower() != "mesh1"
+                    thisLandNum["type_muni"].lower() != "detail"
+                    and thisLandNum["type_muni"].lower() != "mesh1"
                 ):
                     return
-                map_code = item["code_map"]
+                map_code = thisLandNum["code_map"]
                 break
 
         self.dockwidget.myListWidget13.clear()
         self.dockwidget.myListWidget13.show()
 
-        if item["type_muni"].lower() == "detail":
+        if thisLandNum["type_muni"].lower() == "detail":
             details = jpDataLNI.getDetailsByMapCodePrefNameYear(
                 map_code, str_name_pref, str_year
             )
@@ -630,9 +630,9 @@ class jpdata:
     def tab1Web(self):
         items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
-            for item in self._LandNumInfo:
-                if str(items[i].text()) == item["name_j"]:
-                    url = QUrl(item["source"])
+            for thisLandNum in self._LandNumInfo:
+                if str(items[i].text()) == thisLandNum["name_j"]:
+                    url = QUrl(thisLandNum["source"])
                     QDesktopServices.openUrl(url)
                     break
 
@@ -675,7 +675,7 @@ class jpdata:
                 or thisLandNum["type_muni"].lower() == "detail"
             ):
                 y = jpDataLNI.getUrlCodeZipByPrefName(
-                    thisLandNum["code_map"], str(pref_name[x].text()), year, detail
+                    thisLandNum["code_map"], str(pref_names[x].text()), year, detail
                 )
                 tempShpFullPath = jpDataUtils.unzipAndGetShp(
                     posixpath.join(self._folderPath, thisLandNum["code_map"]),
@@ -690,7 +690,7 @@ class jpdata:
                 tempLayerName = (
                     thisLandNum["name_j"]
                     + " ("
-                    + str(pref_name[x].text())
+                    + str(pref_names[x].text())
                     + ","
                     + year
                     + ")"
@@ -732,7 +732,7 @@ class jpdata:
                 self.iface.messageBar().pushMessage(
                     "Error",
                     "Cannot find the .shp file: "
-                    + item["shp"].replace("code_pref", pref_code[x]),
+                    + thisLandNum["shp"].replace("code_pref", pref_code[x]),
                     1,
                     duration=10,
                 )
