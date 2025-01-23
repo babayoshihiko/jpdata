@@ -303,7 +303,11 @@ def unzipAndGetShp(
                 for zip_info in zf.infolist():
                     # Extract the filename using the correct encoding
                     # (e.g. 'cp932' for Japanese Windows)
-                    filename = zip_info.filename.encode("cp437").decode("cp932")
+                    try:
+                        # Decode using CP437 and re-encode to CP932 for Japanese support
+                        filename = zip_info.filename.encode("cp437").decode("cp932")
+                    except:
+                        filename = zip_info.filename
                     # Construct the output file path
                     output_file_path = posixpath.join(folder_path, filename)
                     if zip_info.is_dir():
@@ -338,3 +342,4 @@ def unzipAndGetShp(
 
 def printLog(message):
     QgsMessageLog.logMessage(str(message), "jpdata", level=Qgis.Warning)
+
