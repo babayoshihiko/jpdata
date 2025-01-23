@@ -465,8 +465,13 @@ def performJoin(folder, year, shp, csv):
                         fout.write(line.replace("*", ""))
                     else:
                         count = line.count(",")
-                        csvt = "String,Integer,String"
-                        for _ in range(count - 2):
+                        if count <= 4:
+                            csvt = "String"
+                            minus = 0
+                        else:
+                            csvt = "String,Integer,String,String"
+                            minus = 3
+                        for _ in range(count - minus):
                             csvt += ",Integer"
                             fout2 = open(csv[:-4] + ".csvt", "w+", encoding="UTF-8")
                             fout2.write(csvt)
