@@ -4,7 +4,6 @@ import posixpath
 import os.path
 import zipfile
 from qgis import processing
-from . import jpDataUtils
 
 
 def getSubFolder(type_muni):
@@ -426,26 +425,6 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
                     with zf.open(zip_info) as file:
                         with open(output_file_path, "wb") as out_file:
                             out_file.write(file.read())
-
-
-def unzipAttr(folder_path, attrZip):
-    with zipfile.ZipFile(posixpath.join(folder_path, attrZip), "r") as zf:
-        # Iterate through each file in the zip
-        for zip_info in zf.infolist():
-            # Extract the filename using the correct encoding
-            # (e.g. 'cp932' for Japanese Windows)
-            filename = zip_info.filename.encode("cp437").decode("cp932")
-            # Construct the output file path
-            output_file_path = posixpath.join(folder_path, filename)
-            if zip_info.is_dir():
-                # Create directories if they do not exist
-                os.makedirs(output_file_path, exist_ok=True)
-            else:
-                os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-                # Extract the file
-                with zf.open(zip_info) as file:
-                    with open(output_file_path, "wb") as out_file:
-                        out_file.write(file.read())
 
 
 def performJoin(folder, year, shp, csv):

@@ -1012,7 +1012,7 @@ class jpdata:
                     code_muni,
                     self.dockwidget.myComboBox32.currentIndex(),
                 )
-                jpDataCensus.unzipAttr(
+                jpDataUtils.unzip(
                     posixpath.join(self._folderPath, tempSubFolder), tempZip
                 )
                 encoding = jpDataCensus.performJoin(

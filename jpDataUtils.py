@@ -297,28 +297,8 @@ def unzipAndGetShp(
         zipFileName = zipFileName.replace("name_muni", name_muni)
 
         # Below is a workaround for a zip file with Japanese filenames/foldernames
-        if os.path.exists(posixpath.join(folder_path, zipFileName)):
-            with zipfile.ZipFile(posixpath.join(folder_path, zipFileName), "r") as zf:
-                # Iterate through each file in the zip
-                for zip_info in zf.infolist():
-                    # Extract the filename using the correct encoding
-                    # (e.g. 'cp932' for Japanese Windows)
-                    try:
-                        # Decode using CP437 and re-encode to CP932 for Japanese support
-                        filename = zip_info.filename.encode("cp437").decode("cp932")
-                    except:
-                        filename = zip_info.filename
-                    # Construct the output file path
-                    output_file_path = posixpath.join(folder_path, filename)
-                    if zip_info.is_dir():
-                        # Create directories if they do not exist
-                        os.makedirs(output_file_path, exist_ok=True)
-                    else:
-                        os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-                        # Extract the file
-                        with zf.open(zip_info) as file:
-                            with open(output_file_path, "wb") as out_file:
-                                out_file.write(file.read())
+        unzip(folder_path, zipFileName)
+
     shpFileName = findShpFile2(
         folder_path, shp_file, altdir, code_pref, code_muni, name_muni
     )
@@ -343,3 +323,28 @@ def unzipAndGetShp(
 def printLog(message):
     QgsMessageLog.logMessage(str(message), "jpdata", level=Qgis.Warning)
 
+
+def unzip(folder_path, zip_file):
+    # Below is a workaround for a zip file with Japanese filenames/foldernames
+    if os.path.exists(posixpath.join(folder_path, zip_file)):
+        with zipfile.ZipFile(posixpath.join(folder_path, zip_file), "r") as zf:
+            # Iterate through each file in the zip
+            for zip_info in zf.infolist():
+                # Extract the filename using the correct encoding
+                # (e.g. 'cp932' for Japanese Windows)
+                try:
+                    # Decode using CP437 and re-encode to CP932 for Japanese support
+                    filename = zip_info.filename.encode("cp437").decode("cp932")
+                except:
+                    filename = zip_info.filename
+                # Construct the output file path
+                output_file_path = posixpath.join(folder_path, filename)
+                if zip_info.is_dir():
+                    # Create directories if they do not exist
+                    os.makedirs(output_file_path, exist_ok=True)
+                else:
+                    os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
+                    # Extract the file
+                    with zf.open(zip_info) as file:
+                        with open(output_file_path, "wb") as out_file:
+                            out_file.write(file.read())
