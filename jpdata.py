@@ -555,13 +555,13 @@ class jpdata:
             return
         if len(self.dockwidget.myListWidget12.selectedItems()) == 0:
             return
-        if self.dockwidget.myComboBox11.currentText().strip() == "":
+        if str(self.dockwidget.myComboBox11.currentText()).strip() == "":
             return
 
         map_code = ""
         str_name_j = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
         str_name_pref = str(self.dockwidget.myListWidget12.selectedItems()[0].text())
-        str_year = self.dockwidget.myComboBox11.currentText()
+        str_year = str(self.dockwidget.myComboBox11.currentText())
 
         for thisLandNum in self._LandNumInfo:
             if str_name_j == thisLandNum["name_j"]:
@@ -586,7 +586,18 @@ class jpdata:
         for detail in details:
             self.dockwidget.myListWidget13.addItem(detail)
 
+    def tab1CheckSelected(self):
+        if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
+            self.setLabel(self.tr("Please choose a map."))
+            return False
+        if len(self.dockwidget.myListWidget12.selectedItems()) == 0:
+            self.setLabel(self.tr("Please choose a prefecture or region."))
+            return False
+        return True
+
     def tab1DownloadAll2(self):
+        if not self.tab1CheckSelected():
+            return
         if self.dockwidget.myPushButton11.text() == self.tr("Cancel"):
             self.cancel_download()
             return
@@ -640,6 +651,8 @@ class jpdata:
         self._download_iter_2()
 
     def tab1Web(self):
+        if not self.tab1CheckSelected():
+            return
         items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
             for thisLandNum in self._LandNumInfo:
@@ -655,11 +668,7 @@ class jpdata:
         # pref_code: The corresponding codes
         # year
         # detail: The names of selected in LW13
-        if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
-            self.setLabel(self.tr("Please choose a map."))
-            return
-        if len(self.dockwidget.myListWidget12.selectedItems()) == 0:
-            self.setLabel(self.tr("Please choose a prefecture or region."))
+        if not self.tab1CheckSelected():
             return
         for thisLandNum in self._LandNumInfo:
             if (
@@ -669,7 +678,7 @@ class jpdata:
                 break
         pref_names = self.dockwidget.myListWidget12.selectedItems()
         pref_code = []
-        year = self.dockwidget.myComboBox11.currentText()
+        year = str(self.dockwidget.myComboBox11.currentText())
         for pref_name in pref_names:
             pref_code.append(jpDataUtils.getPrefCodeByName(str(pref_name.text())))
         if len(self.dockwidget.myListWidget13.selectedItems()) > 0:
@@ -855,34 +864,38 @@ class jpdata:
                 self.dockwidget.myListWidget32.addItem(item)
         self._tab3_set_mesh()
 
+    def _tab3_set_year(self, firstYear):
+        currentYear = str(self.dockwidget.myComboBox31.currentText())
+        if firstYear == 2005:
+            years = ["2020", "2015", "2010", "2005"]
+        if firstYear == 2000:
+            years = ["2020", "2015", "2010", "2005", "2000"]
+        elif firstYear == 1995:
+            years = ["2020", "2015", "2010", "2005", "2000", "1995"]
+        self.dockwidget.myComboBox31.clear()
+        for year in years:
+            self.dockwidget.myComboBox31.addItem(year)
+        # Select an item programmatically
+        index = self.dockwidget.myComboBox31.findText(
+            currentYear
+        )  # Find the index of the item
+        if index != -1:  # Ensure the item exists
+            self.dockwidget.myComboBox31.setCurrentIndex(index)
+
     def _tab3_set_mesh(self):
+
         if self.dockwidget.myComboBox32.currentIndex() == 0:
             self.dockwidget.myListWidget33.clear()
             self.dockwidget.myListWidget33.hide()
-            self.dockwidget.myComboBox31.clear()
-            self.dockwidget.myComboBox31.addItem("2020")
-            self.dockwidget.myComboBox31.addItem("2015")
-            self.dockwidget.myComboBox31.addItem("2010")
-            self.dockwidget.myComboBox31.addItem("2005")
-            self.dockwidget.myComboBox31.addItem("2000")
+            self._tab3_set_year(2000)
             return
         elif (
             self.dockwidget.myComboBox32.currentIndex() == 1
             or self.dockwidget.myComboBox32.currentIndex() == 2
         ):
-            self.dockwidget.myComboBox31.clear()
-            self.dockwidget.myComboBox31.addItem("2020")
-            self.dockwidget.myComboBox31.addItem("2015")
-            self.dockwidget.myComboBox31.addItem("2010")
-            self.dockwidget.myComboBox31.addItem("2005")
-            self.dockwidget.myComboBox31.addItem("2000")
-            self.dockwidget.myComboBox31.addItem("1995")
+            self._tab3_set_year(1995)
         else:
-            self.dockwidget.myComboBox31.clear()
-            self.dockwidget.myComboBox31.addItem("2020")
-            self.dockwidget.myComboBox31.addItem("2015")
-            self.dockwidget.myComboBox31.addItem("2010")
-            self.dockwidget.myComboBox31.addItem("2005")
+            self._tab3_set_year(2005)
 
         if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
             return
@@ -901,9 +914,25 @@ class jpdata:
         for detail in details:
             self.dockwidget.myListWidget33.addItem(detail)
 
+    def tab3CheckSelected(self):
+        if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
+            self.setLabel(self.tr("Please choose a prefecture."))
+            return False
+        if self.dockwidget.myComboBox32.currentIndex() == 0:
+            if len(self.dockwidget.myListWidget32.selectedItems()) == 0:
+                self.setLabel(self.tr("Please choose a municipality."))
+                return False
+        else:
+            if len(self.dockwidget.myListWidget33.selectedItems()) == 0:
+                self.setLabel(self.tr("Please choose a mesh code."))
+                return False
+        return True
+
     def tab3DownloadAll2(self):
         if self.dockwidget.myPushButton31.text() == self.tr("Cancel"):
             self.cancel_download()
+            return
+        if not self.tab3CheckSelected():
             return
 
         self._dl_url_zip = []
@@ -959,6 +988,8 @@ class jpdata:
         self._download_iter_2()
 
     def tab3AddMap(self):
+        if not self.tab3CheckSelected():
+            return
         year = str(self.dockwidget.myComboBox31.currentText())
         code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
         tempSubFolder = jpDataCensus.getSubFolder(
