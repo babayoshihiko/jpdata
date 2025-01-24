@@ -278,7 +278,19 @@ class jpdata:
                 item = QListWidgetItem(thisLandNum["name_j"])
                 if thisLandNum["availability"] != "yes":
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
-                    item.setForeground(Qt.gray)
+                    if thisLandNum["availability"] == "heading":
+                        current_text_color = item.foreground().color()
+                        current_bg_color = item.background().color()
+                        if current_text_color == current_bg_color:
+                            if (
+                                current_bg_color == Qt.black
+                                or current_bg_color == Qt.darkGray
+                            ):
+                                current_bg_color = Qt.white
+                            else:
+                                current_bg_color = Qt.black
+                        item.setForeground(current_bg_color)
+                        item.setBackground(current_text_color)
                 self.dockwidget.myListWidget11.addItem(item)
             # self.tab1CheckPrefsOrRegions()
             # Users cannot choose multiple maps
