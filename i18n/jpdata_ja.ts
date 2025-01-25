@@ -9,7 +9,7 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="375"/>
+        <location filename="../jpdata.py" line="391"/>
         <source>Choose folder for zip/shp files</source>
         <translation>フォルダを選択</translation>
     </message>
@@ -19,32 +19,32 @@
         <translation>国土数値情報</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="306"/>
+        <location filename="../jpdata.py" line="318"/>
         <source>GSI Tiles</source>
         <translation>地理院タイル</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="422"/>
+        <location filename="../jpdata.py" line="438"/>
         <source>Download</source>
         <translation>ダウンロード</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="1037"/>
+        <location filename="../jpdata.py" line="1099"/>
         <source>Choose Folder</source>
         <translation>フォルダを選択</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="345"/>
+        <location filename="../jpdata.py" line="357"/>
         <source>Add to Map</source>
         <translation>地図に追加</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="346"/>
+        <location filename="../jpdata.py" line="358"/>
         <source>Add Shapefile as a Layer to Map on QGIS</source>
         <translation>QGIS の地図にシェープファイルをレイヤとして追加</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="308"/>
+        <location filename="../jpdata.py" line="320"/>
         <source>Add GSI xyz tile server to Map on QGIS</source>
         <translation>QGIS の地図に地理院 xyz タイルサーバを追加</translation>
     </message>
@@ -54,17 +54,17 @@
         <translation>国土数値情報を追加</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="316"/>
+        <location filename="../jpdata.py" line="328"/>
         <source>Census</source>
         <translation>国勢調査</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="341"/>
+        <location filename="../jpdata.py" line="353"/>
         <source>Download census data by city</source>
         <translation>市町村ごとに国勢調査を追加</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="317"/>
+        <location filename="../jpdata.py" line="329"/>
         <source>Year</source>
         <translation>年</translation>
     </message>
@@ -79,42 +79,42 @@
         <translation>標準ブラウザでWebページを開く</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="874"/>
+        <location filename="../jpdata.py" line="932"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="974"/>
+        <location filename="../jpdata.py" line="1036"/>
         <source>Cannot find the .shp file: </source>
         <translation>.shp ファイルを見つけられません: </translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="751"/>
+        <location filename="../jpdata.py" line="778"/>
         <source>Downloading: </source>
         <translation>ダウンロード: </translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="1086"/>
+        <location filename="../jpdata.py" line="1148"/>
         <source>The zip file exists: </source>
         <translation>zip ファイルが存在しています: </translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="764"/>
+        <location filename="../jpdata.py" line="791"/>
         <source>...Done</source>
         <translation>...終了</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="778"/>
+        <location filename="../jpdata.py" line="805"/>
         <source>...Cancelled</source>
         <translation>...キャンセル</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="499"/>
+        <location filename="../jpdata.py" line="515"/>
         <source>Nation-wide</source>
         <translation>全国</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="1041"/>
+        <location filename="../jpdata.py" line="1103"/>
         <source>The folder is not writable.</source>
         <translation>フォルダに書き込むことができません。</translation>
     </message>
@@ -124,59 +124,84 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="384"/>
+        <location filename="../jpdata.py" line="400"/>
         <source>User/Password are not stored</source>
         <translation>ユーザ名/パスワードは保存されません</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="368"/>
+        <location filename="../jpdata.py" line="384"/>
         <source>Setting</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="323"/>
+        <location filename="../jpdata.py" line="335"/>
         <source>Nieghbourhood: Since 2000&lt;br /&gt;5th Mesh: Since2005&lt;br /&gt;Others: Since 1995</source>
         <translation>小地域: 2000年以降&lt;br /&gt;5次メッシュ: 2005年以降&lt;br /&gt;その他: 1995年以降</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="332"/>
+        <location filename="../jpdata.py" line="344"/>
         <source>Nieghbourhood: population of cho, aza, etc.&lt;br /&gt;3rd Mesh: 1 km mesh&lt;br /&gt;4th Mesh: 500 m mesh&lt;br /&gt;5th Mesh: 250 m mesh</source>
         <translation>小地域: 基本単位区別，町丁・字別人口&lt;br /&gt;3次メッシュ: 1 km メッシュ&lt;br /&gt;4次メッシュ: 500 m メッシュ&lt;br /&gt;5次メッシュ: 250 m メッシュ</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="945"/>
+        <location filename="../jpdata.py" line="1007"/>
         <source>3rd</source>
         <translation>3次</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="948"/>
+        <location filename="../jpdata.py" line="1010"/>
         <source>4th</source>
         <translation>4次</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="951"/>
+        <location filename="../jpdata.py" line="1013"/>
         <source>5th</source>
         <translation>5次</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="329"/>
+        <location filename="../jpdata.py" line="341"/>
         <source>3rd Mesh</source>
         <translation>3次メッシュ</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="330"/>
+        <location filename="../jpdata.py" line="342"/>
         <source>4th Mesh</source>
         <translation>4次メッシュ</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="331"/>
+        <location filename="../jpdata.py" line="343"/>
         <source>5th Mesh</source>
         <translation>5次メッシュ</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="328"/>
+        <location filename="../jpdata.py" line="340"/>
         <source>Neighbourhood</source>
         <translation>小地域</translation>
+    </message>
+    <message>
+        <location filename="../jpdata.py" line="591"/>
+        <source>Please choose a map.</source>
+        <translation>地図を選択してください。</translation>
+    </message>
+    <message>
+        <location filename="../jpdata.py" line="594"/>
+        <source>Please choose a prefecture or region.</source>
+        <translation>都道府県または地域を選択してください。</translation>
+    </message>
+    <message>
+        <location filename="../jpdata.py" line="919"/>
+        <source>Please choose a prefecture.</source>
+        <translation>都道府県を選択してください。</translation>
+    </message>
+    <message>
+        <location filename="../jpdata.py" line="923"/>
+        <source>Please choose a municipality.</source>
+        <translation>市町村を選択してください。</translation>
+    </message>
+    <message>
+        <location filename="../jpdata.py" line="927"/>
+        <source>Please choose a mesh code.</source>
+        <translation>メッシュコードを選択してください。</translation>
     </message>
 </context>
 <context>
