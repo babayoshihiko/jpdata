@@ -288,9 +288,11 @@ class jpdata:
                             ):
                                 current_bg_color = Qt.white
                             else:
-                                current_bg_color = Qt.black
+                                current_bg_color = Qt.darkGray
                         item.setForeground(current_bg_color)
                         item.setBackground(current_text_color)
+                    else:
+                        item.setForeground(Qt.gray)
                 self.dockwidget.myListWidget11.addItem(item)
             # self.tab1CheckPrefsOrRegions()
             # Users cannot choose multiple maps
