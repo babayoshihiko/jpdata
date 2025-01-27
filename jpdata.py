@@ -102,7 +102,6 @@ class jpdata:
         self._LandNumInfo = jpDataUtils.getMapsFromCsv()
         self._GSI = jpDataUtils.getTilesFromCsv()
         self._downloaderStatus = ""
-        self._dl_code = []  # Future plan: move _dl_code to _dl_url_zip
         self._dl_url_zip = []
         self._dl_iter = 0
         self._LW11_Prev = ""
@@ -294,11 +293,7 @@ class jpdata:
                     else:
                         item.setForeground(Qt.gray)
                 self.dockwidget.myListWidget11.addItem(item)
-            # self.tab1CheckPrefsOrRegions()
-            # Users cannot choose multiple maps
-            # self.dockwidget.myListWidget11.setSelectionMode(
-            #    QAbstractItemView.ExtendedSelection
-            # )
+
             self.dockwidget.myListWidget11.clicked.connect(self._LW11_clicked)
             self.dockwidget.myListWidget11.currentItemChanged.connect(
                 self._LW11_currentItemChanged
@@ -310,7 +305,6 @@ class jpdata:
             self.dockwidget.myComboBox11.currentIndexChanged.connect(self.tab1SetLW13)
             self.myListWidget12_is_all_prefs = False
             self.myListWidget12_is_mesh1 = False
-            # Users cannot choose multiple prefctures
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
@@ -329,11 +323,7 @@ class jpdata:
             # Set Tab 3
             self.dockwidget.myTabWidget.setTabText(2, self.tr("Census"))
             self.dockwidget.myLabel31.setText(self.tr("Year"))
-            self.dockwidget.myComboBox31.addItem("2020")
-            self.dockwidget.myComboBox31.addItem("2015")
-            self.dockwidget.myComboBox31.addItem("2010")
-            self.dockwidget.myComboBox31.addItem("2005")
-            self.dockwidget.myComboBox31.addItem("2000")
+            self._tab3_set_year(2000)
             self.dockwidget.myComboBox31.setToolTip(
                 self.tr(
                     "Nieghbourhood: Since 2000<br />5th Mesh: Since2005<br />Others: Since 1995"
