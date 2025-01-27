@@ -578,11 +578,11 @@ class jpdata:
         for detail in details:
             self.dockwidget.myListWidget13.addItem(detail)
 
-    def tab1CheckSelected(self):
+    def tab1CheckSelected(self, ignorePref=False):
         if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
             self.setLabel(self.tr("Please choose a map."))
             return False
-        if len(self.dockwidget.myListWidget12.selectedItems()) == 0:
+        if not ignorePref and len(self.dockwidget.myListWidget12.selectedItems()) == 0:
             self.setLabel(self.tr("Please choose a prefecture or region."))
             return False
         return True
@@ -643,7 +643,7 @@ class jpdata:
         self._download_iter_2()
 
     def tab1Web(self):
-        if not self.tab1CheckSelected():
+        if not self.tab1CheckSelected(ignorePref=True):
             return
         items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
