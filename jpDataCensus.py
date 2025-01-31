@@ -4,6 +4,7 @@ import posixpath
 import os.path
 import zipfile
 from qgis import processing
+from . import jpDataUtils
 
 
 def getSubFolder(type_muni):
@@ -428,6 +429,7 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
 
 
 def performJoin(folder, year, shp, csv):
+    encoding = "CP932"
     if not folder in shp:
         shp = posixpath.join(folder, shp)
     output = shp[:-4] + "-" + year + ".shp"
@@ -435,29 +437,33 @@ def performJoin(folder, year, shp, csv):
         csv = posixpath.join(folder, csv)
     if csv[-4:] == ".txt":
         if not os.path.exists(csv.replace(".txt", ".csv")):
-            line_no = 0
-            fout = open(csv.replace(".txt", ".csv"), "w+", encoding="UTF-8")
-            with open(csv, "r", encoding="CP932") as fp:
-                for line in fp:
-                    line_no = line_no + 1
-                    if line_no != 2:
-                        fout.write(line.replace("*", ""))
-                    else:
-                        count = line.count(",")
-                        if count <= 4:
-                            csvt = "String"
-                            minus = 0
+            jpDataUtils.printLog("440")
+            if os.path.exists(csv):
+                jpDataUtils.printLog("442")
+                line_no = 0
+                fout = open(csv.replace(".txt", ".csv"), "w+", encoding="UTF-8")
+                with open(csv, "r", encoding="CP932") as fp:
+                    for line in fp:
+                        line_no = line_no + 1
+                        if line_no != 2:
+                            fout.write(line.replace("*", ""))
                         else:
-                            csvt = "String,Integer,String,String"
-                            minus = 3
-                        for _ in range(count - minus):
-                            csvt += ",Integer"
-                            fout2 = open(csv[:-4] + ".csvt", "w+", encoding="UTF-8")
-                            fout2.write(csvt)
-                            fout2.close()
-            fout.close()
-
-        csv = csv[:-4] + ".csv"
+                            count = line.count(",")
+                            if count <= 4:
+                                csvt = "String"
+                                minus = 0
+                            else:
+                                csvt = "String,Integer,String,String"
+                                minus = 3
+                            for _ in range(count - minus):
+                                csvt += ",Integer"
+                                fout2 = open(csv[:-4] + ".csvt", "w+", encoding="UTF-8")
+                                fout2.write(csvt)
+                                fout2.close()
+                fout.close()
+                csv = csv[:-4] + ".csv"
+            else:
+                return shp, encoding
 
     # Now all file names are full path
 
@@ -485,4 +491,4 @@ def performJoin(folder, year, shp, csv):
                 elif "utf-8" in line.lower():
                     break
 
-    return encoding
+    return output, encoding
