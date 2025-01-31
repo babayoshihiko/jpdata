@@ -615,8 +615,12 @@ class jpdata:
                     str(pref_name.text()),
                     year,
                 )
-                tempUrl = row["url"].replace("code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text())))
-                tempZipFileName = row["zip"].replace("code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text())))
+                tempUrl = row["url"].replace(
+                    "code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text()))
+                )
+                tempZipFileName = row["zip"].replace(
+                    "code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text()))
+                )
 
             elif thisLandNum["type_muni"] == "mesh1":
                 str_code_mesh1 = str(
@@ -627,11 +631,12 @@ class jpdata:
                     "code_mesh1", str_code_mesh1
                 )
             else:
-                tempUrl = thisLandNum["url"].replace("code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text())))
-                tempZipFileName = thisLandNum["zip"].replace("code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text())))
-
-            self.setLabel(tempUrl)
-            self.setLabel(tempZipFileName)
+                tempUrl = thisLandNum["url"].replace(
+                    "code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text()))
+                )
+                tempZipFileName = thisLandNum["zip"].replace(
+                    "code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text()))
+                )
 
             tempSubFolder = thisLandNum["code_map"]
 
@@ -1053,13 +1058,12 @@ class jpdata:
                 jpDataUtils.unzip(
                     posixpath.join(self._folderPath, tempSubFolder), tempZip
                 )
-                encoding = jpDataCensus.performJoin(
+                tempShpFullPath, encoding = jpDataCensus.performJoin(
                     posixpath.join(self._folderPath, tempSubFolder),
                     year,
                     tempShpFileName,
                     tempCsvFileName,
                 )
-                tempShpFullPath = tempShpFullPath[:-4] + "-" + year + ".shp"
                 self._add_map(
                     tempShpFullPath,
                     name_muni + name_muni_suffix + " (" + year + ")",
