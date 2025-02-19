@@ -585,6 +585,13 @@ class jpdata:
         if not ignorePref and len(self.dockwidget.myListWidget12.selectedItems()) == 0:
             self.setLabel(self.tr("Please choose a prefecture or region."))
             return False
+        if (
+            self.myListWidget12_is_mesh1
+            and len(self.dockwidget.myListWidget13.selectedItems()) == 0
+        ):
+            self.setLabel(self.tr("Please choose a mesh."))
+            return False
+
         return True
 
     def tab1DownloadAll2(self):
