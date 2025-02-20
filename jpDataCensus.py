@@ -436,12 +436,12 @@ def performJoin(folder, year, shp, csv):
     if not folder in csv:
         csv = posixpath.join(folder, csv)
     if csv[-4:] == ".txt":
-        if not os.path.exists(csv.replace(".txt", ".csv")):
-            jpDataUtils.printLog("440")
+        if os.path.exists(csv[:-4] + ".csv"):
+            csv = csv[:-4] + ".csv"
+        else:
             if os.path.exists(csv):
-                jpDataUtils.printLog("442")
                 line_no = 0
-                fout = open(csv.replace(".txt", ".csv"), "w+", encoding="UTF-8")
+                fout = open(csv[:-4] + ".csv", "w+", encoding="UTF-8")
                 with open(csv, "r", encoding="CP932") as fp:
                     for line in fp:
                         line_no = line_no + 1
