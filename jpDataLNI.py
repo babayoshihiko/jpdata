@@ -102,6 +102,7 @@ def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=No
         "shp": "",
         "altdir": "",
         "qml": "",
+        "encoding": ""
     }
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
@@ -119,5 +120,7 @@ def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=No
                     x["altdir"] = row["altdir"].replace("code_pref", code_pref)
                     if "qml" in row:
                         x["qml"] = row["qml"].replace("code_pref", code_pref)
+                    if "encoding" in row:
+                        x["encoding"] = row["encoding"]
                     break
     return x

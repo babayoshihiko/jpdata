@@ -694,6 +694,7 @@ class jpdata:
             detail = None
         if thisLandNum["type_muni"] == "single":
             pref_code = [""]
+        tmpEncoding = thisLandNum["encoding"].upper()
 
         for x in range(len(pref_code)):
             tempQmlFile = thisLandNum["qml"]
@@ -715,6 +716,8 @@ class jpdata:
                 )
                 if y["qml"] != "":
                     tempQmlFile = y["qml"]
+                if y["encoding"] != "":
+                    tmpEncoding = y["encoding"].upper()
                 tempLayerName = (
                     thisLandNum["name_j"]
                     + " ("
@@ -767,14 +770,9 @@ class jpdata:
                 break
 
             if tempShpFullPath != "":
-                if (
-                    thisLandNum["encoding"].lower() == "utf-8"
-                    or thisLandNum["encoding"].lower() == "utf8"
-                ):
-                    encoding = "UTF-8"
-                else:
-                    encoding = "CP932"
-                self._add_map(tempShpFullPath, tempLayerName, tempQmlFile, encoding)
+                if tmpEncoding != "UTF-8":
+                    tmpEncoding = "CP932"
+                self._add_map(tempShpFullPath, tempLayerName, tempQmlFile, tmpEncoding)
 
     def start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(posixpath.join(self._folderPath, subFolder)):
