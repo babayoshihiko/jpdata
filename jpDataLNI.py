@@ -8,11 +8,20 @@ def getPrefsOrRegionsByMapCode(code_map):
         os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
     )
     prefs_or_regions = []
+    _allprefs = False
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
             if len(row) >= 2:
-                prefs_or_regions.append(row["availability"])
+                if row["availability"] == "allprefs":
+                    if _allprefs == False:
+                        _allprefs = True
+                        for code_pref in range(1, 48):
+                            prefs_or_regions.append(
+                                jpDataUtils.getPrefNameByCode(code_pref)
+                            )
+                else:
+                    prefs_or_regions.append(row["availability"])
     unique_prefs_or_regions = []
     for x in prefs_or_regions:
         if x not in unique_prefs_or_regions:
@@ -28,10 +37,17 @@ def getYearsByMapCode(code_map, name_pref=None):
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
-            if len(row) >= 2 and name_pref is None:
-                years.append(row["year"])
-            elif len(row) >= 2 and row["availability"] == name_pref:
-                years.append(row["year"])
+            if len(row) >= 2:
+                if name_pref is None:
+                    years.append(row["year"])
+                elif row["availability"] == name_pref:
+                    years.append(row["year"])
+                elif (
+                    row["availability"] == "allprefs"
+                    and int("0" + jpDataUtils.getPrefCodeByName(row["availability"]))
+                    <= 47
+                ):
+                    years.append(row["year"])
     unique_years = []
     for x in years:
         if x not in unique_years:
@@ -102,7 +118,7 @@ def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=No
         "shp": "",
         "altdir": "",
         "qml": "",
-        "encoding": ""
+        "encoding": "",
     }
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
