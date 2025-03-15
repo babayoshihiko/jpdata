@@ -202,6 +202,22 @@ def getPrefCodeByName(pref_name):
         pref_code = "46"
     elif pref_name == "沖縄":
         pref_code = "47"
+    elif pref_name == "東北地方":
+        pref_code = "52"
+    elif pref_name == "関東地方":
+        pref_code = "53"
+    elif pref_name == "甲信越・北陸地方":
+        pref_code = "54"
+    elif pref_name == "東海地方":
+        pref_code = "55"
+    elif pref_name == "近畿地方":
+        pref_code = "56"
+    elif pref_name == "中国地方":
+        pref_code = "57"
+    elif pref_name == "四国地方":
+        pref_code = "58"
+    elif pref_name == "九州地方":
+        pref_code = "59"
     elif pref_name == "北海道開発局":
         pref_code = "81"
     elif pref_name == "東北地方整備局":

@@ -44,8 +44,8 @@ def getYearsByMapCode(code_map, name_pref=None):
                     years.append(row["year"])
                 elif (
                     row["availability"] == "allprefs"
-                    and int("0" + jpDataUtils.getPrefCodeByName(row["availability"]))
-                    <= 47
+                    and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) >= 1
+                    and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) <= 47
                 ):
                     years.append(row["year"])
     unique_years = []
@@ -118,6 +118,7 @@ def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=No
         "shp": "",
         "altdir": "",
         "qml": "",
+        "epsg": "",
         "encoding": "",
     }
     with open(file_path, "r") as f:
@@ -125,8 +126,15 @@ def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=No
         for row in csvreader:
             if (
                 len(row) >= 2
-                and row["availability"] == name_pref
                 and row["year"] == year
+                and (
+                    row["availability"] == name_pref
+                    or (
+                        row["availability"] == "allprefs"
+                        and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) >= 1
+                        and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) <= 47
+                    )
+                )
             ):
                 if detail is None or detail == row["detail1"] + " " + row["detail2"]:
                     x["year"] = row["year"]
@@ -136,6 +144,8 @@ def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=No
                     x["altdir"] = row["altdir"].replace("code_pref", code_pref)
                     if "qml" in row:
                         x["qml"] = row["qml"].replace("code_pref", code_pref)
+                    if "epsg" in row:
+                        x["epsg"] = row["epsg"]
                     if "encoding" in row:
                         x["encoding"] = row["encoding"]
                     break
