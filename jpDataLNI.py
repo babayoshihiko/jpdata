@@ -45,9 +45,17 @@ def getYearsByMapCode(code_map, name_pref=None):
                 elif (
                     row["availability"] == "allprefs"
                     and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) >= 1
-                    and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) <= 47
+                    and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) <= 46
                 ):
                     years.append(row["year"])
+                elif (
+                    row["availability"] == "allprefs"
+                    and name_pref.replace("県", "") == "沖縄"
+                ):
+                    if row["year"] not in ["1955", "1960", "1965", "1970"]:
+                        # N03 ["1955","1960","1965","1970"]
+                        years.append(row["year"])
+
     unique_years = []
     for x in years:
         if x not in unique_years:
