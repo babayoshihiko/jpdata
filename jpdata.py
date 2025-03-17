@@ -534,7 +534,10 @@ class jpdata:
             self.dockwidget.myComboBox11.addItem(thisLandNum["year"])
         else:
             if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-                name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
+                if thisLandNum["type_muni"].lower() != "mesh1":
+                    name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
+                else:
+                    name_pref = None
             else:
                 name_pref = None
             years = jpDataLNI.getYearsByMapCode(thisLandNum["code_map"], name_pref)
@@ -617,17 +620,29 @@ class jpdata:
                 thisLandNum["type_muni"] == "regional"
                 or thisLandNum["type_muni"] == "detail"
             ):
-                row = jpDataLNI.getUrlCodeZipByPrefName(
+                y = jpDataLNI.getUrlCodeZipByPrefName(
                     thisLandNum["code_map"],
                     str(pref_name.text()),
                     year,
                 )
-                tempUrl = row["url"].replace(
-                    "code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text()))
-                )
-                tempZipFileName = row["zip"].replace(
-                    "code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text()))
-                )
+                if y is not None and y["url"] != "":
+                    tempUrl = y["url"].replace(
+                        "code_pref",
+                        jpDataUtils.getPrefCodeByName(str(pref_name.text())),
+                    )
+                    tempZipFileName = y["zip"].replace(
+                        "code_pref",
+                        jpDataUtils.getPrefCodeByName(str(pref_name.text())),
+                    )
+                else:
+                    tempUrl = thisLandNum["url"].replace(
+                        "code_pref",
+                        jpDataUtils.getPrefCodeByName(str(pref_name.text())),
+                    )
+                    tempZipFileName = thisLandNum["zip"].replace(
+                        "code_pref",
+                        jpDataUtils.getPrefCodeByName(str(pref_name.text())),
+                    )
 
             elif thisLandNum["type_muni"] == "mesh1":
                 str_code_mesh1 = str(
@@ -637,6 +652,18 @@ class jpdata:
                 tempZipFileName = thisLandNum["zip"].replace(
                     "code_mesh1", str_code_mesh1
                 )
+                y = jpDataLNI.getUrlCodeZipByPrefName(
+                    thisLandNum["code_map"], str_code_mesh1, year
+                )
+                if y is not None and y["url"] != "":
+                    tempUrl = y["url"].replace("code_mesh1", str_code_mesh1)
+                    tempZipFileName = y["zip"].replace("code_mesh1", str_code_mesh1)
+                else:
+                    tempUrl = thisLandNum["url"].replace("code_mesh1", str_code_mesh1)
+                    tempZipFileName = thisLandNum["zip"].replace(
+                        "code_mesh1", str_code_mesh1
+                    )
+
             else:
                 tempUrl = thisLandNum["url"].replace(
                     "code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text()))
@@ -658,8 +685,8 @@ class jpdata:
         self._download_iter_2()
 
     def tab1Web(self):
-        if not self.tab1CheckSelected(ignorePref=True):
-            return
+        # if not self.tab1CheckSelected(ignorePref=True):
+        #    return
         items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
             for thisLandNum in self._LandNumInfo:
@@ -706,14 +733,26 @@ class jpdata:
                 y = jpDataLNI.getUrlCodeZipByPrefName(
                     thisLandNum["code_map"], str(pref_names[x].text()), year, detail
                 )
-                tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                    posixpath.join(self._folderPath, thisLandNum["code_map"]),
-                    y["zip"],
-                    y["shp"],
-                    y["altdir"],
-                    pref_code[x],
-                    epsg=thisLandNum["epsg"],
-                )
+                if y is not None and y["zip"] != "":
+                    tempEpsg = thisLandNum["epsg"] if y["epsg"] == "" else y["epsg"]
+                    tempShpFullPath = jpDataUtils.unzipAndGetShp(
+                        posixpath.join(self._folderPath, thisLandNum["code_map"]),
+                        y["zip"],
+                        y["shp"],
+                        y["altdir"],
+                        pref_code[x],
+                        epsg=tempEpsg,
+                    )
+                else:
+                    tempShpFullPath = jpDataUtils.unzipAndGetShp(
+                        posixpath.join(self._folderPath, thisLandNum["code_map"]),
+                        thisLandNum["zip"],
+                        thisLandNum["shp"],
+                        thisLandNum["altdir"],
+                        pref_code[x],
+                        epsg=thisLandNum["epsg"],
+                    )
+
                 if y["qml"] != "":
                     tempQmlFile = y["qml"]
                 if y["encoding"] != "":
@@ -734,14 +773,29 @@ class jpdata:
                 str_code_mesh1 = str(
                     self.dockwidget.myListWidget13.selectedItems()[0].text()
                 )
-                tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                    posixpath.join(self._folderPath, thisLandNum["code_map"]),
-                    thisLandNum["zip"].replace("code_mesh1", str_code_mesh1),
-                    thisLandNum["shp"].replace("code_mesh1", str_code_mesh1),
-                    thisLandNum["altdir"],
-                    pref_code[x],
-                    epsg=thisLandNum["epsg"],
+                y = jpDataLNI.getUrlCodeZipByPrefName(
+                    thisLandNum["code_map"], str_code_mesh1, year
                 )
+                if y is not None and y["shp"] != "":
+                    tempEpsg = thisLandNum["epsg"] if y["epsg"] == "" else y["epsg"]
+                    tempShpFullPath = jpDataUtils.unzipAndGetShp(
+                        posixpath.join(self._folderPath, thisLandNum["code_map"]),
+                        y["zip"].replace("code_mesh1", str_code_mesh1),
+                        y["shp"].replace("code_mesh1", str_code_mesh1),
+                        y["altdir"],
+                        pref_code[x],
+                        epsg=tempEpsg,
+                    )
+                else:
+                    tempShpFullPath = jpDataUtils.unzipAndGetShp(
+                        posixpath.join(self._folderPath, thisLandNum["code_map"]),
+                        thisLandNum["zip"].replace("code_mesh1", str_code_mesh1),
+                        thisLandNum["shp"].replace("code_mesh1", str_code_mesh1),
+                        thisLandNum["altdir"],
+                        pref_code[x],
+                        epsg=thisLandNum["epsg"],
+                    )
+
                 tempLayerName = (
                     thisLandNum["name_j"] + " (" + str_code_mesh1 + "," + year + ")"
                 )

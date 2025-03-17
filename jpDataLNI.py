@@ -117,6 +117,8 @@ def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=No
     file_path = posixpath.join(
         os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
     )
+    if not os.path.exists(file_path):
+        return None
 
     x = {
         "year": "",
@@ -142,6 +144,7 @@ def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=No
                         and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) >= 1
                         and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) <= 47
                     )
+                    or row["availability"] == "all"
                 )
             ):
                 if detail is None or detail == row["detail1"] + " " + row["detail2"]:
