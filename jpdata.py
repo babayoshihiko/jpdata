@@ -568,6 +568,13 @@ class jpdata:
                 map_code = thisLandNum["code_map"]
                 break
 
+        if len(self.dockwidget.myListWidget13.selectedItems()) > 0:
+            str_current_text = str(
+                self.dockwidget.myListWidget13.selectedItems()[0].text()
+            )
+        else:
+            str_current_text = None
+
         self.dockwidget.myListWidget13.clear()
         self.dockwidget.myListWidget13.show()
 
@@ -579,7 +586,10 @@ class jpdata:
             details = jpDataMesh.getMesh1ByPrefName(str_name_pref)
 
         for detail in details:
-            self.dockwidget.myListWidget13.addItem(detail)
+            item = QListWidgetItem(detail)
+            self.dockwidget.myListWidget13.addItem(item)
+            if str_current_text is not None and detail == str_current_text:
+                item.setSelected(True)
 
     def tab1CheckSelected(self, ignorePref=False):
         if len(self.dockwidget.myListWidget11.selectedItems()) == 0:

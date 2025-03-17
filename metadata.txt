@@ -22,6 +22,11 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+      0.6.15:
+        * Year 2024 for L02
+        * Past years for L01, L02, L03-a, N03
+        * UI improvements
+        * Bug fix
       0.6.14:
         * Bug fix
       0.6.13:
