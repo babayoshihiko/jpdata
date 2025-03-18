@@ -18,6 +18,7 @@ rm -rf jpdata/.git
 rm -f jpdata/i18n.sh
 rm -f jpdata/CITATION.cff
 rm -f jpdata/zip_plugin.sh
+rm -f jpdata/README.md
 rm -f jpdata/i18n/jpdata_ja.ts
 rm -f jpdata/i18n/jpdata.pro
 rm -rf jpdata/helper_script

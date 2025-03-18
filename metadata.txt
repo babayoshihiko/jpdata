@@ -7,7 +7,7 @@
 name=jpdata
 qgisMinimumVersion=3.0
 description=Download and load various data of Japan
-version=0.6.14
+version=0.6.15
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 

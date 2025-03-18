@@ -97,8 +97,8 @@ For QGIS 3:
 
 # Roadmap
 
-* Mesh data from Land Numerical Information
-* Download census CSV data and table join
+* <del>Mesh data from Land Numerical Information</del>
+* <del>Download census CSV data and table join</del>
 * Kiban data from GeoSpatial Information Authority (GSI)
 * Digital Elevation Model data from GeoSpatial Information Authority (GSI) (QuickDEM4JP)
 * 3D City Model from Project PLATEAU
