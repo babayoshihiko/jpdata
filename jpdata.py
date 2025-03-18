@@ -528,6 +528,8 @@ class jpdata:
         for thisLandNum in self._LandNumInfo:
             if self._LW11_Prev == thisLandNum["name_j"]:
                 break
+        
+        str_current_text = str(self.dockwidget.myComboBox11.currentText())
 
         self.dockwidget.myComboBox11.clear()
         if thisLandNum["year"].lower() != "csv":
@@ -543,6 +545,10 @@ class jpdata:
             years = jpDataLNI.getYearsByMapCode(thisLandNum["code_map"], name_pref)
             for year in years:
                 self.dockwidget.myComboBox11.addItem(year)
+        
+        index = self.dockwidget.myComboBox11.findText(str_current_text)
+        if index != -1:
+            self.dockwidget.myComboBox11.setCurrentIndex(index)
 
     def tab1SetLW13(self):
         # map_code and year
@@ -763,10 +769,8 @@ class jpdata:
                         epsg=thisLandNum["epsg"],
                     )
 
-                if y["qml"] != "":
-                    tempQmlFile = y["qml"]
-                if y["encoding"] != "":
-                    tmpEncoding = y["encoding"].upper()
+                if y["qml"] != "": tempQmlFile = y["qml"]
+                if y["encoding"] != "": tmpEncoding = y["encoding"].upper()
                 tempLayerName = (
                     thisLandNum["name_j"]
                     + " ("
@@ -796,6 +800,8 @@ class jpdata:
                         pref_code[x],
                         epsg=tempEpsg,
                     )
+                    if y["qml"] != "": tempQmlFile = y["qml"]
+                    if y["encoding"] != "": tmpEncoding = y["encoding"].upper()
                 else:
                     tempShpFullPath = jpDataUtils.unzipAndGetShp(
                         posixpath.join(self._folderPath, thisLandNum["code_map"]),
