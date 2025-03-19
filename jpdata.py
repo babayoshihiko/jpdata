@@ -478,13 +478,16 @@ class jpdata:
             self.show_LW13 = True
             str_new_text = jpDataLNI.getPrefsOrRegionsByMapCode(thisLandNum["code_map"])
         elif thisLandNum["type_muni"].lower() == "mesh1":
-            self.myListWidget12_is_all_prefs = False
             self.show_LW13 = True
-
             if thisLandNum["code_map"] != "L03-b-c":
-                for code_pref in range(1, 48):
-                    str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
+                if self.myListWidget12_is_all_prefs:
+                    bol_redraw = False
+                else:
+                    self.myListWidget12_is_all_prefs = True
+                    for code_pref in range(1, 48):
+                        str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
             else:
+                self.myListWidget12_is_all_prefs = False
                 for code_pref in [
                     11,
                     12,
@@ -503,7 +506,7 @@ class jpdata:
             self._tab1_clear()
         else:
             # Expecting thisLandNum["type_muni"].lower() == "":
-            if not self.myListWidget12_is_all_prefs:
+            if not self.myListWidget12_is_all_prefs or self.show_LW13:
                 self.myListWidget12_is_all_prefs = True
                 for code_pref in range(1, 48):
                     str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
