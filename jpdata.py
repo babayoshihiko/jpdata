@@ -304,8 +304,11 @@ class jpdata:
             )
             self.dockwidget.myComboBox11.currentIndexChanged.connect(self.tab1SetLW13)
             self.myListWidget12_is_all_prefs = False
-            self.myListWidget12_is_mesh1 = False
+            self.show_LW13 = False
             self.dockwidget.myListWidget12.setSelectionMode(
+                QAbstractItemView.ExtendedSelection
+            )
+            self.dockwidget.myListWidget13.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
             self.dockwidget.myListWidget13.hide()
@@ -455,80 +458,86 @@ class jpdata:
 
         self._LW11_Prev = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
 
+        str_current_text = []
+        str_new_text = []
+        bol_redraw = True
+
+        if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+            for item in self.dockwidget.myListWidget12.selectedItems():
+                str_current_text.append(str(item.text()))
+
         for thisLandNum in self._LandNumInfo:
             if self._LW11_Prev == thisLandNum["name_j"]:
                 break
-        if (
-            thisLandNum["type_muni"].lower() == "regional"
-            or thisLandNum["type_muni"].lower() == "detail"
-        ):
+        if thisLandNum["type_muni"].lower() == "regional":
             self.myListWidget12_is_all_prefs = False
-            self.myListWidget12_is_mesh1 = False
-            self._tab1_clear()
-            self.dockwidget.myListWidget12.setSelectionMode(
-                QAbstractItemView.SingleSelection
-            )
-            names_pref = jpDataLNI.getPrefsOrRegionsByMapCode(thisLandNum["code_map"])
-            for name_pref in names_pref:
-                self.dockwidget.myListWidget12.addItem(name_pref)
+            self.show_LW13 = False
+            str_new_text = jpDataLNI.getPrefsOrRegionsByMapCode(thisLandNum["code_map"])
+        elif thisLandNum["type_muni"].lower() == "detail":
+            self.myListWidget12_is_all_prefs = False
+            self.show_LW13 = True
+            str_new_text = jpDataLNI.getPrefsOrRegionsByMapCode(thisLandNum["code_map"])
         elif thisLandNum["type_muni"].lower() == "mesh1":
-            if not self.myListWidget12_is_mesh1 or thisLandNum["code_map"] == "L03-b-c":
-                self.myListWidget12_is_all_prefs = False
-                self.myListWidget12_is_mesh1 = True
-                self._tab1_clear()
-                self.dockwidget.myListWidget12.setSelectionMode(
-                    QAbstractItemView.SingleSelection
-                )
-                if thisLandNum["code_map"] != "L03-b-c":
-                    for code_pref in range(1, 48):
-                        self.dockwidget.myListWidget12.addItem(
-                            jpDataUtils.getPrefNameByCode(code_pref)
-                        )
-                else:
-                    for code_pref in [
-                        11,
-                        12,
-                        13,
-                        14,
-                        21,
-                        23,
-                        24,
-                        26,
-                        27,
-                        28,
-                    ]:
-                        self.dockwidget.myListWidget12.addItem(
-                            jpDataUtils.getPrefNameByCode(code_pref)
-                        )
-        elif thisLandNum["type_muni"].lower() == "single":
             self.myListWidget12_is_all_prefs = False
-            self.myListWidget12_is_mesh1 = False
+            self.show_LW13 = True
+
+            if thisLandNum["code_map"] != "L03-b-c":
+                for code_pref in range(1, 48):
+                    str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
+            else:
+                for code_pref in [
+                    11,
+                    12,
+                    13,
+                    14,
+                    21,
+                    23,
+                    24,
+                    26,
+                    27,
+                    28,
+                ]:
+                    str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
+        elif thisLandNum["type_muni"].lower() == "single":
+            str_new_text.append(self.tr("Nation-wide"))
             self._tab1_clear()
-            self.dockwidget.myListWidget12.addItem(self.tr("Nation-wide"))
         else:
+            # Expecting thisLandNum["type_muni"].lower() == "":
             if not self.myListWidget12_is_all_prefs:
                 self.myListWidget12_is_all_prefs = True
-                self.myListWidget12_is_mesh1 = False
-                self._tab1_clear()
-                self.dockwidget.myListWidget12.setSelectionMode(
-                    QAbstractItemView.ExtendedSelection
-                )
                 for code_pref in range(1, 48):
-                    self.dockwidget.myListWidget12.addItem(
-                        jpDataUtils.getPrefNameByCode(code_pref)
-                    )
+                    str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
+            else:
+                bol_redraw = False
+
+        if bol_redraw:
+            self._tab1_clear()
+            for new_text in str_new_text:
+                item = QListWidgetItem(new_text)
+                self.dockwidget.myListWidget12.addItem(item)
+                if new_text in str_current_text:
+                    item.setSelected(True)
         self.tab1CheckYear()
 
     def _tab1_clear(self):
         self.dockwidget.myListWidget12.clear()
-        self.dockwidget.myListWidget13.clear()
-        self.dockwidget.myListWidget13.hide()
+        if self.show_LW13:
+            self.dockwidget.myListWidget12.setSelectionMode(
+                QAbstractItemView.SingleSelection
+            )
+            self.dockwidget.myListWidget13.show()
+        else:
+            self.dockwidget.myListWidget12.setSelectionMode(
+                QAbstractItemView.ExtendedSelection
+            )
+            self.dockwidget.myListWidget13.clear()
+            self.dockwidget.myListWidget13.hide()
 
     def tab1CheckYear(self):
         for thisLandNum in self._LandNumInfo:
             if self._LW11_Prev == thisLandNum["name_j"]:
                 break
-        
+
         str_current_text = str(self.dockwidget.myComboBox11.currentText())
 
         self.dockwidget.myComboBox11.clear()
@@ -545,7 +554,7 @@ class jpdata:
             years = jpDataLNI.getYearsByMapCode(thisLandNum["code_map"], name_pref)
             for year in years:
                 self.dockwidget.myComboBox11.addItem(year)
-        
+
         index = self.dockwidget.myComboBox11.findText(str_current_text)
         if index != -1:
             self.dockwidget.myComboBox11.setCurrentIndex(index)
@@ -574,12 +583,10 @@ class jpdata:
                 map_code = thisLandNum["code_map"]
                 break
 
+        str_current_text = []
         if len(self.dockwidget.myListWidget13.selectedItems()) > 0:
-            str_current_text = str(
-                self.dockwidget.myListWidget13.selectedItems()[0].text()
-            )
-        else:
-            str_current_text = None
+            for item in self.dockwidget.myListWidget13.selectedItems():
+                str_current_text.append(str(item.text()))
 
         self.dockwidget.myListWidget13.clear()
         self.dockwidget.myListWidget13.show()
@@ -594,7 +601,7 @@ class jpdata:
         for detail in details:
             item = QListWidgetItem(detail)
             self.dockwidget.myListWidget13.addItem(item)
-            if str_current_text is not None and detail == str_current_text:
+            if detail in str_current_text:
                 item.setSelected(True)
 
     def tab1CheckSelected(self, ignorePref=False):
@@ -604,10 +611,7 @@ class jpdata:
         if not ignorePref and len(self.dockwidget.myListWidget12.selectedItems()) == 0:
             self.setLabel(self.tr("Please choose a prefecture or region."))
             return False
-        if (
-            self.myListWidget12_is_mesh1
-            and len(self.dockwidget.myListWidget13.selectedItems()) == 0
-        ):
+        if self.show_LW13 and len(self.dockwidget.myListWidget13.selectedItems()) == 0:
             self.setLabel(self.tr("Please choose a mesh."))
             return False
 
@@ -631,71 +635,50 @@ class jpdata:
         self._dl_url_zip = []
         self._dl_iter = 0
         for pref_name in pref_names:
-
+            str_replace_before = "code_pref"
+            str_replace_after = jpDataUtils.getPrefCodeByName(str(pref_name.text()))
             if (
-                thisLandNum["type_muni"] == "regional"
-                or thisLandNum["type_muni"] == "detail"
+                thisLandNum["type_muni"] == ""
+                or thisLandNum["type_muni"].lower() == "single"
             ):
-                y = jpDataLNI.getUrlCodeZipByPrefName(
-                    thisLandNum["code_map"],
-                    str(pref_name.text()),
-                    year,
-                )
-                if y is not None and y["url"] != "":
-                    tempUrl = y["url"].replace(
-                        "code_pref",
-                        jpDataUtils.getPrefCodeByName(str(pref_name.text())),
-                    )
-                    tempZipFileName = y["zip"].replace(
-                        "code_pref",
-                        jpDataUtils.getPrefCodeByName(str(pref_name.text())),
-                    )
-                else:
-                    tempUrl = thisLandNum["url"].replace(
-                        "code_pref",
-                        jpDataUtils.getPrefCodeByName(str(pref_name.text())),
-                    )
-                    tempZipFileName = thisLandNum["zip"].replace(
-                        "code_pref",
-                        jpDataUtils.getPrefCodeByName(str(pref_name.text())),
-                    )
-
-            elif thisLandNum["type_muni"] == "mesh1":
-                str_code_mesh1 = str(
-                    self.dockwidget.myListWidget13.selectedItems()[0].text()
-                )
-                tempUrl = thisLandNum["url"].replace("code_mesh1", str_code_mesh1)
-                tempZipFileName = thisLandNum["zip"].replace(
-                    "code_mesh1", str_code_mesh1
-                )
-                y = jpDataLNI.getUrlCodeZipByPrefName(
-                    thisLandNum["code_map"], str_code_mesh1, year
-                )
-                if y is not None and y["url"] != "":
-                    tempUrl = y["url"].replace("code_mesh1", str_code_mesh1)
-                    tempZipFileName = y["zip"].replace("code_mesh1", str_code_mesh1)
-                else:
-                    tempUrl = thisLandNum["url"].replace("code_mesh1", str_code_mesh1)
-                    tempZipFileName = thisLandNum["zip"].replace(
-                        "code_mesh1", str_code_mesh1
-                    )
-
+                pass
             else:
-                tempUrl = thisLandNum["url"].replace(
-                    "code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text()))
-                )
-                tempZipFileName = thisLandNum["zip"].replace(
-                    "code_pref", jpDataUtils.getPrefCodeByName(str(pref_name.text()))
+                if (
+                    thisLandNum["type_muni"].lower() == "regional"
+                    or thisLandNum["type_muni"].lower() == "detail"
+                ):
+                    y = jpDataLNI.getUrlCodeZipByPrefName(
+                        thisLandNum["code_map"],
+                        str(pref_name.text()),
+                        year,
+                    )
+
+                elif thisLandNum["type_muni"].lower() == "mesh1":
+                    str_replace_before = "code_mesh1"
+                    str_replace_after = str(
+                        self.dockwidget.myListWidget13.selectedItems()[0].text()
+                    )
+                    y = jpDataLNI.getUrlCodeZipByPrefName(
+                        thisLandNum["code_map"], str_replace_after, year
+                    )
+
+            if y is not None and y["url"] != "":
+                url = y["url"].replace(str_replace_before, str_replace_after)
+                zip_file_name = y["zip"].replace(str_replace_before, str_replace_after)
+            else:
+                url = thisLandNum["url"].replace(str_replace_before, str_replace_after)
+                zip_file_name = thisLandNum["zip"].replace(
+                    str_replace_before, str_replace_after
                 )
 
-            tempSubFolder = thisLandNum["code_map"]
+            subfolder = thisLandNum["code_map"]
 
             self._dl_url_zip.append(
                 {
                     "year": year,
-                    "url": tempUrl,
-                    "zip": tempZipFileName,
-                    "subfolder": tempSubFolder,
+                    "url": url,
+                    "zip": zip_file_name,
+                    "subfolder": subfolder,
                 }
             )
         self._download_iter_2()
@@ -737,52 +720,18 @@ class jpdata:
             detail = None
         if thisLandNum["type_muni"] == "single":
             pref_code = [""]
-        tmpEncoding = thisLandNum["encoding"].upper()
 
         for x in range(len(pref_code)):
-            tempQmlFile = thisLandNum["qml"]
-            tempLayerName = thisLandNum["name_j"] + " (" + year + ")"
-            if (
-                thisLandNum["type_muni"].lower() == "regional"
-                or thisLandNum["type_muni"].lower() == "detail"
-            ):
-                y = jpDataLNI.getUrlCodeZipByPrefName(
-                    thisLandNum["code_map"], str(pref_names[x].text()), year, detail
-                )
-                if y is not None and y["zip"] != "":
-                    tempEpsg = thisLandNum["epsg"] if y["epsg"] == "" else y["epsg"]
-                    tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                        posixpath.join(self._folderPath, thisLandNum["code_map"]),
-                        y["zip"],
-                        y["shp"],
-                        y["altdir"],
-                        pref_code[x],
-                        epsg=tempEpsg,
-                    )
-                else:
-                    tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                        posixpath.join(self._folderPath, thisLandNum["code_map"]),
-                        thisLandNum["zip"],
-                        thisLandNum["shp"],
-                        thisLandNum["altdir"],
-                        pref_code[x],
-                        epsg=thisLandNum["epsg"],
-                    )
+            epsg = thisLandNum["epsg"]
+            qml_file = thisLandNum["qml"]
+            layer_name = thisLandNum["name_j"] + " (" + year + ")"
+            encoding = thisLandNum["encoding"].upper()
 
-                if y["qml"] != "": tempQmlFile = y["qml"]
-                if y["encoding"] != "": tmpEncoding = y["encoding"].upper()
-                tempLayerName = (
-                    thisLandNum["name_j"]
-                    + " ("
-                    + str(pref_names[x].text())
-                    + ","
-                    + year
-                    + ")"
-                )
-                if thisLandNum["type_muni"].lower() == "detail":
-                    tempLayerName = (
-                        thisLandNum["name_j"] + " (" + detail + "," + year + ")"
-                    )
+            if (
+                thisLandNum["type_muni"] == ""
+                or thisLandNum["type_muni"].lower() == "single"
+            ):
+                pass
             elif thisLandNum["type_muni"].lower() == "mesh1":
                 str_code_mesh1 = str(
                     self.dockwidget.myListWidget13.selectedItems()[0].text()
@@ -790,42 +739,45 @@ class jpdata:
                 y = jpDataLNI.getUrlCodeZipByPrefName(
                     thisLandNum["code_map"], str_code_mesh1, year
                 )
-                if y is not None and y["shp"] != "":
-                    tempEpsg = thisLandNum["epsg"] if y["epsg"] == "" else y["epsg"]
-                    tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                        posixpath.join(self._folderPath, thisLandNum["code_map"]),
-                        y["zip"].replace("code_mesh1", str_code_mesh1),
-                        y["shp"].replace("code_mesh1", str_code_mesh1),
-                        y["altdir"],
-                        pref_code[x],
-                        epsg=tempEpsg,
-                    )
-                    if y["qml"] != "": tempQmlFile = y["qml"]
-                    if y["encoding"] != "": tmpEncoding = y["encoding"].upper()
-                else:
-                    tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                        posixpath.join(self._folderPath, thisLandNum["code_map"]),
-                        thisLandNum["zip"].replace("code_mesh1", str_code_mesh1),
-                        thisLandNum["shp"].replace("code_mesh1", str_code_mesh1),
-                        thisLandNum["altdir"],
-                        pref_code[x],
-                        epsg=thisLandNum["epsg"],
-                    )
-
-                tempLayerName = (
+                layer_name = (
                     thisLandNum["name_j"] + " (" + str_code_mesh1 + "," + year + ")"
                 )
-            else:
-                tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                    posixpath.join(self._folderPath, thisLandNum["code_map"]),
-                    thisLandNum["zip"],
-                    thisLandNum["shp"],
-                    thisLandNum["altdir"],
-                    pref_code[x],
-                    epsg=thisLandNum["epsg"],
+            elif thisLandNum["type_muni"].lower() == "regional":
+                y = jpDataLNI.getUrlCodeZipByPrefName(
+                    thisLandNum["code_map"], str(pref_names[x].text()), year, detail
                 )
+                layer_name = (
+                    thisLandNum["name_j"]
+                    + " ("
+                    + str(pref_names[x].text())
+                    + ","
+                    + year
+                    + ")"
+                )
+            elif thisLandNum["type_muni"].lower() == "detail":
+                y = jpDataLNI.getUrlCodeZipByPrefName(
+                    thisLandNum["code_map"], str(pref_names[x].text()), year, detail
+                )
+                layer_name = thisLandNum["name_j"] + " (" + detail + "," + year + ")"
 
-            if tempShpFullPath is None:
+            if y is not None and y["zip"] != "":
+                if y["epsg"] != "":
+                    epsg = y["epsg"]
+                if y["qml"] != "":
+                    qml_file = y["qml"]
+                if y["encoding"] != "":
+                    encoding = y["encoding"].upper()
+
+            shp_full_path = jpDataUtils.unzipAndGetShp(
+                posixpath.join(self._folderPath, thisLandNum["code_map"]),
+                y["zip"],
+                y["shp"],
+                y["altdir"],
+                pref_code[x],
+                epsg=epsg,
+            )
+
+            if shp_full_path is None:
                 self.setLabel(
                     self.tr("Cannot find the .shp file: ")
                     + thisLandNum["shp"].replace("code_pref", pref_code[x])
@@ -839,10 +791,10 @@ class jpdata:
                 )
                 break
 
-            if tempShpFullPath != "":
-                if tmpEncoding != "UTF-8":
-                    tmpEncoding = "CP932"
-                self._add_map(tempShpFullPath, tempLayerName, tempQmlFile, tmpEncoding)
+            if shp_full_path != "":
+                if encoding is None or encoding != "UTF-8":
+                    encoding = "CP932"
+                self._add_map(shp_full_path, layer_name, qml_file, encoding)
 
     def start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(posixpath.join(self._folderPath, subFolder)):
