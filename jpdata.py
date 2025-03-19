@@ -479,27 +479,11 @@ class jpdata:
             str_new_text = jpDataLNI.getPrefsOrRegionsByMapCode(thisLandNum["code_map"])
         elif thisLandNum["type_muni"].lower() == "mesh1":
             self.show_LW13 = True
-            if thisLandNum["code_map"] != "L03-b-c":
-                if self.myListWidget12_is_all_prefs:
-                    bol_redraw = False
-                else:
-                    self.myListWidget12_is_all_prefs = True
-                    for code_pref in range(1, 48):
-                        str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
+            if self.myListWidget12_is_all_prefs:
+                bol_redraw = False
             else:
-                self.myListWidget12_is_all_prefs = False
-                for code_pref in [
-                    11,
-                    12,
-                    13,
-                    14,
-                    21,
-                    23,
-                    24,
-                    26,
-                    27,
-                    28,
-                ]:
+                self.myListWidget12_is_all_prefs = True
+                for code_pref in range(1, 48):
                     str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
         elif thisLandNum["type_muni"].lower() == "single":
             str_new_text.append(self.tr("Nation-wide"))
