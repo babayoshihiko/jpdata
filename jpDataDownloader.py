@@ -41,26 +41,52 @@ class DownloadThread(QThread):
     def getStatus(self):
         return self.status_message
 
+    def download_wo_thread(self):
+        proxies = {}
+        if self.url is None or self.file_path is None:
+            return
+
+        if self.proxy_server is not None:
+            _proxy_server = self.proxy_server.replace("https://", "")
+            _proxy_server = self.proxy_server.replace("http://", "")
+
+            if self.proxy_user != "":
+                _proxy_user = self.proxy_user + ":" + self.proxy_password + "@"
+            else:
+                _proxy_user = ""
+
+            proxies = {
+                "http": "http://" + _proxy_user + _proxy_server,
+                "https": "https://" + _proxy_user + _proxy_server,
+            }
+        else:
+            proxies = None
+
+        with requests.get(self.url, stream=True) as r:
+            r.raise_for_status()
+            with open(self.file_path, "wb") as f:
+                for chunk in r.iter_content(chunk_size=8192):
+                    f.write(chunk)
+
     def run(self):
         proxies = {}
         if self.url is None or self.file_path is None:
             return
         if self.proxy_server is not None:
-            if self.proxy_server[:8] == "https://":
-                _proxy_server = self.proxy_server.replace("https://", "")
-            elif self.proxy_server[:7] == "http://":
-                _proxy_server = self.proxy_server.replace("http://", "")
+            _proxy_server = self.proxy_server.replace("https://", "")
+            _proxy_server = self.proxy_server.replace("http://", "")
 
             if self.proxy_user != "":
-                _proxy_server = (
-                    self.proxy_user + ":" + self.proxy_password + "@" + _proxy_server
-                )
+                _proxy_user = self.proxy_user + ":" + self.proxy_password + "@"
             else:
-                _proxy_server = _proxy_server
+                _proxy_user = ""
+
             proxies = {
-                "http": "http://" + _proxy_server,
-                "https": "https://" + _proxy_server,
+                "http": "http://" + _proxy_user + _proxy_server,
+                "https": "https://" + _proxy_user + _proxy_server,
             }
+        else:
+            proxies = None
 
         try:
             with requests.get(self.url, stream=True, proxies=proxies) as r:

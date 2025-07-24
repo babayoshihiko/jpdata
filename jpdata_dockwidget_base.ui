@@ -38,7 +38,7 @@
     <item row="7" column="0">
      <widget class="QTabWidget" name="myTabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -250,17 +250,10 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="myLabelSetting3">
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="myLineEditSetting3">
           <property name="text">
-           <string>Proxy User</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="myLabelSetting1">
-          <property name="text">
-           <string>Shape Folder</string>
+           <string notr="true"/>
           </property>
          </widget>
         </item>
@@ -271,39 +264,19 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="myLabelSetting2">
+        <item row="4" column="1">
+         <widget class="QPushButton" name="myPushButtonTest">
           <property name="text">
-           <string>Proxy Server</string>
+           <string>myPushButtonTest</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="myLabelSetting4">
+        <item row="0" column="0">
+         <widget class="QLabel" name="myLabelSetting1">
           <property name="text">
-           <string>Proxy Password</string>
+           <string>Shape Folder</string>
           </property>
          </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="myLineEditSetting3">
-          <property name="text">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item row="0" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
@@ -329,10 +302,44 @@
           </item>
          </layout>
         </item>
-        <item row="4" column="1">
-         <widget class="QPushButton" name="myPushButtonTest">
+        <item row="6" column="1">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="myLabelSetting4">
           <property name="text">
-           <string>myPushButtonTest</string>
+           <string>Proxy Password</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="myLabelSetting3">
+          <property name="text">
+           <string>Proxy User</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="myLabelSetting2">
+          <property name="text">
+           <string>Proxy Server</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QCheckBox" name="myCheckBox1">
+          <property name="text">
+           <string>CheckBox</string>
           </property>
          </widget>
         </item>

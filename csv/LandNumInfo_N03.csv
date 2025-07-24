@@ -1,22 +1,26 @@
 availability,year,url,zip,shp,altdir,qml,epsg,encoding
-全国,2023,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2023/N03-20230101_GML.zip,N03-20230101_GML.zip,N03-23_230101.shp,N03-20230101_GML,N03-2024.qml,4612,CP932
-全国,2022,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2022/N03-20220101_GML.zip,N03-20220101_GML.zip ,N03-22_220101.shp,N03-20220101_GML,N03-2024.qml,4612,CP932
-全国,2021,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2021/N03-20210101_GML.zip,N03-20210101_GML.zip ,N03-21_210101.shp,N03-20210101_GML,N03-2024.qml,4612,CP932
-全国,2020,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2020/N03-20200101_GML.zip,N03-20200101_GML.zip ,N03-20_200101.shp,N03-20200101_GML,N03-2024.qml,4612,CP932
-全国,2019,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2019/N03-190101_GML.zip,N03-190101_GML.zip ,N03-19_190101.shp,N03-190101_GML,N03-2024.qml,4612,CP932
-全国,2018,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2018/N03-180101_GML.zip,N03-180101_GML.zip ,N03-18_180101.shp,N03-180101_GML,N03-2024.qml,4612,CP932
-全国,2017,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2017/N03-170101_GML.zip,N03-170101_GML.zip ,N03-17_170101.shp,N03-170101_GML,N03-2024.qml,4612,CP932
-全国,2016,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2016/N03-160101_GML.zip,N03-160101_GML.zip ,N03-16_160101.shp,N03-160101_GML,N03-2024.qml,4612,CP932
+全国,2025,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_GML.zip,N03-20250101_GML.zip,N03-25_250101.shp,N03-20230101_GML,N03-2024.qml,6668,UTF-8
+全国,2024,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2024/N03-20240101_GML.zip,N03-20240101_GML.zip,N03-24_240101.shp,N03-20250101_GML,N03-2024.qml,6668,UTF-8
+全国,2023,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2023/N03-20230101_GML.zip,N03-20230101_GML.zip,N03-23_230101.shp,N03-20230101_GML,N03-2024.qml,6668,UTF-8
+全国,2022,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2022/N03-20220101_GML.zip,N03-20220101_GML.zip ,N03-22_220101.shp,N03-20220101_GML,N03-2024.qml,6668,CP932
+全国,2021,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2021/N03-20210101_GML.zip,N03-20210101_GML.zip ,N03-21_210101.shp,N03-20210101_GML,N03-2024.qml,6668,CP932
+全国,2020,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2020/N03-20200101_GML.zip,N03-20200101_GML.zip ,N03-20_200101.shp,N03-20200101_GML,N03-2024.qml,6668,CP932
+全国,2019,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2019/N03-190101_GML.zip,N03-190101_GML.zip ,N03-19_190101.shp,N03-190101_GML,N03-2024.qml,6668,CP932
+全国,2018,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2018/N03-180101_GML.zip,N03-180101_GML.zip ,N03-18_180101.shp,N03-180101_GML,N03-2024.qml,6668,CP932
+全国,2017,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2017/N03-170101_GML.zip,N03-170101_GML.zip ,N03-17_170101.shp,N03-170101_GML,N03-2024.qml,6668,CP932
+全国,2016,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2016/N03-160101_GML.zip,N03-160101_GML.zip ,N03-16_160101.shp,N03-160101_GML,N03-2024.qml,6668,CP932
 全国,2015,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2015/N03-150101_GML.zip,N03-150101_GML.zip ,N03-15_150101.shp,N03-150101_GML,N03-2024.qml,4612,CP932
 全国,2014,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2014/N03-140101_GML.zip,N03-140401_GML.zip ,N03-14_140401.shp,N03-140401_GML,N03-2024.qml,4612,CP932
-allprefs,2023,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2023/N03-20230101_code_pref_GML.zip,N03-20230101_code_pref_GML.zip,N03-23_code_pref_230101.shp,N03-20230101_code_pref_GML,N03-2024.qml,4612,CP932
-allprefs,2022,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2022/N03-20220101_code_pref_GML.zip,N03-20220101_code_pref_GML.zip ,N03-22_code_pref_220101.shp,N03-20220101_code_pref_GML,N03-2024.qml,4612,CP932
-allprefs,2021,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2021/N03-20210101_code_pref_GML.zip,N03-20210101_code_pref_GML.zip ,N03-21_code_pref_210101.shp,N03-20210101_code_pref_GML,N03-2024.qml,4612,CP932
-allprefs,2020,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2020/N03-20200101_code_pref_GML.zip,N03-20200101_code_pref_GML.zip ,N03-20_code_pref_200101.shp,N03-20200101_code_pref_GML,N03-2024.qml,4612,CP932
-allprefs,2019,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2019/N03-190101_code_pref_GML.zip,N03-190101_code_pref_GML.zip ,N03-19_code_pref_190101.shp,N03-190101_code_pref_GML,N03-2024.qml,4612,CP932
-allprefs,2018,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2018/N03-180101_code_pref_GML.zip,N03-180101_code_pref_GML.zip ,N03-18_code_pref_180101.shp,N03-180101_code_pref_GML,N03-2024.qml,4612,CP932
-allprefs,2017,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2017/N03-170101_code_pref_GML.zip,N03-170101_code_pref_GML.zip ,N03-17_code_pref_170101.shp,N03-170101_code_pref_GML,N03-2024.qml,4612,CP932
-allprefs,2016,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2016/N03-160101_code_pref_GML.zip,N03-160101_code_pref_GML.zip ,N03-16_code_pref_160101.shp,N03-160101_code_pref_GML,N03-2024.qml,4612,CP932
+allprefs,2025,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_code_pref_GML.zip,N03-20250101_code_pref_GML.zip,N03-25_code_pref_250101.shp,N03-20250101_code_pref_GML,N03-2024.qml,6668,UTF-8
+allprefs,2024,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2024/N03-20240101_code_pref_GML.zip,N03-20240101_code_pref_GML.zip,N03-24_code_pref_240101.shp,N03-20240101_code_pref_GML,N03-2024.qml,6668,UTF-8
+allprefs,2023,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2023/N03-20230101_code_pref_GML.zip,N03-20230101_code_pref_GML.zip,N03-23_code_pref_230101.shp,N03-20230101_code_pref_GML,N03-2024.qml,6668,UTF-8
+allprefs,2022,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2022/N03-20220101_code_pref_GML.zip,N03-20220101_code_pref_GML.zip ,N03-22_code_pref_220101.shp,N03-20220101_code_pref_GML,N03-2024.qml,6668,CP932
+allprefs,2021,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2021/N03-20210101_code_pref_GML.zip,N03-20210101_code_pref_GML.zip ,N03-21_code_pref_210101.shp,N03-20210101_code_pref_GML,N03-2024.qml,6668,CP932
+allprefs,2020,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2020/N03-20200101_code_pref_GML.zip,N03-20200101_code_pref_GML.zip ,N03-20_code_pref_200101.shp,N03-20200101_code_pref_GML,N03-2024.qml,6668,CP932
+allprefs,2019,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2019/N03-190101_code_pref_GML.zip,N03-190101_code_pref_GML.zip ,N03-19_code_pref_190101.shp,N03-190101_code_pref_GML,N03-2024.qml,6668,CP932
+allprefs,2018,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2018/N03-180101_code_pref_GML.zip,N03-180101_code_pref_GML.zip ,N03-18_code_pref_180101.shp,N03-180101_code_pref_GML,N03-2024.qml,6668,CP932
+allprefs,2017,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2017/N03-170101_code_pref_GML.zip,N03-170101_code_pref_GML.zip ,N03-17_code_pref_170101.shp,N03-170101_code_pref_GML,N03-2024.qml,6668,CP932
+allprefs,2016,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2016/N03-160101_code_pref_GML.zip,N03-160101_code_pref_GML.zip ,N03-16_code_pref_160101.shp,N03-160101_code_pref_GML,N03-2024.qml,6668,CP932
 allprefs,2015,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2015/N03-150101_code_pref_GML.zip,N03-150101_code_pref_GML.zip ,N03-15_code_pref_150101.shp,N03-150101_code_pref_GML,N03-2024.qml,4612,CP932
 allprefs,2014,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2014/N03-140101_code_pref_GML.zip,N03-140401_code_pref_GML.zip ,N03-14_code_pref_140401.shp,N03-140401_code_pref_GML,N03-2024.qml,4612,CP932
 allprefs,2013,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2013/N03-130101_code_pref_GML.zip,N03-130401_code_pref_GML.zip ,N03-13_code_pref_130401.shp,N03-130401_code_pref_GML,N03-2024.qml,4612,CP932

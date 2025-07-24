@@ -395,6 +395,10 @@ class jpdata:
             self.dockwidget.myLineEditSetting3.setToolTip(
                 self.tr("User/Password are not stored")
             )
+            self.dockwidget.myCheckBox1.setText(self.tr("Turn off background download"))
+            self.dockwidget.myCheckBox1.stateChanged.connect(
+                self.set_background_download
+            )
             self.dockwidget.myPushButtonTest.hide()
 
             # show the dockwidget
@@ -795,7 +799,11 @@ class jpdata:
                 posixpath.join(self._folderPath, subFolder, zipFileName)
             )
             self.enable_download(False)
-            self._downloader.start()
+            if self.dockwidget.myCheckBox1.isChecked():
+                self._downloader.download_wo_thread()
+                self.enable_download()
+            else:
+                self._downloader.start()
         else:
             self.dockwidget.setLabel(self.tr("The zip file exists: ") + zipFileName)
             self.enable_download()
@@ -1172,3 +1180,10 @@ class jpdata:
         self.dockwidget.myLabelStatus.setText(message)
         if self._verbose:
             jpDataUtils.printLog(message)
+
+    def set_background_download(self):
+        """Set the background download option."""
+        if self.dockwidget.myCheckBox1.isChecked():
+            self.dockwidget.progressBar.enabled = False
+        else:
+            self.dockwidget.progressBar.enabled = True

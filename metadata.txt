@@ -7,7 +7,7 @@
 name=jpdata
 qgisMinimumVersion=3.0
 description=Download and load various data of Japan
-version=0.6.15
+version=0.6.16
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 
@@ -22,6 +22,10 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+      0.6.16:
+        * Disable background download
+        * 2025 LNI: N03, L01
+        * LNI Fix A31
       0.6.15:
         * Year 2024 for L02
         * Past years for L01, L02, L03-a, N03

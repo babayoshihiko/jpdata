@@ -1,7 +1,7 @@
 #!/bin/sh -eV
 
-git tag -a v0.6.14 -m 'version 0.6.14'
-git push origin v0.6.14
+git tag -a v0.6.15 -m 'version 0.6.15'
+git push origin v0.6.15
 
 mkdir ../qgis_plugins
 
