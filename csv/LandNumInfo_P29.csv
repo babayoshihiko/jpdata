@@ -1,0 +1,4 @@
+year,url,zip,shp,geojson,altdir,source,col,levels,palette,muni_column,muni_type,encoding,qml,epsg,filesize
+2023,https://nlftp.mlit.go.jp/ksj/gml/data/P29/P29-23/P29-23_code_pref_GML.zip,P29-23_code_pref_GML.zip,P29-23_code_pref.shp,P29-23_code_pref.geojson,P29-23_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P29-2023.html,,,,,,UTF-8,P29.qml,6668,
+2021,https://nlftp.mlit.go.jp/ksj/gml/data/P29/P29-21/P29-21_code_pref_GML.zip,P29-21_code_pref_GML.zip,P29-21_code_pref.shp,P29-21_code_pref.geojson,P29-21_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P29-2021.html,,,,,,UTF-8,P29.qml,6668,
+2013,https://nlftp.mlit.go.jp/ksj/gml/data/P29/P29-13/P29-13_code_pref.zip,P29-13_code_pref_GML.zip,P29-13_code_pref.shp,,P29-13_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P29-2013.html,,,,,,CP932,,4612,
