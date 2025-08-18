@@ -259,6 +259,19 @@ def getMapsFromCsv2():
     return new_dict
 
 
+def getMapsFromCsv2():
+    filePath = posixpath.join(os.path.dirname(__file__), "csv", "LandNumInfo.csv")
+    new_dict = {}
+
+    with open(filePath, "r", encoding="utf-8") as f:
+        csvreader = csv.DictReader(f)
+        for row in csvreader:
+            key = row.get("name_j")
+            if key:  # only add if key exists
+                new_dict[key] = row
+    return new_dict
+
+
 def getTilesFromCsv():
     filePath = posixpath.join(os.path.dirname(__file__), "csv", "GSI.csv")
     with open(filePath, "r") as f:

@@ -3,10 +3,11 @@ import os, csv, posixpath
 from . import jpDataUtils
 
 
-def getPrefsOrRegionsByMapCode(code_map):
-    file_path = posixpath.join(
-        os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
-    )
+def getPrefsOrRegionsByMapCode(code_map, csvfile=None):
+    if csvfile and csvfile.upper()[-3:] == "CSV":
+        file_path = _get_csv_full_path(csvfile)
+    else:
+        file_path = _get_csv_full_path(code_map)
     prefs_or_regions = []
     _allprefs = False
     with open(file_path, "r") as f:
@@ -29,10 +30,11 @@ def getPrefsOrRegionsByMapCode(code_map):
     return unique_prefs_or_regions
 
 
-def getYearsByMapCode(code_map, name_pref=None):
-    file_path = posixpath.join(
-        os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
-    )
+def getYearsByMapCode(code_map, name_pref=None, csvfile=None):
+    if csvfile and csvfile.upper()[-3:] == "CSV":
+        file_path = _get_csv_full_path(csvfile)
+    else:
+        file_path = _get_csv_full_path(code_map)
     years = []
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
@@ -64,9 +66,7 @@ def getYearsByMapCode(code_map, name_pref=None):
 
 
 def getDetailsByMapCodePrefNameYear(code_map, name_pref, year):
-    file_path = posixpath.join(
-        os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
-    )
+    file_path = _get_csv_full_path(code_map)
     details = []
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
@@ -85,9 +85,7 @@ def getDetailsByMapCodePrefNameYear(code_map, name_pref, year):
 
 
 def getShapeByMapCodePrefNameYearDetail(code_map, name_pref, year, detail):
-    file_path = posixpath.join(
-        os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
-    )
+    file_path = _get_csv_full_path(code_map)
     details = []
     with open(file_path, "r") as f:
         csvreader = csv.DictReader(f)
@@ -106,20 +104,24 @@ def getShapeByMapCodePrefNameYearDetail(code_map, name_pref, year, detail):
     return unique_details
 
 
-def getUrlCodeZipByPrefName(code_map, name_pref, year, detail=None):
+def getUrlCodeZipByPrefName(code_map, name_pref, year, detail=None, csvfile=None):
     code_pref = jpDataUtils.getPrefCodeByName(name_pref)
-    return getUrlCodeZipByPrefCode(code_map, code_pref, year, detail, name_pref)
+    return getUrlCodeZipByPrefCode(
+        code_map, code_pref, year, detail, name_pref, csvfile
+    )
 
 
-def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=None):
+def getUrlCodeZipByPrefCode(
+    code_map, code_pref, year, detail=None, name_pref=None, csvfile=None
+):
     if name_pref is None:
         name_pref = jpDataUtils.getPrefNameByCode(code_pref)
-    file_path = posixpath.join(
-        os.path.dirname(__file__), "csv", "LandNumInfo_" + code_map + ".csv"
-    )
+    if csvfile is not None:
+        file_path = _get_csv_full_path(csvfile)
+    else:
+        file_path = _get_csv_full_path(code_map)
     if not os.path.exists(file_path):
         return None
-
     x = {
         "year": "",
         "url": "",
@@ -161,3 +163,116 @@ def getUrlCodeZipByPrefCode(code_map, code_pref, year, detail=None, name_pref=No
                         x["encoding"] = row["encoding"]
                     break
     return x
+
+
+def getZip(
+    year, dict_lni_item, pref_name, code_pref_or_mesh1, type="urlzip", detail=None
+):
+    if not "code_map" in dict_lni_item:
+        jpDataUtils.showError(
+            "jpDataLNI.getZip",
+            "The dictionary item does not contain 'code_map'.",
+        )
+        return None
+    tempSubFolder = dict_lni_item["code_map"]
+    tempUrl = dict_lni_item["url"]
+    tempZip = dict_lni_item["zip"]
+    tempShp = dict_lni_item["shp"]
+    tempAltdir = dict_lni_item["altdir"]
+    tempQml = dict_lni_item["qml"]
+    tempEpsg = dict_lni_item["epsg"]
+    tempEncoding = dict_lni_item["encoding"]
+    tempLayerName = dict_lni_item["name_j"] + " (" + pref_name + "," + year + ")"
+
+    jpDataUtils.printLog(dict_lni_item["year"])
+    if dict_lni_item["year"].upper()[-3:] == "CSV":
+        tempCsvFile = dict_lni_item["year"]
+    else:
+        tempCsvFile = None
+
+    str_replace_before = "code_pref"
+    dict_lni_item_from_csv = None
+    if (
+        dict_lni_item["type_muni"] == ""
+        or dict_lni_item["type_muni"].lower() == "single"
+    ):
+        pass
+    else:
+        if (
+            dict_lni_item["type_muni"].lower() == "regional"
+            or dict_lni_item["type_muni"].lower() == "detail"
+        ):
+            dict_lni_item_from_csv = getUrlCodeZipByPrefName(
+                dict_lni_item["code_map"], pref_name, year, detail, tempCsvFile
+            )
+
+        elif dict_lni_item["type_muni"].lower() == "mesh1":
+            str_replace_before = "code_mesh1"
+            dict_lni_item_from_csv = getUrlCodeZipByPrefName(
+                dict_lni_item["code_map"], code_pref_or_mesh1, year, detail, tempCsvFile
+            )
+            tempLayerName = (
+                dict_lni_item["name_j"] + " (" + code_pref_or_mesh1 + "," + year + ")"
+            )
+
+    if dict_lni_item_from_csv:
+        tempUrl = dict_lni_item_from_csv["url"].replace(
+            str_replace_before, code_pref_or_mesh1
+        )
+        tempZip = dict_lni_item_from_csv["zip"].replace(
+            str_replace_before, code_pref_or_mesh1
+        )
+        if "shp" in dict_lni_item_from_csv:
+            tempShp = dict_lni_item_from_csv["shp"].replace(
+                str_replace_before, code_pref_or_mesh1
+            )
+        if "altdir" in dict_lni_item_from_csv:
+            tempAltdir = dict_lni_item_from_csv["altdir"].replace(
+                str_replace_before, code_pref_or_mesh1
+            )
+        if "qml" in dict_lni_item_from_csv:
+            tempQml = dict_lni_item_from_csv["qml"].replace(
+                str_replace_before, code_pref_or_mesh1
+            )
+        if "epsg" in dict_lni_item_from_csv:
+            tempEpsg = dict_lni_item_from_csv["epsg"]
+        if "encoding" in dict_lni_item_from_csv:
+            tempEncoding = dict_lni_item_from_csv["encoding"]
+        if tempEncoding.upper()[:3] == "UTF":
+            tempEncoding = "UTF-8"
+        else:
+            tempEncoding = "CP932"
+    else:
+        tempUrl = dict_lni_item["url"].replace(str_replace_before, code_pref_or_mesh1)
+        tempZip = dict_lni_item["zip"].replace(str_replace_before, code_pref_or_mesh1)
+
+    if type == "urlzip":
+        return tempUrl, tempZip, tempSubFolder
+    else:
+        return (
+            tempZip,
+            tempShp,
+            tempAltdir,
+            tempQml,
+            tempEpsg,
+            tempEncoding,
+            tempSubFolder,
+            tempLayerName,
+        )
+
+
+def _get_csv_full_path(arg1):
+    if arg1.upper()[-3:] == "CSV" and len(arg1) > 3:
+        # If the arg1 is CSV, we use it
+        csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", arg1)
+    if not os.path.exists(csv_full_path):
+        csv_full_path = posixpath.join(
+            os.path.dirname(__file__), "csv", "LandNumInfo_" + arg1 + ".csv"
+        )
+    if not os.path.exists(csv_full_path):
+        jpDataUtils.printLog(
+            "jpDataLNI._get_csv_full_path: "
+            + "The CSV file does not exist: "
+            + csv_full_path,
+        )
+    return csv_full_path
