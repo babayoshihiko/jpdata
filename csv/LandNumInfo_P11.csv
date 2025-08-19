@@ -1,0 +1,3 @@
+availability,year,url,zip,shp,,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg,filesize
+allprefs,2022,https://nlftp.mlit.go.jp/ksj/gml/data/P11/P11-22/P11-22_code_pref_SHP.zip,P11-22_code_pref_SHP.zip,P11-22_code_pref.shp,P11-22_code_pref.geojson,P11-22_code_pref_SHP,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P11-2022.html,,,,,,,CP932,P11-2022.qml,6668,
+allprefs,2010,https://nlftp.mlit.go.jp/ksj/gml/data/P11/P11-10/P11-10_code_pref_GML.zip,P11-10_code_pref_GML.zip,P11-10_code_pref.shp,,P11-10_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P11-2010.html,,,,,,,CP932,,4612,

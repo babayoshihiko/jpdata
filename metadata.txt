@@ -24,7 +24,7 @@ hasProcessingProvider=no
 changelog=
       0.6.18:
         * Refactored LNI
-        * LNI: A48, A50, N02, N05, N07, P04, P14, P29
+        * LNI: A09, A48, A50, N02, N05, N07, P04, P11, P14, P29, W01
       0.6.17:
         * LNI: Specific CSV files 
         * Bugfixes
