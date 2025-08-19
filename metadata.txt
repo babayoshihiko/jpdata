@@ -23,7 +23,8 @@ hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
       0.6.18:
-        * LNI: A48, A50, P04, P14, P29
+        * Refactored LNI
+        * LNI: A48, A50, N02, N05, N07, P04, P14, P29
       0.6.17:
         * LNI: Specific CSV files 
         * Bugfixes
