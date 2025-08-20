@@ -4,7 +4,7 @@ from . import jpDataUtils
 
 
 def getPrefsOrRegionsByMapCode(code_map, csvfile=None):
-    if csvfile and csvfile.upper()[-3:] == "CSV":
+    if csvfile and csvfile.upper()[-3:] == "CSV" and len(csvfile) > 3:
         file_path = _get_csv_full_path(csvfile)
     else:
         file_path = _get_csv_full_path(code_map)
@@ -31,7 +31,7 @@ def getPrefsOrRegionsByMapCode(code_map, csvfile=None):
 
 
 def getYearsByMapCode(code_map, name_pref=None, csvfile=None):
-    if csvfile and csvfile.upper()[-3:] == "CSV":
+    if csvfile.upper()[-3:] == "CSV" and len(csvfile) > 3:
         file_path = _get_csv_full_path(csvfile)
     else:
         file_path = _get_csv_full_path(code_map)
@@ -185,7 +185,7 @@ def getZip(
     tempLayerName = dict_lni_item["name_j"] + " (" + pref_name + "," + year + ")"
 
     jpDataUtils.printLog(dict_lni_item["year"])
-    if dict_lni_item["year"].upper()[-3:] == "CSV":
+    if dict_lni_item["year"].upper()[-3:] == "CSV" and len(dict_lni_item["year"]) > 3:
         tempCsvFile = dict_lni_item["year"]
     else:
         tempCsvFile = None
@@ -262,6 +262,15 @@ def getZip(
 
 
 def _get_csv_full_path(arg1):
+    if arg1.upper() == "CSV":
+        jpDataUtils.printLog(
+            "jpDataLNI._get_csv_full_path: "
+            + "Wrong argument, expected a map code or CSV file name, not 'CSV'. "
+            + arg1
+        )
+        return None
+
+    csv_full_path = ""
     if arg1.upper()[-3:] == "CSV" and len(arg1) > 3:
         # If the arg1 is CSV, we use it
         csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", arg1)

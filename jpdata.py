@@ -497,11 +497,13 @@ class jpdata:
                     str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
         elif thisLandNum["type_muni"].lower() == "single":
             str_new_text.append(self.tr("Nation-wide"))
+            self.show_LW13 = False
             self._tab1_clear()
         else:
             # Expecting thisLandNum["type_muni"].lower() == "":
             if not self.myListWidget12_is_all_prefs or self.show_LW13:
                 self.myListWidget12_is_all_prefs = True
+                self.show_LW13 = False
                 for code_pref in range(1, 48):
                     str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
             else:
