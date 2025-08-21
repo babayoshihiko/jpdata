@@ -1,7 +1,7 @@
 #!/bin/sh -eV
 
-git tag -a v0.6.17 -m 'version 0.6.17'
-git push origin v0.6.17
+git tag -a v0.6.18 -m 'version 0.6.18'
+git push origin v0.6.18
 
 mkdir ../qgis_plugins
 
@@ -22,6 +22,8 @@ rm -f jpdata/README.md
 rm -f jpdata/i18n/jpdata_ja.ts
 rm -f jpdata/i18n/jpdata.pro
 rm -rf jpdata/helper_script
+rm -f jpdata/pylintrc
+rm -f jpdata/qml/G04-a-2011-20250219.qml
 
 zip -rX jpdata.zip jpdata
 
