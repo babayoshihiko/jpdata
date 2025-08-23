@@ -304,8 +304,8 @@ class jpdata:
                 self.tab1CheckYear
             )
             self.dockwidget.myComboBox11.currentIndexChanged.connect(self.tab1SetLW13)
-            self.myListWidget12_is_all_prefs = False
-            self.show_LW13 = False
+            # self.myListWidget12_is_all_prefs = False
+            # self.show_LW13 = False
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
@@ -456,71 +456,77 @@ class jpdata:
     def tab1CheckPrefsOrRegions(self):
         if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
             return
-        if self._LW11_Prev != "" and self._LW11_Prev == str(
-            self.dockwidget.myListWidget11.selectedItems()[0].text()
-        ):
+    
+        current_text = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
+        if self._LW11_Prev and self._LW11_Prev == current_text:
+            # Same as previously selected, do nothing
             return
-
-        self._LW11_Prev = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-
-        str_current_text = []
-        str_new_text = []
-        bol_redraw = True
-
-        if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-            for item in self.dockwidget.myListWidget12.selectedItems():
-                str_current_text.append(str(item.text()))
-
-        # for thisLandNum in self._LandNumInfo:
-        #     if self._LW11_Prev == thisLandNum["name_j"]:
-        #         break
-        thisLandNum = self._LandNumInfo2[self._LW11_Prev]
-        if thisLandNum["type_muni"].lower() == "regional":
-            self.myListWidget12_is_all_prefs = False
-            self.show_LW13 = False
-            str_new_text = jpDataLNI.getPrefsOrRegionsByMapCode(
-                thisLandNum["code_map"], thisLandNum["year"]
-            )
-        elif thisLandNum["type_muni"].lower() == "detail":
-            self.myListWidget12_is_all_prefs = False
-            self.show_LW13 = True
-            str_new_text = jpDataLNI.getPrefsOrRegionsByMapCode(
-                thisLandNum["code_map"], thisLandNum["year"]
-            )
-        elif thisLandNum["type_muni"].lower() == "mesh1":
-            self.show_LW13 = True
-            if self.myListWidget12_is_all_prefs:
-                bol_redraw = False
+    
+        prevLandNum = self._LandNumInfo2.get(self._LW11_Prev, {})
+        thisLandNum = self._LandNumInfo2[current_text]
+    
+        str_current_LW12_selected = [str(item.text()) for item in self.dockwidget.myListWidget12.selectedItems()]
+        str_new_LW12_text = []
+        bol_redraw_LW12 = True
+        bol_show_LW13 = False
+    
+        muni_type = thisLandNum.get("type_muni", "").lower()
+    
+        def all_prefs():
+            return [jpDataUtils.getPrefNameByCode(code) for code in range(1, 48)]
+    
+        if muni_type in ("", "allprefs"):
+            if not self._LW11_Prev:
+                str_new_LW12_text = all_prefs()
+            elif prevLandNum.get("type_muni", "").lower() in ("", "allprefs", "mesh1"):
+                bol_redraw_LW12 = False
             else:
-                self.myListWidget12_is_all_prefs = True
-                for code_pref in range(1, 48):
-                    str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
-        elif thisLandNum["type_muni"].lower() == "single":
-            str_new_text.append(self.tr("Nation-wide"))
-            self.show_LW13 = False
-            self._tab1_clear()
+                str_new_LW12_text = all_prefs()
+    
+        elif muni_type == "single":
+            if not self._LW11_Prev:
+                str_new_LW12_text = [self.tr("Nation-wide")]
+            elif prevLandNum.get("type_muni", "").lower() == "single":
+                bol_redraw_LW12 = False
+            else:
+                str_new_LW12_text = [self.tr("Nation-wide")]
+    
+        elif muni_type in ("regional", "detail"):
+            bol_show_LW13 = (muni_type == "detail")
+            str_new_LW12_text = jpDataLNI.getPrefsOrRegionsByMapCode(
+                thisLandNum["code_map"], thisLandNum["year"]
+            )
+    
+        elif muni_type == "mesh1":
+            bol_show_LW13 = True
+            if not self._LW11_Prev:
+                str_new_LW12_text = all_prefs()
+            elif prevLandNum.get("type_muni", "").lower() in ("", "allprefs", "mesh1"):
+                bol_redraw_LW12 = False
+            else:
+                str_new_LW12_text = all_prefs()
+    
         else:
-            # Expecting thisLandNum["type_muni"].lower() == "":
-            if not self.myListWidget12_is_all_prefs or self.show_LW13:
-                self.myListWidget12_is_all_prefs = True
-                self.show_LW13 = False
-                for code_pref in range(1, 48):
-                    str_new_text.append(jpDataUtils.getPrefNameByCode(code_pref))
-            else:
-                bol_redraw = False
-
-        if bol_redraw:
-            self._tab1_clear()
-            for new_text in str_new_text:
+            jpDataUtils.printLog(
+                self.tr("jpdata.tab1CheckPrefsOrRegions: Unexpected type_muni in CSV: " + muni_type)
+            )
+            return
+    
+        if bol_redraw_LW12:
+            self._tab1_clear(bol_show_LW13)
+            for new_text in str_new_LW12_text:
                 item = QListWidgetItem(new_text)
                 self.dockwidget.myListWidget12.addItem(item)
-                if new_text in str_current_text:
+                if new_text in str_current_LW12_selected:
                     item.setSelected(True)
+    
+        self._LW11_Prev = current_text
         self.tab1CheckYear()
+    
 
-    def _tab1_clear(self):
+    def _tab1_clear(self, bol_show_LW13):
         self.dockwidget.myListWidget12.clear()
-        if self.show_LW13:
+        if bol_show_LW13:
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.SingleSelection
             )
@@ -534,34 +540,6 @@ class jpdata:
 
     def tab1CheckYear(self):
         thisLandNum = self._LandNumInfo2[self._LW11_Prev]
-
-        str_current_text = str(self.dockwidget.myComboBox11.currentText())
-
-        self.dockwidget.myComboBox11.clear()
-        if thisLandNum["year"].upper()[-3:] != "CSV":
-            self.dockwidget.myComboBox11.addItem(thisLandNum["year"])
-        else:
-            if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-                if thisLandNum["type_muni"].lower() != "mesh1":
-                    name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
-                else:
-                    name_pref = None
-            else:
-                name_pref = None
-            years = jpDataLNI.getYearsByMapCode(
-                thisLandNum["code_map"], name_pref, thisLandNum["year"]
-            )
-            for year in years:
-                self.dockwidget.myComboBox11.addItem(year)
-
-        index = self.dockwidget.myComboBox11.findText(str_current_text)
-        if index != -1:
-            self.dockwidget.myComboBox11.setCurrentIndex(index)
-
-    def __tab1CheckYear__(self):
-        for thisLandNum in self._LandNumInfo:
-            if self._LW11_Prev == thisLandNum["name_j"]:
-                break
 
         str_current_text = str(self.dockwidget.myComboBox11.currentText())
 
@@ -645,7 +623,14 @@ class jpdata:
         if not ignorePref and len(self.dockwidget.myListWidget12.selectedItems()) == 0:
             self.setLabel(self.tr("Please choose a prefecture or region."))
             return False
-        if self.show_LW13 and len(self.dockwidget.myListWidget13.selectedItems()) == 0:
+
+        thisLandNum = self._LandNumInfo2[
+            str(self.dockwidget.myListWidget11.selectedItems()[0].text())
+        ]
+        if thisLandNum["type_muni"].lower() == "detail" and len(self.dockwidget.myListWidget13.selectedItems()) == 0:
+            self.setLabel(self.tr("Please choose one."))
+            return False
+        if thisLandNum["type_muni"].lower() == "mesh1" and len(self.dockwidget.myListWidget13.selectedItems()) == 0:
             self.setLabel(self.tr("Please choose a mesh."))
             return False
 
