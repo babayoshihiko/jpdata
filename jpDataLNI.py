@@ -209,7 +209,7 @@ def getZip(
         elif dict_lni_item["type_muni"].lower() == "mesh1":
             str_replace_before = "code_mesh1"
             dict_lni_item_from_csv = getUrlCodeZipByPrefName(
-                dict_lni_item["code_map"], code_pref_or_mesh1, year, detail, tempCsvFile
+                dict_lni_item["code_map"], code_pref_or_mesh1, year, None, tempCsvFile
             )
             tempLayerName = (
                 dict_lni_item["name_j"] + " (" + code_pref_or_mesh1 + "," + year + ")"
