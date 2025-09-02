@@ -174,6 +174,7 @@ def getZip(
             "The dictionary item does not contain 'code_map'.",
         )
         return None
+    tempTypeMuni = dict_lni_item["type_muni"].lower()
     tempSubFolder = dict_lni_item["code_map"]
     tempUrl = dict_lni_item["url"]
     tempZip = dict_lni_item["zip"]
@@ -181,10 +182,9 @@ def getZip(
     tempAltdir = dict_lni_item["altdir"]
     tempQml = dict_lni_item["qml"]
     tempEpsg = dict_lni_item["epsg"]
-    tempEncoding = dict_lni_item["encoding"]
+    tempEncoding = dict_lni_item["encoding"].upper()
     tempLayerName = dict_lni_item["name_j"] + " (" + pref_name + "," + year + ")"
 
-    jpDataUtils.printLog(dict_lni_item["year"])
     if dict_lni_item["year"].upper()[-3:] == "CSV" and len(dict_lni_item["year"]) > 3:
         tempCsvFile = dict_lni_item["year"]
     else:
@@ -193,20 +193,20 @@ def getZip(
     str_replace_before = "code_pref"
     dict_lni_item_from_csv = None
     if (
-        dict_lni_item["type_muni"] == ""
-        or dict_lni_item["type_muni"].lower() == "single"
+        tempTypeMuni == ""
+        or tempTypeMuni == "single"
     ):
         pass
     else:
         if (
-            dict_lni_item["type_muni"].lower() == "regional"
-            or dict_lni_item["type_muni"].lower() == "detail"
+            tempTypeMuni == "regional"
+            or tempTypeMuni == "detail"
         ):
             dict_lni_item_from_csv = getUrlCodeZipByPrefName(
                 dict_lni_item["code_map"], pref_name, year, detail, tempCsvFile
             )
 
-        elif dict_lni_item["type_muni"].lower() == "mesh1":
+        elif tempTypeMuni == "mesh1":
             str_replace_before = "code_mesh1"
             dict_lni_item_from_csv = getUrlCodeZipByPrefName(
                 dict_lni_item["code_map"], code_pref_or_mesh1, year, None, tempCsvFile
@@ -238,13 +238,14 @@ def getZip(
             tempEpsg = dict_lni_item_from_csv["epsg"]
         if "encoding" in dict_lni_item_from_csv:
             tempEncoding = dict_lni_item_from_csv["encoding"]
-        if tempEncoding.upper()[:3] == "UTF":
+        if tempEncoding[:3] == "UTF":
             tempEncoding = "UTF-8"
         else:
             tempEncoding = "CP932"
     else:
         tempUrl = dict_lni_item["url"].replace(str_replace_before, code_pref_or_mesh1)
         tempZip = dict_lni_item["zip"].replace(str_replace_before, code_pref_or_mesh1)
+        tempShp = dict_lni_item["shp"].replace(str_replace_before, code_pref_or_mesh1)
 
     if type == "urlzip":
         return tempUrl, tempZip, tempSubFolder

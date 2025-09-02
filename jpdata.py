@@ -717,8 +717,15 @@ class jpdata:
         pref_names = self.dockwidget.myListWidget12.selectedItems()
         pref_code = []
 
-        for pref_name in pref_names:
-            pref_code.append(jpDataUtils.getPrefCodeByName(str(pref_name.text())))
+        if thisLandNum["type_muni"].lower() == "mesh1":
+            jpDataUtils.printLog("jpDataLNI line 721 ")
+            for code_mesh1 in self.dockwidget.myListWidget13.selectedItems():
+                jpDataUtils.printLog(str(code_mesh1.text()))
+                pref_code.append(str(code_mesh1.text()))
+        else:
+            for pref_name in pref_names:
+                pref_code.append(jpDataUtils.getPrefCodeByName(str(pref_name.text())))
+
         if len(self.dockwidget.myListWidget13.selectedItems()) > 0:
             detail = str(self.dockwidget.myListWidget13.selectedItems()[0].text())
         else:
