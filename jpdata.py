@@ -474,12 +474,16 @@ class jpdata:
     
         def all_prefs():
             return [jpDataUtils.getPrefNameByCode(code) for code in range(1, 48)]
+        
+        jpDataUtils.printLog("muni_type is " + muni_type)
     
         if muni_type in ("", "allprefs"):
             if not self._LW11_Prev:
                 str_new_LW12_text = all_prefs()
             elif prevLandNum.get("type_muni", "").lower() in ("", "allprefs", "mesh1"):
                 bol_redraw_LW12 = False
+                self.dockwidget.myListWidget13.clear()
+                self.dockwidget.myListWidget13.hide()
             else:
                 str_new_LW12_text = all_prefs()
     
