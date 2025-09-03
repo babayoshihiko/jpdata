@@ -456,27 +456,27 @@ class jpdata:
     def tab1CheckPrefsOrRegions(self):
         if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
             return
-    
+
         current_text = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
         if self._LW11_Prev and self._LW11_Prev == current_text:
             # Same as previously selected, do nothing
             return
-    
+
         prevLandNum = self._LandNumInfo2.get(self._LW11_Prev, {})
         thisLandNum = self._LandNumInfo2[current_text]
-    
-        str_current_LW12_selected = [str(item.text()) for item in self.dockwidget.myListWidget12.selectedItems()]
+
+        str_current_LW12_selected = [
+            str(item.text()) for item in self.dockwidget.myListWidget12.selectedItems()
+        ]
         str_new_LW12_text = []
         bol_redraw_LW12 = True
         bol_show_LW13 = False
-    
+
         muni_type = thisLandNum.get("type_muni", "").lower()
-    
+
         def all_prefs():
             return [jpDataUtils.getPrefNameByCode(code) for code in range(1, 48)]
-        
-        jpDataUtils.printLog("muni_type is " + muni_type)
-    
+
         if muni_type in ("", "allprefs"):
             if not self._LW11_Prev:
                 str_new_LW12_text = all_prefs()
@@ -486,7 +486,7 @@ class jpdata:
                 self.dockwidget.myListWidget13.hide()
             else:
                 str_new_LW12_text = all_prefs()
-    
+
         elif muni_type == "single":
             if not self._LW11_Prev:
                 str_new_LW12_text = [self.tr("Nation-wide")]
@@ -494,13 +494,13 @@ class jpdata:
                 bol_redraw_LW12 = False
             else:
                 str_new_LW12_text = [self.tr("Nation-wide")]
-    
+
         elif muni_type in ("regional", "detail"):
-            bol_show_LW13 = (muni_type == "detail")
+            bol_show_LW13 = muni_type == "detail"
             str_new_LW12_text = jpDataLNI.getPrefsOrRegionsByMapCode(
                 thisLandNum["code_map"], thisLandNum["year"]
             )
-    
+
         elif muni_type == "mesh1":
             bol_show_LW13 = True
             if not self._LW11_Prev:
@@ -509,13 +509,16 @@ class jpdata:
                 bol_redraw_LW12 = False
             else:
                 str_new_LW12_text = all_prefs()
-    
+
         else:
             jpDataUtils.printLog(
-                self.tr("jpdata.tab1CheckPrefsOrRegions: Unexpected type_muni in CSV: " + muni_type)
+                self.tr(
+                    "jpdata.tab1CheckPrefsOrRegions: Unexpected type_muni in CSV: "
+                    + muni_type
+                )
             )
             return
-    
+
         if bol_redraw_LW12:
             self._tab1_clear(bol_show_LW13)
             for new_text in str_new_LW12_text:
@@ -523,10 +526,9 @@ class jpdata:
                 self.dockwidget.myListWidget12.addItem(item)
                 if new_text in str_current_LW12_selected:
                     item.setSelected(True)
-    
+
         self._LW11_Prev = current_text
         self.tab1CheckYear()
-    
 
     def _tab1_clear(self, bol_show_LW13):
         self.dockwidget.myListWidget12.clear()
@@ -631,10 +633,16 @@ class jpdata:
         thisLandNum = self._LandNumInfo2[
             str(self.dockwidget.myListWidget11.selectedItems()[0].text())
         ]
-        if thisLandNum["type_muni"].lower() == "detail" and len(self.dockwidget.myListWidget13.selectedItems()) == 0:
+        if (
+            thisLandNum["type_muni"].lower() == "detail"
+            and len(self.dockwidget.myListWidget13.selectedItems()) == 0
+        ):
             self.setLabel(self.tr("Please choose one."))
             return False
-        if thisLandNum["type_muni"].lower() == "mesh1" and len(self.dockwidget.myListWidget13.selectedItems()) == 0:
+        if (
+            thisLandNum["type_muni"].lower() == "mesh1"
+            and len(self.dockwidget.myListWidget13.selectedItems()) == 0
+        ):
             self.setLabel(self.tr("Please choose a mesh."))
             return False
 
@@ -766,14 +774,10 @@ class jpdata:
             )
 
             if shp_full_path is None:
-                self.setLabel(
-                    self.tr("Cannot find the .shp file: ")
-                    + thisLandNum["shp"].replace("code_pref", pref_code[x])
-                )
+                self.setLabel(self.tr("Cannot find the .shp file: ") + shp_filename)
                 self.iface.messageBar().pushMessage(
                     "Error",
-                    "Cannot find the .shp file: "
-                    + thisLandNum["shp"].replace("code_pref", pref_code[x]),
+                    "Cannot find the .shp file: " + shp_filename,
                     1,
                     duration=10,
                 )

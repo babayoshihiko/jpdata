@@ -1,0 +1,6 @@
+availability,year,url,zip,shp,geojson,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg,filesize
+全国,2014,https://nlftp.mlit.go.jp/ksj/gml/data/S10b/S10b-14/S10b-14_GML.zip,S10b-14_GML.zip,S10b-14_BetAport.shp,,S10b-14_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S10b-2014.html,,,,,,,CP932,S10b-2014.qml,4612,
+全国,2012,https://nlftp.mlit.go.jp/ksj/gml/data/S10b/S10b-12/S10b-12_GML.zip,S10b-12_GML.zip,S10b-12_BetAport.shp,,S10b-12_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S10b-2014.html,,,,,,,CP932,S10b-2014.qml,4612,
+全国,2011,https://nlftp.mlit.go.jp/ksj/gml/data/S10b/S10b-11/S10b-11_GML.zip,S10b-11_GML.zip,S10b-11_BetAport.shp,,S10b-11_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S10b-2014.html,,,,,,,CP932,S10b-2014.qml,4612,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,

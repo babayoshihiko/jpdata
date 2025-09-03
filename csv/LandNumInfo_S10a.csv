@@ -1,0 +1,7 @@
+availability,year,url,zip,shp,geojson,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg,filesize
+全国,2016,https://nlftp.mlit.go.jp/ksj/gml/data/S10a/S10a-16/S10a-16_GML.zip,S10a-16_GML.zip,S10a-16_BetweenPort.shp,S10a-16_BetweenPort.geojson,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S10a-2016.html,,,,,,,CP932,S10a-2016.qml,6668,
+全国,2014,https://nlftp.mlit.go.jp/ksj/gml/data/S10a/S10a-14/S10a-14_GML.zip,S10a-14_GML.zip,S10a-14_GML/S10a-14_BetweenPort.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S10a-2016.html,,,,,,,CP932,S10a-2016.qml,6668,
+全国,2012,https://nlftp.mlit.go.jp/ksj/gml/data/S10a/S10a-12/S10a-12_GML.zip,S10a-12_GML.zip,S10a-12_BetweenPort.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S10a-2016.html,,,,,,,CP932,S10a-2016.qml,6668,
+全国,2011,https://nlftp.mlit.go.jp/ksj/gml/data/S10a/S10a-11/S10a-11_GML.zip,S10a-11_GML.zip,S10a_11_BetweenPort.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-S10a-2016.html,,,,,,,CP932,S10a-2016.qml,6668,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,

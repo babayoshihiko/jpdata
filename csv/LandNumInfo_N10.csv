@@ -1,0 +1,5 @@
+availability,year,url,zip,shp,geojson,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg,filesize
+allprefs,2024,https://nlftp.mlit.go.jp/ksj/gml/data/N10/N10-24/N10-24_code_pref_GML.zip,N10-24_code_pref_GML.zip,N10-24_code_pref.shp,,N10-24_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N10-2024.html,,,,,,,CP932,N10.qml,6668,
+allprefs,2020,https://nlftp.mlit.go.jp/ksj/gml/data/N10/N10-20/N10-20_code_pref_GML.zip,N10-20_code_pref_GML.zip,N10-20_code_pref.shp,,N10-20_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N10-2020.html,,,,,,,CP932,N10.qml,6668,
+allprefs,2015,https://nlftp.mlit.go.jp/ksj/gml/data/N10/N10-15/N10-15_code_pref_GML.zip,N10-15_code_pref_GML.zip,N10-15_code_pref.shp,,N10-15_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N10-2020.html,,,,,,,CP932,N10.qml,6668,
+allprefs,2013,https://nlftp.mlit.go.jp/ksj/gml/data/N10/N10-13/N10-13_code_pref.zip,N10-13_code_pref.zip,N10-13_code_pref.shp,,N10-20_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N10-2020.html,,,,,,,CP932,N10.qml,4612,

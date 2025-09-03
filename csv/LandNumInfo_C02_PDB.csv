@@ -1,0 +1,7 @@
+availability,year,url,zip,shp,geojson,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg,filesize
+全国,2014,https://nlftp.mlit.go.jp/ksj/gml/data/C02/C02-14/C02-14_GML.zip,C02-14_GML.zip,C02-14_GML/C02-14-g_PortDistrictBoundary.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C02-2014.html,,,,,,,CP932,C02_PortDistrictBoundary-2014.qml,4612,
+全国,2008,https://nlftp.mlit.go.jp/ksj/gml/data/C02/C02-08/C02-08_GML.zip,C02-08_GML.zip,C02-08-g_PortDistrictBoundary.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C02-2014.html,,,,,,,CP932,C02_PortDistrictBoundary-2014.qml,4612,
+全国,2006,https://nlftp.mlit.go.jp/ksj/gml/data/C02/C02-06/C02-06_GML.zip,C02-06_GML.zip,C02-06-g_PortDistrictBoundary.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C02-2014.html,,,,,,,CP932,C02_PortDistrictBoundary-2014.qml,4612,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
