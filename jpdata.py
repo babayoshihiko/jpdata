@@ -511,7 +511,7 @@ class jpdata:
                 str_new_LW12_text = all_prefs()
 
         else:
-            jpDataUtils.printLog(
+            self.setLabel(
                 self.tr(
                     "jpdata.tab1CheckPrefsOrRegions: Unexpected type_muni in CSV: "
                     + muni_type
@@ -730,9 +730,7 @@ class jpdata:
         pref_code = []
 
         if thisLandNum["type_muni"].lower() == "mesh1":
-            jpDataUtils.printLog("jpDataLNI line 721 ")
             for code_mesh1 in self.dockwidget.myListWidget13.selectedItems():
-                jpDataUtils.printLog(str(code_mesh1.text()))
                 pref_code.append(str(code_mesh1.text()))
         else:
             for pref_name in pref_names:

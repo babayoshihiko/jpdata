@@ -201,8 +201,6 @@ def getZip(
         dict_lni_item["code_map"], pref_name, year, detail, tempCsvFile
     )
 
-    jpDataUtils.printLog(dict_lni_item_from_csv["shp"])
-
     if dict_lni_item_from_csv:
         tempUrl = dict_lni_item_from_csv["url"].replace(
             str_replace_before, code_pref_or_mesh1
