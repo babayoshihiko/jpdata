@@ -7,7 +7,7 @@
 name=jpdata
 qgisMinimumVersion=3.0
 description=Download and load various data of Japan
-version=0.6.18
+version=0.6.19
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 
@@ -22,6 +22,9 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+      0.6.19:
+        * Fixed LNI bugs
+        * LNI: C28, N06, N08, N10, S05-d, S10, S10b, S12
       0.6.18:
         * Refactored LNI
         * LNI: A09, A48, A50, N02, N05, N07, P04, P11, P14, P29, W01
