@@ -776,7 +776,6 @@ class jpdata:
                 detail=detail,
             )
 
-            jpDataUtils.printLog(zip_filename)
             shp_full_path = jpDataUtils.unzipAndGetShp(
                 posixpath.join(self._folderPath, subfolder),
                 zip_filename,

@@ -116,10 +116,12 @@ def getUrlCodeZipByPrefCode(
 ):
     if name_pref is None:
         name_pref = jpDataUtils.getPrefNameByCode(code_pref)
-    if csvfile is not None:
-        file_path = _get_csv_full_path(csvfile)
-    else:
-        file_path = _get_csv_full_path(code_map)
+    file_path = ""
+    if year.upper()[-3:] == "CSV":
+        if csvfile is not None:
+            file_path = _get_csv_full_path(csvfile)
+        else:
+            file_path = _get_csv_full_path(code_map)
     if not os.path.exists(file_path):
         return None
     x = {
