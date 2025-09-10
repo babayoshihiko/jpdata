@@ -1,0 +1,6 @@
+availability,year,url,zip,shp,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg
+all,2010,https://nlftp.mlit.go.jp/ksj/gml/data/N04/N04-10/N04-10_code_mesh1-jgd_GML.zip,N04-10_code_mesh1-jgd_GML.zip,N04-10_code_mesh1-jgd-g_RoadDensityAndLengthMesh_H22.shp,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N04.html,,,,,,,CP932,,4612
+all,2004,https://nlftp.mlit.go.jp/ksj/gml/data/N04/N04-04/N04-04_code_mesh1-jgd_GML.zip,N04-04_code_mesh1-jgd_GML.zip,N04_16M-code_mesh1_RoadDensityAndLengthMesh,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N04.html,,,,,,,CP932,,4612
+all,2003,https://nlftp.mlit.go.jp/ksj/gml/data/N04/N04-03/N04-03_code_mesh1-jgd_GML.zip,N04-03_code_mesh1-jgd_GML.zip,N04_15M-code_mesh1_RoadDensityAndLengthMesh,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N04.html,,,,,,,CP932,,4612
+all,2002,https://nlftp.mlit.go.jp/ksj/gml/data/N04/N04-02/N04-02_code_mesh1-jgd_GML.zip,N04-02_code_mesh1-jgd_GML.zip,N04_14M-code_mesh1_RoadDensityAndLengthMesh,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N04.html,,,,,,,CP932,,4612
+,,,,,,,,,,,,,,,

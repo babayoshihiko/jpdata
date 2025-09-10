@@ -7,7 +7,7 @@
 name=jpdata
 qgisMinimumVersion=3.0
 description=Download and load various data of Japan
-version=0.6.19
+version=0.6.20
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 
@@ -25,7 +25,7 @@ changelog=
       0.6.20:
         * Check geometry when adding
         * Fixed LNI bugs
-        * LNI: mesh1k, mesh500, mesh250
+        * LNI: mesh1k, mesh500, mesh250, A30a5, N04
       0.6.19:
         * Fixed LNI bugs
         * LNI: C28, N06, N08, N10, S05-d, S10, S10b, S12
