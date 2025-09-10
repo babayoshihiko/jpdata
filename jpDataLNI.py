@@ -117,11 +117,11 @@ def getUrlCodeZipByPrefCode(
     if name_pref is None:
         name_pref = jpDataUtils.getPrefNameByCode(code_pref)
     file_path = ""
-    if year.upper()[-3:] == "CSV":
-        if csvfile is not None:
-            file_path = _get_csv_full_path(csvfile)
-        else:
-            file_path = _get_csv_full_path(code_map)
+    jpDataUtils.printLog(" Line 120 " + str(year))
+    if csvfile is not None:
+        file_path = _get_csv_full_path(csvfile)
+    else:
+        file_path = _get_csv_full_path(code_map)
     if not os.path.exists(file_path):
         return None
     x = {
@@ -198,16 +198,15 @@ def getZip(
         tempCsvFile = dict_lni_item["year"]
     else:
         tempCsvFile = None
+    dict_lni_item_from_csv = getUrlCodeZipByPrefName(
+        dict_lni_item["code_map"], pref_name, year, detail, tempCsvFile
+    )
 
     if tempTypeMuni == "mesh1":
         str_replace_before = "code_mesh1"
         tempLayerName = (
             dict_lni_item["name_j"] + " (" + code_pref_or_mesh1 + "," + year + ")"
         )
-
-    dict_lni_item_from_csv = getUrlCodeZipByPrefName(
-        dict_lni_item["code_map"], pref_name, year, detail, tempCsvFile
-    )
 
     if dict_lni_item_from_csv:
         tempUrl = dict_lni_item_from_csv["url"].replace(

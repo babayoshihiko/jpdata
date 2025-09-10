@@ -816,7 +816,7 @@ class jpdata:
             else:
                 self._downloader.start()
         else:
-            self.dockwidget.setLabel(self.tr("The zip file exists: ") + zipFileName)
+            self.setLabel(self.tr("The zip file exists: ") + zipFileName)
             self.enable_download()
 
     def download_finished(self, success):
