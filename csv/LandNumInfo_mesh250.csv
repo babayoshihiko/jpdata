@@ -1,0 +1,4 @@
+availability,year,url,zip,shp,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg
+allprefs,2024,https://nlftp.mlit.go.jp/ksj/gml/data/m250r6/m250r6-24/250m_mesh_2024_code_pref_SHP.zip,250m_mesh_2024_code_pref_SHP.zip,250m_mesh_2024_code_pref.shp,250m_mesh_2024_code_pref_SHP,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-mesh500r6.html,,,,,,,CP932,,6668
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,

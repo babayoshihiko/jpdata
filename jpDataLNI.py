@@ -149,7 +149,13 @@ def getUrlCodeZipByPrefCode(
                     or row["availability"] == "all"
                 )
             ):
-                if detail is None or detail == row["detail1"] + " " + row["detail2"]:
+                overwrite = False
+                if detail is None:
+                    overwrite = True
+                if "detail1" in row and "detail2" in row:
+                    if detail == row["detail1"] + " " + row["detail2"]:
+                        overwrite = True
+                if overwrite:
                     x["year"] = row["year"]
                     x["url"] = row["url"].replace("code_pref", code_pref)
                     x["zip"] = row["zip"].replace("code_pref", code_pref)

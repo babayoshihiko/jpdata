@@ -400,6 +400,17 @@ class jpdata:
             self.dockwidget.myCheckBox1.stateChanged.connect(
                 self.set_background_download
             )
+            self.dockwidget.myCheckBox2.setText(
+                self.tr("Check geometry validity when adding")
+            )
+            self.dockwidget.myCheckBox2.stateChanged.connect(
+                self.set_geometrycheck_option
+            )
+            if QSettings().value("jpdata/CheckGeometry", "true") == "false":
+                self.dockwidget.myCheckBox2.setChecked(False)
+            else:
+                self.dockwidget.myCheckBox2.setChecked(True)
+
             self.dockwidget.myPushButtonTest.hide()
 
             # show the dockwidget
@@ -736,7 +747,10 @@ class jpdata:
             for pref_name in pref_names:
                 pref_code.append(jpDataUtils.getPrefCodeByName(str(pref_name.text())))
 
-        if len(self.dockwidget.myListWidget13.selectedItems()) > 0:
+        if (
+            thisLandNum["type_muni"].lower() == "detail"
+            and len(self.dockwidget.myListWidget13.selectedItems()) > 0
+        ):
             detail = str(self.dockwidget.myListWidget13.selectedItems()[0].text())
         else:
             detail = None
@@ -1095,6 +1109,9 @@ class jpdata:
         tempLayer.setProviderEncoding(encoding)
         if not os.path.exists(shpFileFullPath[:-4] + ".qix"):
             tempLayer.dataProvider().createSpatialIndex()
+        count_invalid_geom = self.count_invalid_geometry(tempLayer)
+        if count_invalid_geom > 0:
+            tempLayer.setName(layerName + " [invalid]]")
 
         if os.path.isfile(posixpath.join(self.plugin_dir, "qml", qmlFileName)):
             # For the qml files that use SVG images in the plugin folder
@@ -1184,3 +1201,21 @@ class jpdata:
             self.dockwidget.progressBar.enabled = False
         else:
             self.dockwidget.progressBar.enabled = True
+
+    def count_invalid_geometry(self, layer):
+        """Check the geometry validity of a given vector layer."""
+        if self.dockwidget.myCheckBox2.isChecked() == False:
+            return 0
+        if isinstance(layer, QgsVectorLayer):
+            count = 0
+            for feature in layer.getFeatures():
+                if not feature.geometry().isGeosValid():
+                    count = count + 1
+        return count
+
+    def set_geometrycheck_option(self):
+        """Set the geometry check option."""
+        if self.dockwidget.myCheckBox2.isChecked():
+            QgsSettings().setValue("jpdata/CheckGeometry", "true")
+        else:
+            QgsSettings().setValue("jpdata/CheckGeometry", "false")

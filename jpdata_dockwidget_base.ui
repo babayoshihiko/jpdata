@@ -243,24 +243,17 @@
         <string>tab_setting</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="myLineEditSetting1">
-          <property name="text">
-           <string notr="true">http://</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="myLineEditSetting3">
-          <property name="text">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="myLineEditSetting2">
           <property name="text">
            <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="myLineEditSetting1">
+          <property name="text">
+           <string notr="true">http://</string>
           </property>
          </widget>
         </item>
@@ -271,10 +264,10 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="myLabelSetting1">
+        <item row="2" column="0">
+         <widget class="QLabel" name="myLabelSetting3">
           <property name="text">
-           <string>Shape Folder</string>
+           <string>Proxy User</string>
           </property>
          </widget>
         </item>
@@ -302,7 +295,35 @@
           </item>
          </layout>
         </item>
-        <item row="6" column="1">
+        <item row="3" column="0">
+         <widget class="QLabel" name="myLabelSetting4">
+          <property name="text">
+           <string>Proxy Password</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="myLabelSetting2">
+          <property name="text">
+           <string>Proxy Server</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="myLineEditSetting3">
+          <property name="text">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="myLabelSetting1">
+          <property name="text">
+           <string>Shape Folder</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -315,29 +336,15 @@
           </property>
          </spacer>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="myLabelSetting4">
-          <property name="text">
-           <string>Proxy Password</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="myLabelSetting3">
-          <property name="text">
-           <string>Proxy User</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="myLabelSetting2">
-          <property name="text">
-           <string>Proxy Server</string>
-          </property>
-         </widget>
-        </item>
         <item row="5" column="1">
          <widget class="QCheckBox" name="myCheckBox1">
+          <property name="text">
+           <string>CheckBox</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QCheckBox" name="myCheckBox2">
           <property name="text">
            <string>CheckBox</string>
           </property>
