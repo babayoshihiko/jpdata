@@ -29,7 +29,7 @@
         <translation>ダウンロード</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="1134"/>
+        <location filename="../jpdata.py" line="1137"/>
         <source>Choose Folder</source>
         <translation>フォルダを選択</translation>
     </message>
@@ -94,7 +94,7 @@
         <translation>ダウンロード: </translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="1183"/>
+        <location filename="../jpdata.py" line="1186"/>
         <source>The zip file exists: </source>
         <translation>zip ファイルが存在しています: </translation>
     </message>
@@ -114,7 +114,7 @@
         <translation>全国</translation>
     </message>
     <message>
-        <location filename="../jpdata.py" line="1138"/>
+        <location filename="../jpdata.py" line="1141"/>
         <source>The folder is not writable.</source>
         <translation>フォルダに書き込むことができません。</translation>
     </message>
@@ -227,6 +227,11 @@
         <location filename="../jpdata.py" line="651"/>
         <source>Please choose one.</source>
         <translation>一つ選んでください。</translation>
+    </message>
+    <message>
+        <location filename="../jpdata.py" line="1115"/>
+        <source>The layer has invalid geometries: </source>
+        <translation>このレイヤは、不正なジオメトリがあります: </translation>
     </message>
 </context>
 <context>

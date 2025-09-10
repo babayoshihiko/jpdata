@@ -1111,7 +1111,10 @@ class jpdata:
             tempLayer.dataProvider().createSpatialIndex()
         count_invalid_geom = self.count_invalid_geometry(tempLayer)
         if count_invalid_geom > 0:
-            tempLayer.setName(layerName + " [invalid]]")
+            tempLayer.setName(layerName + " [invalid]")
+            self.setLabel(
+                self.tr("The layer has invalid geometries: ") + str(count_invalid_geom)
+            )
 
         if os.path.isfile(posixpath.join(self.plugin_dir, "qml", qmlFileName)):
             # For the qml files that use SVG images in the plugin folder
