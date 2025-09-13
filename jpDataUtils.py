@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from qgis.core import QgsMessageLog, Qgis, QgsCoordinateReferenceSystem
+from qgis.core import QgsVectorLayer
 import os, csv, posixpath
 import zipfile
 
@@ -309,29 +310,35 @@ def unzipAndGetShp(
     code_muni="",
     name_muni="",
     epsg="",
+    encoding="CP932"
 ):
-    shpFileName = findShpFile2(
+    shp_full_path = findShpFile2(
         folder_path, shp_file, altdir, code_pref, code_muni, name_muni
     )
-    if shpFileName is not None:
-        if not os.path.exists(shpFileName[:-4] + ".prj") and epsg != "":
+
+    # --- If shapefile found, ensure .prj ---
+    if shp_full_path is not None:
+        if not os.path.exists(shp_full_path[:-4] + ".prj") and epsg != "":
             crs = QgsCoordinateReferenceSystem(f"EPSG:{epsg}")
-            with open(shpFileName[:-4] + ".prj", "w") as prj_file:
+            with open(shp_full_path[:-4] + ".prj", "w") as prj_file:
                 prj_file.write(crs.toWkt())
 
-        return shpFileName
-    else:
-        zipFileName = zip_file.replace("code_pref", code_pref)
-        zipFileName = zipFileName.replace("code_muni", code_muni)
-        zipFileName = zipFileName.replace("name_muni", name_muni)
+        # Create .qix and .cpg
+        create_qix_and_cpg(shp_full_path, encoding)
+        return shp_full_path
 
-        # Below is a workaround for a zip file with Japanese filenames/foldernames
-        unzip(folder_path, zipFileName)
+    # --- Otherwise unzip and retry ---
+    zipFileName = zip_file.replace("code_pref", code_pref)
+    zipFileName = zipFileName.replace("code_muni", code_muni)
+    zipFileName = zipFileName.replace("name_muni", name_muni)
 
-    shpFileName = findShpFile2(
+    unzip(folder_path, zipFileName)
+
+    shp_full_path = findShpFile2(
         folder_path, shp_file, altdir, code_pref, code_muni, name_muni
     )
-    if shpFileName is None:
+
+    if shp_full_path is None:
         printLog(
             "jpDataUtils.unzipAndGetShp: Cannot find the file "
             + shp_file
@@ -341,12 +348,28 @@ def unzipAndGetShp(
             + posixpath.join(folder_path, altdir)
         )
     else:
-        if not os.path.exists(shpFileName[:-4] + ".prj") and epsg != "":
+        if not os.path.exists(shp_full_path[:-4] + ".prj") and epsg != "":
             crs = QgsCoordinateReferenceSystem(f"EPSG:{epsg}")
-            with open(shpFileName[:-4] + ".prj", "w") as prj_file:
+            with open(shp_full_path[:-4] + ".prj", "w") as prj_file:
                 prj_file.write(crs.toWkt())
 
-    return shpFileName
+        # Create .qix and .cpg
+        create_qix_and_cpg(shp_full_path, encoding)
+
+    return shp_full_path
+
+
+def create_qix_and_cpg(shp_full_path, encoding="CP932"):
+    """Create .qix and .cpg for a shapefile"""
+    if not os.path.exists(shp_full_path[:-4] + ".qix"):
+        vl = QgsVectorLayer(shp_full_path, "name", "ogr")
+        if vl.isValid():
+            vl.dataProvider().createSpatialIndex()
+
+    cpg_path = shp_full_path[:-4] + ".cpg"
+    if not os.path.exists(cpg_path):
+        with open(cpg_path, "w", encoding="ascii") as f:
+            f.write(encoding)
 
 
 def printLog(message):

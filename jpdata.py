@@ -1107,8 +1107,8 @@ class jpdata:
     def _add_map(self, shpFileFullPath, layerName, qmlFileName, encoding="CP932"):
         tempLayer = QgsVectorLayer(shpFileFullPath, layerName, "ogr")
         tempLayer.setProviderEncoding(encoding)
-        if not os.path.exists(shpFileFullPath[:-4] + ".qix"):
-            tempLayer.dataProvider().createSpatialIndex()
+        # if not os.path.exists(shpFileFullPath[:-4] + ".qix"):
+        #     tempLayer.dataProvider().createSpatialIndex()
         count_invalid_geom = self.count_invalid_geometry(tempLayer)
         if count_invalid_geom > 0:
             tempLayer.setName(layerName + " [invalid]")

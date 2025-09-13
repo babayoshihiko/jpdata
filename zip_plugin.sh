@@ -12,6 +12,7 @@ rm -f jpdata.zip
 cp -R ../jpdata ./jpdata
 perl -pi -e "s|self._verbose = True|self._verbose = False|g" jpdata/jpdata.py
 
+rm -rf jpdata/docs
 rm -f jpdata/.gitignore
 rm -rf jpdata/__pycache__
 rm -rf jpdata/.git
