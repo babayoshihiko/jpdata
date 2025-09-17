@@ -101,6 +101,40 @@ def getPrefNameByCode(pref_code):
         pref_name = "鹿児島県"
     elif pref_code == 47:
         pref_name = "沖縄県"
+    elif pref_code == 52:
+        pref_name = "東北地方"
+    elif pref_code == 53:
+        pref_name = "関東地方"
+    elif pref_code == 54:
+        pref_name = "甲信越・北陸地方"
+    elif pref_code == 55:
+        pref_name = "東海地方"
+    elif pref_code == 56:
+        pref_name = "近畿地方"
+    elif pref_code == 57:
+        pref_name = "中国地方"
+    elif pref_code == 58:
+        pref_name = "四国地方"
+    elif pref_code == 59:
+        pref_name = "九州地方"
+    elif pref_code == 81:
+        pref_name = "北海道開発局"
+    elif pref_code == 82:
+        pref_name = "東北地方整備局"
+    elif pref_code == 83:
+        pref_name = "関東地方整備局"
+    elif pref_code == 84:
+        pref_name = "北陸地方整備局"
+    elif pref_code == 85:
+        pref_name = "中部地方整備局"
+    elif pref_code == 86:
+        pref_name = "近畿地方整備局"
+    elif pref_code == 87:
+        pref_name = "中国地方整備局"
+    elif pref_code == 88:
+        pref_name = "四国地方整備局"
+    elif pref_code == 89:
+        pref_name = "九州地方整備局"
 
     return pref_name
 
@@ -241,23 +275,23 @@ def getPrefCodeByName(pref_name):
     return pref_code
 
 
-def getMapsFromCsv():
-    filePath = posixpath.join(os.path.dirname(__file__), "csv", "LandNumInfo.csv")
-    with open(filePath, "r") as f:
-        csvreader = csv.DictReader(f)
-        rows = list(csvreader)
-        return rows
+# def getMapsFromCsv():
+#     filePath = posixpath.join(os.path.dirname(__file__), "csv", "LandNumInfo.csv")
+#     with open(filePath, "r") as f:
+#         csvreader = csv.DictReader(f)
+#         rows = list(csvreader)
+#         return rows
 
 
-def getMapsFromCsv2():
-    filePath = posixpath.join(os.path.dirname(__file__), "csv", "LandNumInfo.csv")
-    new_dict = dict()
-
-    with open(filePath, "r") as f:
-        csvreader = csv.DictReader(f)
-        for row in csvreader:
-            new_dict.update({row["name_j"]: row})
-    return new_dict
+# def getMapsFromCsv2():
+#     filePath = posixpath.join(os.path.dirname(__file__), "csv", "LandNumInfo.csv")
+#     new_dict = dict()
+#
+#     with open(filePath, "r") as f:
+#         csvreader = csv.DictReader(f)
+#         for row in csvreader:
+#             new_dict.update({row["name_j"]: row})
+#     return new_dict
 
 
 def getMapsFromCsv2():
@@ -310,21 +344,16 @@ def unzipAndGetShp(
     code_muni="",
     name_muni="",
     epsg="",
-    encoding="CP932"
+    encoding="CP932",
 ):
     shp_full_path = findShpFile2(
         folder_path, shp_file, altdir, code_pref, code_muni, name_muni
     )
 
-    # --- If shapefile found, ensure .prj ---
+    # --- If shapefile found ---
     if shp_full_path is not None:
-        if not os.path.exists(shp_full_path[:-4] + ".prj") and epsg != "":
-            crs = QgsCoordinateReferenceSystem(f"EPSG:{epsg}")
-            with open(shp_full_path[:-4] + ".prj", "w") as prj_file:
-                prj_file.write(crs.toWkt())
-
-        # Create .qix and .cpg
-        create_qix_and_cpg(shp_full_path, encoding)
+        # Create .proj, .qix and .cpg
+        _create_proj_qix_cpg(shp_full_path, epsg, encoding)
         return shp_full_path
 
     # --- Otherwise unzip and retry ---
@@ -348,19 +377,19 @@ def unzipAndGetShp(
             + posixpath.join(folder_path, altdir)
         )
     else:
-        if not os.path.exists(shp_full_path[:-4] + ".prj") and epsg != "":
-            crs = QgsCoordinateReferenceSystem(f"EPSG:{epsg}")
-            with open(shp_full_path[:-4] + ".prj", "w") as prj_file:
-                prj_file.write(crs.toWkt())
-
-        # Create .qix and .cpg
-        create_qix_and_cpg(shp_full_path, encoding)
+        # Create .proj, .qix and .cpg
+        _create_proj_qix_cpg(shp_full_path, epsg, encoding)
 
     return shp_full_path
 
 
-def create_qix_and_cpg(shp_full_path, encoding="CP932"):
-    """Create .qix and .cpg for a shapefile"""
+def _create_proj_qix_cpg(shp_full_path, epsg="", encoding="CP932"):
+    """Create .proj, .qix and .cpg for a shapefile"""
+    if not os.path.exists(shp_full_path[:-4] + ".prj") and epsg != "":
+        crs = QgsCoordinateReferenceSystem(f"EPSG:{epsg}")
+        with open(shp_full_path[:-4] + ".prj", "w") as prj_file:
+            prj_file.write(crs.toWkt())
+
     if not os.path.exists(shp_full_path[:-4] + ".qix"):
         vl = QgsVectorLayer(shp_full_path, "name", "ogr")
         if vl.isValid():
