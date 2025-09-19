@@ -129,10 +129,10 @@ class DownloadThread(QThread):
             return
         if self.proxy_server is not None:
             if self.proxy_user != "":
-                _proxy_user_password = quote(self.proxy_user) + ":" + (quote(self.proxy_password) + "@"
+                _proxy_user_password = quote(self.proxy_user) + ":" + quote(self.proxy_password) + "@"
 
 
-            if self.proxy_server[:8].lower() = "https://":
+            if self.proxy_server[:8].lower() == "https://":
                 _proxy_server = self.proxy_server.replace("https://", "")
                 proxies = {
                     "http": "http://" + _proxy_user_password + _proxy_server,
