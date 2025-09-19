@@ -3,6 +3,7 @@ from qgis.PyQt.QtCore import QThread, pyqtSignal
 import os
 import requests
 import zipfile
+from urllib.parse import quote
 
 
 class DownloadThread(QThread):
@@ -16,6 +17,8 @@ class DownloadThread(QThread):
         self.proxy_user = ""
         self.proxy_password = ""
         self.status_message = ""
+        self.certificate = False
+
 
     def setProxyServer(self, proxy_server):
         if len(proxy_server) > 10:
@@ -32,6 +35,9 @@ class DownloadThread(QThread):
     def setUrl(self, url):
         self.url = url
 
+    def setCertificate(self, certificate):
+        self.certificate = certificate
+
     def setFilePath(self, file_path):
         self.file_path = file_path
 
@@ -42,54 +48,23 @@ class DownloadThread(QThread):
         return self.status_message
 
     def download_wo_thread(self):
-        proxies = {}
         if self.url is None or self.file_path is None:
             return
+        proxies = self._get_proxies()
 
-        if self.proxy_server is not None:
-            _proxy_server = self.proxy_server.replace("https://", "")
-            _proxy_server = self.proxy_server.replace("http://", "")
-
-            if self.proxy_user != "":
-                _proxy_user = self.proxy_user + ":" + self.proxy_password + "@"
-            else:
-                _proxy_user = ""
-
-            proxies = {
-                "http": "http://" + _proxy_user + _proxy_server,
-                "https": "https://" + _proxy_user + _proxy_server,
-            }
-        else:
-            proxies = None
-
-        with requests.get(self.url, stream=True) as r:
+        with requests.get(self.url, stream=True, verify=self.certificate) as r:
             r.raise_for_status()
             with open(self.file_path, "wb") as f:
                 for chunk in r.iter_content(chunk_size=8192):
                     f.write(chunk)
 
     def run(self):
-        proxies = {}
         if self.url is None or self.file_path is None:
             return
-        if self.proxy_server is not None:
-            _proxy_server = self.proxy_server.replace("https://", "")
-            _proxy_server = self.proxy_server.replace("http://", "")
-
-            if self.proxy_user != "":
-                _proxy_user = self.proxy_user + ":" + self.proxy_password + "@"
-            else:
-                _proxy_user = ""
-
-            proxies = {
-                "http": "http://" + _proxy_user + _proxy_server,
-                "https": "https://" + _proxy_user + _proxy_server,
-            }
-        else:
-            proxies = None
+        proxies = self._get_proxies()
 
         try:
-            with requests.get(self.url, stream=True, proxies=proxies) as r:
+            with requests.get(self.url, stream=True, proxies=proxies, verify=self.certificate) as r:
                 r.raise_for_status()
                 total_length = r.headers.get("content-length")
 
@@ -146,3 +121,28 @@ class DownloadThread(QThread):
                     )
         else:
             self.setStatus("The zipfile does not exist:" + self.file_path)
+
+    def _get_proxies():
+        proxies = None
+        _proxy_user_password = ""
+        if self.url is None or self.file_path is None:
+            return
+        if self.proxy_server is not None:
+            if self.proxy_user != "":
+                _proxy_user_password = quote(self.proxy_user) + ":" + (quote(self.proxy_password) + "@"
+
+
+            if self.proxy_server[:8].lower() = "https://":
+                _proxy_server = self.proxy_server.replace("https://", "")
+                proxies = {
+                    "http": "http://" + _proxy_user_password + _proxy_server,
+                    "https": "http://" + _proxy_user_password + _proxy_server,
+                }
+            else:
+                _proxy_server = self.proxy_server.replace("http://", "")
+                proxies = {
+                    "http": "http://" + _proxy_user_password + _proxy_server,
+                    "https": "http://" + _proxy_user_password + _proxy_server,
+                }
+
+        return proxies
