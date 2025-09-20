@@ -8,6 +8,7 @@ from urllib.parse import quote
 
 try:
     import certifi
+
     DEFAULT_CA = certifi.where()
 except ImportError:
     DEFAULT_CA = True  # fallback to system store
@@ -16,7 +17,7 @@ except ImportError:
 logger = logging.getLogger(__name__)
 if not logger.handlers:
     handler = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
+    formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     logger.setLevel(logging.INFO)
@@ -74,8 +75,13 @@ class DownloadThread(QThread):
 
         proxies = self._get_proxies()
         try:
-            with requests.get(self.url, stream=True, proxies=proxies,
-                              verify=self.certificate, timeout=30) as r:
+            with requests.get(
+                self.url,
+                stream=True,
+                proxies=proxies,
+                verify=self.certificate,
+                timeout=30,
+            ) as r:
                 r.raise_for_status()
                 os.makedirs(os.path.dirname(self.file_path), exist_ok=True)
                 with open(self.file_path, "wb") as f:
@@ -97,8 +103,13 @@ class DownloadThread(QThread):
         proxies = self._get_proxies()
 
         try:
-            with requests.get(self.url, stream=True, proxies=proxies,
-                              verify=self.certificate, timeout=30) as r:
+            with requests.get(
+                self.url,
+                stream=True,
+                proxies=proxies,
+                verify=self.certificate,
+                timeout=30,
+            ) as r:
                 r.raise_for_status()
                 total_length = r.headers.get("content-length")
 
@@ -140,16 +151,24 @@ class DownloadThread(QThread):
             return
         if os.path.exists(self.file_path):
             if os.stat(self.file_path).st_size == 0:
-                self.setStatus("The zipfile exists but the filesize is zero: " + self.file_path)
+                self.setStatus(
+                    "The zipfile exists but the filesize is zero: " + self.file_path
+                )
             else:
                 try:
                     ret = zipfile.ZipFile(self.file_path).testzip()
                     if ret is not None:
-                        self.setStatus("The zipfile exists with a problem: " + self.file_path)
+                        self.setStatus(
+                            "The zipfile exists with a problem: " + self.file_path
+                        )
                     else:
-                        self.setStatus("The zipfile exists and is valid: " + self.file_path)
+                        self.setStatus(
+                            "The zipfile exists and is valid: " + self.file_path
+                        )
                 except Exception:
-                    self.setStatus("The zipfile exists but may be corrupt: " + self.file_path)
+                    self.setStatus(
+                        "The zipfile exists but may be corrupt: " + self.file_path
+                    )
         else:
             self.setStatus("The zipfile does not exist: " + self.file_path)
 
