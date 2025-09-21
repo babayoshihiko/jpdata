@@ -1,0 +1,9 @@
+availability,year,url,zip,shp,geojson,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg,filesize,detail1,detail2
+全国,2010,https://nlftp.mlit.go.jp/ksj/gml/data/A18s-a/A18s-a-10/A18s-a-10_GML.zip,A18s-a-10_GML.zip,A18s_a_22_01.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A18s-a.html,,,,,,,CP932,,4612,,人口・世帯数,
+全国,2010,https://nlftp.mlit.go.jp/ksj/gml/data/A18s-a/A18s-a-10/A18s-a-10_GML.zip,A18s-a-10_GML.zip,A18s_a_22_02.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A18s-a.html,,,,,,,CP932,,4612,,産業,
+全国,2005,https://nlftp.mlit.go.jp/ksj/gml/data/A18s-a/A18s-a-05/A18s-a-05_GML.zip,A18s-a-05_GML.zip,A18s_a_17_01.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A18s-a.html,,,,,,,CP932,,4612,,人口・世帯数,
+全国,2005,https://nlftp.mlit.go.jp/ksj/gml/data/A18s-a/A18s-a-05/A18s-a-05_GML.zip,A18s-a-05_GML.zip,A18s_a_17_02.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A18s-a.html,,,,,,,CP932,,4612,,産業,
+全国,2000,https://nlftp.mlit.go.jp/ksj/gml/data/A18s-a/A18s-a-00/A18s-a-00_GML.zip,A18s-a-00_GML.zip,A18s_a_12_01.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A18s-a.html,,,,,,,CP932,,4612,,人口・世帯数,
+全国,2000,https://nlftp.mlit.go.jp/ksj/gml/data/A18s-a/A18s-a-00/A18s-a-00_GML.zip,A18s-a-00_GML.zip,A18s_a_12_02.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A18s-a.html,,,,,,,CP932,,4612,,産業,
+全国,1995,https://nlftp.mlit.go.jp/ksj/gml/data/A18s-a/A18s-a-95/A18s-a-95_GML.zip,/A18s-a-95_GML.zip,A18s_a_07_01.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A18s-a.html,,,,,,,CP932,,4612,,人口・世帯数,
+全国,1995,https://nlftp.mlit.go.jp/ksj/gml/data/A18s-a/A18s-a-95/A18s-a-95_GML.zip,/A18s-a-95_GML.zip,A18s_a_07_02.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A18s-a.html,,,,,,,CP932,,4612,,産業,

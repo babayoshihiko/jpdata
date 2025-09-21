@@ -5,6 +5,34 @@ import os, csv, posixpath
 import zipfile
 
 
+def getYearAs(year, format="year2digit"):
+    """year4digit = '2023'
+    year2digit = '23'
+    yearJP = 'R5'
+    yearJP2digit = '05'
+    """
+    year_as = ""
+    if format == "year4digit":
+        year_as = str(year)
+    elif format == "year2digit":
+        year_as = str(year)[2:4]
+    elif format == "yearJP":
+        if int(year) - 2018 > 0:
+            year_as = "R" + str(int(year) - 2018)
+        elif int(year) - 1998 > 0:
+            year_as = "H" + str(int(year) - 1988)
+        else:
+            year_as = "H" + str(int(year) - 1925)
+    elif format == "yearJP2digit":
+        if int(year) - 2018 > 0:
+            year_as = str(int(year) - 2018).zfill(2)
+        elif int(year) - 1998 > 0:
+            year_as = str(int(year) - 1988).zfill(2)
+        else:
+            year_as = str(int(year) - 1925).zfill(2)
+    return year_as
+
+
 def getPrefNameByCode(pref_code):
     pref_name = ""
     if pref_code == 1:
