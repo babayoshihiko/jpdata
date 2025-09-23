@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. ベクタデータの操作 &mdash; QGIS Advanced Documentation wht jpData  documentation</title>
+  <title>5. ベクタデータの操作 &mdash; QGIS Advanced Documentation wht jpData  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/qgis_docs.css?v=01847ad1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
@@ -34,9 +34,9 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="7. ベクタタイル" href="../working_with_vector_tiles/vector_tiles.html" />
-    <link rel="prev" title="5. 投影法の操作" href="../working_with_projections/working_with_projections.html" />
-  <meta name="description" content="Unofficial QGIS latest documentation: 6. ベクタデータの操作">
+    <link rel="next" title="6. ベクタタイル" href="../working_with_vector_tiles/vector_tiles.html" />
+    <link rel="prev" title="4. 投影法の操作" href="../working_with_projections/working_with_projections.html" />
+  <meta name="description" content="Unofficial QGIS latest documentation: 5. ベクタデータの操作">
   <script>
     var _paq = window._paq = window._paq || [];
     _paq.push(["disableCookies"]);
@@ -91,22 +91,21 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Advanced QGIS Desktop User Guide/Manual with jpdata</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../introduction/getting_started.html">1. QGIS でインストールされるもの</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/project_files.html">2. Projects, GUI, Browser</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_gui.html">3. QGIS GUI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_configuration.html">4. QGIS 設定</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../working_with_projections/working_with_projections.html">5. 投影法の操作</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6. ベクタデータの操作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">6.1. ジオメトリとトポロジ</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id3">6.1.1. 河川のジオメトリ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_gui.html">2. QGIS GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_configuration.html">3. QGIS 設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../working_with_projections/working_with_projections.html">4. 投影法の操作</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. ベクタデータの操作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">5.1. ジオメトリとトポロジ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">5.1.1. 河川のジオメトリ</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../working_with_vector_tiles/vector_tiles.html">7. ベクタタイル</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../processing/index.html">8. QGIS プロセシング</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../plugins/index.html">9. プラグイン</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../plugin_development/index.html">10. プラグイン 開発</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendices/index.html">11. Appendices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../working_with_vector_tiles/vector_tiles.html">6. ベクタタイル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../processing/index.html">7. QGIS プロセシング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/index.html">8. プラグイン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin_development/index.html">9. プラグイン 開発</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendices/index.html">10. Appendices</a></li>
 </ul>
 </li>
 </ul>
@@ -126,7 +125,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">jpData を使った応用 QGIS ユーザーガイド</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">6. </span>ベクタデータの操作</li>
+      <li class="breadcrumb-item active"><span class="section-number">5. </span>ベクタデータの操作</li>
 
     <li style="float: right; text-align: right;">
 	<ul>
@@ -147,8 +146,8 @@
 
 
   </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="../working_with_projections/working_with_projections.html" class="btn btn-neutral float-left" title="5. 投影法の操作" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../working_with_vector_tiles/vector_tiles.html" class="btn btn-neutral float-right" title="7. ベクタタイル" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../working_with_projections/working_with_projections.html" class="btn btn-neutral float-left" title="4. 投影法の操作" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../working_with_vector_tiles/vector_tiles.html" class="btn btn-neutral float-right" title="6. ベクタタイル" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
   </div>
   <hr/>
 </div>
@@ -158,7 +157,7 @@
   <blockquote>
 <div></div></blockquote>
 <section id="label-workingvector">
-<span id="id1"></span><h1><span class="section-number">6. </span>ベクタデータの操作<a class="headerlink" href="#label-workingvector" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1><span class="section-number">5. </span>ベクタデータの操作<a class="headerlink" href="#label-workingvector" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <p>ベクタデータは、それぞれの地物に対して基本的には位置のデータがあるだけです。点の大きさや線の色、ポリゴンの塗りつぶし色などの情報はありません。</p>
@@ -167,7 +166,7 @@
 <p>「シンボル」や「ラベル」などの情報を総称して「スタイル」といいます。QGIS のプロジェクトファイルには、レイヤごとにスタイル情報を定義しています。プロジェクトファイルは、.qgs と .qgz がありますが、現時点では大きな違いはありません。</p>
 <p>プロジェクトを.qgs形式で保存して、テキストエディタ（テキストエディタがない場合はGoogle Chrome などのブラウザ）で開いてみましょう。XML形式で書かれていることが確認できます。</p>
 <section id="id2">
-<h2><span class="section-number">6.1. </span>ジオメトリとトポロジ<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<h2><span class="section-number">5.1. </span>ジオメトリとトポロジ<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p>ジオメトリとトポロジ は、発展レベルです。QGIS 入門書にはほとんど書かれていません。ただし、データの整備に携わる際には必須の事項です。不正なジオメトリや不正なトポロジは、OGC標準で規定されています。</p>
 <p>なお、ジオメトリが不正な場合、空間演算ツールが使用できないことがあります。</p>
 <p>ジオメトリ演算</p>
@@ -195,7 +194,7 @@
 <p>ような時に、トポロジーのエラーがあります。以下の図は、後者の例です。</p>
 <p>プラグインのトポロジーチェッカーをインストールします。その後、メニューから「ベクタ &gt; トポロジーチェッカー」を選択します。</p>
 <section id="id3">
-<h3><span class="section-number">6.1.1. </span>河川のジオメトリ<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<h3><span class="section-number">5.1.1. </span>河川のジオメトリ<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <p>宮城県の河川データをダウンロードし、ジオメトリをチェックしてみましょう。</p>
 <p>ジオメトリチェッカー: エラー数 33</p>
 <p>トポロジチェッカー: エラー数 0</p>
@@ -212,15 +211,15 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../working_with_projections/working_with_projections.html" class="btn btn-neutral float-left" title="5. 投影法の操作" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../working_with_vector_tiles/vector_tiles.html" class="btn btn-neutral float-right" title="7. ベクタタイル" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../working_with_projections/working_with_projections.html" class="btn btn-neutral float-left" title="4. 投影法の操作" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../working_with_vector_tiles/vector_tiles.html" class="btn btn-neutral float-right" title="6. ベクタタイル" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2025-now, Yoshihiko Baba.
-      <span class="lastupdated">Last updated on 2025 Sep 24, 08:16 +0900.
+      <span class="lastupdated">Last updated on 2025 Sep 24, 08:23 +0900.
       </span></p>
   </div>
 

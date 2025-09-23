@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5. 投影法の操作 &mdash; QGIS Advanced Documentation wht jpData  documentation</title>
+  <title>4. 投影法の操作 &mdash; QGIS Advanced Documentation wht jpData  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/qgis_docs.css?v=01847ad1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
@@ -34,9 +34,9 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="6. ベクタデータの操作" href="../working_with_vector/index.html" />
-    <link rel="prev" title="4. QGIS 設定" href="../introduction/qgis_configuration.html" />
-  <meta name="description" content="Unofficial QGIS latest documentation: 5. 投影法の操作">
+    <link rel="next" title="5. ベクタデータの操作" href="../working_with_vector/index.html" />
+    <link rel="prev" title="3. QGIS 設定" href="../introduction/qgis_configuration.html" />
+  <meta name="description" content="Unofficial QGIS latest documentation: 4. 投影法の操作">
   <script>
     var _paq = window._paq = window._paq || [];
     _paq.push(["disableCookies"]);
@@ -91,22 +91,21 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Advanced QGIS Desktop User Guide/Manual with jpdata</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../introduction/getting_started.html">1. QGIS でインストールされるもの</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/project_files.html">2. Projects, GUI, Browser</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_gui.html">3. QGIS GUI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_configuration.html">4. QGIS 設定</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">5. 投影法の操作</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#index-1">5.1. 投影法について</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gis-crs">5.2. 日本で使われている GIS データの CRS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">5.3. 日本で作られている地図の投影法</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">5.4. 正距方位図法と距離の計測</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_gui.html">2. QGIS GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_configuration.html">3. QGIS 設定</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4. 投影法の操作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#index-1">4.1. 投影法について</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gis-crs">4.2. 日本で使われている GIS データの CRS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">4.3. 日本で作られている地図の投影法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4.4. 正距方位図法と距離の計測</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../working_with_vector/index.html">6. ベクタデータの操作</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../working_with_vector_tiles/vector_tiles.html">7. ベクタタイル</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../processing/index.html">8. QGIS プロセシング</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../plugins/index.html">9. プラグイン</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../plugin_development/index.html">10. プラグイン 開発</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../appendices/index.html">11. Appendices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../working_with_vector/index.html">5. ベクタデータの操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../working_with_vector_tiles/vector_tiles.html">6. ベクタタイル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../processing/index.html">7. QGIS プロセシング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/index.html">8. プラグイン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin_development/index.html">9. プラグイン 開発</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendices/index.html">10. Appendices</a></li>
 </ul>
 </li>
 </ul>
@@ -126,7 +125,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">jpData を使った応用 QGIS ユーザーガイド</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5. </span>投影法の操作</li>
+      <li class="breadcrumb-item active"><span class="section-number">4. </span>投影法の操作</li>
 
     <li style="float: right; text-align: right;">
 	<ul>
@@ -147,8 +146,8 @@
 
 
   </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="../introduction/qgis_configuration.html" class="btn btn-neutral float-left" title="4. QGIS 設定" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../working_with_vector/index.html" class="btn btn-neutral float-right" title="6. ベクタデータの操作" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../introduction/qgis_configuration.html" class="btn btn-neutral float-left" title="3. QGIS 設定" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../working_with_vector/index.html" class="btn btn-neutral float-right" title="5. ベクタデータの操作" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
   </div>
   <hr/>
 </div>
@@ -158,7 +157,7 @@
   <blockquote>
 <div></div></blockquote>
 <section id="label-projections">
-<span id="id1"></span><h1><span class="section-number">5. </span>投影法の操作<a class="headerlink" href="#label-projections" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1><span class="section-number">4. </span>投影法の操作<a class="headerlink" href="#label-projections" title="Link to this heading"></a></h1>
 <nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#index-1" id="id8">投影法について</a></p></li>
@@ -171,7 +170,7 @@
 QGIS では、それぞれに異なる使用例や長所・短所がある約 7,000 の標準 CRS に対応しています！
 QGIS プロジェクトやデータに対して適切な参照系を選択するのは複雑な作業になることがありますが、幸いなことに QGIS ではこの選択の手引きとなり、さまざまな CRS をできるだけ透過的かつ正確に使用できるようにしています。</p>
 <section id="index-1">
-<span id="id2"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">5.1. </span>投影法について</a><a class="headerlink" href="#index-1" title="Link to this heading"></a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">4.1. </span>投影法について</a><a class="headerlink" href="#index-1" title="Link to this heading"></a></h2>
 <p>QGIS では約 7,000 の既知の CRS をサポートしています。
 これらの標準CRSは、欧州石油探査グループ（European Petroleum Search Group：EPSG）およびフランス国土地理院（Institut Geographique National de France：IGNF）によって定義されたものに基づいており、基礎となる「Proj」投影ライブラリを通じてQGISで利用できます。</p>
 <p>公式の QGIS ユーザーマニュアルにある通り、一般的な WGS84緯度経度 CRS は <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code> です。</p>
@@ -183,7 +182,7 @@ Web メルカトル の特徴として、計算の高速化を図るために、
 <p>このほか、ユニバーサル横メルカトル図法 (UTM) がありますが、これは表示や地図作成する際の座標系で、GIS データでUTMを使うことは珍しいようです。</p>
 <p>シェープファイルの場合、.prj に空間座標系が保存されています。このファイルはテキストエディタ (サクラエディタなど) で中身を確認することができます。.prj ファイルがない場合は、QGIS で追加する際に指定します。</p>
 <table class="docutils align-default" id="id5">
-<caption><span class="caption-number">Table 5.1 </span><span class="caption-text">覚えておくべきEPSG</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
+<caption><span class="caption-number">Table 4.1 </span><span class="caption-text">覚えておくべきEPSG</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 30.0%" />
 <col style="width: 70.0%" />
@@ -228,7 +227,7 @@ Web メルカトル の特徴として、計算の高速化を図るために、
 <p>この後、ステータスバーのEPSGから今作成したCRSを選択する。</p>
 </section>
 <section id="gis-crs">
-<h2><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">5.2. </span>日本で使われている GIS データの CRS</a><a class="headerlink" href="#gis-crs" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">4.2. </span>日本で使われている GIS データの CRS</a><a class="headerlink" href="#gis-crs" title="Link to this heading"></a></h2>
 <p>GIS データは、地理座標系 (緯度経度) で作成されていることが多いです。
 日本でよく使われる JGD2011 の地理座標 (緯度経度) は、回転楕円体 GRS80 を採用しており、EPSG:6668 （JGD2000はEPSG: 4612）です。
 国土数値情報は、ESPG:6668 または EPSG:4612 で提供されています。</p>
@@ -244,9 +243,9 @@ Web メルカトル の特徴として、計算の高速化を図るために、
 <p>上は要確認。</p>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id10" role="doc-backlink"><span class="section-number">5.3. </span>日本で作られている地図の投影法</a><a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink"><span class="section-number">4.3. </span>日本で作られている地図の投影法</a><a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
 <table class="docutils align-default" id="id6">
-<caption><span class="caption-number">Table 5.2 </span><span class="caption-text">国土地理院で刊行している地図（抜粋）</span><a class="headerlink" href="#id6" title="Link to this table"></a></caption>
+<caption><span class="caption-number">Table 4.2 </span><span class="caption-text">国土地理院で刊行している地図（抜粋）</span><a class="headerlink" href="#id6" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 30.0%" />
 <col style="width: 70.0%" />
@@ -285,7 +284,7 @@ QGIS で UTM 座標系を使う場合、データの CRS が異なっていて�
 </figure>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id11" role="doc-backlink"><span class="section-number">5.4. </span>正距方位図法と距離の計測</a><a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id11" role="doc-backlink"><span class="section-number">4.4. </span>正距方位図法と距離の計測</a><a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
 <p>新たに CRS を作りたい場合は、メニューの「設定」（macOSの場合、QGIS から Preferences）から、ユーザ定義 CRS を選択します。
 このとき、検索しやすい名前をつけましょう。</p>
 <p>東京 (北緯35.7度、東経139.8度とする) を中心とした正距方位:
@@ -293,7 +292,7 @@ QGIS で UTM 座標系を使う場合、データの CRS が異なっていて�
 <p>プロジェクトの CRS を変更するには、ステータスバーの一番右にある EPSG:3857 などとなっているところをクリックします。</p>
 <p>Tokyo (139.839478,35.652832) とLondon (-0.118092,51.509865) の距離を計測してみましょう。</p>
 <table class="docutils align-default" id="id7">
-<caption><span class="caption-number">Table 5.3 </span><span class="caption-text">図法ごとの距離計測</span><a class="headerlink" href="#id7" title="Link to this table"></a></caption>
+<caption><span class="caption-number">Table 4.3 </span><span class="caption-text">図法ごとの距離計測</span><a class="headerlink" href="#id7" title="Link to this table"></a></caption>
 <colgroup>
 <col style="width: 25.0%" />
 <col style="width: 25.0%" />
@@ -337,15 +336,15 @@ QGIS で UTM 座標系を使う場合、データの CRS が異なっていて�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../introduction/qgis_configuration.html" class="btn btn-neutral float-left" title="4. QGIS 設定" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../working_with_vector/index.html" class="btn btn-neutral float-right" title="6. ベクタデータの操作" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../introduction/qgis_configuration.html" class="btn btn-neutral float-left" title="3. QGIS 設定" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../working_with_vector/index.html" class="btn btn-neutral float-right" title="5. ベクタデータの操作" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2025-now, Yoshihiko Baba.
-      <span class="lastupdated">Last updated on 2025 Sep 24, 08:16 +0900.
+      <span class="lastupdated">Last updated on 2025 Sep 24, 08:23 +0900.
       </span></p>
   </div>
 

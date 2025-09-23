@@ -14,7 +14,6 @@ jpData を使った応用 QGIS ユーザーガイド
     :numbered: 4
 
     introduction/getting_started
-    introduction/project_files
     introduction/qgis_gui
     introduction/qgis_configuration
     working_with_projections/working_with_projections
