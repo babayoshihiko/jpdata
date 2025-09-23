@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. 投影法の操作 &mdash; QGIS Advanced Documentation wht jpData  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/qgis_docs.css?v=01847ad1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/qgis_topbar.css?v=5613a779" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/qgis_logo.ico"/>
+    <link rel="canonical" href="https://docs.qgis.org/latest/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="6. ベクタデータの操作" href="../working_with_vector/index.html" />
+    <link rel="prev" title="4. QGIS 設定" href="../introduction/qgis_configuration.html" />
+  <meta name="description" content="Unofficial QGIS latest documentation: 5. 投影法の操作">
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(["disableCookies"]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.qgis.org/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+</head>
+
+<body class="wy-body-for-nav">
+
+  <nav class="release_status_topbar">
+    <div class="row isTesting">
+     こちらは、非公式の応用 QGIS ユーザーガイドです。公式は、以下にあります: <a href="https://docs.qgis.org/latest/ja/docs/index.html"></a>.
+  </nav>
+
+   
+
+ 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            QGIS Advanced Documentation wht jpData
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+   <a href= "../../../genindex.html">Index</a>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Advanced QGIS Desktop User Guide/Manual with jpdata</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../introduction/getting_started.html">1. QGIS でインストールされるもの</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/project_files.html">2. Projects, GUI, Browser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_gui.html">3. QGIS GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_configuration.html">4. QGIS 設定</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. 投影法の操作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#index-1">5.1. 投影法について</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gis-crs">5.2. 日本で使われている GIS データの CRS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">5.3. 日本で作られている地図の投影法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">5.4. 正距方位図法と距離の計測</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../working_with_vector/index.html">6. ベクタデータの操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../working_with_vector_tiles/vector_tiles.html">7. ベクタタイル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../processing/index.html">8. QGIS プロセシング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/index.html">9. プラグイン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin_development/index.html">10. プラグイン 開発</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendices/index.html">11. Appendices</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">QGIS Advanced Documentation wht jpData</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">jpData を使った応用 QGIS ユーザーガイド</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5. </span>投影法の操作</li>
+
+    <li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/babayoshihiko/jpdata/blob/master/docs/user_manual_advanced/working_with_projections/working_with_projections.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+        <!-- Add a button to guide potential contributors
+	     To do: add a more generic page for contributing in QGIS docs to keep users in the same website
+	     <a class="qgis-edit-guidelines" href="https://docs.qgis.org/latest/en/docs/documentation_guidelines/index.html">
+	-->
+	<a class="qgis-edit-guidelines" href="https://qgis.org/community/involve/">
+		Learn how to contribute!
+	</a>
+    </li>
+
+
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="../introduction/qgis_configuration.html" class="btn btn-neutral float-left" title="4. QGIS 設定" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../working_with_vector/index.html" class="btn btn-neutral float-right" title="6. ベクタデータの操作" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <blockquote>
+<div></div></blockquote>
+<section id="label-projections">
+<span id="id1"></span><h1><span class="section-number">5. </span>投影法の操作<a class="headerlink" href="#label-projections" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#index-1" id="id8">投影法について</a></p></li>
+<li><p><a class="reference internal" href="#gis-crs" id="id9">日本で使われている GIS データの CRS</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id10">日本で作られている地図の投影法</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id11">正距方位図法と距離の計測</a></p></li>
+</ul>
+</nav>
+<p id="index-0">座標参照系（CRS）は、数値座標を地球の表面上の位置に関連付ける方法です。
+QGIS では、それぞれに異なる使用例や長所・短所がある約 7,000 の標準 CRS に対応しています！
+QGIS プロジェクトやデータに対して適切な参照系を選択するのは複雑な作業になることがありますが、幸いなことに QGIS ではこの選択の手引きとなり、さまざまな CRS をできるだけ透過的かつ正確に使用できるようにしています。</p>
+<section id="index-1">
+<span id="id2"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">5.1. </span>投影法について</a><a class="headerlink" href="#index-1" title="Link to this heading"></a></h2>
+<p>QGIS では約 7,000 の既知の CRS をサポートしています。
+これらの標準CRSは、欧州石油探査グループ（European Petroleum Search Group：EPSG）およびフランス国土地理院（Institut Geographique National de France：IGNF）によって定義されたものに基づいており、基礎となる「Proj」投影ライブラリを通じてQGISで利用できます。</p>
+<p>公式の QGIS ユーザーマニュアルにある通り、一般的な WGS84緯度経度 CRS は <code class="docutils literal notranslate"><span class="pre">EPSG:4326</span></code> です。</p>
+<p>日本でよく使われる JGD2011 の地理座標 (緯度経度) は、回転楕円体 GRS80 を採用しており、EPSG:6668 （JGD2000はEPSG: 4612）です。</p>
+<p>Web マッピング 標準 CRS (Web メルカトル) は <code class="docutils literal notranslate"><span class="pre">EPSG:3857</span></code> です。
+Web メルカトル の特徴として、計算の高速化を図るために、回転楕円体ではなく真球を採用しています。
+計算は早いのですが、極に近づくほどに実際よりもずれてきます。</p>
+<p>平面直角座標系は、「平成 14 年国土交通省告示第 9 号」で定義され、日本を19の系（ローマ数字を使いIからXIXまで）に分けて定義しています。おおむね複数の府県で一つの系となっています。ただし、東京都、北海道、沖縄県は広範囲なため、複数の系に渡っています。また鹿児島県もI系とII系に分かれています。平面直角座標系は、単位がメートルなので、距離を測る時などに使います。</p>
+<p>このほか、ユニバーサル横メルカトル図法 (UTM) がありますが、これは表示や地図作成する際の座標系で、GIS データでUTMを使うことは珍しいようです。</p>
+<p>シェープファイルの場合、.prj に空間座標系が保存されています。このファイルはテキストエディタ (サクラエディタなど) で中身を確認することができます。.prj ファイルがない場合は、QGIS で追加する際に指定します。</p>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-number">Table 5.1 </span><span class="caption-text">覚えておくべきEPSG</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>地理座標系</p></th>
+<th class="head"><p>投影座標系</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>EPSG:6668</p></td>
+<td><p>JGD2011</p></td>
+</tr>
+<tr class="row-odd"><td><p>EPSG:6677</p></td>
+<td><p>JGD2011 IX系 (関東)</p></td>
+</tr>
+<tr class="row-even"><td><p>EPSG:4612</p></td>
+<td><p>JGD2000</p></td>
+</tr>
+<tr class="row-odd"><td><p>EPSG:2451</p></td>
+<td><p>JGD2000 IX系 (関東)</p></td>
+</tr>
+<tr class="row-even"><td><p>EPSG:3857</p></td>
+<td><p>Web メルカトール</p></td>
+</tr>
+<tr class="row-odd"><td><p>EPSG:4326</p></td>
+<td><p>GPS</p></td>
+</tr>
+</tbody>
+</table>
+<p>この他、地図の投影法には以下のようなものがあり、QGISで描くことができる。</p>
+<ul class="simple">
+<li><p>ランベルト正角円錐     Lambert Conformal Conic 角度 (形) が正確</p></li>
+<li><p>正距方位  Azimuthal Equidistant   中心からの距離と方位が正確</p></li>
+<li><p>ランベルト正積円筒     Lambert cylindrical equal-area  面積が正確</p></li>
+<li><p>モルワイデ Mollweide       面積が正確</p></li>
+</ul>
+<p>プロジェクトの CRS を変更するには、ステータスバーの一番右にある EPSG:3857 などとなっているところをクリックする。</p>
+<p>新たに CRS を作りたい場合は、メニューの「設定」（macOSの場合、QGIS から Preferences）から、ユーザ定義CRSを選択する。</p>
+<p>東京 (北緯35.7度、東経139.8度とする) を中心とした正距方位:
++proj=aeqd +lat_0=35.7 +lon_0=139.8 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs</p>
+<p>この後、ステータスバーのEPSGから今作成したCRSを選択する。</p>
+</section>
+<section id="gis-crs">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">5.2. </span>日本で使われている GIS データの CRS</a><a class="headerlink" href="#gis-crs" title="Link to this heading"></a></h2>
+<p>GIS データは、地理座標系 (緯度経度) で作成されていることが多いです。
+日本でよく使われる JGD2011 の地理座標 (緯度経度) は、回転楕円体 GRS80 を採用しており、EPSG:6668 （JGD2000はEPSG: 4612）です。
+国土数値情報は、ESPG:6668 または EPSG:4612 で提供されています。</p>
+<p>一方、国勢調査は、地理座標系と平面直角座標系で提供されています。
+平面座標系は、単位がメートルなので、距離を測る時などに使います。
+平面直角座標系の詳細は、<a class="reference external" href="https://www.gsi.go.jp/sokuchikijun/jpc.html">https://www.gsi.go.jp/sokuchikijun/jpc.html</a> を参照してください。</p>
+<p>東京都は、基本的に IX (9) 系を使っていますが、島嶼部は他の系を使っています。
+八丈島などの伊豆諸島は、同じく IX (9) 系を使っています。
+小笠原諸島は、XIX (14) 系を使っています。
+ところが、国勢調査のデータでは、東京都の八丈町も小笠原村も IX (9) 系で提供されています。</p>
+<p>鹿児島県は I (1) 系と II (2) 系に分かれていますが、国勢調査のデータでは、鹿児島県全域が I (1) 系で提供されています。</p>
+<p>沖縄も同様に、沖縄本島は XIX (19) 系、宮古島は VIII (8) 系、石垣島は VII (7) 系ですが、国勢調査のデータでは、沖縄県全域が XIX (19) 系で提供されています。</p>
+<p>上は要確認。</p>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink"><span class="section-number">5.3. </span>日本で作られている地図の投影法</a><a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-number">Table 5.2 </span><span class="caption-text">国土地理院で刊行している地図（抜粋）</span><a class="headerlink" href="#id6" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>1:2,500 国土基本図</p></td>
+<td><p>横メルカトル図法平面直角座標系</p></td>
+</tr>
+<tr class="row-even"><td><p>1:25,000 地形図</p></td>
+<td><p>ユニバーサル横メルカトル図法［ガウス・クリューゲル図法ＵＴＭ座標系］(UTM)</p></td>
+</tr>
+<tr class="row-odd"><td><p>1:200,000 地勢図</p></td>
+<td><p>ユニバーサル横メルカトル図法［ガウス・クリューゲル図法ＵＴＭ座標系］(UTM) または多面体図法（一部）</p></td>
+</tr>
+<tr class="row-even"><td><p>1:1,000,000 国際図</p></td>
+<td><p>正角割円錐図法（2標準緯線）</p></td>
+</tr>
+<tr class="row-odd"><td><p>地理院地図（旧電子国土ポータル）</p></td>
+<td><p>Web Mercator 投影法（WGS84/GRS80の長半径を半径とした真球をメルカトル投影したもの）</p></td>
+</tr>
+</tbody>
+</table>
+<p>Source: <a class="reference external" href="https://www.gsi.go.jp/kohokocho/FAQ3.html">https://www.gsi.go.jp/kohokocho/FAQ3.html</a></p>
+<p>UTM 座標系は、世界を 60 のゾーンに分けており、日本の大部分は 52 ～ 54 のゾーンに入っています。
+例えば、北海道の大部分から静岡県までは 54N となっています。
+53N は、愛知県から広島県くらいまでの範囲です。</p>
+<p>日本の GIS データで、データの CRS が UTM になっていることはあまりないようです。
+ただし、QGIS 上で表示したり、印刷する際には、UTM 座標系を使うことがあります。
+この場合、プロジェクトの CRS を UTM に設定します。
+QGIS で UTM 座標系を使う場合、データの CRS が異なっていても、QGIS が自動的に変換してくれます。</p>
+<p>UTM 座標系は、メッシュデータを表示すると、その違いがよくわかります。
+例えば、東京のメッシュデータを、東京より東の 55N と、沖縄の西側を含む 51N で表示してみると、メッシュの形が異なって表示されます。</p>
+<p>以下は、同じマップから、印刷レイアウトでマップを二つ並べました。左の投影系を UTM 51N、右を UTM 55N にしています。</p>
+<figure class="align-center">
+<img alt="UTM メッシュ" src="../../../_images/Map_two_UTMs.png" />
+</figure>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink"><span class="section-number">5.4. </span>正距方位図法と距離の計測</a><a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>新たに CRS を作りたい場合は、メニューの「設定」（macOSの場合、QGIS から Preferences）から、ユーザ定義 CRS を選択します。
+このとき、検索しやすい名前をつけましょう。</p>
+<p>東京 (北緯35.7度、東経139.8度とする) を中心とした正距方位:
++proj=aeqd +lat_0=35.7 +lon_0=139.8 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs</p>
+<p>プロジェクトの CRS を変更するには、ステータスバーの一番右にある EPSG:3857 などとなっているところをクリックします。</p>
+<p>Tokyo (139.839478,35.652832) とLondon (-0.118092,51.509865) の距離を計測してみましょう。</p>
+<table class="docutils align-default" id="id7">
+<caption><span class="caption-number">Table 5.3 </span><span class="caption-text">図法ごとの距離計測</span><a class="headerlink" href="#id7" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>EPSG</p></th>
+<th class="head"><p>距離マトリックス</p></th>
+<th class="head"><p>距離 (楕円体)</p></th>
+<th class="head"><p>距離 (デカルト座標)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>3857</p></td>
+<td><p>9590825.444330223</p></td>
+<td><p>9561580.593</p></td>
+<td><p>15718379.864</p></td>
+</tr>
+<tr class="row-odd"><td><p>4612</p></td>
+<td><p>9590825.444393389</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>6668</p></td>
+<td><p>9590825.444393389</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>東京を中心とした正距方位</p></td>
+<td><p>9590825.444393389</p></td>
+<td><p>9588102.428</p></td>
+<td><p>9934986.467</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../introduction/qgis_configuration.html" class="btn btn-neutral float-left" title="4. QGIS 設定" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../working_with_vector/index.html" class="btn btn-neutral float-right" title="6. ベクタデータの操作" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025-now, Yoshihiko Baba.
+      <span class="lastupdated">Last updated on 2025 Sep 24, 08:16 +0900.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- Transifex follows a particular logic to build target pages:
+Expected French translation link for https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/overview_composer.html
+would return https://app.transifex.com/qgis/qgis-documentation/translate/#fr/aa6d8bc653526d38b295ca94bf8eee5e
+with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_MESSAGES/docs/user_manual/print_composer/overview_composer.po"-->
+<!--Make sure that mismatching language codes between Transifex and Sphinx are converted-->
+
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-info-circle"> QGIS Advanced Documentation wht jpData </span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Languages</dt>
+        
+          <dd><a href="https://docs.qgis.org/latest/ja/docs/user_manual_advanced/working_with_projections/working_with_projections.html">ja</a></dd>
+        
+      </dl>
+
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://docs.qgis.org/testing/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html">testing</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/latest/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html">latest</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.40/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html">3.40</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.34/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html">3.34</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.28/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html">3.28</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.22/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html">3.22</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.16/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html">3.16</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.10/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html">3.10</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.4/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html">3.4</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/2.18/en/docs/user_manual_advanced/working_with_projections/working_with_projections.html">2.18</a></dd>
+        
+      </dl>
+
+       
+       <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://docs.qgis.org/latest/pdf">PDF</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/latest/zip">HTML</a></dd>
+        
+      </dl>
+      
+
+      
+       
+      <dl>
+        <dt>Contribute to Docs</dt>
+          <dd>
+            <a href="https://github.com/babayoshihiko/jpdata/docs/user_manual_advanced/working_with_projections/working_with_projections.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+          </dd>
+          
+          
+          <dd>
+            <a href="https://github.com/qgis/QGIS-Documentation/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+          </dd>
+      </dl>
+      
+
+      <dl>
+        <dt>On QGIS Project</dt>
+          <dd>
+            <a href="https://qgis.org" target="_blank" rel="noopener noreferrer">Home</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/api/latest" target="_blank" rel="noopener noreferrer">C++ API</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/pyqgis/latest" target="_blank" rel="noopener noreferrer">PyQGIS API</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/qgis/QGIS/tree/release-latest" target="_blank" rel="noopener noreferrer">Source</a>
+          </dd>
+      </dl>
+
+    </div>
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+.. index::
+   single: Python
+
+.. _console:
+
+**********************
+QGIS Python コンソール
+**********************
+
+.. only:: html
+
+   .. contents::
+      :local:
+
+
+コードエディタ
+===============
+
+|showEditorConsole| :sup:`Show Editor` ボタンを押してコードエディタを表示します。
+
+フォルダ内の zip ファイルをすべて展開するコードです。
+
+    .. code-block:: python
+
+      import os, zipfile
+      zip_dir = "C:/Users/baba/Desktop/PackDLMap"
+      dest_dir = " C:/Users/baba/Desktop/PackDLMap "
+      for file in os.listdir(zip_dir):
+        fullpath = os.path.join(zip_dir, file)
+        if zipfile.is_zipfile(fullpath):
+          with zipfile.ZipFile(fullpath) as item:
+            item.extractall(dest_dir)
+
+
+
+
+すべての RdEdg を別フォルダに移動（RdEdgフォルダをあらかじめ作っておく）
+
+    .. code-block:: python
+      
+      import glob, shutil	
+      source = "C:/Users/baba/Desktop/ PackDLMap /*RdEdg*.xml"	* は、任意の文字列
+      dest_dir = "C:/Users/baba/Desktop/RdEdg"	
+      for file in glob.glob(source):	マッチしたファイルを１つずつ
+         shutil.move(file, dest_dir)	移動
+
+
+.. _figure_python_console_editor:
+
+.. figure:: img/python_console_editor.png
+   :align: center
+
+   The Python Console editor
+
+
+.. tip:: **Save the options**
+
+   To save the state of console's widgets you have to close the Python
+   Console from the close button. This allows you to save the geometry to be
+   restored to the next start.
+
+
+.. Substitutions definitions - AVOID EDITING PAST THIS LINE
+   This will be automatically updated by the find_set_subst.py script.
+   If you need to create a new substitution manually,
+   please add it also to the substitutions.txt file in the
+   source folder.
+
+.. |clearConsole| image:: /static/common/iconClearConsole.png
+   :width: 1.5em
+.. |dock| image:: /static/common/dock.png
+   :width: 1.5em
+.. |helpContents| image:: /static/common/mActionHelpContents.png
+   :width: 1.5em
+.. |options| image:: /static/common/mActionOptions.png
+   :width: 1em
+.. |pythonFile| image:: /static/common/mIconPythonFile.png
+   :width: 1.5em
+.. |runConsole| image:: /static/common/iconRunConsole.png
+   :width: 1.5em
+.. |showEditorConsole| image:: /static/common/iconShowEditorConsole.png
+   :width: 1.5em
+.. |start| image:: /static/common/mActionStart.png
+   :width: 1.5em
