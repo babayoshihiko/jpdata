@@ -25,6 +25,7 @@ rm -f jpdata/i18n/jpdata.pro
 rm -rf jpdata/helper_script
 rm -f jpdata/pylintrc
 rm -f jpdata/qml/G04-a-2011-20250219.qml
+rm -f jpdata/csv/*.py
 
 zip -rX jpdata.zip jpdata
 

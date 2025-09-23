@@ -1,0 +1,124 @@
+.. index:: Vector Tiles, vector tiles properties
+.. _`label_vector_tiles`:
+
+*************************
+ベクタタイル
+*************************
+
+.. only:: html
+
+   .. contents::
+      :local:
+
+
+地図タイルは、ウェブの発展に伴って比較的最近開発されてきました。
+ウェブ地図は、さまざまな縮尺で地球上のさまざまな位置の地図を提供します。
+これに対応するため、あらかじめ複数の縮尺 (タイルではズームレベルと言います) のタイル状に分割したデータを用意しておきます。
+ズームレベルに応じて、サーバー側が必要な分だけインターネット上でタイルを送ります。
+このようにして、トラフィックを減らし、高速化を実現しています。
+国土地理院では、さまざまな地理院タイルを提供しています。
+
+ズームレベルの大きさは、極に近づくと大きくなりますが、概ね以下のようになっています。
+
+.. list-table:: 図法ごとの距離計測
+   :widths: 25 25 25 25
+   :header-rows: 1
+
+   * - Zoom Level
+     - タイル数
+     - 縮尺
+     - 注記
+   * - 0	
+     - 1	
+     - 1:500,000,000
+     - 世界全体
+   * - 5	
+     - 4^5 = 1,024
+     - 1:15,000,000
+     - 大きめの国全体
+   * - 10	
+     - 4^10 = 1,048,576
+     - 1:500,000
+     - 東京全体
+   * - 17
+     - 4^17 = 17,179,869,184
+     - 1:4,000
+     - 街区
+
+https://wiki.openstreetmap.org/wiki/Zoom_levels より抜粋
+
+
+
+日本のタイル
+======================
+
+日本でよく使われるタイルサービスをいくつか紹介します。
+- OpenStreetMap (OSM): https://tile.openstreetmap.jp/{z}/{x}/{y}.png
+- 国土地理院 (GSI): https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png
+
+
+
+タイルをオフラインで使用
+=========================
+
+
+XYZ タイルの追加
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+ここでは、プラグイン jpdata を使いましょう。
+
+「国土地理院」タブから、お好きなタイルサーバを選びます。
+
+MBTiles を作成
+^^^^^^^^^^^^^^^
+
+Processing で XYZ や MBTiles を作成できます。
+XYZ タイルを生成 (MBTiles 形式) ツールを使います。
+
+* Extent: 範囲。
+* Minimum/Maximum Zoom level: 重要！ (都道府県レベルで、min zoom = 10, max zoom = 14)
+* Tile format: PNG or JPEG
+* Output file: 保存場所。例: mytiles.mbtiles
+
+「実行」を押します。
+ネットワーク環境によりますが、かなり時間がかかります。
+
+オフラインで使用
+^^^^^^^^^^^^^^^^^^
+
+Layer → Add Raster Layer で、先ほど作成した MBTiles (例: mytiles.mbtiles.) を選びます。
+
+.. Substitutions definitions - AVOID EDITING PAST THIS LINE
+   This will be automatically updated by the find_set_subst.py script.
+   If you need to create a new substitution manually,
+   please add it also to the substitutions.txt file in the
+   source folder.
+
+.. |addVectorTileLayer| image:: /static/common/mActionAddVectorTileLayer.png
+   :width: 1.5em
+.. |editMetadata| image:: /static/common/editmetadata.png
+   :width: 1.2em
+.. |labelingSingle| image:: /static/common/labelingSingle.png
+   :width: 1.5em
+.. |mapIdentification| image:: /static/common/mActionMapIdentification.png
+   :width: 1.5em
+.. |metadata| image:: /static/common/metadata.png
+   :width: 1.5em
+.. |rendering| image:: /static/common/rendering.png
+   :width: 1.5em
+.. |search| image:: /static/common/search.png
+   :width: 1.5em
+.. |setProjection| image:: /static/common/mActionSetProjection.png
+   :width: 1.5em
+.. |symbology| image:: /static/common/symbology.png
+   :width: 2em
+.. |symbologyAdd| image:: /static/common/symbologyAdd.png
+   :width: 1.5em
+.. |symbologyEdit| image:: /static/common/symbologyEdit.png
+   :width: 1.5em
+.. |symbologyRemove| image:: /static/common/symbologyRemove.png
+   :width: 1.5em
+.. |system| image:: /static/common/system.png
+   :width: 1.5em
+.. |unchecked| image:: /static/common/unchecked.png
+   :width: 1.3em

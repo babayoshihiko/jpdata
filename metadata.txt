@@ -27,6 +27,7 @@ changelog=
         * quoting proxy user and password; certification
         * Fixed LNI bugs
         * LNI: mesh1k, mesh500, mesh250, A18s-a, A19s, A20, A20s, A21, A21s, A22, A22-m, A22s, A30a5, A37, N04, P09
+        * Documentation
       0.6.19:
         * Fixed LNI bugs
         * LNI: C28, N06, N08, N10, S05-d, S10, S10b, S12

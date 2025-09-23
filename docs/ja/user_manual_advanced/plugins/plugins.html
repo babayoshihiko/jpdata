@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QGIS Plugins &mdash; QGIS Advanced Documentation wht jpData  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/qgis_docs.css?v=01847ad1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/qgis_topbar.css?v=5613a779" />
+
+  
+    <link rel="shortcut icon" href="../../_static/qgis_logo.ico"/>
+    <link rel="canonical" href="https://docs.qgis.org/latest/en/user_manual_advanced/plugins/plugins.html"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="description" content="Unofficial QGIS latest documentation: QGIS Plugins">
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(["disableCookies"]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.qgis.org/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+</head>
+
+<body class="wy-body-for-nav">
+
+  <nav class="release_status_topbar">
+    <div class="row isTesting">
+     こちらは、非公式の応用 QGIS ユーザーガイドです。公式は、以下にあります: <a href="https://docs.qgis.org/latest/ja/docs/index.html"></a>.
+  </nav>
+
+   
+
+ 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            QGIS Advanced Documentation wht jpData
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+   <a href= "../../genindex.html">Index</a>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/getting_started.html">1. QGIS でインストールされるもの</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/project_files.html">2. Projects, GUI, Browser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/qgis_gui.html">3. QGIS GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/qgis_configuration.html">4. QGIS 設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_projections/working_with_projections.html">5. 投影法の操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_vector/index.html">6. ベクタデータの操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_vector_tiles/vector_tiles.html">7. ベクタタイル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../processing/index.html">8. QGIS プロセシング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">9. プラグイン</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_development/index.html">10. プラグイン 開発</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/index.html">11. Appendices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">QGIS Advanced Documentation wht jpData</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">QGIS Plugins</li>
+
+    <li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/babayoshihiko/jpdata/blob/master/user_manual_advanced/plugins/plugins.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+        <!-- Add a button to guide potential contributors
+	     To do: add a more generic page for contributing in QGIS docs to keep users in the same website
+	     <a class="qgis-edit-guidelines" href="https://docs.qgis.org/latest/en/docs/documentation_guidelines/index.html">
+	-->
+	<a class="qgis-edit-guidelines" href="https://qgis.org/community/involve/">
+		Learn how to contribute!
+	</a>
+    </li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <blockquote>
+<div></div></blockquote>
+<section id="qgis-plugins">
+<span id="plugins"></span><span id="index-0"></span><h1>QGIS Plugins<a class="headerlink" href="#qgis-plugins" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#core-and-external-plugins" id="id5">Core and External plugins</a></p></li>
+<li><p><a class="reference internal" href="#the-plugins-dialog" id="id6">The Plugins Dialog</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-settings-tab" id="id7">The Settings tab</a></p></li>
+<li><p><a class="reference internal" href="#browsing-the-plugins" id="id8">Browsing the plugins</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-tabs" id="id9">The tabs</a></p></li>
+<li><p><a class="reference internal" href="#the-plugins" id="id10">The Plugins</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#the-install-from-zip-tab" id="id11">The Install from ZIP tab</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>QGIS has been designed with a plugin architecture. This allows many new
+features and functions to be easily added to the application. Some of the
+features in QGIS are actually implemented as plugins.</p>
+<section id="core-and-external-plugins">
+<span id="id1"></span><h2><a class="toc-backref" href="#id5" role="doc-backlink">Core and External plugins</a><a class="headerlink" href="#core-and-external-plugins" title="Link to this heading"></a></h2>
+<p>QGIS plugins are implemented either as <strong>Core Plugins</strong> or <strong>External Plugins</strong>.</p>
+<p><span class="xref std std-ref">Core Plugins</span> are maintained by the QGIS Development Team
+and are automatically part of every QGIS distribution. They are written in one
+of two languages: <strong>C++</strong> or <strong>Python</strong>.</p>
+<p>Most of External Plugins are currently written in Python. They are stored either
+in the ‘Official’ QGIS Repository at <a class="reference external" href="https://plugins.qgis.org/plugins/">https://plugins.qgis.org/plugins/</a> or in
+external repositories and are maintained by the individual authors. Detailed
+documentation about the usage, minimum QGIS version, home page, authors, and
+other important information are provided for the plugins in the Official
+repository. For other external repositories, documentation might be available
+with the external plugins themselves. External plugins documentation is not
+included in this manual.</p>
+<p>To install or activate a plugin, go to <span class="menuselection">Plugins</span> menu and select
+<a class="reference internal" href="../../_images/mActionShowPluginManager.png"><img alt="showPluginManager" src="../../_images/mActionShowPluginManager.png" style="width: 1.5em;" /></a> <span class="menuselection">Manage and install plugins…</span>.
+Installed external python plugins are placed under the <code class="file docutils literal notranslate"><span class="pre">python/plugins</span></code>
+folder of the active <span class="xref std std-ref">user profile</span> path.</p>
+<p>Paths to Custom C++ plugins libraries can also be added under
+<span class="menuselection">Settings ► Options ► System</span>.</p>
+</section>
+<section id="the-plugins-dialog">
+<span id="managing-plugins"></span><span id="index-1"></span><h2><a class="toc-backref" href="#id6" role="doc-backlink">The Plugins Dialog</a><a class="headerlink" href="#the-plugins-dialog" title="Link to this heading"></a></h2>
+<section id="the-settings-tab">
+<span id="setting-plugins"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">The Settings tab</a><a class="headerlink" href="#the-settings-tab" title="Link to this heading"></a></h3>
+<p>At the bottom of the left panel, the <a class="reference internal" href="../../_images/mActionTransformSettings.png"><img alt="transformSettings" src="../../_images/mActionTransformSettings.png" style="width: 1.5em;" /></a> <span class="guilabel">Settings</span> tab
+is the main place you can configure which plugins can be displayed in your application.
+You can use the following options:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../_images/checkbox.png"><img alt="checkbox" src="../../_images/checkbox.png" style="width: 1.3em;" /></a> <span class="guilabel">Check for Updates on Startup</span>. Whenever an installed
+plugin has update available, QGIS will inform you <span class="guilabel">Every Time QGIS
+starts</span>, <span class="guilabel">Once a Day</span>, <span class="guilabel">Every 3 Days</span>, <span class="guilabel">Every
+Week</span>, <span class="guilabel">Every 2 Weeks</span> or <span class="guilabel">Every month</span>.</p></li>
+<li><p><a class="reference internal" href="../../_images/checkbox.png"><img alt="checkbox" src="../../_images/checkbox.png" style="width: 1.3em;" /></a> <span class="guilabel">Show also Experimental Plugins</span>. QGIS will show you
+plugins in early stages of development, which are generally unsuitable for
+production use. For these plugins, you can install either the stable or
+the experimental version, and at any moment switch from one to the other.</p></li>
+<li><p><a class="reference internal" href="../../_images/checkbox.png"><img alt="checkbox" src="../../_images/checkbox.png" style="width: 1.3em;" /></a> <span class="guilabel">Show also Deprecated Plugins</span>. These plugins are
+usually unmaintained because they have replacement functions in QGIS,
+a lack of maintainers, they rely on functions that are no longer available
+in QGIS… They are generally unsuitable for production use and appear
+grayed in the plugins list.</p></li>
+</ul>
+<p>By default, in the <span class="guilabel">Plugin Repositories</span> section, QGIS provides
+you with its official plugin repository with the URL
+<code class="docutils literal notranslate"><span class="pre">https://plugins.qgis.org/plugins/plugins.xml?qgis=version</span></code>
+(where <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code> represents the exact QGIS version you are running).
+To add external author repositories, click <a class="reference internal" href="../../_images/symbologyAdd.png"><img alt="symbologyAdd" src="../../_images/symbologyAdd.png" style="width: 1.5em;" /></a> <span class="guilabel">Add…</span>
+and fill in the <span class="guilabel">Repository Details</span> form with a name and the URL.
+The URL can be of <code class="docutils literal notranslate"><span class="pre">http://</span></code> or <code class="docutils literal notranslate"><span class="pre">file://</span></code> protocol type.</p>
+<p>The default QGIS repository is an open repository and you don’t need any
+authentication to access it. You can however deploy your own plugin repository
+and require an authentication (basic authentication, PKI). You can get more
+information on QGIS authentication support in <span class="xref std std-ref">authentication</span> chapter.</p>
+<p>If you do not want one or more of the added repositories, they can be disabled
+from the Settings tab via the <a class="reference internal" href="../../_images/symbologyEdit.png"><img alt="symbologyEdit" src="../../_images/symbologyEdit.png" style="width: 1.5em;" /></a> <span class="guilabel">Edit…</span> button,
+or completely removed with the <a class="reference internal" href="../../_images/symbologyRemove.png"><img alt="symbologyRemove" src="../../_images/symbologyRemove.png" style="width: 1.5em;" /></a> <span class="guilabel">Delete</span> button.</p>
+<figure class="align-center" id="id2">
+<span id="figure-plugins-settings"></span><img alt="../../_images/plugins_settings.png" src="../../_images/plugins_settings.png" />
+<figcaption>
+<p><span class="caption-text">The <a class="reference internal" href="../../_images/mActionTransformSettings.png"><img alt="transformSettings" src="../../_images/mActionTransformSettings.png" style="width: 1.5em;" /></a> <span class="guilabel">Settings</span> tab</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="browsing-the-plugins">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Browsing the plugins</a><a class="headerlink" href="#browsing-the-plugins" title="Link to this heading"></a></h3>
+<section id="the-tabs">
+<h4><a class="toc-backref" href="#id9" role="doc-backlink">The tabs</a><a class="headerlink" href="#the-tabs" title="Link to this heading"></a></h4>
+<p>The upper tabs in the <span class="guilabel">Plugins</span> dialog provide you with lists of plugins
+based on their install, creation or update status. Depending on the plugins settings,
+available tabs can be:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../_images/mActionShowPluginManager.png"><img alt="showPluginManager" src="../../_images/mActionShowPluginManager.png" style="width: 1.5em;" /></a> <span class="guilabel">All</span>: shows all the available plugins in
+the enabled repositories</p></li>
+<li><p><a class="reference internal" href="../../_images/plugin-installed.png"><img alt="pluginInstalled" src="../../_images/plugin-installed.png" style="width: 1.5em;" /></a> <span class="guilabel">Installed</span>: shows both the plugins you installed
+and the core plugins that are installed by default and you can not uninstall</p></li>
+<li><p><a class="reference internal" href="../../_images/plugin.png"><img alt="plugin" src="../../_images/plugin.png" style="width: 1.5em;" /></a> <span class="guilabel">Not installed</span>: shows uninstalled or not yet installed
+plugins in the enabled repositories</p></li>
+<li><p><a class="reference internal" href="../../_images/plugin-new.png"><img alt="plugin-new" src="../../_images/plugin-new.png" style="width: 1.5em;" /></a> <span class="guilabel">New</span>: shows plugins released since the last
+<span class="guilabel">Check for Updates on Startup</span></p></li>
+<li><p><a class="reference internal" href="../../_images/plugin-upgrade.png"><img alt="plugin-upgrade" src="../../_images/plugin-upgrade.png" style="width: 1.5em;" /></a> <span class="guilabel">Upgradeable</span>: shows installed plugins that have
+published a more recent version in the repository</p></li>
+<li><p><a class="reference internal" href="../../_images/plugin-incompatible.png"><img alt="pluginIncompatible" src="../../_images/plugin-incompatible.png" style="width: 1.5em;" /></a> <span class="guilabel">Invalid</span>: shows all installed plugins that are
+currently broken for any reason (missing dependency, errors while loading,
+incompatible functions with QGIS version…)</p></li>
+</ul>
+<p>At the top of the tabs, a <span class="guilabel">Search</span> function helps you find any
+plugin using metadata information (author, name, description, tag,…).</p>
+<figure class="align-center" id="id3">
+<span id="figure-plugins-all"></span><img alt="../../_images/plugins_all.png" src="../../_images/plugins_all.png" />
+<figcaption>
+<p><span class="caption-text">Searching a plugin from the <a class="reference internal" href="../../_images/mActionShowPluginManager.png"><img alt="showPluginManager" src="../../_images/mActionShowPluginManager.png" style="width: 1.5em;" /></a> <span class="guilabel">All</span> tab</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="the-plugins">
+<h4><a class="toc-backref" href="#id10" role="doc-backlink">The Plugins</a><a class="headerlink" href="#the-plugins" title="Link to this heading"></a></h4>
+<p>Select a plugin and you will have some metadata displayed in the right panel:</p>
+<ul class="simple">
+<li><p>information on whether the plugin is experimental or has an experimental
+version available (if <span class="guilabel">Show also Experimental Plugins</span> is checked)</p></li>
+<li><p>summary and description</p></li>
+<li><p>rating vote(s) (you can vote for your preferred plugin!)</p></li>
+<li><p>tags</p></li>
+<li><p>some useful links to the home page, tracker and code repository</p></li>
+<li><p>author(s)</p></li>
+<li><p>version(s) available with link to download page in the repository, or path to
+local folder for installed plugins</p></li>
+</ul>
+<p>The <span class="guilabel">Plugin Manager</span> dialog allows you to interact with the latest
+version of the plugins. When enabled, the experimental version can be shown
+only if it is more recent than the latest stable version.
+Depending on the active tab, whether the selected plugin is installed,
+you will be given some of the following options:</p>
+<ul class="simple">
+<li><p><span class="guilabel">Install</span>: installs the latest stable version of the selected plugin</p></li>
+<li><p><span class="guilabel">Install Experimental Plugin</span>: installs the experimental version
+of the selected plugin</p></li>
+<li><p><span class="guilabel">Reinstall Plugin</span>: installs the same stable version of the plugin
+e.g. after it has failed to load</p></li>
+<li><p><span class="guilabel">Reinstall Experimental Plugin</span>: installs the same experimental version
+of the plugin e.g. after it has failed to load</p></li>
+<li><p><span class="guilabel">Upgrade Plugin</span>: upgrades selected plugin to its latest stable version</p></li>
+<li><p><span class="guilabel">Upgrade Experimental Plugin</span>: upgrades selected plugin to its
+experimental version</p></li>
+<li><p><span class="guilabel">Upgrade All</span>: upgrades all installed plugins to their more recent
+stable or experimental version (depending on whether their previously installed
+version was stable or experimental).</p></li>
+<li><p><span class="guilabel">Downgrade Plugin</span>: moves from the experimental version of the plugin
+to its previous stable version</p></li>
+<li><p><span class="guilabel">Downgrade Experimental Plugin</span>: moves from an experimental version
+of the plugin to its latest published experimental version. This may occur
+when playing with a not yet published version.</p></li>
+<li><p><span class="guilabel">Uninstall Plugin</span>: removes the installed plugin from the user profile</p></li>
+</ul>
+<p>An installed plugin displays a <a class="reference internal" href="../../_images/checkbox.png"><img alt="checkbox" src="../../_images/checkbox.png" style="width: 1.3em;" /></a> checkbox on its left.
+Uncheck it to temporarily deactivate the plugin.</p>
+<p>Right-click on a plugin in the list and you will be able to sort the plugins list
+by various metadata. The new order applies to all the tabs. Sort options are:</p>
+<ul class="simple">
+<li><p><span class="guilabel">Sort by Name</span></p></li>
+<li><p><span class="guilabel">Sort by Downloads</span></p></li>
+<li><p><span class="guilabel">Sort by Vote</span></p></li>
+<li><p><span class="guilabel">Sort by Status</span></p></li>
+<li><p><span class="guilabel">Sort by Date Created</span></p></li>
+<li><p><span class="guilabel">Sort by Date Updated</span></p></li>
+</ul>
+</section>
+</section>
+<section id="the-install-from-zip-tab">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">The Install from ZIP tab</a><a class="headerlink" href="#the-install-from-zip-tab" title="Link to this heading"></a></h3>
+<p>The <a class="reference internal" href="../../_images/mActionInstallPluginFromZip.png"><img alt="installPluginFromZip" src="../../_images/mActionInstallPluginFromZip.png" style="width: 1.5em;" /></a> <span class="guilabel">Install from ZIP</span> tab provides a file
+selector widget to import plugins in a zipped format, e.g. plugins downloaded
+directly from their repository. Encrypted files are supported.</p>
+<figure class="align-center" id="id4">
+<span id="figure-plugins-install-zip"></span><img alt="../../_images/plugins_install_zip.png" src="../../_images/plugins_install_zip.png" />
+<figcaption>
+<p><span class="caption-text">The <a class="reference internal" href="../../_images/mActionInstallPluginFromZip.png"><img alt="installPluginFromZip" src="../../_images/mActionInstallPluginFromZip.png" style="width: 1.5em;" /></a> <span class="guilabel">Install from zip</span> tab</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025-now, Yoshihiko Baba.
+      <span class="lastupdated">Last updated on 2025 Sep 24, 08:01 +0900.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- Transifex follows a particular logic to build target pages:
+Expected French translation link for https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/overview_composer.html
+would return https://app.transifex.com/qgis/qgis-documentation/translate/#fr/aa6d8bc653526d38b295ca94bf8eee5e
+with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_MESSAGES/docs/user_manual/print_composer/overview_composer.po"-->
+<!--Make sure that mismatching language codes between Transifex and Sphinx are converted-->
+
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-info-circle"> QGIS Advanced Documentation wht jpData </span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Languages</dt>
+        
+          <dd><a href="https://docs.qgis.org/latest/ja/user_manual_advanced/plugins/plugins.html">ja</a></dd>
+        
+      </dl>
+
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://docs.qgis.org/testing/en/user_manual_advanced/plugins/plugins.html">testing</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/latest/en/user_manual_advanced/plugins/plugins.html">latest</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.40/en/user_manual_advanced/plugins/plugins.html">3.40</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.34/en/user_manual_advanced/plugins/plugins.html">3.34</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.28/en/user_manual_advanced/plugins/plugins.html">3.28</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.22/en/user_manual_advanced/plugins/plugins.html">3.22</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.16/en/user_manual_advanced/plugins/plugins.html">3.16</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.10/en/user_manual_advanced/plugins/plugins.html">3.10</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.4/en/user_manual_advanced/plugins/plugins.html">3.4</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/2.18/en/user_manual_advanced/plugins/plugins.html">2.18</a></dd>
+        
+      </dl>
+
+       
+       <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://docs.qgis.org/latest/pdf">PDF</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/latest/zip">HTML</a></dd>
+        
+      </dl>
+      
+
+      
+       
+      <dl>
+        <dt>Contribute to Docs</dt>
+          <dd>
+            <a href="https://github.com/babayoshihiko/jpdata/user_manual_advanced/plugins/plugins.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+          </dd>
+          
+          
+          <dd>
+            <a href="https://github.com/qgis/QGIS-Documentation/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+          </dd>
+      </dl>
+      
+
+      <dl>
+        <dt>On QGIS Project</dt>
+          <dd>
+            <a href="https://qgis.org" target="_blank" rel="noopener noreferrer">Home</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/api/latest" target="_blank" rel="noopener noreferrer">C++ API</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/pyqgis/latest" target="_blank" rel="noopener noreferrer">PyQGIS API</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/qgis/QGIS/tree/release-latest" target="_blank" rel="noopener noreferrer">Source</a>
+          </dd>
+      </dl>
+
+    </div>
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

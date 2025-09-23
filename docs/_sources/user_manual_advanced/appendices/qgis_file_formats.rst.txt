@@ -1,0 +1,62 @@
+.. index:: QGIS File Formats
+.. _qgisfileformats_appendix:
+
+付録C: QGISのファイル形式
+-----------------------------
+
+.. index:: QGIS Project File
+.. index:: QGS
+.. index:: QGZ
+.. index:: QGD
+.. _qgisprojectfile:
+
+QGS/QGZ - QGISプロジェクトファイル形式
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**QGS** 形式は、QGISプロジェクトを保存するためのXML形式です。 
+**QGZ** 形式は、QGSファイルとQGDファイルを含む圧縮（zip）アーカイブです。
+
+* プロジェクトのタイトル
+* プロジェクトのCRS
+* レイヤツリー
+* スナップ設定
+* リレーション: マニュアルでは「関係」と訳されています。ただし、マニュアル中の他の箇所では「リレーション」と訳されています。
+* マップキャンバスの範囲
+* プロジェクトモデル
+* 凡例
+* mapviewドック（2Dおよび3D）
+* 基になるデータセット（データソース）へのリンクを持つレイヤ、および範囲、SRS、結合、スタイル、レンダラ、ブレンドモード、不透明度などのその他のレイヤプロパティ。
+* プロジェクトのプロパティ
+
+
+The figures below show the top level tags in a QGS file and the expanded
+``ProjectLayers`` tag.
+
+.. _figure_qgs_toplevel:
+
+.. figure:: img/qgstoplevel.png
+   :align: center
+
+   The top level tags in a QGS file
+
+.. _figure_qgs_projectlayers:
+
+.. figure:: img/qgsprojectlayers.png
+   :align: center
+
+   The expanded top level ProjectLayers tag of a QGS file
+
+
+.. index:: QGIS Layer Definition File
+.. index:: QLR
+.. _qgislayerdefinitionfile:
+
+QML - QGISスタイルファイル形式
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+QMLは、レイヤのスタイルを保存するためのXML形式です。
+
+以下の URL に、日本の地理データ（国土数値情報や国勢調査）の QML ファイルがあります。
+
+https://github.com/babayoshihiko/jpdata/tree/main/qml
+

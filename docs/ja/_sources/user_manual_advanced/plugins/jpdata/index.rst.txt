@@ -1,0 +1,48 @@
+.. index:: Plugin jpData
+
+.. _plugin_jpdata:
+
+*************
+jpData Plugin
+*************
+
+.. toctree::
+   :maxdepth: 1
+
+   plugins_jpdata
+
+はじめに
+=================
+
+プラグイン jpData は、日本の地理情報データをダウンローとし、必要に応じて加工して QGIS に追加します。
+
+.. note::
+
+   Using the DB Manager it is possible to add comments for tables and
+   columns of a PostgreSQL Database.
+
+現在対応しているのは、国土数値情報、国勢調査、国土地理院タイルです。
+
+
+.. Substitutions definitions - AVOID EDITING PAST THIS LINE
+   This will be automatically updated by the find_set_subst.py script.
+   If you need to create a new substitution manually,
+   please add it also to the substitutions.txt file in the
+   source folder.
+
+.. |dbManager| image:: /static/common/dbmanager.png
+   :width: 1.5em
+.. |geometryChecker| image:: /static/common/geometrychecker.png
+   :width: 1.5em
+.. |geoprocessing| image:: /static/common/geoprocessing.png
+   :width: 1.5em
+.. |grassLogo| image:: /static/common/grasslogo.png
+   :width: 1.5em
+.. |grassTools| image:: /static/common/grass_tools.png
+   :width: 1.5em
+.. |metasearch| image:: /static/common/MetaSearch.png
+   :width: 1.5em
+.. |offlineEditingCopy| image:: /static/common/offline_editing_copy.png
+   :width: 1.5em
+.. |topologyChecker| image:: /static/common/mActionTopologyChecker.png
+   :width: 1.5em

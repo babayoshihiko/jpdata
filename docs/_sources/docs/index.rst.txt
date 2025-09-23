@@ -1,0 +1,33 @@
+
+**********************************
+ Documentation for QGIS |version|
+**********************************
+
+.. only:: testing
+
+  .. attention::  こちらは、jpData のドキュメントです。QGIS のドキュメントではありません。
+    QGIS のドキュメントは `こちら <https://docs.qgis.org/latest/en/docs/>`_ です。
+
+.. only:: not testing
+
+  .. hint:: こちらは、jpData のドキュメントです。QGIS のドキュメントではありません。
+    QGIS のドキュメントは `こちら <https://docs.qgis.org/latest/en/docs/>`_ です。
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: For Users
+
+   Advanced QGIS Desktop User Guide/Manual with jpdata <user_manual_advanced/index>
+
+jpData は、QGIS のプラグインです。QGIS のドキュメントは、QGIS のインストールに含まれています。
+
+
+
+.. Substitutions definitions - AVOID EDITING PAST THIS LINE
+   This will be automatically updated by the find_set_subst.py script.
+   If you need to create a new substitution manually,
+   please add it also to the substitutions.txt file in the
+   source folder.
+
+.. |CURRENT| replace:: 3.40

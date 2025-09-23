@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7. ベクタタイル &mdash; QGIS Advanced Documentation wht jpData  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/qgis_docs.css?v=01847ad1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/qgis_topbar.css?v=5613a779" />
+
+  
+    <link rel="shortcut icon" href="../../_static/qgis_logo.ico"/>
+    <link rel="canonical" href="https://docs.qgis.org/latest/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8. QGIS プロセシング" href="../processing/index.html" />
+    <link rel="prev" title="6. ベクタデータの操作" href="../working_with_vector/index.html" />
+  <meta name="description" content="Unofficial QGIS latest documentation: 7. ベクタタイル">
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(["disableCookies"]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.qgis.org/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+</head>
+
+<body class="wy-body-for-nav">
+
+  <nav class="release_status_topbar">
+    <div class="row isTesting">
+     こちらは、非公式の応用 QGIS ユーザーガイドです。公式は、以下にあります: <a href="https://docs.qgis.org/latest/ja/docs/index.html"></a>.
+  </nav>
+
+   
+
+ 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            QGIS Advanced Documentation wht jpData
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+   <a href= "../../genindex.html">Index</a>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/getting_started.html">1. QGIS でインストールされるもの</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/project_files.html">2. Projects, GUI, Browser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/qgis_gui.html">3. QGIS GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/qgis_configuration.html">4. QGIS 設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_projections/working_with_projections.html">5. 投影法の操作</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_vector/index.html">6. ベクタデータの操作</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. ベクタタイル</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">7.1. 日本のタイル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">7.2. タイルをオフラインで使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#xyz">7.2.1. XYZ タイルの追加</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mbtiles">7.2.2. MBTiles を作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">7.2.3. オフラインで使用</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../processing/index.html">8. QGIS プロセシング</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">9. プラグイン</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugin_development/index.html">10. プラグイン 開発</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/index.html">11. Appendices</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">QGIS Advanced Documentation wht jpData</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7. </span>ベクタタイル</li>
+
+    <li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/babayoshihiko/jpdata/blob/master/user_manual_advanced/working_with_vector_tiles/vector_tiles.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+        <!-- Add a button to guide potential contributors
+	     To do: add a more generic page for contributing in QGIS docs to keep users in the same website
+	     <a class="qgis-edit-guidelines" href="https://docs.qgis.org/latest/en/docs/documentation_guidelines/index.html">
+	-->
+	<a class="qgis-edit-guidelines" href="https://qgis.org/community/involve/">
+		Learn how to contribute!
+	</a>
+    </li>
+
+
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="../working_with_vector/index.html" class="btn btn-neutral float-left" title="6. ベクタデータの操作" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../processing/index.html" class="btn btn-neutral float-right" title="8. QGIS プロセシング" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <blockquote>
+<div></div></blockquote>
+<section id="label-vector-tiles">
+<span id="index-0"></span><span id="id1"></span><h1><span class="section-number">7. </span>ベクタタイル<a class="headerlink" href="#label-vector-tiles" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#id2" id="id6">日本のタイル</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id7">タイルをオフラインで使用</a></p>
+<ul>
+<li><p><a class="reference internal" href="#xyz" id="id8">XYZ タイルの追加</a></p></li>
+<li><p><a class="reference internal" href="#mbtiles" id="id9">MBTiles を作成</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id10">オフラインで使用</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<p>地図タイルは、ウェブの発展に伴って比較的最近開発されてきました。
+ウェブ地図は、さまざまな縮尺で地球上のさまざまな位置の地図を提供します。
+これに対応するため、あらかじめ複数の縮尺 (タイルではズームレベルと言います) のタイル状に分割したデータを用意しておきます。
+ズームレベルに応じて、サーバー側が必要な分だけインターネット上でタイルを送ります。
+このようにして、トラフィックを減らし、高速化を実現しています。
+国土地理院では、さまざまな地理院タイルを提供しています。</p>
+<p>ズームレベルの大きさは、極に近づくと大きくなりますが、概ね以下のようになっています。</p>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-number">Table 7.1 </span><span class="caption-text">図法ごとの距離計測</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Zoom Level</p></th>
+<th class="head"><p>タイル数</p></th>
+<th class="head"><p>縮尺</p></th>
+<th class="head"><p>注記</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>1:500,000,000</p></td>
+<td><p>世界全体</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>4^5 = 1,024</p></td>
+<td><p>1:15,000,000</p></td>
+<td><p>大きめの国全体</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>4^10 = 1,048,576</p></td>
+<td><p>1:500,000</p></td>
+<td><p>東京全体</p></td>
+</tr>
+<tr class="row-odd"><td><p>17</p></td>
+<td><p>4^17 = 17,179,869,184</p></td>
+<td><p>1:4,000</p></td>
+<td><p>街区</p></td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="https://wiki.openstreetmap.org/wiki/Zoom_levels">https://wiki.openstreetmap.org/wiki/Zoom_levels</a> より抜粋</p>
+<section id="id2">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">7.1. </span>日本のタイル</a><a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>日本でよく使われるタイルサービスをいくつか紹介します。
+- OpenStreetMap (OSM): <a class="reference external" href="https://tile.openstreetmap.jp">https://tile.openstreetmap.jp</a>/{z}/{x}/{y}.png
+- 国土地理院 (GSI): <a class="reference external" href="https://cyberjapandata.gsi.go.jp/xyz/std">https://cyberjapandata.gsi.go.jp/xyz/std</a>/{z}/{x}/{y}.png</p>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">7.2. </span>タイルをオフラインで使用</a><a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="xyz">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">7.2.1. </span>XYZ タイルの追加</a><a class="headerlink" href="#xyz" title="Link to this heading"></a></h3>
+<p>ここでは、プラグイン jpdata を使いましょう。</p>
+<p>「国土地理院」タブから、お好きなタイルサーバを選びます。</p>
+</section>
+<section id="mbtiles">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">7.2.2. </span>MBTiles を作成</a><a class="headerlink" href="#mbtiles" title="Link to this heading"></a></h3>
+<p>Processing で XYZ や MBTiles を作成できます。
+XYZ タイルを生成 (MBTiles 形式) ツールを使います。</p>
+<ul class="simple">
+<li><p>Extent: 範囲。</p></li>
+<li><p>Minimum/Maximum Zoom level: 重要！ (都道府県レベルで、min zoom = 10, max zoom = 14)</p></li>
+<li><p>Tile format: PNG or JPEG</p></li>
+<li><p>Output file: 保存場所。例: mytiles.mbtiles</p></li>
+</ul>
+<p>「実行」を押します。
+ネットワーク環境によりますが、かなり時間がかかります。</p>
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink"><span class="section-number">7.2.3. </span>オフラインで使用</a><a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>Layer → Add Raster Layer で、先ほど作成した MBTiles (例: mytiles.mbtiles.) を選びます。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../working_with_vector/index.html" class="btn btn-neutral float-left" title="6. ベクタデータの操作" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../processing/index.html" class="btn btn-neutral float-right" title="8. QGIS プロセシング" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025-now, Yoshihiko Baba.
+      <span class="lastupdated">Last updated on 2025 Sep 23, 07:55 +0900.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- Transifex follows a particular logic to build target pages:
+Expected French translation link for https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/overview_composer.html
+would return https://app.transifex.com/qgis/qgis-documentation/translate/#fr/aa6d8bc653526d38b295ca94bf8eee5e
+with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_MESSAGES/docs/user_manual/print_composer/overview_composer.po"-->
+<!--Make sure that mismatching language codes between Transifex and Sphinx are converted-->
+
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-info-circle"> QGIS Advanced Documentation wht jpData </span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Languages</dt>
+        
+          <dd><a href="https://docs.qgis.org/latest/ja/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">ja</a></dd>
+        
+      </dl>
+
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://docs.qgis.org/testing/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">testing</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/latest/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">latest</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.40/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">3.40</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.34/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">3.34</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.28/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">3.28</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.22/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">3.22</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.16/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">3.16</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.10/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">3.10</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.4/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">3.4</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/2.18/en/user_manual_advanced/working_with_vector_tiles/vector_tiles.html">2.18</a></dd>
+        
+      </dl>
+
+       
+       <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://docs.qgis.org/latest/pdf">PDF</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/latest/zip">HTML</a></dd>
+        
+      </dl>
+      
+
+      
+       
+      <dl>
+        <dt>Contribute to Docs</dt>
+          <dd>
+            <a href="https://github.com/babayoshihiko/jpdata/user_manual_advanced/working_with_vector_tiles/vector_tiles.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+          </dd>
+          
+          
+          <dd>
+            <a href="https://github.com/qgis/QGIS-Documentation/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+          </dd>
+      </dl>
+      
+
+      <dl>
+        <dt>On QGIS Project</dt>
+          <dd>
+            <a href="https://qgis.org" target="_blank" rel="noopener noreferrer">Home</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/api/latest" target="_blank" rel="noopener noreferrer">C++ API</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/pyqgis/latest" target="_blank" rel="noopener noreferrer">PyQGIS API</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/qgis/QGIS/tree/release-latest" target="_blank" rel="noopener noreferrer">Source</a>
+          </dd>
+      </dl>
+
+    </div>
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+.. _plugins.index:
+
+================
+プラグイン
+================
+
+.. toctree::
+   :maxdepth: 2
+
+   plugins
+   jpdata/index
+   plugins_geometry_checker
+   python_console

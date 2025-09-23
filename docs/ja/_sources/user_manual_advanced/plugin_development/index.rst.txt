@@ -1,0 +1,18 @@
+.. _plugins.index:
+
+================
+プラグイン 開発
+================
+
+.. toctree::
+   :maxdepth: 2
+
+   pd_about
+   pd_flow
+   pd_designer
+   pd_python
+   pd_pyqt
+   pd_editor
+   pd_m18n
+   pd_git
+   pd_publish

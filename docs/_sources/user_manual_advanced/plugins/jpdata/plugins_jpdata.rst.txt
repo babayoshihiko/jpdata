@@ -1,0 +1,14 @@
+.. index:: jpData
+.. _jpdata:
+
+jpData Plugin
+=================
+
+プラグイン jpData は、日本の地理情報データをダウンローとし、必要に応じて加工して QGIS に追加します。
+
+.. note::
+
+   Using the DB Manager it is possible to add comments for tables and
+   columns of a PostgreSQL Database.
+
+現在対応しているのは、国土数値情報、国勢調査、国土地理院タイルです。
