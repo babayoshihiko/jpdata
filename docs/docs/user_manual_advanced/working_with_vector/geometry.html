@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.1. ジオメトリ &mdash; QGIS Advanced Documentation with jpData  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/qgis_docs.css?v=01847ad1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/qgis_topbar.css?v=5613a779" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/qgis_logo.ico"/>
+    <link rel="canonical" href="https://docs.qgis.org/latest/en/docs/user_manual_advanced/working_with_vector/geometry.html"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="5.2. 融合 (dissolve)" href="dissolve.html" />
+    <link rel="prev" title="5. ベクタの操作" href="index.html" />
+  <meta name="description" content="Unofficial QGIS latest documentation: 5.1. ジオメトリ">
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(["disableCookies"]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.qgis.org/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+</head>
+
+<body class="wy-body-for-nav">
+
+  <nav class="release_status_topbar">
+    <div class="row isTesting">
+     こちらは、非公式の応用 QGIS ユーザーガイドです。公式は、以下にあります: <a href="https://docs.qgis.org/latest/ja/docs/index.html"></a>.
+  </nav>
+
+   
+
+ 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            QGIS Advanced Documentation with jpData
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+   <a href= "../../../genindex.html">Index</a>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Advanced QGIS Desktop User Guide/Manual with jpdata</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../introduction/getting_started.html">1. QGIS でインストールされるもの</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_gui.html">2. QGIS GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/qgis_configuration.html">3. QGIS 設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../working_with_projections/working_with_projections.html">4. 投影法の操作</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">5. ベクタの操作</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5.1. ジオメトリ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">5.1.1. ジオメトリとトポロジ</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dissolve.html">5.2. 融合 (dissolve)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../working_with_vector_tiles/vector_tiles.html">6. ベクタタイル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../processing/index.html">7. QGIS プロセシング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugins/index.html">8. プラグイン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plugin_development/index.html">9. プラグイン 開発</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appendices/index.html">10. Appendices</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">QGIS Advanced Documentation with jpData</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">jpData を使った応用 QGIS ユーザーガイド</a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">5. </span>ベクタの操作</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.1. </span>ジオメトリ</li>
+
+    <li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/babayoshihiko/jpdata/blob/master/docs/user_manual_advanced/working_with_vector/geometry.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+        <!-- Add a button to guide potential contributors
+	     To do: add a more generic page for contributing in QGIS docs to keep users in the same website
+	     <a class="qgis-edit-guidelines" href="https://docs.qgis.org/latest/en/docs/documentation_guidelines/index.html">
+	-->
+	<a class="qgis-edit-guidelines" href="https://qgis.org/community/involve/">
+		Learn how to contribute!
+	</a>
+    </li>
+
+
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="5. ベクタの操作" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dissolve.html" class="btn btn-neutral float-right" title="5.2. 融合 (dissolve)" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <blockquote>
+<div></div></blockquote>
+<section id="vector-geometry">
+<span id="index-0"></span><span id="id1"></span><h1><span class="section-number">5.1. </span>ジオメトリ<a class="headerlink" href="#vector-geometry" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>ベクタデータは、それぞれの地物に対して基本的には位置のデータがあるだけです。点の大きさや線の色、ポリゴンの塗りつぶし色などの情報はありません。</p>
+<p>QGISでは、ベクタをレイヤとして追加すると、その際に色・太さ、ポリゴンであればハッチングなどの「見た目」を定義します。これを「シンボル」といいます。</p>
+<p>さらに、属性情報から地物の名称や電話番号などの情報を表示することもできます。これを「ラベル」といいます。</p>
+<p>「シンボル」や「ラベル」などの情報を総称して「スタイル」といいます。QGIS のプロジェクトファイルには、レイヤごとにスタイル情報を定義しています。プロジェクトファイルは、.qgs と .qgz がありますが、現時点では大きな違いはありません。</p>
+<p>プロジェクトを.qgs形式で保存して、テキストエディタ（テキストエディタがない場合はGoogle Chrome などのブラウザ）で開いてみましょう。XML形式で書かれていることが確認できます。</p>
+<section id="id2">
+<h2><span class="section-number">5.1.1. </span>ジオメトリとトポロジ<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>ジオメトリとトポロジは、発展レベルです。QGIS 入門書にはほとんど書かれていません。ただし、データの整備に携わる際には必須の事項です。不正なジオメトリや不正なトポロジは、OGC標準で規定されています。</p>
+<p>なお、ジオメトリが不正な場合、空間演算ツールが使用できないことがあります。</p>
+<p>ジオメトリ演算</p>
+<ul class="simple">
+<li><p>ジオメトリ演算とは、線の長さを測ったり、ポリゴンの面積 (あるいは周長) を測ることが代表的です。</p></li>
+<li><p>データが線またはポリゴンの場合、属性テーブルに新たな列を作成し、距離や面積などを格納しておくことができます。</p></li>
+</ul>
+<p>ジオメトリの修復</p>
+<ul class="simple">
+<li><p>ベクタデータの中には、不正なジオメトリの地物が存在していることがあります。不正なジオメトリは、ジオメトリ演算や空間演算のエラーの原因になることがあります。</p></li>
+</ul>
+<p>不正なジオメトリとは、</p>
+<ul class="simple">
+<li><p>線のはずなのに、1点しかデータがない</p></li>
+<li><p>ポリゴンの線が交差している</p></li>
+<li><p>ポリゴンなのに、3点が一直線上にある</p></li>
+</ul>
+<p>などです。不正なジオメトリは、「ジオメトリチェッカー」または「トポロジをチェック」で調べることができます。プラグインのジオメトリチェッカーをインストールします。その後、メニューから「ベクタ &gt; ジオメトリをチェック」を選択します。</p>
+<p>最初の例の場合は、QGIS は地物を削除します。2番目の例では、手作業で直す必要が出てくる場合もあります。</p>
+<p>トポロジの修復</p>
+<p>ジオメトリが地物の内部のことであるのに対し、トポロジは地物間の関係性を指します。</p>
+<ul class="simple">
+<li><p>連続する二つの線が、一つの点で繋がっていない</p></li>
+<li><p>接するはずの二つのポリゴンが、空間があったり重なり部分がある</p></li>
+</ul>
+<p>ような時に、トポロジーのエラーがあります。以下の図は、後者の例です。</p>
+<p>プラグインのトポロジーチェッカーをインストールします。その後、メニューから「ベクタ &gt; トポロジーチェッカー」を選択します。</p>
+<section id="id3">
+<h3><span class="section-number">5.1.1.1. </span>河川のジオメトリ<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>宮城県の河川データをダウンロードし、ジオメトリをチェックしてみましょう。</p>
+<p>ジオメトリチェッカー: エラー数 33</p>
+<p>トポロジチェッカー: エラー数 0</p>
+<p>河川データは、小数点以下の数値が非常に細かくなっています。
+このため、ジオメトリチェッカーでエラーが出ることがあります。
+この場合、ジオメトリチェッカーの「設定」ボタンを押して、許容誤差を大きくします。
+例えば、<cite>1E-6</cite> から <cite>1E-10`</cite> に変更します。
+この場合、エラー数は 0 になります。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="5. ベクタの操作" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dissolve.html" class="btn btn-neutral float-right" title="5.2. 融合 (dissolve)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025-now, Yoshihiko Baba.
+      <span class="lastupdated">Last updated on 2025 Sep 24, 13:02 +0900.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- Transifex follows a particular logic to build target pages:
+Expected French translation link for https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/overview_composer.html
+would return https://app.transifex.com/qgis/qgis-documentation/translate/#fr/aa6d8bc653526d38b295ca94bf8eee5e
+with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_MESSAGES/docs/user_manual/print_composer/overview_composer.po"-->
+<!--Make sure that mismatching language codes between Transifex and Sphinx are converted-->
+
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-info-circle"> QGIS Advanced Documentation with jpData </span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Languages</dt>
+        
+          <dd><a href="https://docs.qgis.org/latest/ja/docs/user_manual_advanced/working_with_vector/geometry.html">ja</a></dd>
+        
+      </dl>
+
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://docs.qgis.org/testing/en/docs/user_manual_advanced/working_with_vector/geometry.html">testing</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/latest/en/docs/user_manual_advanced/working_with_vector/geometry.html">latest</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.40/en/docs/user_manual_advanced/working_with_vector/geometry.html">3.40</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.34/en/docs/user_manual_advanced/working_with_vector/geometry.html">3.34</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.28/en/docs/user_manual_advanced/working_with_vector/geometry.html">3.28</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.22/en/docs/user_manual_advanced/working_with_vector/geometry.html">3.22</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.16/en/docs/user_manual_advanced/working_with_vector/geometry.html">3.16</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.10/en/docs/user_manual_advanced/working_with_vector/geometry.html">3.10</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.4/en/docs/user_manual_advanced/working_with_vector/geometry.html">3.4</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/2.18/en/docs/user_manual_advanced/working_with_vector/geometry.html">2.18</a></dd>
+        
+      </dl>
+
+       
+       <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://docs.qgis.org/latest/pdf">PDF</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/latest/zip">HTML</a></dd>
+        
+      </dl>
+      
+
+      
+       
+      <dl>
+        <dt>Contribute to Docs</dt>
+          <dd>
+            <a href="https://github.com/babayoshihiko/jpdata/docs/user_manual_advanced/working_with_vector/geometry.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+          </dd>
+          
+          
+          <dd>
+            <a href="https://github.com/qgis/QGIS-Documentation/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+          </dd>
+      </dl>
+      
+
+      <dl>
+        <dt>On QGIS Project</dt>
+          <dd>
+            <a href="https://qgis.org" target="_blank" rel="noopener noreferrer">Home</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/api/latest" target="_blank" rel="noopener noreferrer">C++ API</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/pyqgis/latest" target="_blank" rel="noopener noreferrer">PyQGIS API</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/qgis/QGIS/tree/release-latest" target="_blank" rel="noopener noreferrer">Source</a>
+          </dd>
+      </dl>
+
+    </div>
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
