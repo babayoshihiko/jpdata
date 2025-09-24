@@ -7,7 +7,7 @@
 name=jpdata
 qgisMinimumVersion=3.0
 description=Download and load various data of Japan
-version=0.6.20
+version=0.6.21
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 
@@ -22,6 +22,8 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+      0.6.21:
+        * Bugfix
       0.6.20:
         * Check geometry when adding
         * quoting proxy user and password; certification
