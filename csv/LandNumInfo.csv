@@ -53,7 +53,7 @@ DID人口集中地区,,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A16/A
 都市計画決定情報 ,yes,A55,detail,City Plan,csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A55-2022.html,,,,,,,CP932,,6668,
 都市地域（ポリゴン）,,A09,muni,,csv,https://nlftp.mlit.go.jp/ksj/gml/data/A12/A12-15/A12-15_code_pref_GML.zip,,,,,,,,,,,,,,,
 用途地域,yes,A29,detail,Land Use,csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A29-2019.html,,,,,,,CP932,A29.qml,6668,
-立地適正化計画区域,yes,A50,regional,Location Normalisation Plan,csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A50-v1_0.html,,,,,,,,,,
+立地適正化計画区域,yes,A50,detail,Location Normalisation Plan,csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A50-v1_0.html,,,,,,,,,,
 歴史的風土保存区域,yes,A42,single,Preservation Area of Historic Landscape,2018,https://nlftp.mlit.go.jp/ksj/gml/data/A42/A42-18/A42-18_GML.zip,A42-18_GML.zip,A42-18_Preservation_Area_of_Historic_Landscape.shp,,A42-18_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A42.html,,,,,,,CP932,A42-2018.qml,6668,
 都市公園,yes,P13,,,2011,https://nlftp.mlit.go.jp/ksj/gml/data/P13/P13-11/P13-11_code_pref_GML.zip,P13-11_code_pref_GML.zip,P13-11_code_pref.shp,,P13-11_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P13.html,,,,,,,CP932,P13-2011.qml,4612,
 【大都市圏・条件不利地域】,heading,,,,,,,,,,,,,,,,,,,,
