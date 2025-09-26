@@ -345,12 +345,15 @@ def getTilesFromCsv():
 
 def findShpFile2(folderPath, shp, altdir, code_pref, code_muni="", name_muni=""):
     shpFile = None
-    shpFileTarget = shp.replace("code_pref", code_pref)
-    shpFileTarget = shpFileTarget.replace("code_muni", code_muni)
-    shpFileTarget = shpFileTarget.replace("name_muni", name_muni)
-    altDir = altdir.replace("code_pref", code_pref)
-    altDir = altDir.replace("code_muni", code_muni)
-    altDir = altDir.replace("name_muni", name_muni)
+    shpFileTarget = replaceCodes(
+        shp,
+        code_pref_or_mesh1=code_pref,
+        code_muni=code_muni,
+        name_muni=name_muni,
+    )
+    altDir = replaceCodes(
+        altdir, code_pref_or_mesh1=code_pref, code_muni=code_muni, name_muni=name_muni
+    )
     if os.path.exists(posixpath.join(folderPath, shpFileTarget)):
         shpFile = posixpath.join(folderPath, shpFileTarget)
     elif os.path.exists(posixpath.join(folderPath, altDir, shpFileTarget)):
@@ -457,3 +460,42 @@ def unzip(folder_path, zip_file):
                     with zf.open(zip_info) as file:
                         with open(output_file_path, "wb") as out_file:
                             out_file.write(file.read())
+
+
+def replaceCodes(
+    text, code_pref_or_mesh1=None, code_muni=None, year=None, name_muni=None
+):
+    if code_pref_or_mesh1 is not None:
+        if (isinstance(code_pref_or_mesh1, str) and len(code_pref_or_mesh1) < 3) or (
+            isinstance(code_pref_or_mesh1, int) and code_pref_or_mesh1 < 100
+        ):
+            code_pref_or_mesh1 = str(code_pref_or_mesh1).zfill(2)
+            text = text.replace("{code_pref}", code_pref_or_mesh1)
+            text = text.replace("code_pref", code_pref_or_mesh1)
+        else:
+            code_pref_or_mesh1 = str(code_pref_or_mesh1).zfill(4)
+            text = text.replace("{code_mesh1}", code_pref_or_mesh1)
+            text = text.replace("code_mesh1", code_pref_or_mesh1)
+    if code_muni is not None:
+        if (isinstance(code_pref_or_mesh1, str) and len(code_pref_or_mesh1) < 4) or (
+            isinstance(code_pref_or_mesh1, int) and code_pref_or_mesh1 < 1000
+        ):
+            code_muni = str(code_muni).zfill(3)
+            text = text.replace("{code_muni}", code_muni)
+            text = text.replace("code_muni", code_muni)
+    if year is not None:
+        year4digit = getYearAs(year, "year4digit")
+        text = text.replace("{year4digit}", year4digit)
+        text = text.replace("year4digit", year4digit)
+        text = text.replace("{year2digit}", getYearAs(year, "year2digit"))
+        text = text.replace("year2digit", getYearAs(year, "year2digit"))
+        text = text.replace("{yearJP}", getYearAs(year, "yearJP"))
+        text = text.replace("yearJP", getYearAs(year, "yearJP"))
+        text = text.replace("{yearJP2digit}", getYearAs(year, "yearJP2digit"))
+        text = text.replace("yearJP2digit", getYearAs(year, "yearJP2digit"))
+        text = text.replace("{year}", year4digit)
+        text = text.replace("year", year4digit)
+    if name_muni is not None:
+        text = text.replace("{name_muni}", name_muni)
+        text = text.replace("name_muni", name_muni)
+    return text

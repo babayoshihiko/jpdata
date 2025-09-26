@@ -158,12 +158,29 @@ def getUrlCodeZipByPrefCode(
                         overwrite = True
                 if overwrite:
                     x["year"] = row["year"]
-                    x["url"] = row["url"].replace("code_pref", code_pref)
-                    x["zip"] = row["zip"].replace("code_pref", code_pref)
-                    x["shp"] = row["shp"].replace("code_pref", code_pref)
-                    x["altdir"] = row["altdir"].replace("code_pref", code_pref)
+                    # x["url"] = row["url"].replace("code_pref", code_pref)
+                    # x["zip"] = row["zip"].replace("code_pref", code_pref)
+                    # x["shp"] = row["shp"].replace("code_pref", code_pref)
+                    # x["altdir"] = row["altdir"].replace("code_pref", code_pref)
+                    x["url"] = jpDataUtils.replaceCodes(
+                        row["url"], code_pref_or_mesh1=code_pref, year=year
+                    )
+                    x["zip"] = jpDataUtils.replaceCodes(
+                        row["zip"], code_pref_or_mesh1=code_pref, year=year
+                    )
+                    x["shp"] = jpDataUtils.replaceCodes(
+                        row["shp"], code_pref_or_mesh1=code_pref, year=year
+                    )
+                    x["altdir"] = jpDataUtils.replaceCodes(
+                        row["altdir"], code_pref_or_mesh1=code_pref, year=year
+                    )
+
                     if "qml" in row:
-                        x["qml"] = row["qml"].replace("code_pref", code_pref)
+                        # x["qml"] = row["qml"].replace("code_pref", code_pref)
+                        x["qml"] = jpDataUtils.replaceCodes(
+                            row["qml"], code_pref_or_mesh1=code_pref, year=year
+                        )
+
                     if "epsg" in row:
                         x["epsg"] = row["epsg"]
                     if "encoding" in row:
@@ -191,7 +208,7 @@ def getZip(
     tempEpsg = dict_lni_item["epsg"]
     tempEncoding = dict_lni_item["encoding"].upper()
     tempLayerName = dict_lni_item["name_j"] + " (" + pref_name + "," + year + ")"
-    str_replace_before = "code_pref"
+    # str_replace_before = "code_pref"
 
     if dict_lni_item["year"].upper()[-3:] == "CSV" and len(dict_lni_item["year"]) > 3:
         tempCsvFile = dict_lni_item["year"]
@@ -202,30 +219,19 @@ def getZip(
     )
 
     if tempTypeMuni == "mesh1":
-        str_replace_before = "code_mesh1"
+        # str_replace_before = "code_mesh1"
         tempLayerName = (
             dict_lni_item["name_j"] + " (" + code_pref_or_mesh1 + "," + year + ")"
         )
-
     if dict_lni_item_from_csv:
-        tempUrl = dict_lni_item_from_csv["url"].replace(
-            str_replace_before, code_pref_or_mesh1
-        )
-        tempZip = dict_lni_item_from_csv["zip"].replace(
-            str_replace_before, code_pref_or_mesh1
-        )
-        if "shp" in dict_lni_item_from_csv:
-            tempShp = dict_lni_item_from_csv["shp"].replace(
-                str_replace_before, code_pref_or_mesh1
-            )
+        # Read data from CSV
+        tempUrl = dict_lni_item_from_csv["url"]
+        tempZip = dict_lni_item_from_csv["zip"]
+        tempShp = dict_lni_item_from_csv["shp"]
         if "altdir" in dict_lni_item_from_csv:
-            tempAltdir = dict_lni_item_from_csv["altdir"].replace(
-                str_replace_before, code_pref_or_mesh1
-            )
+            tempAltdir = dict_lni_item_from_csv["altdir"]
         if "qml" in dict_lni_item_from_csv:
-            tempQml = dict_lni_item_from_csv["qml"].replace(
-                str_replace_before, code_pref_or_mesh1
-            )
+            tempQml = dict_lni_item_from_csv["qml"]
         if "epsg" in dict_lni_item_from_csv:
             tempEpsg = dict_lni_item_from_csv["epsg"]
         if "encoding" in dict_lni_item_from_csv:
@@ -234,10 +240,32 @@ def getZip(
             tempEncoding = "UTF-8"
         else:
             tempEncoding = "CP932"
-    else:
-        tempUrl = dict_lni_item["url"].replace(str_replace_before, code_pref_or_mesh1)
-        tempZip = dict_lni_item["zip"].replace(str_replace_before, code_pref_or_mesh1)
-        tempShp = dict_lni_item["shp"].replace(str_replace_before, code_pref_or_mesh1)
+
+    tempUrl = jpDataUtils.replaceCodes(
+        tempUrl,
+        code_pref_or_mesh1=code_pref_or_mesh1,
+        year=year,
+    )
+    tempZip = jpDataUtils.replaceCodes(
+        tempZip,
+        code_pref_or_mesh1=code_pref_or_mesh1,
+        year=year,
+    )
+    tempShp = jpDataUtils.replaceCodes(
+        tempShp,
+        code_pref_or_mesh1=code_pref_or_mesh1,
+        year=year,
+    )
+    tempAltdir = jpDataUtils.replaceCodes(
+        dict_lni_item_from_csv["altdir"],
+        code_pref_or_mesh1=code_pref_or_mesh1,
+        year=year,
+    )
+    tempQml = jpDataUtils.replaceCodes(
+        dict_lni_item_from_csv["qml"],
+        code_pref_or_mesh1=code_pref_or_mesh1,
+        year=year,
+    )
 
     if type == "urlzip":
         return tempUrl, tempZip, tempSubFolder
