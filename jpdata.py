@@ -299,11 +299,11 @@ class jpdata:
             self.dockwidget.myListWidget11.currentItemChanged.connect(
                 self._LW11_currentItemChanged
             )
-            self.dockwidget.myListWidget12.clicked.connect(self.tab1CheckYear)
+            # self.dockwidget.myListWidget12.clicked.connect(self.tab1CheckYear)
             self.dockwidget.myListWidget12.currentItemChanged.connect(
-                self.tab1CheckYear
+                self._LW12_changed
             )
-            self.dockwidget.myComboBox11.currentIndexChanged.connect(self.tab1SetLW13)
+            self.dockwidget.myComboBox11.currentIndexChanged.connect(self._cb11_changed)
             # self.myListWidget12_is_all_prefs = False
             # self.show_LW13 = False
             self.dockwidget.myListWidget12.setSelectionMode(
@@ -539,7 +539,7 @@ class jpdata:
                     item.setSelected(True)
 
         self._LW11_Prev = current_text
-        self.tab1CheckYear()
+        self._tab1_check_year()
 
     def _tab1_clear(self, bol_show_LW13):
         self.dockwidget.myListWidget12.clear()
@@ -555,7 +555,19 @@ class jpdata:
             self.dockwidget.myListWidget13.clear()
             self.dockwidget.myListWidget13.hide()
 
-    def tab1CheckYear(self):
+    def _LW12_changed(self, current, previous):
+        if current is not None:
+            if current == str(self.dockwidget.myComboBox11.currentText()):
+                return
+        self._tab1_check_year()
+        thisLandNum = self._LandNumInfo2[self._LW11_Prev]
+        if (
+            thisLandNum["type_muni"].lower() == "detail"
+            or thisLandNum["type_muni"].lower() == "mesh1"
+        ):
+            self._tab1_set_LW13(str(current.text()))
+
+    def _tab1_check_year(self):
         thisLandNum = self._LandNumInfo2[self._LW11_Prev]
 
         str_current_text = str(self.dockwidget.myComboBox11.currentText())
@@ -575,35 +587,40 @@ class jpdata:
                 thisLandNum["code_map"], name_pref, thisLandNum["year"]
             )
             for year in years:
-                self.dockwidget.myComboBox11.addItem(year)
+                if year != "":
+                    self.dockwidget.myComboBox11.addItem(year)
 
-        index = self.dockwidget.myComboBox11.findText(str_current_text)
-        if index != -1:
-            self.dockwidget.myComboBox11.setCurrentIndex(index)
+        if str_current_text != "":
+            index = self.dockwidget.myComboBox11.findText(str_current_text)
+            if index != -1:
+                self.dockwidget.myComboBox11.setCurrentIndex(index)
 
-    def tab1SetLW13(self):
-        # map_code and year
+        self._tab1_set_LW13()
+
+    def _cb11_changed(self, current):
+        if current is None:
+            return
+        self._tab1_set_LW13()
+
+    # When _LW12_changed, the selected item is not set yet.
+    # So, name_pref is passed from _LW12_changed.
+    def _tab1_set_LW13(self, name_pref=None):
         if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
             return
-        if len(self.dockwidget.myListWidget12.selectedItems()) == 0:
-            return
+        if name_pref is None:
+            if len(self.dockwidget.myListWidget12.selectedItems()) == 0:
+                return
+            else:
+                name_pref = str(
+                    self.dockwidget.myListWidget12.selectedItems()[0].text()
+                )
         if str(self.dockwidget.myComboBox11.currentText()).strip() == "":
             return
 
-        map_code = ""
         str_name_j = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-        str_name_pref = str(self.dockwidget.myListWidget12.selectedItems()[0].text())
+        str_name_pref = name_pref
         str_year = str(self.dockwidget.myComboBox11.currentText())
 
-        # for thisLandNum in self._LandNumInfo:
-        #     if str_name_j == thisLandNum["name_j"]:
-        #         if (
-        #             thisLandNum["type_muni"].lower() != "detail"
-        #             and thisLandNum["type_muni"].lower() != "mesh1"
-        #         ):
-        #             return
-        #         map_code = thisLandNum["code_map"]
-        #         break
         thisLandNum = self._LandNumInfo2[str_name_j]
         if (
             thisLandNum["type_muni"].lower() != "detail"
