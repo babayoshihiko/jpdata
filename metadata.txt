@@ -25,7 +25,7 @@ changelog=
       0.6.21:
         * Bugfix
         * Smarter CSV format (year) (though more elaboration is needed)
-        * LNI: A50
+        * LNI: A09, A50, A51, A53, S05-a, S05-b, S05-c
       0.6.20:
         * Check geometry when adding
         * quoting proxy user and password; certification

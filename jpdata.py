@@ -557,18 +557,19 @@ class jpdata:
 
     def _LW12_changed(self, current, previous):
         if current is not None:
+            name_pref = str(current.text())
             if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
                 if current == self.dockwidget.myListWidget12.selectedItems()[0].text():
                     return
-            self._tab1_check_year()
+            self._tab1_check_year(name_pref)
             thisLandNum = self._LandNumInfo2[self._LW11_Prev]
             if (
                 thisLandNum["type_muni"].lower() == "detail"
                 or thisLandNum["type_muni"].lower() == "mesh1"
             ):
-                self._tab1_set_LW13(str(current.text()))
+                self._tab1_set_LW13(name_pref)
 
-    def _tab1_check_year(self):
+    def _tab1_check_year(self, name_pref=None):
         thisLandNum = self._LandNumInfo2[self._LW11_Prev]
 
         str_current_text = str(self.dockwidget.myComboBox11.currentText())
@@ -577,13 +578,18 @@ class jpdata:
         if thisLandNum["year"].upper()[-3:] != "CSV":
             self.dockwidget.myComboBox11.addItem(thisLandNum["year"])
         else:
-            if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-                if thisLandNum["type_muni"].lower() != "mesh1":
-                    name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
+            if name_pref is None:
+                if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+                    if thisLandNum["type_muni"].lower() != "mesh1":
+                        name_pref = self.dockwidget.myListWidget12.selectedItems()[
+                            0
+                        ].text()
+                    else:
+                        name_pref = None
                 else:
                     name_pref = None
-            else:
-                name_pref = None
+            if name_pref is not None:
+                jpDataUtils.printLog("checking year for " + name_pref)
             years = jpDataLNI.getYearsByMapCode(
                 thisLandNum["code_map"], name_pref, thisLandNum["year"]
             )
