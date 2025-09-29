@@ -73,7 +73,10 @@ def getDetailsByMapCodePrefNameYear(code_map, name_pref, year):
         for row in csvreader:
             if (
                 len(row) >= 2
-                and row["availability"] == name_pref
+                and (
+                    row["availability"] == name_pref
+                    or row["availability"] == "allprefs"
+                )
                 and row["year"] == year
             ):
                 details.append(row["detail1"] + " " + row["detail2"])
@@ -163,22 +166,37 @@ def getUrlCodeZipByPrefCode(
                     # x["shp"] = row["shp"].replace("code_pref", code_pref)
                     # x["altdir"] = row["altdir"].replace("code_pref", code_pref)
                     x["url"] = jpDataUtils.replaceCodes(
-                        row["url"], code_pref_or_mesh1=code_pref, year=year
+                        row["url"],
+                        code_map=code_map,
+                        code_pref_or_mesh1=code_pref,
+                        year=year,
                     )
                     x["zip"] = jpDataUtils.replaceCodes(
-                        row["zip"], code_pref_or_mesh1=code_pref, year=year
+                        row["zip"],
+                        code_map=code_map,
+                        code_pref_or_mesh1=code_pref,
+                        year=year,
                     )
                     x["shp"] = jpDataUtils.replaceCodes(
-                        row["shp"], code_pref_or_mesh1=code_pref, year=year
+                        row["shp"],
+                        code_map=code_map,
+                        code_pref_or_mesh1=code_pref,
+                        year=year,
                     )
                     x["altdir"] = jpDataUtils.replaceCodes(
-                        row["altdir"], code_pref_or_mesh1=code_pref, year=year
+                        row["altdir"],
+                        code_map=code_map,
+                        code_pref_or_mesh1=code_pref,
+                        year=year,
                     )
 
                     if "qml" in row:
                         # x["qml"] = row["qml"].replace("code_pref", code_pref)
                         x["qml"] = jpDataUtils.replaceCodes(
-                            row["qml"], code_pref_or_mesh1=code_pref, year=year
+                            row["qml"],
+                            code_map=code_map,
+                            code_pref_or_mesh1=code_pref,
+                            year=year,
                         )
 
                     if "epsg" in row:
@@ -243,26 +261,31 @@ def getZip(
 
     tempUrl = jpDataUtils.replaceCodes(
         tempUrl,
+        code_map=dict_lni_item["code_map"],
         code_pref_or_mesh1=code_pref_or_mesh1,
         year=year,
     )
     tempZip = jpDataUtils.replaceCodes(
         tempZip,
+        code_map=dict_lni_item["code_map"],
         code_pref_or_mesh1=code_pref_or_mesh1,
         year=year,
     )
     tempShp = jpDataUtils.replaceCodes(
         tempShp,
+        code_map=dict_lni_item["code_map"],
         code_pref_or_mesh1=code_pref_or_mesh1,
         year=year,
     )
     tempAltdir = jpDataUtils.replaceCodes(
         dict_lni_item_from_csv["altdir"],
+        code_map=dict_lni_item["code_map"],
         code_pref_or_mesh1=code_pref_or_mesh1,
         year=year,
     )
     tempQml = jpDataUtils.replaceCodes(
         dict_lni_item_from_csv["qml"],
+        code_map=dict_lni_item["code_map"],
         code_pref_or_mesh1=code_pref_or_mesh1,
         year=year,
     )

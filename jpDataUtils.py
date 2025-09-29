@@ -463,8 +463,16 @@ def unzip(folder_path, zip_file):
 
 
 def replaceCodes(
-    text, code_pref_or_mesh1=None, code_muni=None, year=None, name_muni=None
+    text,
+    code_map=None,
+    code_pref_or_mesh1=None,
+    code_muni=None,
+    year=None,
+    name_muni=None,
 ):
+    if code_map is not None:
+        text = text.replace("{code_map}", code_map)
+        text = text.replace("code_map", code_map)
     if code_pref_or_mesh1 is not None:
         if (isinstance(code_pref_or_mesh1, str) and len(code_pref_or_mesh1) < 3) or (
             isinstance(code_pref_or_mesh1, int) and code_pref_or_mesh1 < 100
@@ -477,8 +485,8 @@ def replaceCodes(
             text = text.replace("{code_mesh1}", code_pref_or_mesh1)
             text = text.replace("code_mesh1", code_pref_or_mesh1)
     if code_muni is not None:
-        if (isinstance(code_pref_or_mesh1, str) and len(code_pref_or_mesh1) < 4) or (
-            isinstance(code_pref_or_mesh1, int) and code_pref_or_mesh1 < 1000
+        if (isinstance(code_muni, str) and len(code_muni) < 4) or (
+            isinstance(code_muni, int) and code_muni < 1000
         ):
             code_muni = str(code_muni).zfill(3)
             text = text.replace("{code_muni}", code_muni)

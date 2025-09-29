@@ -557,15 +557,16 @@ class jpdata:
 
     def _LW12_changed(self, current, previous):
         if current is not None:
-            if current == str(self.dockwidget.myComboBox11.currentText()):
-                return
-        self._tab1_check_year()
-        thisLandNum = self._LandNumInfo2[self._LW11_Prev]
-        if (
-            thisLandNum["type_muni"].lower() == "detail"
-            or thisLandNum["type_muni"].lower() == "mesh1"
-        ):
-            self._tab1_set_LW13(str(current.text()))
+            if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+                if current == self.dockwidget.myListWidget12.selectedItems()[0].text():
+                    return
+            self._tab1_check_year()
+            thisLandNum = self._LandNumInfo2[self._LW11_Prev]
+            if (
+                thisLandNum["type_muni"].lower() == "detail"
+                or thisLandNum["type_muni"].lower() == "mesh1"
+            ):
+                self._tab1_set_LW13(str(current.text()))
 
     def _tab1_check_year(self):
         thisLandNum = self._LandNumInfo2[self._LW11_Prev]
