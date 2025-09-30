@@ -588,8 +588,6 @@ class jpdata:
                         name_pref = None
                 else:
                     name_pref = None
-            if name_pref is not None:
-                jpDataUtils.printLog("checking year for " + name_pref)
             years = jpDataLNI.getYearsByMapCode(
                 thisLandNum["code_map"], name_pref, thisLandNum["year"]
             )
@@ -695,12 +693,6 @@ class jpdata:
         year = str(self.dockwidget.myComboBox11.currentText())
         pref_names = self.dockwidget.myListWidget12.selectedItems()
 
-        # for thisLandNum in self._LandNumInfo:
-        #     if (
-        #         str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-        #         == thisLandNum["name_j"]
-        #     ):
-        #         break
         thisLandNum = self._LandNumInfo2[
             str(self.dockwidget.myListWidget11.selectedItems()[0].text())
         ]

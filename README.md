@@ -99,9 +99,17 @@ For QGIS 3:
 
 * <del>Mesh data from Land Numerical Information</del>
 * <del>Download census CSV data and table join</del>
-* Kiban data from GeoSpatial Information Authority (GSI)
+* GeoSpatial Information Authority (GSI)
+    * Kiban
+    * 火山基本図 https://www.gsi.go.jp/bousaichiri/vbm-data_hokkai_tohoku.html#meakan
+    * 火山土地条件図 https://www.gsi.go.jp/bousaichiri/bousaichiri41114.html
+    * 避難場所 https://hinanmap.gsi.go.jp/hinanjocp/hinanbasho/koukaidate.html
+    * 自然災害伝承碑 https://www.gsi.go.jp/bousaichiri/denshouhi_datainfo.html
+    * 山岳標高 https://www.gsi.go.jp/kihonjohochousa/kihonjohochousa41139.html
+    * 湖沼 https://www.gsi.go.jp/kankyochiri/lakedatalist.html
 * Digital Elevation Model data from GeoSpatial Information Authority (GSI) (QuickDEM4JP)
 * 3D City Model from Project PLATEAU
 * Ministry of Justice
 * Forestry Agency
-
+* Ministry of Labour Health Welfare
+    * Long-term care services https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
