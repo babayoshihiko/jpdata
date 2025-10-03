@@ -23,6 +23,7 @@ hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
       0.6.21:
+        * Read the address data of Japan and jump
         * Bugfix
         * Smarter CSV format (year) (though more elaboration is needed)
         * LNI: A09, A50, A51, A53, S05-a, S05-b, S05-c

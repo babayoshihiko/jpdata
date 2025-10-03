@@ -47,13 +47,19 @@ from qgis.core import (
     QgsSettings,
     QgsVectorLayer,
     QgsRasterLayer,
+    QgsPointXY,
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
 )
+from qgis.utils import iface
+
 from . import jpDataUtils
 from . import jpDataDownloader
 from . import jpDataMuni
 from . import jpDataCensus
 from . import jpDataLNI
 from . import jpDataMesh
+from . import jpDataAddr
 
 
 class jpdata:
@@ -376,8 +382,43 @@ class jpdata:
                     jpDataUtils.getPrefNameByCode(code)
                 )
 
+            # Set Tab 4
+            self.dockwidget.myTabWidget.setTabText(3, self.tr("Address"))
+            jpDataAddr.set_cb_prefs(self.dockwidget.myCB_Addr_1)
+            self.dockwidget.myCB_Addr_1.currentIndexChanged.connect(
+                lambda: jpDataAddr.set_cb_cities(
+                    self.dockwidget.myCB_Addr_2,
+                    self._folderPath,
+                    self.dockwidget.myCB_Addr_1.currentText(),
+                )
+            )
+            self.dockwidget.myCB_Addr_2.currentIndexChanged.connect(
+                lambda: jpDataAddr.set_cb_towns(
+                    self.dockwidget.myCB_Addr_3,
+                    self._folderPath,
+                    self.dockwidget.myCB_Addr_1.currentText(),
+                    self.dockwidget.myCB_Addr_2.currentText(),
+                )
+            )
+            self.dockwidget.myCB_Addr_3.currentIndexChanged.connect(
+                lambda: jpDataAddr.set_cb_details(
+                    self.dockwidget.myCB_Addr_4,
+                    self._folderPath,
+                    self.dockwidget.myCB_Addr_1.currentText(),
+                    self.dockwidget.myCB_Addr_2.currentText(),
+                    self.dockwidget.myCB_Addr_3.currentText(),
+                )
+            )
+            if os.path.exists(
+                os.path.join(self._folderPath, "Addr")
+            ):  # If the folder exists, set cities
+                self.dockwidget.myPB_Addr_1.setText(self.tr("Jump"))
+            else:
+                self.dockwidget.myPB_Addr_1.setText(self.tr("Download"))
+            self.dockwidget.myPB_Addr_1.clicked.connect(self.myPB_Addr_1_clicked)
+
             # Tab Setting
-            self.dockwidget.myTabWidget.setTabText(3, self.tr("Setting"))
+            self.dockwidget.myTabWidget.setTabText(4, self.tr("Setting"))
             self.dockwidget.myLineEditSetting1.textEdited.connect(self.setProxyServer)
             self.dockwidget.myLineEditSetting2.textEdited.connect(self.setProxyServer)
             self.dockwidget.myLineEditSetting3.textEdited.connect(self.setProxyServer)
@@ -475,6 +516,7 @@ class jpdata:
 
         prevLandNum = self._LandNumInfo2.get(self._LW11_Prev, {})
         thisLandNum = self._LandNumInfo2[current_text]
+        self.setLabel(thisLandNum.get("code_map", ""))
 
         str_current_LW12_selected = [
             str(item.text()) for item in self.dockwidget.myListWidget12.selectedItems()
@@ -1237,3 +1279,60 @@ class jpdata:
             QgsSettings().setValue("jpdata/CheckGeometry", "true")
         else:
             QgsSettings().setValue("jpdata/CheckGeometry", "false")
+
+    def myPB_Addr_1_clicked(self):
+        if self.dockwidget.myPB_Addr_1.text() == self.tr("Download"):
+            self._dl_url_zip = []
+            self._dl_iter = 0
+            for i in range(1, 48):
+                if not os.path.exists(
+                    posixpath.join(
+                        self._folderPath,
+                        "Addr",
+                        str(i).zfill(2) + "000-23.0a.zip",
+                    )
+                ) and not os.path.exists(
+                    posixpath.join(
+                        self._folderPath,
+                        "Addr",
+                        str(i).zfill(2) + "000-23.0a",
+                        str(i).zfill(2) + "_2024.csv",
+                    )
+                ):
+                    self._dl_url_zip.append(
+                        {
+                            "year": "2024",
+                            "url": "https://nlftp.mlit.go.jp/isj/dls/data/23.0a/"
+                            + str(i).zfill(2)
+                            + "000-23.0a.zip",
+                            "zip": str(i).zfill(2) + "000-23.0a.zip",
+                            "subfolder": "Addr",
+                        }
+                    )
+            if len(self._dl_url_zip) > 0:
+                self._download_iter_2()
+        elif self.dockwidget.myPB_Addr_1.text() == self.tr("Jump"):
+            lon, lat = jpDataAddr.get_lonlat_by_addr(
+                self._folderPath,
+                str(self.dockwidget.myCB_Addr_1.currentText()),
+                str(self.dockwidget.myCB_Addr_2.currentText()),
+                str(self.dockwidget.myCB_Addr_3.currentText()),
+                str(self.dockwidget.myCB_Addr_4.currentText()),
+            )
+
+            if lon is None or lat is None:
+                return
+
+            point_jgd2011 = QgsPointXY(lon, lat)
+
+            # Transform to project CRS
+            crs_src = QgsCoordinateReferenceSystem("EPSG:6668")  # JGD2011
+            crs_dest = iface.mapCanvas().mapSettings().destinationCrs()
+            transform = QgsCoordinateTransform(crs_src, crs_dest, QgsProject.instance())
+            point_project = transform.transform(point_jgd2011)
+
+            # Set canvas center
+            canvas = iface.mapCanvas()
+            canvas.setCenter(point_project)
+            # canvas.zoomScale(zoom_scale)
+            canvas.refresh()
