@@ -454,6 +454,15 @@ class jpdata:
 
             self.dockwidget.myPushButtonTest.hide()
 
+
+
+            if self._folderPath == "~":
+                self.dockwidget.myTabWidget.setCurrentIndex(4)
+                self.setLabel(self.tr("Choose folder for zip/shp files"))
+            else:
+                self.dockwidget.myTabWidget.setCurrentIndex(0)
+
+
             # show the dockwidget
             # TODO: fix to allow choice of dock location
             self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
