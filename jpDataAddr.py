@@ -6,6 +6,18 @@ from . import jpDataUtils
 _csv_cache = {}
 
 
+def get_url(pref_code):
+    return (
+        "https://nlftp.mlit.go.jp/isj/dls/data/23.0a/"
+        + str(pref_code).zfill(2)
+        + "000-23.0a.zip"
+    )
+
+
+def get_zip(pref_code):
+    return str(pref_code).zfill(2) + "000-23.0a.zip"
+
+
 def _load_csv(folder, pref_code):
     """Load and cache the CSV for a given prefecture code."""
     if pref_code not in _csv_cache:

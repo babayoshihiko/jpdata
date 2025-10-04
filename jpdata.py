@@ -1289,7 +1289,7 @@ class jpdata:
                     posixpath.join(
                         self._folderPath,
                         "Addr",
-                        str(i).zfill(2) + "000-23.0a.zip",
+                        jpDataAddr.get_zip(i),
                     )
                 ) and not os.path.exists(
                     posixpath.join(
@@ -1302,10 +1302,8 @@ class jpdata:
                     self._dl_url_zip.append(
                         {
                             "year": "2024",
-                            "url": "https://nlftp.mlit.go.jp/isj/dls/data/23.0a/"
-                            + str(i).zfill(2)
-                            + "000-23.0a.zip",
-                            "zip": str(i).zfill(2) + "000-23.0a.zip",
+                            "url": jpDataAddr.get_url(i),
+                            "zip": jpDataAddr.get_zip(i),
                             "subfolder": "Addr",
                         }
                     )
