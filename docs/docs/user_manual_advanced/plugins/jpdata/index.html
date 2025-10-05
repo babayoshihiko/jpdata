@@ -104,7 +104,8 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../plugins_geometry_checker.html">8.2. ジオメトリとトポロジのチェック</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../plugin_ors.html">8.3. ORS Tools</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../python_console.html">8.4. QGIS Python コンソール</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../plugin_aino.html">8.4. Aino</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../python_console.html">8.5. QGIS Python コンソール</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../plugin_development/index.html">9. プラグイン 開発</a></li>
@@ -166,13 +167,28 @@
 </div>
 <section id="id1">
 <h2><span class="section-number">8.1.1. </span>はじめに<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>プラグイン jpData は、日本の地理情報データをダウンローとし、必要に応じて加工して QGIS に追加します。</p>
+<p>プラグイン jpData は、日本の地理情報データをダウロードとし、必要に応じて加工して QGIS に追加します。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Using the DB Manager it is possible to add comments for tables and
-columns of a PostgreSQL Database.</p>
+<p>プラグイン jpData は、日本の地理情報データをダウロードし、必要に応じて加工して QGIS に追加します。</p>
 </div>
 <p>現在対応しているのは、国土数値情報、国勢調査、国土地理院タイルです。</p>
+<p>最初に、「設定」で保存場所を指定してください。
+保存場所は、デフォルトでは、ユーザのホームディレクトリです。</p>
+<p>全体に関わる機能は以下の通りです。</p>
+<ul class="simple">
+<li><p>CRS の設定</p></li>
+<li><p>文字コードの指定</p></li>
+<li><p>ジオメトリのチェック</p></li>
+<li><p>プロキシの対応（ユーザー名とパスワードは保存されません）</p></li>
+<li><p>不正なジオメトリの確認（オプションでオフにできます）</p></li>
+</ul>
+<p>部分的に関わる機能は以下の通りです。</p>
+<ul class="simple">
+<li><p>シンボルの適用</p></li>
+<li><p>属性のフィールド名にエイリアスを設定</p></li>
+<li><p>国勢調査に年齢別人口をテーブル結合</p></li>
+</ul>
 </section>
 </section>
 
@@ -188,7 +204,7 @@ columns of a PostgreSQL Database.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2025-now, Yoshihiko Baba.
-      <span class="lastupdated">Last updated on 2025 Sep 24, 13:02 +0900.
+      <span class="lastupdated">Last updated on 2025 Oct 06, 08:51 +0900.
       </span></p>
   </div>
 

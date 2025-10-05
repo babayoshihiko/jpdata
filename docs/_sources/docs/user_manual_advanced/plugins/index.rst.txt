@@ -10,4 +10,5 @@
    jpdata/index
    plugins_geometry_checker
    plugin_ors
+   plugin_aino
    python_console

@@ -96,7 +96,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../working_with_projections/working_with_projections.html">4. 投影法の操作</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">5. ベクタの操作</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="geometry.html">5.1. ジオメトリ</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">5.2. 融合 (dissolve)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5.2. 融合 (dissolve)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">5.2.1. 孔のあるポリゴン</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../working_with_vector_tiles/vector_tiles.html">6. ベクタタイル</a></li>
@@ -189,6 +192,12 @@ QGIS の最も単純な融合は、メニューバーのベクタ、空間演算
 <img alt="結果" src="../../../_images/dissolve_04.png" />
 </figure>
 <p>属性テーブルを見ても、地物の数がだいぶ減ったことがわかります。</p>
+<section id="id1">
+<h2><span class="section-number">5.2.1. </span>孔のあるポリゴン<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>融合 (dissolve) を実行すると、孔のあるポリゴンができることがあります。</p>
+<p>この場合の孔は、隣接するポリゴンの接線が完全に一致していない時に発生します。</p>
+<p>孔を削除するには、プロセシングツールから、孔 (holes) を検索して、孔を削除を実行します。</p>
+</section>
 </section>
 
 
@@ -203,7 +212,7 @@ QGIS の最も単純な融合は、メニューバーのベクタ、空間演算
 
   <div role="contentinfo">
     <p>&#169; Copyright 2025-now, Yoshihiko Baba.
-      <span class="lastupdated">Last updated on 2025 Sep 24, 13:02 +0900.
+      <span class="lastupdated">Last updated on 2025 Oct 06, 08:51 +0900.
       </span></p>
   </div>
 

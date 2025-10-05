@@ -30,13 +30,17 @@ QGIS には、プラグイン開発に必要なスクリプト等が全て含ま
      - /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3
      - C:\\Program Files\\QGIS 3.38.2\\apps\\Python39\\python3.exe 
      - C:\\OSGeo4W\\apps\\Python312\\python3.exe
+   * - pylupdate
+     - /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5
+     - C:\\Program Files\\QGIS 3.38.2\\apps\\Python312\\Scripts\\pylupdate5.exe
+     - C:\\OSGeo4W\\apps\\Python39\\Scripts\\pylupdate5.exe
    * - pyrcc
      - /Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5
      - C:\\Program Files\\QGIS 3.38.2\\apps\\Python312\\Scripts\\pyrcc5.exe
      - C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe
    * - Designer
      - /Applications/QGIS-LTR.app/Contents/MacOS/Designer.app
-     - C:\\Program Files\\apps\\Qt5\\bin\\designer.exe
+     - C:\\Program Files\\QGIS 3.38.2\\apps\\Qt5\\bin\\designer.exe
      - C:\\OSGeo4W\\apps\\Qt5\\bin\\designer.exe
    * - Linguist
      - /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app
@@ -71,56 +75,61 @@ QGIS のバージョンによって、両者のファイルの中身が少し異
 
 `/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5` が、以下のような場合
 
-```
-#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS
-# -*- coding: utf-8 -*-
-import re
-import sys
-from PyQt5.pyrcc_main import main
-if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
-    sys.exit(main())
-```
+.. code-block:: text
+
+   #!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS
+   # -*- coding: utf-8 -*-
+   import re
+   import sys
+   from PyQt5.pyrcc_main import main
+   if __name__ == '__main__':
+      sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+      sys.exit(main())
+
 
 第一行目を
 
-`#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3`
+.. code-block:: text
+
+   #!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3
 
 と書き換えます。
 
 上記のようではなく、`/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5` が
 
-```
-#!/bin/sh
-exec '`dirname $0`/python3.9' -m PyQt5.pyrcc_main ${1+"$@"}
-```
+.. code-block:: text
+
+   #!/bin/sh
+   exec '`dirname $0`/python3.9' -m PyQt5.pyrcc_main ${1+"$@"}
+
 
 であれば、
 
-```
-#!/bin/sh
-exec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pyrcc_main ${1+"$@"}
-```
+.. code-block:: text
+
+   #!/bin/sh
+   exec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pyrcc_main ${1+"$@"}
 
 `/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5` は
 
-```
-#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS
-# -*- coding: utf-8 -*-
-import re
-import sys
-from PyQt5.pylupdate_main import main
-if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
-    sys.exit(main())
-```
+.. code-block:: text
+
+   #!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS
+   # -*- coding: utf-8 -*-
+   import re
+   import sys
+   from PyQt5.pylupdate_main import main
+   if __name__ == '__main__':
+      sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+      sys.exit(main())
+
 
 または
 
-```
-#!/bin/sh
-exec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pylupdate_main ${1+"$@"}
-```
+.. code-block:: text
+
+   #!/bin/sh
+   exec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pylupdate_main ${1+"$@"}
 
 と書き換えます。
 
@@ -132,23 +141,24 @@ Windows では、linguist.exe と designer.exe、pyrcc.exe と pylupdate.exe は
 
 pyrcc.exe と pylupdate.exe を使う直前に qt5 や python3 の環境を読み込ませることで解決できます。
 
-コマンドプロンプトを開き、以下のように実行してください。なお、PowerShell では以下のコマンドは正常に動作しません。
+Git Base を開き、以下のように実行してください。なお、PowerShell では以下のコマンドは正常に動作しません。
 
 スタンドアロン版の場合
 
-```
-> call C:\Program Files\QGIS 3.38.2\bin\o4w_env.bat
-> cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
-> "C:\Program Files\QGIS 3.38.2\apps\Python312\Scripts\pyrcc5.exe" -o resources.py resources.qrc
-```
+.. code-block:: bash
+
+   > call C:\Program Files\QGIS 3.38.2\bin\o4w_env.bat
+   > cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
+   > "C:\Program Files\QGIS 3.38.2\apps\Python312\Scripts\pyrcc5.exe" -o resources.py resources.qrc
+
 
 OSGeo4W 版の場合
 
-```
-> call C:\OSGeo4W\bin\o4w_env.bat
-> cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
-> C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
-```
+.. code-block:: bash
+
+   > call C:\OSGeo4W\bin\o4w_env.bat
+   > cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
+   > C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
 
 linguist.exe と designer.exe は、そのままでは実行できません。C:\\OSGeo4W\\saga_gui.bat などを参考に、以下のファイルを作成します。
 
@@ -199,23 +209,24 @@ MyPlugin 内に、`resouces.py` ファイルが作成されないことがあり
 
 macOS の場合
 
-```
-/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 -o resources.py resources.qrc
-```
+.. code-block:: bash
+
+   /Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 -o resources.py resources.qrc
+
 
 Windows スタンドアロン版の場合
 
-```
-> call C:\Program Files\QGIS 3.38.2\bin\o4w_env.bat
-> "C:\Program Files\QGIS 3.38.2\apps\Python312\Scripts\pyrcc5.exe" -o resources.py resources.qrc
-```
+.. code-block:: bash
+
+   > call C:\Program Files\QGIS 3.38.2\bin\o4w_env.bat
+   > "C:\Program Files\QGIS 3.38.2\apps\Python312\Scripts\pyrcc5.exe" -o resources.py resources.qrc
 
 OSGeo4W 版の場合
 
-```
-> call C:\OSGeo4W\bin\o4w_env.bat
-> C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
-```
+.. code-block:: bash
+
+   > call C:\OSGeo4W\bin\o4w_env.bat
+   > C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
 
 これで QGIS Plugin としては完成です。
 
@@ -226,13 +237,14 @@ Processing
 
 Plugin Builder は、Processing の場合、`resources.qrc` を作成してくれません。このため、自分で作成しましょう。
 
-```
-<RCC>
-    <qresource prefix="/plugins/MyPlugin" >
-        <file>icon.png</file>
-    </qresource>
-</RCC>
-```
+.. code-block:: text
+
+   <RCC>
+      <qresource prefix="/plugins/MyPlugin" >
+         <file>icon.png</file>
+      </qresource>
+   </RCC>
+
 
 また、`icon.png` も必要になります。こちらも作成するか、他のプラグインからコピーしましょう。
 

@@ -14,15 +14,30 @@ jpData Plugin
 はじめに
 =================
 
-プラグイン jpData は、日本の地理情報データをダウンローとし、必要に応じて加工して QGIS に追加します。
+プラグイン jpData は、日本の地理情報データをダウロードとし、必要に応じて加工して QGIS に追加します。
 
 .. note::
 
-   Using the DB Manager it is possible to add comments for tables and
-   columns of a PostgreSQL Database.
+   プラグイン jpData は、日本の地理情報データをダウロードし、必要に応じて加工して QGIS に追加します。
 
 現在対応しているのは、国土数値情報、国勢調査、国土地理院タイルです。
 
+最初に、「設定」で保存場所を指定してください。
+保存場所は、デフォルトでは、ユーザのホームディレクトリです。
+
+全体に関わる機能は以下の通りです。
+
+* CRS の設定
+* 文字コードの指定
+* ジオメトリのチェック
+* プロキシの対応（ユーザー名とパスワードは保存されません）
+* 不正なジオメトリの確認（オプションでオフにできます）
+
+部分的に関わる機能は以下の通りです。
+
+* シンボルの適用
+* 属性のフィールド名にエイリアスを設定
+* 国勢調査に年齢別人口をテーブル結合
 
 .. Substitutions definitions - AVOID EDITING PAST THIS LINE
    This will be automatically updated by the find_set_subst.py script.

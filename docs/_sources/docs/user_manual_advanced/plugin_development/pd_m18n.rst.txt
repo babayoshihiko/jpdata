@@ -31,14 +31,14 @@ MyPlugin フォルダ内に、i18n というフォルダがあります。
 
 i18n フォルダ内には、af.ts というファイルがありますが、これはサンプルです。実際には不要なので、削除しましょう。
 
-.pro ファイルを作る
+".pro" ファイルを作る
 ------------------
 
 テキストエディタで、i18n フォルダ内に MyPlugin.pro というファイル名でファイルを作成します。
 
 中身は以下の通りです。適宜、自分のファイル名に合わせてください。
 
-MyPlugin.pro::
+MyPlugin.pro:
 	FORMS = ../MyPlugin_dialog_base.ui
 	SOURCES = ../MyPlugin_dialog.py ../MyPlugin.py ../MyPluginUtils.py
 	TRANSLATIONS =  MyPlugin_ja.ts
@@ -46,16 +46,18 @@ MyPlugin.pro
 
 また、Window から Dock に変えるなど、上記の中身に大きな変更が発生した場合も、.pro ファイルを作り直す必要があります。
 
-.ts ファイルを作る
+".ts" ファイルを作る
 -------------------
 
 次に、MyPlugin_ja.ts ファイルを作ります。これには、pylupdate という Python スクリプトが必要です。
 
-場所がわからない場合は、@sec-python-folder を参照。
+
+macOS の場合
+^^^^^^^^^^^^
+
+スクリプト pylupdate の場所がわからない場合は、https://babayoshihiko.github.io/jpdata/docs/user_manual_advanced/plugin_development/pd_flow.html を参照。
 
 macOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5
-
-Windows の場合はコンソールなどで以下のように入力します。
 
 macOS の QGIS は、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 が入っていますが、そのままでは使うことができません。一行目を以下のように書き換えましょう。
 
@@ -67,7 +69,12 @@ macOS の QGIS は、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 �
 
 と書き換えます。
 
+この後、ターミナルから、以下を実行します。
+ターミナルは、macOS では、アプリケーション内のユーティリティに「ターミナル.app」があります。
+Windows では、Git をインストールした際に一緒にインストールされた Git Bash を使います。
+
 .. code-block:: bash
+
 	cd /path/to/MyPlugin
 	/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 -noobsolete i18n/MyPlugin.pro
 
@@ -75,27 +82,54 @@ macOS の QGIS は、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 �
 これで、i18n フォルダ内に MyPlugin_ja.ts が作成されます。すでにある場合は、更新されます。
 
 
+Windows の場合
+^^^^^^^^^^^^
+
+Git Bash を使って、以下のように入力します。
+
+スタンドアロン版
+
+.. code-block:: bash
+
+   > call "C:\Program Files\QGIS 3.38.2\bin\o4w_env.bat"
+   > cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
+   > "C:\Program Files\QGIS 3.38.2\apps\Python312\Scripts\pylupdate5.exe" -noobsolete i18n/MyPlugin.pro
+
+
+OSGeo 版
+
+.. code-block:: bash
+
+   > call C:\OSGeo4W\bin\o4w_env.bat
+   > cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
+   > C:\OSGeo4W\apps\Python39\Scripts\pylupdate5.exe -noobsolete i18n/MyPlugin.pro
+
+
 Linguist
 ----------
 
 i18n フォルダ内の MyPlugin_ja.ts ファイルを、Linguist で開きます。
 
-macOS: /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app
-
-Windows OSGeo4W インストールの場合
-
-.. code-block:: bash
-	C:\OSGeo4W\bin\python3
-
-
 macOS の場合 (QGIS-LTR.app は、名前が異なる場合があります。)
 
 .. code-block:: bash
+
 	open /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app
 
 
-翻訳を終えたら、ファイル > リリース を選択します。これで、i18n フォルダ内に MyPlugin.qm というファイルが作成されます。
+Windows スタンドアロンの場合
 
+1. C:\\Program Files\\QGIS 3.38.2\\bin\\saga_gui.bat をコピーし、C:\\Program Files\\QGIS 3.38.2\\bin\\linguist_gui.bat という名前にする
+2. テキストエディタで開き、二行目の ¥apps¥saga¥saga_gui.exe を ¥Qt5¥bin¥linguist.exe と書き換える
+
+Windows OSGeo4W インストールの場合
+
+1. C:\\OSGeo4W\\saga_gui.bat をコピーし、C:\\OSGeo4W\\linguist_gui.bat という名前にする
+2. テキストエディタで開き、二行目の ¥apps¥saga¥saga_gui.exe を ¥Qt5¥bin¥linguist.exe と書き換える
+
+ここで作成した linguist_gui.bat をダブルクリックします。
+
+Linguist で翻訳を終えたら、ファイル > リリース を選択します。これで、i18n フォルダ内に MyPlugin_ja.qm というファイルが作成されます。
 
 
 

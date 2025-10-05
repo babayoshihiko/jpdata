@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9.6. PyQt &mdash; QGIS Advanced Documentation with jpData  documentation</title>
+  <title>9.4. PyQt &mdash; QGIS Advanced Documentation with jpData  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/qgis_docs.css?v=01847ad1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
@@ -34,9 +34,9 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="9.7. エディタ" href="pd_editor.html" />
-    <link rel="prev" title="9.5. Designer の使い方" href="pd_python.html" />
-  <meta name="description" content="Unofficial QGIS latest documentation: 9.6. PyQt">
+    <link rel="next" title="9.5. エディタ" href="pd_editor.html" />
+    <link rel="prev" title="9.3. Designer の使い方" href="pd_designer.html" />
+  <meta name="description" content="Unofficial QGIS latest documentation: 9.4. PyQt">
   <script>
     var _paq = window._paq = window._paq || [];
     _paq.push(["disableCookies"]);
@@ -102,13 +102,11 @@
 <li class="toctree-l3"><a class="reference internal" href="pd_about.html">9.1. QGIS プラグイン 開発</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pd_flow.html">9.2. 開発の流れ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pd_designer.html">9.3. Designer の使い方</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pd_designer.html#id3">9.4. レイアウト</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pd_python.html">9.5. Designer の使い方</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">9.6. PyQt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pd_editor.html">9.7. エディタ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pd_m18n.html">9.8. 多言語化</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pd_git.html">9.9. GitHub</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pd_publish.html">9.10. プラグインの公開</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">9.4. PyQt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pd_editor.html">9.5. エディタ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pd_m18n.html">9.6. 多言語化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pd_git.html">9.7. GitHub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pd_publish.html">9.8. プラグインの公開</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../appendices/index.html">10. Appendices</a></li>
@@ -132,7 +130,7 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">jpData を使った応用 QGIS ユーザーガイド</a></li>
           <li class="breadcrumb-item"><a href="index.html"><span class="section-number">9. </span>プラグイン 開発</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">9.6. </span>PyQt</li>
+      <li class="breadcrumb-item active"><span class="section-number">9.4. </span>PyQt</li>
 
     <li style="float: right; text-align: right;">
 	<ul>
@@ -153,8 +151,8 @@
 
 
   </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="pd_python.html" class="btn btn-neutral float-left" title="9.5. Designer の使い方" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pd_editor.html" class="btn btn-neutral float-right" title="9.7. エディタ" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pd_designer.html" class="btn btn-neutral float-left" title="9.3. Designer の使い方" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pd_editor.html" class="btn btn-neutral float-right" title="9.5. エディタ" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
   </div>
   <hr/>
 </div>
@@ -164,7 +162,7 @@
   <blockquote>
 <div></div></blockquote>
 <section id="pyqt">
-<span id="pd-pyqt"></span><span id="index-0"></span><h1><span class="section-number">9.6. </span>PyQt<a class="headerlink" href="#pyqt" title="Link to this heading"></a></h1>
+<span id="pd-pyqt"></span><span id="index-0"></span><h1><span class="section-number">9.4. </span>PyQt<a class="headerlink" href="#pyqt" title="Link to this heading"></a></h1>
 <p>Qt (キュート) は、Linux, macOS, Windows などでアプリケーション開発を行う開発フレームワークです。</p>
 <p>プログラミング言語としては、C++ 言語向けとなっています。C++ 向けのレファレンスは、以下の通り。</p>
 <p>[<a class="reference external" href="https://doc.qt.io/qt-6/reference-overview.html](https://doc.qt.io/qt-6/reference-overview.html">https://doc.qt.io/qt-6/reference-overview.html](https://doc.qt.io/qt-6/reference-overview.html</a>)</p>
@@ -177,15 +175,15 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pd_python.html" class="btn btn-neutral float-left" title="9.5. Designer の使い方" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pd_editor.html" class="btn btn-neutral float-right" title="9.7. エディタ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pd_designer.html" class="btn btn-neutral float-left" title="9.3. Designer の使い方" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pd_editor.html" class="btn btn-neutral float-right" title="9.5. エディタ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2025-now, Yoshihiko Baba.
-      <span class="lastupdated">Last updated on 2025 Sep 24, 13:02 +0900.
+      <span class="lastupdated">Last updated on 2025 Oct 06, 08:51 +0900.
       </span></p>
   </div>
 

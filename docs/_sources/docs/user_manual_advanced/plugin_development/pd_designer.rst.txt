@@ -2,7 +2,7 @@
 .. _pd_designer:
 
 Designer の使い方
-=================
+==================
 
 .. only:: html
 
@@ -69,9 +69,12 @@ Label は、LineEdit などと異なり、ユーザが入力するのではな�
 ListWidget
 ^^^^^^^^^^
 
-List は、１列複数行で表示する表です。ListView と ListWidget がありますが、ListWidget の方が簡単に扱うことができます。
+List は、1 列複数行で表示する表です。ListView と ListWidget がありますが、ListWidget の方が簡単に扱うことができます。
 
-![QListWidget](img/windows-listview.png)
+.. _figure_pd_listview:
+
+.. figure:: img/windows-listview.png
+   :align: center
 
 ListWidget は、複数のテキストを縦に並べて表示をし、一つを選択するように使います。ComboBox と異なる点としては、選択肢を表示する視認性と、複数選択が可能になります。
 
@@ -94,6 +97,7 @@ List Widget のあるウィンドウが選択された状態で右クリック (
 デフォルトでは、１列ずつしか選択することができません。以下のコードで、複数行選択が可能になります。
 
     .. code-block:: python
+
       from qgis.PyQt.QtWidgets import QAbstractItemView
 
       ...
@@ -101,8 +105,36 @@ List Widget のあるウィンドウが選択された状態で右クリック (
          def run(self):
             ....
             self.myListWidget_1.setSelectionMode(
-                  QAbstractItemView.ExtendedSelection
+               QAbstractItemView.ExtendedSelection
+            )
 
+
+ListWidget (myListWidget) が選択されたときの処理は、Python では以下のように書きます。
+
+    .. code-block:: python
+
+      from qgis.PyQt.QtWidgets import QAbstractItemView
+
+      ...
+
+         def run(self):
+            ....
+            self.dockwidget.myListWidget.currentItemChanged.connect(
+                self.myLW_currentItemChanged
+            )
+         
+         def myLW_currentItemChanged(self, current, previous):
+
+なお、この処理の中で self.dockwidget.myListWidget12.selectedItems() はまだ新しい current が反映されておらず、古い selectedItems のままです。
+つまり previous と一致しています。
+
+厳密には、型が違うので、
+
+    .. code-block:: python
+
+      previous == self.dockwidget.myListWidget12.selectedItems()[0].text()
+
+ということになります。
 
 QListWidget についての参照 (バージョン６のものになります)。
 
@@ -127,6 +159,7 @@ QListWidget についての参照 (バージョン６のものになります)�
 `MyPlugin.py` に、以下のようなコードを追加します。
 
     .. code-block:: python
+
       def run(self):
          ....
          self.dlg.myPushButton_1.clicked.connect(self.ChangeButtonLabel)
@@ -135,6 +168,7 @@ QListWidget についての参照 (バージョン６のものになります)�
 さらに、`ChangeButtonLabel()` というメソッドを、同じファイルの地番下に追加します。
 
     .. code-block:: python
+
       def ChangeButtonLabel(self):
          self.dlg.myPushButton_1.setText('押された')
 
@@ -144,7 +178,7 @@ QListWidget についての参照 (バージョン６のものになります)�
 [https://www.riverbankcomputing.com/static/Docs/PyQt6/api/qtwidgets/qpushbutton.html](https://www.riverbankcomputing.com/static/Docs/PyQt6/api/qtwidgets/qpushbutton.html)
 
 レイアウト
-=========
+----------
 
 デフォルトでは、ユーザがウィンドウを大きくしても、LineEdit などはその大きさに合わせて伸びてくれません。
 
@@ -172,6 +206,7 @@ QGIS のプラグインウィンドウは、メインウィンドウに隠れる
 QGIS プラグインの場合
 
     .. code-block:: python
+
       def run(self):
          ...
          self.dlg.setWindowFlags(Qt.WindowStaysOnTopHint)
@@ -187,7 +222,6 @@ Designer を使い、`MyPlugin_2.ui` を作成します。
 テキストエディタで、`MyPlugin_2.py` を作成します。
 
     .. code-block:: python
-      \# -*- coding: utf-8 -*-
 
       from qgis.PyQt import QtGui, QtWidgets, uic
       import os
@@ -205,6 +239,7 @@ Designer を使い、`MyPlugin_2.ui` を作成します。
 `MyPlugin.py` も編集します。
 
     .. code-block:: python
+
       class MyPlugin:
          """QGIS Plugin Implementation."""
 

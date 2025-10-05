@@ -10,7 +10,6 @@
    pd_about
    pd_flow
    pd_designer
-   pd_python
    pd_pyqt
    pd_editor
    pd_m18n
