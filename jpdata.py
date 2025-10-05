@@ -386,11 +386,7 @@ class jpdata:
             self.dockwidget.myTabWidget.setTabText(3, self.tr("Address"))
             jpDataAddr.set_cb_prefs(self.dockwidget.myCB_Addr_1)
             self.dockwidget.myCB_Addr_1.currentIndexChanged.connect(
-                lambda: jpDataAddr.set_cb_cities(
-                    self.dockwidget.myCB_Addr_2,
-                    self._folderPath,
-                    self.dockwidget.myCB_Addr_1.currentText(),
-                )
+                self._myCB_Addr_1_changed
             )
             self.dockwidget.myCB_Addr_2.currentIndexChanged.connect(
                 lambda: jpDataAddr.set_cb_towns(
@@ -454,14 +450,13 @@ class jpdata:
 
             self.dockwidget.myPushButtonTest.hide()
 
-
-
             if self._folderPath == "~":
                 self.dockwidget.myTabWidget.setCurrentIndex(4)
                 self.setLabel(self.tr("Choose folder for zip/shp files"))
             else:
                 self.dockwidget.myTabWidget.setCurrentIndex(0)
 
+            self.dockwidget.myTabWidget.currentChanged.connect(self._tab_changed)
 
             # show the dockwidget
             # TODO: fix to allow choice of dock location
@@ -892,10 +887,14 @@ class jpdata:
         self.dockwidget.progressBar.setValue(100)
 
         if len(self._dl_url_zip) > 0 and self._dl_iter < len(self._dl_url_zip):
+            # Download next
             self._download_iter_2()
         else:
+            # All downloads finished
             self._dl_iter = 0
             self._dl_url_zip = []
+            if self._downloaderStatus == "ADDRESS":
+                self.myPB_Addr_1_clicked()
 
     def cancel_download(self):
         self._dl_url_zip = []
@@ -1341,5 +1340,21 @@ class jpdata:
             # Set canvas center
             canvas = iface.mapCanvas()
             canvas.setCenter(point_project)
-            # canvas.zoomScale(zoom_scale)
             canvas.refresh()
+
+    def _myCB_Addr_1_changed(self):
+        if not jpDataAddr.set_cb_cities(
+            self.dockwidget.myCB_Addr_2,
+            self._folderPath,
+            self.dockwidget.myCB_Addr_1.currentText(),
+        ):
+            self.dockwidget.myPB_Addr_1.setText(self.tr("Download"))
+            self.setLabel(self.tr("Missing address data."))
+            self._downloaderStatus = "ADDRESS"
+        else:
+            self.dockwidget.myPB_Addr_1.setText(self.tr("Jump"))
+
+    def _tab_changed(self, index):
+        """Called whenever the current tab changes."""
+        if index == 3:  # tab #3 (4th tab)
+            self.dockwidget.myCB_Addr_1.setCurrentIndex(12)

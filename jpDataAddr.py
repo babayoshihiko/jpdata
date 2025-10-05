@@ -3,7 +3,11 @@ import os, csv
 from . import jpDataUtils
 
 # --- Module-level cache: dict {pref_code: list_of_rows} ---
-_csv_cache = {}
+from collections import OrderedDict
+
+# global cache: keep up to 5 items
+_csv_cache = OrderedDict()
+_CACHE_SIZE = 5
 
 
 def get_url(pref_code):
@@ -18,19 +22,46 @@ def get_zip(pref_code):
     return str(pref_code).zfill(2) + "000-23.0a.zip"
 
 
-def _load_csv(folder, pref_code):
-    """Load and cache the CSV for a given prefecture code."""
-    if pref_code not in _csv_cache:
-        data_file = os.path.join(
-            folder,
-            "Addr",
-            pref_code.zfill(2) + "000-23.0a",
-            pref_code.zfill(2) + "_2024.csv",
-        )
-        with open(data_file, "r", encoding="CP932") as f:
+def _load_csv(folder, pref_code, encoding="cp932"):
+    """Load and cache the CSV for a given prefecture code (max 5 cached).
+
+    Args:
+        folder (str): Base folder containing Addr subfolder.
+        pref_code (str|int): Prefecture code.
+        encoding (str): Encoding of the CSV (default: cp932).
+
+    Returns:
+        list[list[str]]: Rows from the CSV.
+        None: If file does not exist.
+    """
+    pref_code = str(pref_code).zfill(2)
+
+    # if cached, move it to the end (mark as most recently used)
+    if pref_code in _csv_cache:
+        _csv_cache.move_to_end(pref_code)
+        return _csv_cache[pref_code]
+
+    # construct path
+    data_file = os.path.join(
+        folder, "Addr", f"{pref_code}000-23.0a", f"{pref_code}_2024.csv"
+    )
+
+    try:
+        with open(data_file, "r", encoding=encoding) as f:
             reader = csv.reader(f)
-            _csv_cache[pref_code] = [row for row in reader if row]
-    return _csv_cache[pref_code]
+            rows = [row for row in reader if any(row)]
+    except FileNotFoundError:
+        return None
+
+    # insert into cache
+    _csv_cache[pref_code] = rows
+    _csv_cache.move_to_end(pref_code)
+
+    # evict oldest if over capacity
+    if len(_csv_cache) > _CACHE_SIZE:
+        _csv_cache.popitem(last=False)
+
+    return rows
 
 
 def set_cb_prefs(combobox):
@@ -38,26 +69,28 @@ def set_cb_prefs(combobox):
     combobox.clear()
     for i in range(1, 48):
         combobox.addItem(jpDataUtils.getPrefNameByCode(i))
-    combobox.setCurrentIndex(12)
 
 
 def set_cb_cities(combobox, folder, pref_name):
     """Set city names in the combobox based on the selected prefecture code."""
     combobox.clear()
     cities = _get_cities_by_prefcode(folder, pref_name)
-    for city in cities:
-        combobox.addItem(city)
     if cities:
+        for city in cities:
+            combobox.addItem(city)
         combobox.setCurrentIndex(0)
+        return True
+    else:
+        return False
 
 
 def set_cb_towns(combobox, folder, pref_name, city_name):
     """Set town names in the combobox based on the selected prefecture code and city name."""
     combobox.clear()
     towns = _get_towns_by_municode(folder, pref_name, city_name)
-    for town in towns:
-        combobox.addItem(town)
     if towns:
+        for town in towns:
+            combobox.addItem(town)
         combobox.setCurrentIndex(0)
 
 
@@ -65,9 +98,9 @@ def set_cb_details(combobox, folder, pref_name, city_name, town_name):
     """Set town names in the combobox based on the selected prefecture code and city name."""
     combobox.clear()
     details = _get_details_by_town(folder, pref_name, city_name, town_name)
-    for detail in details:
-        combobox.addItem(detail)
     if details:
+        for detail in details:
+            combobox.addItem(detail)
         combobox.setCurrentIndex(0)
 
 
@@ -75,6 +108,8 @@ def _get_cities_by_prefcode(folder, pref_name):
     pref_code = jpDataUtils.getPrefCodeByName(pref_name)
     unzip_addr_data(folder)
     rows = _load_csv(folder, pref_code)
+    if rows is None:
+        return False
 
     cities = [row[1] for row in rows if len(row) > 1]
     unique_rows = []
@@ -87,6 +122,8 @@ def _get_cities_by_prefcode(folder, pref_name):
 def _get_towns_by_municode(folder, pref_name, city_name):
     pref_code = jpDataUtils.getPrefCodeByName(pref_name)
     rows = _load_csv(folder, pref_code)
+    if rows is None:
+        return False
 
     towns = [row[2] for row in rows if len(row) > 2 and row[1] == city_name]
     return sorted(set(towns))
@@ -95,6 +132,8 @@ def _get_towns_by_municode(folder, pref_name, city_name):
 def _get_details_by_town(folder, pref_name, city_name, town_name):
     pref_code = jpDataUtils.getPrefCodeByName(pref_name)
     rows = _load_csv(folder, pref_code)
+    if rows is None:
+        return False
 
     details = [
         row[4]
@@ -121,6 +160,8 @@ def unzip_addr_data(folder):
 def get_lonlat_by_addr(folder, pref_name, city_name, town_name, detail_code):
     pref_code = jpDataUtils.getPrefCodeByName(pref_name)
     rows = _load_csv(folder, pref_code)
+    if rows is None:
+        return False
 
     for row in rows:
         if (
