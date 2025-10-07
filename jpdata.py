@@ -301,17 +301,13 @@ class jpdata:
                         item.setForeground(Qt.gray)
                 self.dockwidget.myListWidget11.addItem(item)
 
-            self.dockwidget.myListWidget11.clicked.connect(self._LW11_clicked)
+            # self.dockwidget.myListWidget11.clicked.connect(self._LW11_clicked)
             self.dockwidget.myListWidget11.currentItemChanged.connect(
-                self._LW11_currentItemChanged
+                self.LW11_currentItemChanged
             )
             # self.dockwidget.myListWidget12.clicked.connect(self.tab1CheckYear)
-            self.dockwidget.myListWidget12.currentItemChanged.connect(
-                self._LW12_changed
-            )
+            self.dockwidget.myListWidget12.currentItemChanged.connect(self.LW12_changed)
             self.dockwidget.myComboBox11.currentIndexChanged.connect(self._cb11_changed)
-            # self.myListWidget12_is_all_prefs = False
-            # self.show_LW13 = False
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
@@ -500,26 +496,20 @@ class jpdata:
             self.dockwidget.myPushButton14.setEnabled(False)
             self.dockwidget.myPushButton32.setEnabled(False)
 
-    def _LW11_clicked(self, index):
-        self.tab1CheckPrefsOrRegions()
+    # def _LW11_clicked(self, index):
+    #     self.tab1CheckPrefsOrRegions()
 
-    def _LW11_currentItemChanged(self, current, previous):
-        self.tab1CheckPrefsOrRegions()
-
-    # When ListWdiget11 (LNI map) is clicked or changed, set ListWidget12.
-    # The default is all prefectures (self.myListWidget12_is_all_prefs = True).
-    # Otherwise, read the CSV and add items in ListWidget12.
-    def tab1CheckPrefsOrRegions(self):
-        if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
+    def LW11_currentItemChanged(self, current, previous):
+        if current is None:
             return
+        name_map = str(current.text())
 
-        current_text = str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-        if self._LW11_Prev and self._LW11_Prev == current_text:
+        if self._LW11_Prev and self._LW11_Prev == name_map:
             # Same as previously selected, do nothing
             return
 
         prevLandNum = self._LandNumInfo2.get(self._LW11_Prev, {})
-        thisLandNum = self._LandNumInfo2[current_text]
+        thisLandNum = self._LandNumInfo2[name_map]
         self.setLabel(thisLandNum.get("code_map", ""))
 
         str_current_LW12_selected = [
@@ -545,12 +535,11 @@ class jpdata:
                 str_new_LW12_text = all_prefs()
 
         elif muni_type == "single":
-            if not self._LW11_Prev:
-                str_new_LW12_text = [self.tr("Nation-wide")]
-            elif prevLandNum.get("type_muni", "").lower() == "single":
+            if prevLandNum.get("type_muni", "").lower() == "single":
                 bol_redraw_LW12 = False
             else:
                 str_new_LW12_text = [self.tr("Nation-wide")]
+                str_current_LW12_selected = [self.tr("Nation-wide")]
 
         elif muni_type in ("regional", "detail"):
             bol_show_LW13 = muni_type == "detail"
@@ -577,6 +566,11 @@ class jpdata:
             return
 
         if bol_redraw_LW12:
+            self.setLabel("bol_redraw_LW12 is True")
+        else:
+            self.setLabel("bol_redraw_LW12 is False")
+
+        if bol_redraw_LW12:
             self._tab1_clear(bol_show_LW13)
             for new_text in str_new_LW12_text:
                 item = QListWidgetItem(new_text)
@@ -584,7 +578,7 @@ class jpdata:
                 if new_text in str_current_LW12_selected:
                     item.setSelected(True)
 
-        self._LW11_Prev = current_text
+        self._LW11_Prev = name_map
         self._tab1_check_year()
 
     def _tab1_clear(self, bol_show_LW13):
@@ -594,26 +588,29 @@ class jpdata:
                 QAbstractItemView.SingleSelection
             )
             self.dockwidget.myListWidget13.show()
+            self.setLabel("Line 591")
         else:
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
             self.dockwidget.myListWidget13.clear()
             self.dockwidget.myListWidget13.hide()
+            self.setLabel("Line 598")
 
-    def _LW12_changed(self, current, previous):
-        if current is not None:
-            name_pref = str(current.text())
-            if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-                if current == self.dockwidget.myListWidget12.selectedItems()[0].text():
-                    return
-            self._tab1_check_year(name_pref)
-            thisLandNum = self._LandNumInfo2[self._LW11_Prev]
-            if (
-                thisLandNum["type_muni"].lower() == "detail"
-                or thisLandNum["type_muni"].lower() == "mesh1"
-            ):
-                self._tab1_set_LW13(name_pref)
+    def LW12_changed(self, current, previous):
+        if current is None:
+            return
+        name_pref = str(current.text())
+        if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+            if current == self.dockwidget.myListWidget12.selectedItems()[0].text():
+                return
+        self._tab1_check_year(name_pref)
+        thisLandNum = self._LandNumInfo2[self._LW11_Prev]
+        if (
+            thisLandNum["type_muni"].lower() == "detail"
+            or thisLandNum["type_muni"].lower() == "mesh1"
+        ):
+            self._tab1_set_LW13(name_pref)
 
     def _tab1_check_year(self, name_pref=None):
         thisLandNum = self._LandNumInfo2[self._LW11_Prev]
@@ -766,35 +763,16 @@ class jpdata:
         self._download_iter_2()
 
     def tab1Web(self):
-        # if not self.tab1CheckSelected(ignorePref=True):
-        #    return
         items = self.dockwidget.myListWidget11.selectedItems()
         for i in range(len(items)):
-            # for thisLandNum in self._LandNumInfo:
-            #     if str(items[i].text()) == thisLandNum["name_j"]:
-            #         url = QUrl(thisLandNum["source"])
-            #         QDesktopServices.openUrl(url)
-            #         break
             thisLandNum = self._LandNumInfo2[str(items[i].text())]
             url = QUrl(thisLandNum["source"])
             QDesktopServices.openUrl(url)
             break
 
     def tab1AddMap(self):
-        # Variables used in the function:
-        # item:
-        # pref_name: The name of selected prefectures or regions  in LW12
-        # pref_code: The corresponding codes
-        # year
-        # detail: The names of selected in LW13
         if not self.tab1CheckSelected():
             return
-        # for thisLandNum in self._LandNumInfo:
-        #     if (
-        #         str(self.dockwidget.myListWidget11.selectedItems()[0].text())
-        #         == thisLandNum["name_j"]
-        #     ):
-        #         break
         thisLandNum = self._LandNumInfo2[
             str(self.dockwidget.myListWidget11.selectedItems()[0].text())
         ]
