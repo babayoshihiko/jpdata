@@ -161,7 +161,7 @@ def get_lonlat_by_addr(folder, pref_name, city_name, town_name, detail_code):
     pref_code = jpDataUtils.getPrefCodeByName(pref_name)
     rows = _load_csv(folder, pref_code)
     if rows is None:
-        return False
+        return (None, None)
 
     for row in rows:
         if (

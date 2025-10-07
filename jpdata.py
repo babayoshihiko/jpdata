@@ -872,7 +872,8 @@ class jpdata:
             self._dl_iter = 0
             self._dl_url_zip = []
             if self._downloaderStatus == "ADDRESS":
-                self.myPB_Addr_1_clicked()
+                self.dockwidget.myPB_Addr_1.setText(self.tr("Jump"))
+                self._myCB_Addr_1_changed()
 
     def cancel_download(self):
         self._dl_url_zip = []
