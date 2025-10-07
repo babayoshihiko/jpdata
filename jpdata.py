@@ -108,10 +108,9 @@ class jpdata:
         # self._LandNumInfo = jpDataUtils.getMapsFromCsv()
         self._LandNumInfo2 = jpDataUtils.getMapsFromCsv2()
         self._GSI = jpDataUtils.getTilesFromCsv()
-        self._downloaderStatus = ""
+        self._dl_status = ""
         self._dl_url_zip = []
         self._dl_iter = 0
-        self._LW11_Prev = ""
         self._LW31_Prev = ""
         self._verbose = True
         # Create an action that triggers the folder chooser
@@ -301,12 +300,12 @@ class jpdata:
                         item.setForeground(Qt.gray)
                 self.dockwidget.myListWidget11.addItem(item)
 
-            # self.dockwidget.myListWidget11.clicked.connect(self._LW11_clicked)
             self.dockwidget.myListWidget11.currentItemChanged.connect(
                 self.LW11_currentItemChanged
-            )
-            # self.dockwidget.myListWidget12.clicked.connect(self.tab1CheckYear)
-            self.dockwidget.myListWidget12.currentItemChanged.connect(self.LW12_changed)
+            )  ## NEEDS REFACTORING
+            self.dockwidget.myListWidget12.currentItemChanged.connect(
+                self.LW12_changed
+            )  ## NEEDS REFACTORING
             self.dockwidget.myComboBox11.currentIndexChanged.connect(self._cb11_changed)
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
@@ -357,13 +356,11 @@ class jpdata:
                 self.tr("Add Shapefile as a Layer to Map on QGIS")
             )
             self.dockwidget.myPushButton32.clicked.connect(self.tab3AddMap)
-            self.dockwidget.myListWidget31.clicked.connect(self._LW31_clicked)
             self.dockwidget.myListWidget31.currentItemChanged.connect(
                 self._LW31_currentItemChanged
-            )
-            self.dockwidget.myListWidget32.clicked.connect(self._LW32_clicked)
-            self.dockwidget.myListWidget32.currentItemChanged.connect(
-                self._LW32_currentItemChanged
+            )  ## NEEDS REFACTORING
+            self.dockwidget.myListWidget32.itemSelectionChanged.connect(
+                self._LW32_itemSelectionChanged
             )
             self.dockwidget.myListWidget32.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
@@ -496,19 +493,20 @@ class jpdata:
             self.dockwidget.myPushButton14.setEnabled(False)
             self.dockwidget.myPushButton32.setEnabled(False)
 
-    # def _LW11_clicked(self, index):
-    #     self.tab1CheckPrefsOrRegions()
-
     def LW11_currentItemChanged(self, current, previous):
         if current is None:
             return
-        name_map = str(current.text())
+        name_map = current.text()
+        if previous is None:
+            name_map_prev = ""
+        else:
+            name_map_prev = str(previous.text())
 
-        if self._LW11_Prev and self._LW11_Prev == name_map:
+        if name_map_prev == name_map:
             # Same as previously selected, do nothing
             return
 
-        prevLandNum = self._LandNumInfo2.get(self._LW11_Prev, {})
+        prevLandNum = self._LandNumInfo2.get(name_map_prev, {})
         thisLandNum = self._LandNumInfo2[name_map]
         self.setLabel(thisLandNum.get("code_map", ""))
 
@@ -525,7 +523,7 @@ class jpdata:
             return [jpDataUtils.getPrefNameByCode(code) for code in range(1, 48)]
 
         if muni_type in ("", "allprefs"):
-            if not self._LW11_Prev:
+            if not name_map_prev:
                 str_new_LW12_text = all_prefs()
             elif prevLandNum.get("type_muni", "").lower() in ("", "allprefs", "mesh1"):
                 bol_redraw_LW12 = False
@@ -549,7 +547,7 @@ class jpdata:
 
         elif muni_type == "mesh1":
             bol_show_LW13 = True
-            if not self._LW11_Prev:
+            if not name_map_prev:
                 str_new_LW12_text = all_prefs()
             elif prevLandNum.get("type_muni", "").lower() in ("", "allprefs", "mesh1"):
                 bol_redraw_LW12 = False
@@ -578,8 +576,7 @@ class jpdata:
                 if new_text in str_current_LW12_selected:
                     item.setSelected(True)
 
-        self._LW11_Prev = name_map
-        self._tab1_check_year()
+        self._tab1_check_year(name_map)
 
     def _tab1_clear(self, bol_show_LW13):
         self.dockwidget.myListWidget12.clear()
@@ -588,24 +585,22 @@ class jpdata:
                 QAbstractItemView.SingleSelection
             )
             self.dockwidget.myListWidget13.show()
-            self.setLabel("Line 591")
         else:
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
             self.dockwidget.myListWidget13.clear()
             self.dockwidget.myListWidget13.hide()
-            self.setLabel("Line 598")
 
     def LW12_changed(self, current, previous):
         if current is None:
             return
-        name_pref = str(current.text())
+        name_pref = current.text()
         if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
             if current == self.dockwidget.myListWidget12.selectedItems()[0].text():
                 return
         self._tab1_check_year(name_pref)
-        thisLandNum = self._LandNumInfo2[self._LW11_Prev]
+        thisLandNum = self._LandNumInfo2[name_pref]
         if (
             thisLandNum["type_muni"].lower() == "detail"
             or thisLandNum["type_muni"].lower() == "mesh1"
@@ -613,7 +608,7 @@ class jpdata:
             self._tab1_set_LW13(name_pref)
 
     def _tab1_check_year(self, name_pref=None):
-        thisLandNum = self._LandNumInfo2[self._LW11_Prev]
+        thisLandNum = self._LandNumInfo2[name_pref]
 
         str_current_text = str(self.dockwidget.myComboBox11.currentText())
 
@@ -871,7 +866,7 @@ class jpdata:
             # All downloads finished
             self._dl_iter = 0
             self._dl_url_zip = []
-            if self._downloaderStatus == "ADDRESS":
+            if self._dl_status == "ADDRESS":
                 self.dockwidget.myPB_Addr_1.setText(self.tr("Jump"))
                 self._myCB_Addr_1_changed()
 
@@ -885,31 +880,13 @@ class jpdata:
             self._downloader = jpDataDownloader.DownloadThread()
         self.enable_download()
 
-    def _LW31_clicked(self, index):
-        self.tab3SelectPref()
-
     def _LW31_currentItemChanged(self, current, previous):
-        if current is None or current != previous:
-            self.tab3SelectPref()
-
-    def _LW32_clicked(self, index):
-        self._tab3_set_mesh()
-
-    def _LW32_currentItemChanged(self, current, previous):
-        if current is None or current != previous:
-            self._tab3_set_mesh()
-
-    def tab3SelectPref(self):
-        if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
+        if current is None or current == previous:
             return
-
-        if self._LW31_Prev == str(
-            self.dockwidget.myListWidget31.selectedItems()[0].text()
-        ):
+        if isinstance(current, int):
             return
-
-        self._LW31_Prev = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
-        rows = jpDataMuni.getMuniFromPrefName(self._LW31_Prev)
+        name_pref = current.text()
+        rows = jpDataMuni.getMuniFromPrefName(name_pref)
         self.dockwidget.myListWidget32.clear()
         for row in rows:
             if row["name_muni"] != "":
@@ -959,7 +936,13 @@ class jpdata:
         if index != -1:  # Ensure the item exists
             self.dockwidget.myComboBox31.setCurrentIndex(index)
 
+    def _LW32_itemSelectionChanged(self):
+        self._tab3_set_mesh()
+
     def _tab3_set_mesh(self):
+        if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
+            return
+        name_pref = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
 
         if self.dockwidget.myComboBox32.currentIndex() == 0:
             self.dockwidget.myListWidget33.clear()
@@ -974,19 +957,17 @@ class jpdata:
         else:
             self._tab3_set_year(2005)
 
-        if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
-            return
-
         self.dockwidget.myListWidget33.clear()
         self.dockwidget.myListWidget33.show()
 
         if len(self.dockwidget.myListWidget32.selectedItems()) == 0:
-            details = jpDataMesh.getMesh1ByPrefName(self._LW31_Prev)
+            details = jpDataMesh.getMesh1ByPrefName(name_pref)
         else:
             name_munis = []
             for name_muni in self.dockwidget.myListWidget32.selectedItems():
-                name_munis.append(str(name_muni.text()))
-            details = jpDataMesh.getMesh1ByPrefMuniName(self._LW31_Prev, name_munis)
+                name_munis.append(name_muni.text())
+            jpDataUtils.printLog(name_munis)
+            details = jpDataMesh.getMesh1ByPrefMuniName(name_pref, name_munis)
 
         for detail in details:
             self.dockwidget.myListWidget33.addItem(detail)
@@ -1329,7 +1310,7 @@ class jpdata:
         ):
             self.dockwidget.myPB_Addr_1.setText(self.tr("Download"))
             self.setLabel(self.tr("Missing address data."))
-            self._downloaderStatus = "ADDRESS"
+            self._dl_status = "ADDRESS"
         else:
             self.dockwidget.myPB_Addr_1.setText(self.tr("Jump"))
 
