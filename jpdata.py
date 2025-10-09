@@ -255,6 +255,7 @@ class jpdata:
             self._downloader = jpDataDownloader.DownloadThread()
             self._downloader.progress.connect(self.dockwidget.progressBar.setValue)
             self._downloader.finished.connect(self.download_finished)
+            self.name_map_prev = ""  # Tab 1 name_map
 
             self.dockwidget.myPushButton2.setText(self.tr("Choose Folder"))
             self.dockwidget.myPushButton2.setToolTip(self.tr("Choose Folder"))
@@ -300,12 +301,9 @@ class jpdata:
                         item.setForeground(Qt.gray)
                 self.dockwidget.myListWidget11.addItem(item)
 
-            self.dockwidget.myListWidget11.currentItemChanged.connect(
-                self.LW11_currentItemChanged
-            )  ## NEEDS REFACTORING to itemSelectionChanged
-            # self.dockwidget.myListWidget12.currentItemChanged.connect(
-            #     self.LW12_changed
-            # )  ## NEEDS REFACTORING to itemSelectionChanged
+            self.dockwidget.myListWidget11.itemSelectionChanged.connect(
+                self.LW11_itemSelectionChanged
+            )
             self.dockwidget.myListWidget12.itemSelectionChanged.connect(
                 self.LW12_itemSelectionChanged
             )  ## NEEDS REFACTORING to itemSelectionChanged
@@ -496,25 +494,18 @@ class jpdata:
             self.dockwidget.myPushButton14.setEnabled(False)
             self.dockwidget.myPushButton32.setEnabled(False)
 
-    def LW11_currentItemChanged(self, current, previous):
-        if current is None:
-            return
-        name_map = current.text()
-        if previous is None:
-            name_map_prev = ""
-        else:
-            name_map_prev = str(previous.text())
 
-        if name_map_prev == name_map:
-            # Same as previously selected, do nothing
+    def LW11_itemSelectionChanged(self):
+        if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
             return
+        name_map = self.dockwidget.myListWidget11.selectedItems()[0].text()
 
-        prevLandNum = self._LandNumInfo2.get(name_map_prev, {})
+        prevLandNum = self._LandNumInfo2.get("海岸線", {})
         thisLandNum = self._LandNumInfo2[name_map]
-        self.setLabel(thisLandNum.get("code_map", ""))
+        self.setLabel(thisLandNum.get(self.name_map_prev, ""))
 
         str_current_LW12_selected = [
-            str(item.text()) for item in self.dockwidget.myListWidget12.selectedItems()
+            item.text() for item in self.dockwidget.myListWidget12.selectedItems()
         ]
         str_new_LW12_text = []
         bol_redraw_LW12 = True
@@ -526,7 +517,7 @@ class jpdata:
             return [jpDataUtils.getPrefNameByCode(code) for code in range(1, 48)]
 
         if muni_type in ("", "allprefs"):
-            if not name_map_prev:
+            if not self.name_map_prev:
                 str_new_LW12_text = all_prefs()
             elif prevLandNum.get("type_muni", "").lower() in ("", "allprefs", "mesh1"):
                 bol_redraw_LW12 = False
@@ -543,16 +534,15 @@ class jpdata:
                 str_current_LW12_selected = [self.tr("Nation-wide")]
 
         elif muni_type in ("regional", "detail"):
-            bol_show_LW13 = muni_type == "detail"
+            if muni_type == "detail":
+                bol_show_LW13 = True
             str_new_LW12_text = jpDataLNI.getPrefsOrRegionsByMapCode(
                 thisLandNum["code_map"], thisLandNum["year"]
             )
 
         elif muni_type == "mesh1":
             bol_show_LW13 = True
-            if not name_map_prev:
-                str_new_LW12_text = all_prefs()
-            elif prevLandNum.get("type_muni", "").lower() in ("", "allprefs", "mesh1"):
+            if self.name_map_prev != "" and prevLandNum.get("type_muni", "").lower() in ("", "allprefs", "mesh1"):
                 bol_redraw_LW12 = False
             else:
                 str_new_LW12_text = all_prefs()
@@ -575,6 +565,8 @@ class jpdata:
                     item.setSelected(True)
 
         self._tab1_check_year(name_map)
+        self.name_map_prev = name_map
+
 
     def _tab1_clear(self, bol_show_LW13):
         self.dockwidget.myListWidget12.clear()
@@ -584,6 +576,7 @@ class jpdata:
             )
             self.dockwidget.myListWidget13.show()
         else:
+            self.setLabel("Clearing LW13")
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
@@ -592,7 +585,9 @@ class jpdata:
 
 
     def LW12_itemSelectionChanged(self):
-        self.setLabel("LW12 " + str(len(self.dockwidget.myListWidget12.selectedItems())))
+        if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
+            # header or inactive map selected
+            return
         if len(self.dockwidget.myListWidget12.selectedItems()) == 0:
             return
         name_map = self.dockwidget.myListWidget11.selectedItems()[0].text()
