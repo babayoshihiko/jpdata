@@ -302,10 +302,13 @@ class jpdata:
 
             self.dockwidget.myListWidget11.currentItemChanged.connect(
                 self.LW11_currentItemChanged
-            )  ## NEEDS REFACTORING
-            self.dockwidget.myListWidget12.currentItemChanged.connect(
-                self.LW12_changed
-            )  ## NEEDS REFACTORING
+            )  ## NEEDS REFACTORING to itemSelectionChanged
+            # self.dockwidget.myListWidget12.currentItemChanged.connect(
+            #     self.LW12_changed
+            # )  ## NEEDS REFACTORING to itemSelectionChanged
+            self.dockwidget.myListWidget12.itemSelectionChanged.connect(
+                self.LW12_itemSelectionChanged
+            )  ## NEEDS REFACTORING to itemSelectionChanged
             self.dockwidget.myComboBox11.currentIndexChanged.connect(self._cb11_changed)
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
@@ -358,7 +361,7 @@ class jpdata:
             self.dockwidget.myPushButton32.clicked.connect(self.tab3AddMap)
             self.dockwidget.myListWidget31.currentItemChanged.connect(
                 self._LW31_currentItemChanged
-            )  ## NEEDS REFACTORING
+            )  ## NEEDS REFACTORING to itemSelectionChanged
             self.dockwidget.myListWidget32.itemSelectionChanged.connect(
                 self._LW32_itemSelectionChanged
             )
@@ -564,11 +567,6 @@ class jpdata:
             return
 
         if bol_redraw_LW12:
-            self.setLabel("bol_redraw_LW12 is True")
-        else:
-            self.setLabel("bol_redraw_LW12 is False")
-
-        if bol_redraw_LW12:
             self._tab1_clear(bol_show_LW13)
             for new_text in str_new_LW12_text:
                 item = QListWidgetItem(new_text)
@@ -592,40 +590,36 @@ class jpdata:
             self.dockwidget.myListWidget13.clear()
             self.dockwidget.myListWidget13.hide()
 
-    def LW12_changed(self, current, previous):
-        if current is None:
+
+    def LW12_itemSelectionChanged(self):
+        self.setLabel("LW12 " + str(len(self.dockwidget.myListWidget12.selectedItems())))
+        if len(self.dockwidget.myListWidget12.selectedItems()) == 0:
             return
-        name_pref = current.text()
-        if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-            if current == self.dockwidget.myListWidget12.selectedItems()[0].text():
-                return
-        self._tab1_check_year(name_pref)
-        thisLandNum = self._LandNumInfo2[name_pref]
+        name_map = self.dockwidget.myListWidget11.selectedItems()[0].text()
+        name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
+        self._tab1_check_year(name_map)
+        thisLandNum = self._LandNumInfo2[name_map]
         if (
             thisLandNum["type_muni"].lower() == "detail"
             or thisLandNum["type_muni"].lower() == "mesh1"
         ):
             self._tab1_set_LW13(name_pref)
 
-    def _tab1_check_year(self, name_pref=None):
-        thisLandNum = self._LandNumInfo2[name_pref]
 
-        str_current_text = str(self.dockwidget.myComboBox11.currentText())
+    def _tab1_check_year(self, name_map=None):
+        thisLandNum = self._LandNumInfo2[name_map]
+        name_pref = None
+        str_current_year = self.dockwidget.myComboBox11.currentText()
 
         self.dockwidget.myComboBox11.clear()
         if thisLandNum["year"].upper()[-3:] != "CSV":
             self.dockwidget.myComboBox11.addItem(thisLandNum["year"])
         else:
-            if name_pref is None:
-                if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
-                    if thisLandNum["type_muni"].lower() != "mesh1":
-                        name_pref = self.dockwidget.myListWidget12.selectedItems()[
-                            0
-                        ].text()
-                    else:
-                        name_pref = None
-                else:
-                    name_pref = None
+            if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+                if thisLandNum["type_muni"].lower() != "mesh1":
+                    name_pref = self.dockwidget.myListWidget12.selectedItems()[
+                        0
+                    ].text()
             years = jpDataLNI.getYearsByMapCode(
                 thisLandNum["code_map"], name_pref, thisLandNum["year"]
             )
@@ -633,8 +627,8 @@ class jpdata:
                 if year != "":
                     self.dockwidget.myComboBox11.addItem(year)
 
-        if str_current_text != "":
-            index = self.dockwidget.myComboBox11.findText(str_current_text)
+        if str_current_year != "":
+            index = self.dockwidget.myComboBox11.findText(str_current_year)
             if index != -1:
                 self.dockwidget.myComboBox11.setCurrentIndex(index)
 
