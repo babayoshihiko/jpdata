@@ -494,15 +494,14 @@ class jpdata:
             self.dockwidget.myPushButton14.setEnabled(False)
             self.dockwidget.myPushButton32.setEnabled(False)
 
-
     def LW11_itemSelectionChanged(self):
         if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
             return
         name_map = self.dockwidget.myListWidget11.selectedItems()[0].text()
 
-        prevLandNum = self._LandNumInfo2.get("海岸線", {})
+        prevLandNum = self._LandNumInfo2.get(self.name_map_prev, {})
         thisLandNum = self._LandNumInfo2[name_map]
-        self.setLabel(thisLandNum.get(self.name_map_prev, ""))
+        self.setLabel(thisLandNum.get("code_map", ""))
 
         str_current_LW12_selected = [
             item.text() for item in self.dockwidget.myListWidget12.selectedItems()
@@ -542,7 +541,9 @@ class jpdata:
 
         elif muni_type == "mesh1":
             bol_show_LW13 = True
-            if self.name_map_prev != "" and prevLandNum.get("type_muni", "").lower() in ("", "allprefs", "mesh1"):
+            if self.name_map_prev != "" and prevLandNum.get(
+                "type_muni", ""
+            ).lower() in ("", "allprefs", "mesh1"):
                 bol_redraw_LW12 = False
             else:
                 str_new_LW12_text = all_prefs()
@@ -567,7 +568,6 @@ class jpdata:
         self._tab1_check_year(name_map)
         self.name_map_prev = name_map
 
-
     def _tab1_clear(self, bol_show_LW13):
         self.dockwidget.myListWidget12.clear()
         if bol_show_LW13:
@@ -576,13 +576,11 @@ class jpdata:
             )
             self.dockwidget.myListWidget13.show()
         else:
-            self.setLabel("Clearing LW13")
             self.dockwidget.myListWidget12.setSelectionMode(
                 QAbstractItemView.ExtendedSelection
             )
             self.dockwidget.myListWidget13.clear()
             self.dockwidget.myListWidget13.hide()
-
 
     def LW12_itemSelectionChanged(self):
         if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
@@ -600,7 +598,6 @@ class jpdata:
         ):
             self._tab1_set_LW13(name_pref)
 
-
     def _tab1_check_year(self, name_map=None):
         thisLandNum = self._LandNumInfo2[name_map]
         name_pref = None
@@ -612,9 +609,7 @@ class jpdata:
         else:
             if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
                 if thisLandNum["type_muni"].lower() != "mesh1":
-                    name_pref = self.dockwidget.myListWidget12.selectedItems()[
-                        0
-                    ].text()
+                    name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
             years = jpDataLNI.getYearsByMapCode(
                 thisLandNum["code_map"], name_pref, thisLandNum["year"]
             )
@@ -682,11 +677,11 @@ class jpdata:
             if detail in str_current_text:
                 item.setSelected(True)
 
-    def tab1CheckSelected(self, ignorePref=False):
+    def tab1CheckSelected(self):
         if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
             self.setLabel(self.tr("Please choose a map."))
             return False
-        if not ignorePref and len(self.dockwidget.myListWidget12.selectedItems()) == 0:
+        if len(self.dockwidget.myListWidget12.selectedItems()) == 0:
             self.setLabel(self.tr("Please choose a prefecture or region."))
             return False
 
@@ -1248,14 +1243,7 @@ class jpdata:
                         "Addr",
                         jpDataAddr.get_zip(i),
                     )
-                ) and not os.path.exists(
-                    posixpath.join(
-                        self._folderPath,
-                        "Addr",
-                        str(i).zfill(2) + "000-23.0a",
-                        str(i).zfill(2) + "_2024.csv",
-                    )
-                ):
+                ) and not jpDataAddr.get_csv_fullpath(i, self._folderPath):
                     self._dl_url_zip.append(
                         {
                             "year": "2024",
