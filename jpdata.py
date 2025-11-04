@@ -253,6 +253,7 @@ class jpdata:
 
             # User defined
             self._downloader = jpDataDownloader.DownloadThread()
+            self._downloader.setProxyServer(self._proxyServer)
             self._downloader.progress.connect(self.dockwidget.progressBar.setValue)
             self._downloader.finished.connect(self.download_finished)
             self.name_map_prev = ""  # Tab 1 name_map
@@ -442,7 +443,10 @@ class jpdata:
             else:
                 self.dockwidget.myCheckBox2.setChecked(True)
 
-            self.dockwidget.myPushButtonTest.hide()
+            if self._verbose:
+                self.dockwidget.myPushButtonTest.clicked.connect(self._test_verbose)
+            else:
+                self.dockwidget.myPushButtonTest.hide()
 
             if self._folderPath == "~":
                 self.dockwidget.myTabWidget.setCurrentIndex(4)
@@ -1164,7 +1168,9 @@ class jpdata:
             self._downloader.setProxyUser(self.dockwidget.myLineEditSetting2.text())
             self._downloader.setProxyPassword(self.dockwidget.myLineEditSetting3.text())
         else:
+            self._downloader.setProxyServer("")
             QgsSettings().setValue("jpdata/ProxyServer", "http://")
+            self._proxyServer = "http://"
 
     # year = 2023 and so on
     # type must be one of ["regional","detail","single","","census"]
@@ -1295,3 +1301,6 @@ class jpdata:
         """Called whenever the current tab changes."""
         if index == 3:  # tab #3 (4th tab)
             self.dockwidget.myCB_Addr_1.setCurrentIndex(12)
+
+    def _test_verbose(self):
+        self.setLabel(self._downloader.getProxyServer())

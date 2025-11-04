@@ -44,6 +44,13 @@ class DownloadThread(QThread):
         else:
             self.proxy_server = None
 
+    def getProxyServer(self):
+        _proxy_server = self._get_proxies()
+        if not _proxy_server:
+            return "No proxy set."
+        else:
+            return _proxy_server["http"]
+
     def setProxyUser(self, proxy_user):
         self.proxy_user = proxy_user.strip()
 

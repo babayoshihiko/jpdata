@@ -38,7 +38,7 @@
     <item row="7" column="0">
      <widget class="QTabWidget" name="myTabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -404,6 +404,37 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>myListWidget11</tabstop>
+  <tabstop>myListWidget12</tabstop>
+  <tabstop>myListWidget13</tabstop>
+  <tabstop>myComboBox11</tabstop>
+  <tabstop>myPushButton15</tabstop>
+  <tabstop>myPushButton11</tabstop>
+  <tabstop>myPushButton14</tabstop>
+  <tabstop>myListWidget23</tabstop>
+  <tabstop>myPushButton25</tabstop>
+  <tabstop>myComboBox31</tabstop>
+  <tabstop>myComboBox32</tabstop>
+  <tabstop>myListWidget31</tabstop>
+  <tabstop>myListWidget32</tabstop>
+  <tabstop>myListWidget33</tabstop>
+  <tabstop>myPushButton31</tabstop>
+  <tabstop>myPushButton32</tabstop>
+  <tabstop>myCB_Addr_1</tabstop>
+  <tabstop>myCB_Addr_2</tabstop>
+  <tabstop>myCB_Addr_3</tabstop>
+  <tabstop>myCB_Addr_4</tabstop>
+  <tabstop>myPB_Addr_1</tabstop>
+  <tabstop>myPushButton2</tabstop>
+  <tabstop>myLineEditSetting1</tabstop>
+  <tabstop>myLineEditSetting2</tabstop>
+  <tabstop>myLineEditSetting3</tabstop>
+  <tabstop>myPushButtonTest</tabstop>
+  <tabstop>myCheckBox1</tabstop>
+  <tabstop>myCheckBox2</tabstop>
+  <tabstop>myTabWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
