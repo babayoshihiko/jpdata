@@ -333,6 +333,8 @@
     <field name="L02_135" configurationFlags="None"/>
     <field name="L02_136" configurationFlags="None"/>
     <field name="L02_137" configurationFlags="None"/>
+    <field name="L02_138" configurationFlags="None"/>
+    <field name="L02_139" configurationFlags="None"/>
   </fieldConfiguration>
   <aliases>
     <alias name="基準地番号_用途区分" index="0" field="L02_001"/>
@@ -431,8 +433,8 @@
     <alias name="R04調査価格" index="93" field="L02_094"/>
     <alias name="R05調査価格" index="94" field="L02_095"/>
     <alias name="R06調査価格" index="95" field="L02_096"/>
-    <alias name="S59属性移動" index="96" field="L02_097"/>
-    <alias name="" index="97" field="L02_098"/>
+    <alias name="R07調査価格" index="96" field="L02_097"/>
+    <alias name="S59属性移動" index="97" field="L02_098"/>
     <alias name="" index="98" field="L02_099"/>
     <alias name="" index="99" field="L02_100"/>
     <alias name="" index="100" field="L02_101"/>
@@ -467,11 +469,13 @@
     <alias name="" index="129" field="L02_130"/>
     <alias name="" index="130" field="L02_131"/>
     <alias name="" index="131" field="L02_132"/>
-    <alias name="R02属性移動" index="132" field="L02_133"/>
-    <alias name="R03属性移動" index="133" field="L02_134"/>
-    <alias name="R04属性移動" index="134" field="L02_135"/>
-    <alias name="R05属性移動" index="135" field="L02_136"/>
-    <alias name="R06属性移動" index="136" field="L02_137"/>
+    <alias name="R01属性移動" index="132" field="L02_133"/>
+    <alias name="R02属性移動" index="133" field="L02_134"/>
+    <alias name="R03属性移動" index="134" field="L02_135"/>
+    <alias name="R04属性移動" index="135" field="L02_136"/>
+    <alias name="R05属性移動" index="136" field="L02_137"/>
+    <alias name="R06属性移動" index="137" field="L02_138"/>
+    <alias name="R07属性移動" index="138" field="L02_139"/>
   </aliases>
   <defaults>
     <default expression="" applyOnUpdate="0" field="L02_001"/>
@@ -611,6 +615,8 @@
     <default expression="" applyOnUpdate="0" field="L02_135"/>
     <default expression="" applyOnUpdate="0" field="L02_136"/>
     <default expression="" applyOnUpdate="0" field="L02_137"/>
+    <default expression="" applyOnUpdate="0" field="L02_138"/>
+    <default expression="" applyOnUpdate="0" field="L02_139"/>
   </defaults>
   <constraints>
     <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="L02_001"/>
@@ -750,6 +756,8 @@
     <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="L02_135"/>
     <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="L02_136"/>
     <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="L02_137"/>
+    <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="L02_138"/>
+    <constraint constraints="0" notnull_strength="0" exp_strength="0" unique_strength="0" field="L02_139"/>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="L02_001"/>
@@ -889,6 +897,8 @@
     <constraint desc="" exp="" field="L02_135"/>
     <constraint desc="" exp="" field="L02_136"/>
     <constraint desc="" exp="" field="L02_137"/>
+    <constraint desc="" exp="" field="L02_138"/>
+    <constraint desc="" exp="" field="L02_139"/>
   </constraintExpressions>
   <expressionfields/>
   <previewExpression>"L02_001"</previewExpression>

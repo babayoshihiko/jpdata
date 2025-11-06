@@ -30,7 +30,7 @@ name_j,availability,code_map,type_muni,name_e,year,url,zip,shp,geojson,altdir,so
 農業地域（農用地区域）,yes,A12,,Agricultural Area (area of agricultural land),2015,https://nlftp.mlit.go.jp/ksj/gml/data/A12/A12-15/A12-15_code_pref_GML.zip,A12-15_code_pref_GML.zip,a001code_pref0020160206.shp,,A12-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A12.html,,,,,CTV_NAME,name_muni,CP932,A12-06-2015.qml,4612,
 【地価】,heading,,,,,,,,,,,,,,,,,,,,
 地価公示,yes,L01,regional,Land Price,LandNumInfo_L01.csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L01-2025.html,L01_006,,,,,,,,,
-都道府県地価調査,yes,L02,regional,Prefecture Land Price Research,LandNumInfo_L02.csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L02-2024.html,L02_006,,,,,,,,,
+都道府県地価調査,yes,L02,regional,Prefecture Land Price Research,LandNumInfo_L02.csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L02-2025.html,L02_006,,,,,,,,,
 2. 政策区域 ,heading,,,,,,,,,,,,,,,,,,,,
 【行政地域】,heading,,,,,,,,,,,,,,,,,,,,
 行政区域,yes,N03,regional,Administrative Boundary,LandNumInfo_N03.csv,https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2023/N03-20230101_code_pref_GML.zip,N03-20230101_code_pref_GML.zip,N03-23_code_pref_230101.shp,,N03-20230101_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-2023.html,,,,,N03_007,code_pref_muni,UTF-8,N03-2024.qml,6668,
