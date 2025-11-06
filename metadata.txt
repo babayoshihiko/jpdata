@@ -24,6 +24,7 @@ hasProcessingProvider=no
 changelog=
       0.6.22:
         * Fixed proxy
+        * LNI: L02
       0.6.21:
         * Read the address data of Japan and jump
         * Bugfix
