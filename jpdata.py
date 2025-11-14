@@ -111,7 +111,7 @@ class jpdata:
         self._dl_status = ""
         self._dl_url_zip = []
         self._dl_iter = 0
-        self._LW31_Prev = ""
+        # self._LW31_Prev = ""
         self._verbose = True
         # Create an action that triggers the folder chooser
         self.action = QAction("Choose Folder", self.iface.mainWindow())
@@ -984,15 +984,19 @@ class jpdata:
         self._dl_url_zip = []
         self._dl_iter = 0
         year = str(self.dockwidget.myComboBox31.currentText())
-        code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
+        name_pref = self.dockwidget.myListWidget31.selectedItems()[0].text()
+        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+        # Check if municipality (shochiiki) is selected
         if self.dockwidget.myComboBox32.currentIndex() == 0:
+            # Get municipality names
             muni_names = self.dockwidget.myListWidget32.selectedItems()
         else:
+            # Get mesh codes
             muni_names = self.dockwidget.myListWidget33.selectedItems()
         for muni_name in muni_names:
             # Usually, attributes are in one file, so for loop is not
             # really necessary
-            row = jpDataMuni.getRowFromNames(self._LW31_Prev, str(muni_name.text()))
+            row = jpDataMuni.getRowFromNames(name_pref, str(muni_name.text()))
             if self.dockwidget.myComboBox32.currentIndex() == 0:
                 code_muni = row["code_muni"]
             else:
@@ -1037,7 +1041,8 @@ class jpdata:
         if not self.tab3CheckSelected():
             return
         year = str(self.dockwidget.myComboBox31.currentText())
-        code_pref = jpDataUtils.getPrefCodeByName(self._LW31_Prev)
+        name_pref = self.dockwidget.myListWidget31.selectedItems()[0].text()
+        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
         tempSubFolder = jpDataCensus.getSubFolder(
             self.dockwidget.myComboBox32.currentIndex()
         )
@@ -1061,7 +1066,7 @@ class jpdata:
         for muni_name in muni_names:
             name_muni = str(muni_name.text())
             if self.dockwidget.myComboBox32.currentIndex() == 0:
-                row = jpDataMuni.getRowFromNames(self._LW31_Prev, name_muni)
+                row = jpDataMuni.getRowFromNames(name_pref, name_muni)
                 code_muni = row["code_muni"]
             else:
                 code_muni = name_muni
