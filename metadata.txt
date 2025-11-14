@@ -22,6 +22,8 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+      0.6.23:
+        * Fixed Census bug
       0.6.22:
         * Fixed proxy
         * LNI: L02

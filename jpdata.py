@@ -111,7 +111,6 @@ class jpdata:
         self._dl_status = ""
         self._dl_url_zip = []
         self._dl_iter = 0
-        # self._LW31_Prev = ""
         self._verbose = True
         # Create an action that triggers the folder chooser
         self.action = QAction("Choose Folder", self.iface.mainWindow())
