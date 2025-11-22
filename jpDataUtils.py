@@ -437,29 +437,35 @@ def printLog(message):
 
 
 def unzip(folder_path, zip_file):
-    # Below is a workaround for a zip file with Japanese filenames/foldernames
-    if os.path.exists(posixpath.join(folder_path, zip_file)):
-        with zipfile.ZipFile(posixpath.join(folder_path, zip_file), "r") as zf:
-            # Iterate through each file in the zip
-            for zip_info in zf.infolist():
-                # Extract the filename using the correct encoding
-                # (e.g. 'cp932' for Japanese Windows)
-                try:
-                    # Decode using CP437 and re-encode to CP932 for Japanese support
-                    filename = zip_info.filename.encode("cp437").decode("cp932")
-                except:
-                    filename = zip_info.filename
-                # Construct the output file path
-                output_file_path = posixpath.join(folder_path, filename)
-                if zip_info.is_dir():
-                    # Create directories if they do not exist
-                    os.makedirs(output_file_path, exist_ok=True)
-                else:
-                    os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-                    # Extract the file
-                    with zf.open(zip_info) as file:
-                        with open(output_file_path, "wb") as out_file:
-                            out_file.write(file.read())
+    zip_path = posixpath.join(folder_path, zip_file)
+
+    if not os.path.exists(zip_path):
+        return
+
+    with zipfile.ZipFile(zip_path, "r") as zf:
+        for zip_info in zf.infolist():
+            
+            # --- Correctly decode Japanese filenames from raw bytes ---
+            raw_name = zip_info.filename.encode('cp437', errors='ignore')
+            try:
+                filename = raw_name.decode('cp932')
+            except UnicodeDecodeError:
+                # fallback: use Python's default-decoded name
+                filename = zip_info.filename
+            
+            # Create safe output path
+            output_file_path = posixpath.join(folder_path, filename)
+
+            # Directory handling
+            if zip_info.is_dir():
+                os.makedirs(output_file_path, exist_ok=True)
+                continue
+
+            os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
+
+            # Extract file
+            with zf.open(zip_info) as src, open(output_file_path, "wb") as dst:
+                dst.write(src.read())
 
 
 def replaceCodes(

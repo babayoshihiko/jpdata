@@ -1,0 +1,3 @@
+availability,year,url,zip,shp,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg
+all,2023,https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-{year2digit}/A31b-{year2digit}_10_{code_mesh1}_SHP.zip,A31b-{year2digit}_10_{code_mesh1}_SHP.zip,20_想定最大規模/A31b-20-{year2digit}_10_code_mesh1.shp,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31b-2023.html,,,,,,,CP932,,4612
+all,2022,https://nlftp.mlit.go.jp/ksj/gml/data/A31b/A31b-{year2digit}/A31b-{year2digit}_10_{code_mesh1}_SHP.zip,A31b-{year2digit}_10_{code_mesh1}_SHP.zip,20_想定最大規模/A31b-20-{year2digit}_10_code_mesh1.shp,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A31b-2023.html,,,,,,,CP932,,4612

@@ -1,7 +1,10 @@
 #!/bin/sh -eV
 
-git tag -a v0.6.23 -m 'version 0.6.23'
-git push origin v0.6.23
+perl -pi -e "s|version=0.6.23|version=0.6.24|g" metadata.txt
+git commit -m "Version 0.6.24"
+git push origin main
+git tag -a v0.6.24 -m 'version 0.6.24'
+git push origin v0.6.24
 
 mkdir ../qgis_plugins
 

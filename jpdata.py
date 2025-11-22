@@ -40,8 +40,7 @@ import os.path
 
 # User defined
 import os, tempfile, posixpath
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem
-from qgis.PyQt.QtWidgets import QAbstractItemView
+from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem, QLineEdit, QAbstractItemView
 from qgis.core import (
     QgsProject,
     QgsSettings,
@@ -424,6 +423,7 @@ class jpdata:
             self.dockwidget.myLineEditSetting2.setToolTip(
                 self.tr("User/Password are not stored")
             )
+            self.dockwidget.myLineEditSetting3.setEchoMode(QLineEdit.Password)
             self.dockwidget.myLineEditSetting3.setToolTip(
                 self.tr("User/Password are not stored")
             )
