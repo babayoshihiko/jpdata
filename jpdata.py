@@ -40,7 +40,13 @@ import os.path
 
 # User defined
 import os, tempfile, posixpath
-from qgis.PyQt.QtWidgets import QAction, QFileDialog, QListWidgetItem, QLineEdit, QAbstractItemView
+from qgis.PyQt.QtWidgets import (
+    QAction,
+    QFileDialog,
+    QListWidgetItem,
+    QLineEdit,
+    QAbstractItemView,
+)
 from qgis.core import (
     QgsProject,
     QgsSettings,
@@ -797,6 +803,7 @@ class jpdata:
                 "full",
                 detail=detail,
             )
+
             shp_full_path = jpDataUtils.unzipAndGetShp(
                 posixpath.join(self._folderPath, subfolder),
                 zip_filename,
@@ -804,6 +811,7 @@ class jpdata:
                 altdir,
                 pref_code[x],
                 epsg=epsg,
+                encoding=encoding,
             )
 
             if shp_full_path is None:

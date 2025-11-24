@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-import os, csv
+# For path join, poxispath.join seems a better option for cross-platform compatibility
+# when a path contains both slash and backslash.
+import os, csv, posixpath
 from . import jpDataUtils
 
 # --- Module-level cache: dict {pref_code: list_of_rows} ---
@@ -52,7 +54,7 @@ def _load_csv(folder, pref_code, encoding="cp932"):
         return _csv_cache[pref_code]
 
     # construct path
-    data_file = os.path.join(
+    data_file = posixpath.join(
         folder, "Addr", f"{pref_code}000-23.0a", f"{pref_code}_2024.csv"
     )
 
@@ -158,13 +160,15 @@ def unzip_addr_data(folder):
     for i in range(1, 48):
         pref_code = str(i).zfill(2)
         if os.path.exists(
-            os.path.join(folder, "Addr", pref_code + "000-23.0a.zip")
+            posixpath.join(folder, "Addr", pref_code + "000-23.0a.zip")
         ) and not os.path.exists(
-            os.path.join(
+            posixpath.join(
                 folder, "Addr", pref_code + "000-23.0a", pref_code + "_2024.csv"
             )
         ):
-            jpDataUtils.unzip(os.path.join(folder, "Addr"), pref_code + "000-23.0a.zip")
+            jpDataUtils.unzip(
+                posixpath.join(folder, "Addr"), pref_code + "000-23.0a.zip"
+            )
 
 
 def get_lonlat_by_addr(folder, pref_name, city_name, town_name, detail_code):

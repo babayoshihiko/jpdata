@@ -180,6 +180,7 @@ cat  ~/data.noindex/A31a/A31a-${YEAR2DIGIT}_81_10_SHP.csv \
 > ~/data.noindex/A31a/LandNumInfo_A31a-${YEAR2DIGIT}.csv
 
 printf "availability,year,url,zip,shp,altdir,qml,detail1,detail2\n" >~/data.noindex/A31a/LandNumInfo_A31a-header.csv
-cat ~/data.noindex/A31a/LandNumInfo_A31a-24.csv \
+cat ~/data.noindex/A31a/LandNumInfo_A31a-header.csv\
+ ~/data.noindex/A31a/LandNumInfo_A31a-24.csv \
  ~/data.noindex/A31a/LandNumInfo_A31a-23.csv \
 > ~/github/jpdata/csv/LandNumInfo_A31a.csv
