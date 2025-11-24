@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from qgis.core import QgsMessageLog, Qgis, QgsCoordinateReferenceSystem
 from qgis.core import QgsVectorLayer
-import os, csv, posixpath
-import zipfile
+import csv, os, posixpath, zipfile
+from . import jpdata_unzip
 
 
 def getYearAs(year, format="year2digit"):
@@ -437,35 +437,7 @@ def printLog(message):
 
 
 def unzip(folder_path, zip_file):
-    zip_path = posixpath.join(folder_path, zip_file)
-
-    if not os.path.exists(zip_path):
-        return
-
-    with zipfile.ZipFile(zip_path, "r") as zf:
-        for zip_info in zf.infolist():
-            
-            # --- Correctly decode Japanese filenames from raw bytes ---
-            raw_name = zip_info.filename.encode('cp437', errors='ignore')
-            try:
-                filename = raw_name.decode('cp932')
-            except UnicodeDecodeError:
-                # fallback: use Python's default-decoded name
-                filename = zip_info.filename
-            
-            # Create safe output path
-            output_file_path = posixpath.join(folder_path, filename)
-
-            # Directory handling
-            if zip_info.is_dir():
-                os.makedirs(output_file_path, exist_ok=True)
-                continue
-
-            os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-
-            # Extract file
-            with zf.open(zip_info) as src, open(output_file_path, "wb") as dst:
-                dst.write(src.read())
+    jpdata_unzip.unzip_qgis_safe(folder_path, zip_file)
 
 
 def replaceCodes(
