@@ -75,6 +75,7 @@ def list_files_in_zip(zip_filepath, output_txt_path, url, year, name, code_filep
         print(f"Error: The file {zip_filepath} is not a valid ZIP archive.")
         return
 
+    zip_filename = os.path.basename(zip_filepath)
     try:
         with zipfile.ZipFile(zip_filepath, "r") as zip_file:
             with open(output_txt_path, "w") as txt_file:
@@ -100,7 +101,7 @@ def list_files_in_zip(zip_filepath, output_txt_path, url, year, name, code_filep
                                 + ","
                                 + url
                                 + ","
-                                + zip_filepath
+                                + zip_filename
                                 + ","
                                 + filename
                                 + ",,"
