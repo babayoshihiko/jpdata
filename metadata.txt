@@ -6,8 +6,9 @@
 [general]
 name=jpdata
 qgisMinimumVersion=3.0
+qgisMaximumVersion=4.99
 description=Download and load various data of Japan
-version=0.6.25
+version=0.7.0
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 
@@ -22,6 +23,8 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
+      0.7.0:
+        * Supports QGIS 4.0
       0.6.25:
         * Rewrote unzip
         * LNI: A31a
