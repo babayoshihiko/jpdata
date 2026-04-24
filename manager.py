@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, posixpath
+import os, posixpath, tempfile
 from qgis.PyQt.QtCore import Qt, QSettings, QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
@@ -26,6 +26,7 @@ from . import jpDataAddr
 class JPDataManager:
     def __init__(self, iface):
         self._iface = iface
+        self._plugin_dir = os.path.dirname(__file__)
         self.dockwidget = None
         self.ui = None
         self.logic = JPDataLogic(iface)
@@ -157,22 +158,23 @@ class JPDataManager:
     def _add_map(self, shpFileFullPath, layerName, qmlFileName, encoding="CP932"):
         tempLayer = QgsVectorLayer(shpFileFullPath, layerName, "ogr")
         tempLayer.setProviderEncoding(encoding)
-        count_invalid_geom = self.count_invalid_geometry(tempLayer)
-        if count_invalid_geom > 0:
-            tempLayer.setName(layerName + " [invalid]")
-            self.setLabel(
-                self.ui.tr("The layer has invalid geometries: ") + str(count_invalid_geom)
-            )
+        if self.dockwidget.myCheckBox2.isChecked() == False:
+            count_invalid_geom = jpDataUtils.count_invalid_geometry(tempLayer)
+            if count_invalid_geom > 0:
+                tempLayer.setName(layerName + " [invalid]")
+                self.setLabel(
+                    self.ui.tr("The layer has invalid geometries: ") + str(count_invalid_geom)
+                )
 
-        if os.path.isfile(posixpath.join(self.plugin_dir, "qml", qmlFileName)):
+        if os.path.isfile(posixpath.join(self._plugin_dir, "qml", qmlFileName)):
             # For the qml files that use SVG images in the plugin folder
             with tempfile.TemporaryDirectory() as temp_dir:
                 with open(
-                    posixpath.join(self.plugin_dir, "qml", qmlFileName),
+                    posixpath.join(self._plugin_dir, "qml", qmlFileName),
                     "r",
                 ) as file:
                     file_contents = file.read()
-                new_contents = file_contents.replace("PLUGIN_DIR", self.plugin_dir)
+                new_contents = file_contents.replace("PLUGIN_DIR", self._plugin_dir)
                 with open(posixpath.join(temp_dir, qmlFileName), "w") as file:
                     file.write(new_contents)
                 if tempLayer.loadNamedStyle(posixpath.join(temp_dir, qmlFileName)):

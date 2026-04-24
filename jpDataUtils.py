@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from qgis.core import QgsMessageLog, Qgis, QgsCoordinateReferenceSystem
 from qgis.core import QgsVectorLayer
-import csv, os, posixpath, zipfile
+import csv, os, posixpath
 from . import jpdata_unzip
 
 
@@ -498,3 +498,13 @@ def set_pref_items(widget):
         widget.addItems(prefs)
     
     widget.blockSignals(False)
+
+
+def count_invalid_geometry(layer):
+    """Check the geometry validity of a given vector layer."""
+    if isinstance(layer, QgsVectorLayer):
+        count = 0
+        for feature in layer.getFeatures():
+            if not feature.geometry().isGeosValid():
+                count = count + 1
+    return count
