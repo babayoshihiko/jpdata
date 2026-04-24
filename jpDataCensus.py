@@ -4,7 +4,6 @@ import posixpath
 import os.path
 import zipfile
 from qgis import processing
-from . import jpDataUtils
 
 
 def getSubFolder(type_muni):
@@ -492,3 +491,39 @@ def performJoin(folder, year, shp, csv):
                     break
 
     return output, encoding
+
+
+def set_year_items(combo_widget, first_year=2000):
+    """
+    Populate the census year ComboBox based on the first available year.
+    Census data is generated every 5 years from 2020.
+    """
+    # Save current selection to restore it later
+    current_year = combo_widget.currentText()
+    
+    try:
+        start_year = 2020
+        target_year = int(first_year)
+        
+        if target_year > start_year:
+            years = [str(start_year)]
+        else:
+            # Generate years: [2020, 2015, ..., target_year]
+            years = [str(y) for y in range(start_year, target_year - 1, -5)]
+    except (ValueError, TypeError):
+        years = ["2020"]
+
+    # Update UI
+    combo_widget.blockSignals(True)
+    combo_widget.clear()
+    if years:
+        combo_widget.addItems(years)
+    
+    # Restore selection if it still exists
+    index = combo_widget.findText(current_year)
+    if index != -1:
+        combo_widget.setCurrentIndex(index)
+    else:
+        combo_widget.setCurrentIndex(0)
+    
+    combo_widget.blockSignals(False)

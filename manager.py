@@ -18,12 +18,14 @@ from .data_logic import JPDataLogic
 from . import jpDataDownloader
 from . import jpDataUtils
 from . import jpDataLNI
+from . import jpDataCensus
+from . import jpDataMuni
 from . import jpDataMesh
 from . import jpDataAddr
 
 class JPDataManager:
     def __init__(self, iface):
-        self.iface = iface
+        self._iface = iface
         self.dockwidget = None
         self.ui = None
         self.logic = JPDataLogic(iface)
@@ -53,10 +55,11 @@ class JPDataManager:
 
         if self.ui:
             self.ui.init_tabs(self.land_info, self._folderPath)
+            jpDataCensus.set_year_items(self.dockwidget.myComboBox31, 2000)
 
         # QGIS 4 compatible
         dock_area = Qt.DockWidgetArea.LeftDockWidgetArea if hasattr(Qt, 'DockWidgetArea') else Qt.LeftDockWidgetArea
-        self.iface.addDockWidget(dock_area, self.dockwidget)
+        self._iface.addDockWidget(dock_area, self.dockwidget)
         self.dockwidget.show()
 
     def setup_initial_ui_state(self):
@@ -142,7 +145,7 @@ class JPDataManager:
 
     def unload(self):
         if self.dockwidget:
-            self.iface.removeDockWidget(self.dockwidget)
+            self._iface.removeDockWidget(self.dockwidget)
             self.dockwidget.deleteLater()
             self.dockwidget = None
             self.ui = None
@@ -311,7 +314,7 @@ class JPDataManager:
     def chooseFolder(self):
         from qgis.PyQt.QtWidgets import QFileDialog
         folder = QFileDialog.getExistingDirectory(
-            self.iface.mainWindow(), self.ui.tr("Select Directory"), self._folderPath
+            self._iface.mainWindow(), self.ui.tr("Select Directory"), self._folderPath
         )
         if folder:
             self._folderPath = folder
@@ -585,19 +588,6 @@ class JPDataManager:
             
         self._tab3_set_mesh()
 
-    def _tab3_set_year(self, first_year):
-        currentYear = str(self.dockwidget.myComboBox31.currentText())
-        start_year = 2020
-        years = [str(y) for y in range(start_year, first_year - 1, -5)]
-        self.dockwidget.myComboBox31.clear()
-        for year in years:
-            self.dockwidget.myComboBox31.addItem(year)
-        # Select an item programmatically
-        index = self.dockwidget.myComboBox31.findText(
-            currentYear
-        )  # Find the index of the item
-        if index != -1:  # Ensure the item exists
-            self.dockwidget.myComboBox31.setCurrentIndex(index)
 
     def _LW32_itemSelectionChanged(self):
         self._tab3_set_mesh()
@@ -610,15 +600,15 @@ class JPDataManager:
         if self.dockwidget.myComboBox32.currentIndex() == 0:
             self.dockwidget.myListWidget33.clear()
             self.dockwidget.myListWidget33.hide()
-            self._tab3_set_year(2000)
+            jpDataCensus.set_year_items(self.dockwidget.myComboBox31, 2000)
             return
         elif (
             self.dockwidget.myComboBox32.currentIndex() == 1
             or self.dockwidget.myComboBox32.currentIndex() == 2
         ):
-            self._tab3_set_year(1995)
+            jpDataCensus.set_year_items(self.dockwidget.myComboBox31, 1995)
         else:
-            self._tab3_set_year(2005)
+            jpDataCensus.set_year_items(self.dockwidget.myComboBox31, 2005)
 
         self.dockwidget.myListWidget33.clear()
         self.dockwidget.myListWidget33.show()
@@ -760,7 +750,7 @@ class JPDataManager:
 
             if tempShpFullPath is None:
                 self.setLabel(self.ui.tr("Cannot find the .shp file: ") + tempShpFileName)
-                self.iface.messageBar().pushMessage(
+                self._iface.messageBar().pushMessage(
                     "Error",
                     "Cannot find the .shp file: " + tempShpFileName,
                     1,
@@ -839,12 +829,12 @@ class JPDataManager:
 
             # Transform to project CRS
             crs_src = QgsCoordinateReferenceSystem("EPSG:6668")  # JGD2011
-            crs_dest = iface.mapCanvas().mapSettings().destinationCrs()
+            crs_dest = self._iface.mapCanvas().mapSettings().destinationCrs()
             transform = QgsCoordinateTransform(crs_src, crs_dest, QgsProject.instance())
             point_project = transform.transform(point_jgd2011)
 
             # Set canvas center
-            canvas = iface.mapCanvas()
+            canvas = self._iface.mapCanvas()
             canvas.setCenter(point_project)
             canvas.refresh()
 
