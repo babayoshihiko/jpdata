@@ -319,7 +319,6 @@ class JPDataManager:
             self.dockwidget.myLabel1.setText(folder)
 
     def tab1AddMap(self):
-        """ダウンロード済みのデータをQGISに読み込む"""
         if not self.tab1CheckSelected():
             return
             

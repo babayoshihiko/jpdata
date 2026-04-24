@@ -27,12 +27,16 @@ def get_zip(pref_code):
 
 def get_csv_fullpath(pref_code, folder, year=2024):
     if year == 2024:
-        return posixpath.join(
+        path = posixpath.join(
             folder,
             "Addr",
             str(pref_code).zfill(2) + "000-23.0a",
             str(pref_code).zfill(2) + "_2024.csv",
         )
+        if os.path.exists(os.path.normpath(path)):
+            return path
+        else:
+            return None
 
 
 def _load_csv(folder, pref_code, encoding="cp932"):
