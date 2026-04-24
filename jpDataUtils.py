@@ -485,3 +485,16 @@ def replaceCodes(
         text = text.replace("{name_muni}", name_muni)
         text = text.replace("name_muni", name_muni)
     return text
+
+
+def set_pref_items(widget):
+    prefs = [getPrefNameByCode(i) for i in range(1, 48)]
+
+    widget.blockSignals(True)
+    widget.clear()
+
+    # QListWidget and QComboBox has addItems(List[str])
+    if hasattr(widget, 'addItems'):
+        widget.addItems(prefs)
+    
+    widget.blockSignals(False)

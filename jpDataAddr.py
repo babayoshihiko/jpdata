@@ -4,6 +4,7 @@
 import os, csv, posixpath
 from . import jpDataUtils
 
+
 # --- Module-level cache: dict {pref_code: list_of_rows} ---
 from collections import OrderedDict
 
@@ -74,13 +75,6 @@ def _load_csv(folder, pref_code, encoding="cp932"):
         _csv_cache.popitem(last=False)
 
     return rows
-
-
-def set_cb_prefs(combobox):
-    """Set preferences for address data source selection combobox."""
-    combobox.clear()
-    for i in range(1, 48):
-        combobox.addItem(jpDataUtils.getPrefNameByCode(i))
 
 
 def set_cb_cities(combobox, folder, pref_name):
