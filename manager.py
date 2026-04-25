@@ -14,7 +14,6 @@ from qgis.core import (
 )
 
 from .ui_handler import JPDataUIHandler
-from .data_logic import JPDataLogic
 from . import jpDataDownloader
 from . import jpDataUtils
 from . import jpDataLNI
@@ -27,18 +26,17 @@ class JPDataManager:
     def __init__(self, iface):
         self._iface = iface
         self._plugin_dir = os.path.dirname(__file__)
-        self.dockwidget = None
-        self.ui = None
-        self.logic = JPDataLogic(iface)
+        self._dw = None
+        self._ui = None
         
         self._folderPath = QSettings().value("jpdata/FolderPath", "~")
         self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
-        self.land_info = jpDataUtils.getMapsFromCsv2()
+        self._land_info = jpDataUtils.getMapsFromCsv2()
         self._GSI = jpDataUtils.getTilesFromCsv()
         
         self._downloader = jpDataDownloader.DownloadThread()
         
-        self.name_map_prev = ""
+        self._name_map_prev = ""
 
         self._dl_status = ""
         self._dl_url_zip = []
@@ -47,40 +45,40 @@ class JPDataManager:
         self._verbose = True
 
     def run(self):
-        if not self.dockwidget:
+        if not self._dw:
             from .jpdata_dockwidget import jpdataDockWidget
-            self.dockwidget = jpdataDockWidget()
-            self.ui = JPDataUIHandler(self.dockwidget)
+            self._dw = jpdataDockWidget()
+            self._ui = JPDataUIHandler(self._dw)
             self.connect_signals()
             self.setup_initial_ui_state()
 
-        if self.ui:
-            self.ui.init_tabs(self.land_info, self._folderPath)
-            jpDataCensus.set_year_items(self.dockwidget.myComboBox31, 2000)
+        if self._ui:
+            self._ui.init_tabs(self._land_info, self._folderPath)
+            jpDataCensus.set_year_items(self._dw.myComboBox31, 2000)
 
         # QGIS 4 compatible
         dock_area = Qt.DockWidgetArea.LeftDockWidgetArea if hasattr(Qt, 'DockWidgetArea') else Qt.LeftDockWidgetArea
-        self._iface.addDockWidget(dock_area, self.dockwidget)
-        self.dockwidget.show()
+        self._iface.addDockWidget(dock_area, self._dw)
+        self._dw.show()
 
     def setup_initial_ui_state(self):
         if self._folderPath != "~":
-            self.dockwidget.myLabel1.setText(self._folderPath)
-            self.dockwidget.myTabWidget.setCurrentIndex(0)
+            self._dw.myLabel1.setText(self._folderPath)
+            self._dw.myTabWidget.setCurrentIndex(0)
         else:
-            self.dockwidget.myLabel1.setText("Choose folder for zip/shp files")
-            self.dockwidget.myTabWidget.setCurrentIndex(4)
+            self._dw.myLabel1.setText("Choose folder for zip/shp files")
+            self._dw.myTabWidget.setCurrentIndex(4)
 
         if self._proxyServer:
-            self.dockwidget.myLineEditSetting1.setText(self._proxyServer)
+            self._dw.myLineEditSetting1.setText(self._proxyServer)
         
-        self.dockwidget.myLineEditSetting3.setEchoMode(QLineEdit.EchoMode.Password if hasattr(QLineEdit, 'EchoMode') else QLineEdit.Password)
+        self._dw.myLineEditSetting3.setEchoMode(QLineEdit.EchoMode.Password if hasattr(QLineEdit, 'EchoMode') else QLineEdit.Password)
         
         for row in self._GSI:
-            self.dockwidget.myListWidget23.addItem(row["name_j"])
+            self._dw.myListWidget23.addItem(row["name_j"])
 
     def connect_signals(self):
-        dw = self.dockwidget
+        dw = self._dw
         # Tab 1
         dw.myPushButton2.clicked.connect(self.chooseFolder)
         dw.myPushButton11.clicked.connect(self.tab1DownloadAll)
@@ -136,20 +134,20 @@ class JPDataManager:
 
         # Downloader
         self._downloader.setProxyServer(self._proxyServer)
-        self._downloader.progress.connect(self.dockwidget.progressBar.setValue)
+        self._downloader.progress.connect(self._dw.progressBar.setValue)
         self._downloader.finished.connect(self.download_finished)
 
     def setLabel(self, message):
-        self.dockwidget.myLabelStatus.setText(message)
+        self._dw.myLabelStatus.setText(message)
         if self._verbose:
             jpDataUtils.printLog(message)
 
     def unload(self):
-        if self.dockwidget:
-            self._iface.removeDockWidget(self.dockwidget)
-            self.dockwidget.deleteLater()
-            self.dockwidget = None
-            self.ui = None
+        if self._dw:
+            self._iface.removeDockWidget(self._dw)
+            self._dw.deleteLater()
+            self._dw = None
+            self._ui = None
 
     def _test_verbose(self):
         pass
@@ -158,12 +156,12 @@ class JPDataManager:
     def _add_map(self, shpFileFullPath, layerName, qmlFileName, encoding="CP932"):
         tempLayer = QgsVectorLayer(shpFileFullPath, layerName, "ogr")
         tempLayer.setProviderEncoding(encoding)
-        if self.dockwidget.myCheckBox2.isChecked() == False:
+        if self._dw.myCheckBox2.isChecked() == False:
             count_invalid_geom = jpDataUtils.count_invalid_geometry(tempLayer)
             if count_invalid_geom > 0:
                 tempLayer.setName(layerName + " [invalid]")
                 self.setLabel(
-                    self.ui.tr("The layer has invalid geometries: ") + str(count_invalid_geom)
+                    self._ui.tr("The layer has invalid geometries: ") + str(count_invalid_geom)
                 )
 
         if os.path.isfile(posixpath.join(self._plugin_dir, "qml", qmlFileName)):
@@ -198,16 +196,16 @@ class JPDataManager:
 
 
     def LW11_itemSelectionChanged(self):
-        if len(self.dockwidget.myListWidget11.selectedItems()) == 0:
+        if len(self._dw.myListWidget11.selectedItems()) == 0:
             return
-        name_map = self.dockwidget.myListWidget11.selectedItems()[0].text()
+        name_map = self._dw.myListWidget11.selectedItems()[0].text()
 
-        prevLandNum = self.land_info.get(self.name_map_prev, {})
-        thisLandNum = self.land_info[name_map]
+        prevLandNum = self._land_info.get(self._name_map_prev, {})
+        thisLandNum = self._land_info[name_map]
         
-        self.dockwidget.myLabelStatus.setText(thisLandNum.get("code_map", ""))
+        self._dw.myLabelStatus.setText(thisLandNum.get("code_map", ""))
 
-        str_current_LW12_selected = [item.text() for item in self.dockwidget.myListWidget12.selectedItems()]
+        str_current_LW12_selected = [item.text() for item in self._dw.myListWidget12.selectedItems()]
         str_new_LW12_text = []
         bol_redraw_LW12 = True
         bol_show_LW13 = False
@@ -217,11 +215,11 @@ class JPDataManager:
             return [jpDataUtils.getPrefNameByCode(code) for code in range(1, 48)]
 
         if muni_type in ("", "allprefs"):
-            if not self.name_map_prev or prevLandNum.get("type_muni", "").lower() not in ("", "allprefs", "mesh1"):
+            if not self._name_map_prev or prevLandNum.get("type_muni", "").lower() not in ("", "allprefs", "mesh1"):
                 str_new_LW12_text = all_prefs()
             else:
                 bol_redraw_LW12 = False
-                self.dockwidget.myListWidget13.hide()
+                self._dw.myListWidget13.hide()
         elif muni_type == "single":
             str_new_LW12_text = ["Nation-wide"]
         elif muni_type in ("regional", "detail"):
@@ -235,69 +233,69 @@ class JPDataManager:
             self._tab1_clear(bol_show_LW13)
             for new_text in str_new_LW12_text:
                 item = QListWidgetItem(new_text)
-                self.dockwidget.myListWidget12.addItem(item)
+                self._dw.myListWidget12.addItem(item)
                 if new_text in str_current_LW12_selected:
                     item.setSelected(True)
 
         self._tab1_check_year(name_map)
-        self.name_map_prev = name_map
+        self._name_map_prev = name_map
 
     def _tab1_clear(self, bol_show_LW13):
-        self.dockwidget.myListWidget12.clear()
+        self._dw.myListWidget12.clear()
         mode = QAbstractItemView.SelectionMode.SingleSelection if bol_show_LW13 else QAbstractItemView.SelectionMode.ExtendedSelection
         # QGIS 3/4 compatible
         if not hasattr(QAbstractItemView, 'SelectionMode'):
             mode = QAbstractItemView.SingleSelection if bol_show_LW13 else QAbstractItemView.ExtendedSelection
         
-        self.dockwidget.myListWidget12.setSelectionMode(mode)
+        self._dw.myListWidget12.setSelectionMode(mode)
         if bol_show_LW13:
-            self.dockwidget.myListWidget13.show()
+            self._dw.myListWidget13.show()
         else:
-            self.dockwidget.myListWidget13.hide()
+            self._dw.myListWidget13.hide()
 
     def LW12_itemSelectionChanged(self):
-        if len(self.dockwidget.myListWidget11.selectedItems()) == 0 or len(self.dockwidget.myListWidget12.selectedItems()) == 0:
+        if len(self._dw.myListWidget11.selectedItems()) == 0 or len(self._dw.myListWidget12.selectedItems()) == 0:
             return
-        name_map = self.dockwidget.myListWidget11.selectedItems()[0].text()
-        name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
+        name_map = self._dw.myListWidget11.selectedItems()[0].text()
+        name_pref = self._dw.myListWidget12.selectedItems()[0].text()
         self._tab1_check_year(name_map)
-        thisLandNum = self.land_info[name_map]
+        thisLandNum = self._land_info[name_map]
         if thisLandNum["type_muni"].lower() in ("detail", "mesh1"):
             self._tab1_set_LW13(name_pref)
 
     def _tab1_check_year(self, name_map=None):
-        thisLandNum = self.land_info[name_map]
+        thisLandNum = self._land_info[name_map]
         name_pref = None
-        self.dockwidget.myComboBox11.clear()
+        self._dw.myComboBox11.clear()
         if thisLandNum["year"].upper()[-3:] != "CSV":
-            self.dockwidget.myComboBox11.addItem(thisLandNum["year"])
+            self._dw.myComboBox11.addItem(thisLandNum["year"])
         else:
-            if len(self.dockwidget.myListWidget12.selectedItems()) > 0:
+            if len(self._dw.myListWidget12.selectedItems()) > 0:
                 if thisLandNum["type_muni"].lower() != "mesh1":
-                    name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
+                    name_pref = self._dw.myListWidget12.selectedItems()[0].text()
             years = jpDataLNI.getYearsByMapCode(thisLandNum["code_map"], name_pref, thisLandNum["year"])
             for year in years:
-                if year: self.dockwidget.myComboBox11.addItem(year)
+                if year: self._dw.myComboBox11.addItem(year)
         self._tab1_set_LW13()
 
     def _cb11_changed(self, index):
         self._tab1_set_LW13()
 
     def _tab1_set_LW13(self, name_pref=None):
-        if len(self.dockwidget.myListWidget11.selectedItems()) == 0: return
+        if len(self._dw.myListWidget11.selectedItems()) == 0: return
         if name_pref is None:
-            if len(self.dockwidget.myListWidget12.selectedItems()) == 0: return
-            name_pref = self.dockwidget.myListWidget12.selectedItems()[0].text()
+            if len(self._dw.myListWidget12.selectedItems()) == 0: return
+            name_pref = self._dw.myListWidget12.selectedItems()[0].text()
         
-        str_name_j = self.dockwidget.myListWidget11.selectedItems()[0].text()
-        str_year = self.dockwidget.myComboBox11.currentText()
+        str_name_j = self._dw.myListWidget11.selectedItems()[0].text()
+        str_year = self._dw.myComboBox11.currentText()
         if not str_year.strip(): return
 
-        thisLandNum = self.land_info[str_name_j]
+        thisLandNum = self._land_info[str_name_j]
         if thisLandNum["type_muni"].lower() not in ("detail", "mesh1"): return
 
-        self.dockwidget.myListWidget13.clear()
-        self.dockwidget.myListWidget13.show()
+        self._dw.myListWidget13.clear()
+        self._dw.myListWidget13.show()
         
         if thisLandNum["type_muni"].lower() == "detail":
             details = jpDataLNI.getDetailsByMapCodePrefNameYear(thisLandNum["code_map"], name_pref, str_year)
@@ -305,43 +303,43 @@ class JPDataManager:
             details = jpDataMesh.getMesh1ByPrefName(name_pref)
 
         for detail in details:
-            self.dockwidget.myListWidget13.addItem(QListWidgetItem(detail))
+            self._dw.myListWidget13.addItem(QListWidgetItem(detail))
 
     def tab1Web(self):
-        items = self.dockwidget.myListWidget11.selectedItems()
+        items = self._dw.myListWidget11.selectedItems()
         if items:
-            thisLandNum = self.land_info[items[0].text()]
+            thisLandNum = self._land_info[items[0].text()]
             QDesktopServices.openUrl(QUrl(thisLandNum["source"]))
 
     def chooseFolder(self):
         from qgis.PyQt.QtWidgets import QFileDialog
         folder = QFileDialog.getExistingDirectory(
-            self._iface.mainWindow(), self.ui.tr("Select Directory"), self._folderPath
+            self._iface.mainWindow(), self._ui.tr("Select Directory"), self._folderPath
         )
         if folder:
             self._folderPath = folder
             QSettings().setValue("jpdata/FolderPath", folder)
-            self.dockwidget.myLabel1.setText(folder)
+            self._dw.myLabel1.setText(folder)
 
     def tab1AddMap(self):
         if not self.tab1CheckSelected():
             return
             
-        thisLandNum = self.land_info[self.dockwidget.myListWidget11.selectedItems()[0].text()]
-        year = self.dockwidget.myComboBox11.currentText()
-        pref_names = self.dockwidget.myListWidget12.selectedItems()
+        thisLandNum = self._land_info[self._dw.myListWidget11.selectedItems()[0].text()]
+        year = self._dw.myComboBox11.currentText()
+        pref_names = self._dw.myListWidget12.selectedItems()
         pref_code = []
 
         if thisLandNum["type_muni"].lower() == "mesh1":
-            for code_mesh1 in self.dockwidget.myListWidget13.selectedItems():
+            for code_mesh1 in self._dw.myListWidget13.selectedItems():
                 pref_code.append(code_mesh1.text())
         else:
             for pref_name in pref_names:
                 pref_code.append(jpDataUtils.getPrefCodeByName(pref_name.text()))
 
         detail = None
-        if thisLandNum["type_muni"].lower() == "detail" and self.dockwidget.myListWidget13.selectedItems():
-            detail = self.dockwidget.myListWidget13.selectedItems()[0].text()
+        if thisLandNum["type_muni"].lower() == "detail" and self._dw.myListWidget13.selectedItems():
+            detail = self._dw.myListWidget13.selectedItems()[0].text()
             
         if thisLandNum["type_muni"] == "single":
             pref_code = [""]
@@ -363,11 +361,11 @@ class JPDataManager:
                 if layer.isValid():
                     QgsProject.instance().addMapLayer(layer)
             else:
-                self.dockwidget.myLabelStatus.setText(self.ui.tr("Cannot find .shp file"))
+                self._dw.myLabelStatus.setText(self._ui.tr("Cannot find .shp file"))
 
     def addTile(self):
         from qgis.core import QgsRasterLayer, QgsProject
-        selected_items = self.dockwidget.myListWidget23.selectedItems()
+        selected_items = self._dw.myListWidget23.selectedItems()
         if not selected_items:
             return
 
@@ -394,39 +392,39 @@ class JPDataManager:
             QgsProject.instance().addMapLayer(layer)
 
     def tab1CheckSelected(self):
-        if not self.dockwidget.myListWidget11.selectedItems():
-            self.dockwidget.myLabelStatus.setText(self.ui.tr("Please choose a map."))
+        if not self._dw.myListWidget11.selectedItems():
+            self._dw.myLabelStatus.setText(self._ui.tr("Please choose a map."))
             return False
-        if not self.dockwidget.myListWidget12.selectedItems():
-            self.dockwidget.myLabelStatus.setText(self.ui.tr("Please choose a prefecture or region."))
+        if not self._dw.myListWidget12.selectedItems():
+            self._dw.myLabelStatus.setText(self._ui.tr("Please choose a prefecture or region."))
             return False
         return True
 
     def _tab_changed(self, index):
         """Called whenever the current tab changes."""
         if index == 3:  # tab #3 (4th tab)
-            self.dockwidget.myCB_Addr_1.setCurrentIndex(12)
+            self._dw.myCB_Addr_1.setCurrentIndex(12)
 
     def tab1DownloadAll(self):
         if not self.tab1CheckSelected():
             return
-        if self.dockwidget.myPushButton11.text() == self.ui.tr("Cancel"):
+        if self._dw.myPushButton11.text() == self._ui.tr("Cancel"):
             self.cancel_download()
             return
 
         self._dl_url_zip = []
         self._dl_iter = 0
-        year = str(self.dockwidget.myComboBox11.currentText())
-        pref_names = self.dockwidget.myListWidget12.selectedItems()
+        year = str(self._dw.myComboBox11.currentText())
+        pref_names = self._dw.myListWidget12.selectedItems()
 
-        thisLandNum = self.land_info[
-            str(self.dockwidget.myListWidget11.selectedItems()[0].text())
+        thisLandNum = self._land_info[
+            str(self._dw.myListWidget11.selectedItems()[0].text())
         ]
 
         for pref_name in pref_names:
             if thisLandNum["type_muni"].lower() == "mesh1":
                 str_replace_after = str(
-                    self.dockwidget.myListWidget13.selectedItems()[0].text()
+                    self._dw.myListWidget13.selectedItems()[0].text()
                 )
             else:
                 str_replace_after = jpDataUtils.getPrefCodeByName(str(pref_name.text()))
@@ -471,9 +469,9 @@ class JPDataManager:
                 _start_download = True
                 break
             else:
-                self.setLabel(self.ui.tr("The zip file exists: ") + tempZipFileName)
+                self.setLabel(self._ui.tr("The zip file exists: ") + tempZipFileName)
         if _start_download:
-            self.dockwidget.progressBar.setValue(0)
+            self._dw.progressBar.setValue(0)
             self.enable_download(False)
             self._dl_iter = x + 1
             self.start_download(tempUrl, tempSubFolder, tempZipFileName)
@@ -483,15 +481,15 @@ class JPDataManager:
 
     def enable_download(self, enable=True):
         if enable:
-            self.dockwidget.myPushButton11.setText(self.ui.tr("Download"))
-            self.dockwidget.myPushButton31.setText(self.ui.tr("Download"))
-            self.dockwidget.myPushButton14.setEnabled(True)
-            self.dockwidget.myPushButton32.setEnabled(True)
+            self._dw.myPushButton11.setText(self._ui.tr("Download"))
+            self._dw.myPushButton31.setText(self._ui.tr("Download"))
+            self._dw.myPushButton14.setEnabled(True)
+            self._dw.myPushButton32.setEnabled(True)
         else:
-            self.dockwidget.myPushButton11.setText(self.ui.tr("Cancel"))
-            self.dockwidget.myPushButton31.setText(self.ui.tr("Cancel"))
-            self.dockwidget.myPushButton14.setEnabled(False)
-            self.dockwidget.myPushButton32.setEnabled(False)
+            self._dw.myPushButton11.setText(self._ui.tr("Cancel"))
+            self._dw.myPushButton31.setText(self._ui.tr("Cancel"))
+            self._dw.myPushButton14.setEnabled(False)
+            self._dw.myPushButton32.setEnabled(False)
 
 
     def start_download(self, url, subFolder, zipFileName):
@@ -500,26 +498,26 @@ class JPDataManager:
 
         if not os.path.exists(posixpath.join(self._folderPath, subFolder, zipFileName)):
             self.set_proxy()
-            self.setLabel(self.ui.tr("Downloading: ") + zipFileName)
+            self.setLabel(self._ui.tr("Downloading: ") + zipFileName)
             self._downloader.setUrl(url)
             self._downloader.setFilePath(
                 posixpath.join(self._folderPath, subFolder, zipFileName)
             )
             self.enable_download(False)
-            if self.dockwidget.myCheckBox1.isChecked():
+            if self._dw.myCheckBox1.isChecked():
                 self._downloader.download_wo_thread()
                 self.enable_download()
             else:
                 self._downloader.start()
         else:
-            self.setLabel(self.ui.tr("The zip file exists: ") + zipFileName)
+            self.setLabel(self._ui.tr("The zip file exists: ") + zipFileName)
             self.enable_download()
 
     def download_finished(self, success):
-        current_text = self.dockwidget.myLabelStatus.text()
-        self.setLabel(current_text + self.ui.tr("...Done"))
+        current_text = self._dw.myLabelStatus.text()
+        self.setLabel(current_text + self._ui.tr("...Done"))
         self.enable_download()
-        self.dockwidget.progressBar.setValue(100)
+        self._dw.progressBar.setValue(100)
 
         if len(self._dl_url_zip) > 0 and self._dl_iter < len(self._dl_url_zip):
             # Download next
@@ -529,28 +527,28 @@ class JPDataManager:
             self._dl_iter = 0
             self._dl_url_zip = []
             if self._dl_status == "ADDRESS":
-                self.dockwidget.myPB_Addr_1.setText(self.ui.tr("Jump"))
+                self._dw.myPB_Addr_1.setText(self._ui.tr("Jump"))
                 self._myCB_Addr_1_changed()
 
     def cancel_download(self):
         self._dl_url_zip = []
         if self._downloader is not None:
-            current_text = self.dockwidget.myLabelStatus.text()
-            self.setLabel(current_text + self.ui.tr("...Cancelled"))
+            current_text = self._dw.myLabelStatus.text()
+            self.setLabel(current_text + self._ui.tr("...Cancelled"))
             self._downloader.stop()
         else:
             self._downloader = jpDataDownloader.DownloadThread()
         self.enable_download()
 
     def set_proxy(self):
-        _proxyServer = self.dockwidget.myLineEditSetting1.text()
+        _proxyServer = self._dw.myLineEditSetting1.text()
         if len(_proxyServer) > 10:
             if self._proxyServer != _proxyServer:
                 self._proxyServer = _proxyServer
                 QgsSettings().setValue("jpdata/ProxyServer", self._proxyServer)
                 self._downloader.setProxyServer(self._proxyServer)
-            self._downloader.setProxyUser(self.dockwidget.myLineEditSetting2.text())
-            self._downloader.setProxyPassword(self.dockwidget.myLineEditSetting3.text())
+            self._downloader.setProxyUser(self._dw.myLineEditSetting2.text())
+            self._downloader.setProxyPassword(self._dw.myLineEditSetting3.text())
         else:
             self._downloader.setProxyServer("")
             QgsSettings().setValue("jpdata/ProxyServer", "http://")
@@ -568,12 +566,12 @@ class JPDataManager:
             return
             
         name_pref = current.text()
-        year = self.dockwidget.myComboBox31.currentText()
+        year = self._dw.myComboBox31.currentText()
         
         designated_cities = jpDataMuni.get_all_designated_cities(year)
         
         rows = jpDataMuni.getMuniFromPrefName(name_pref)
-        self.dockwidget.myListWidget32.clear()
+        self._dw.myListWidget32.clear()
         
         for row in rows:
             name = row["name_muni"]
@@ -586,7 +584,7 @@ class JPDataManager:
                 item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
                 item.setForeground(Qt.gray)
                 
-            self.dockwidget.myListWidget32.addItem(item)
+            self._dw.myListWidget32.addItem(item)
             
         self._tab3_set_mesh()
 
@@ -595,54 +593,54 @@ class JPDataManager:
         self._tab3_set_mesh()
 
     def _tab3_set_mesh(self):
-        if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
+        if len(self._dw.myListWidget31.selectedItems()) == 0:
             return
-        name_pref = str(self.dockwidget.myListWidget31.selectedItems()[0].text())
+        name_pref = str(self._dw.myListWidget31.selectedItems()[0].text())
 
-        if self.dockwidget.myComboBox32.currentIndex() == 0:
-            self.dockwidget.myListWidget33.clear()
-            self.dockwidget.myListWidget33.hide()
-            jpDataCensus.set_year_items(self.dockwidget.myComboBox31, 2000)
+        if self._dw.myComboBox32.currentIndex() == 0:
+            self._dw.myListWidget33.clear()
+            self._dw.myListWidget33.hide()
+            jpDataCensus.set_year_items(self._dw.myComboBox31, 2000)
             return
         elif (
-            self.dockwidget.myComboBox32.currentIndex() == 1
-            or self.dockwidget.myComboBox32.currentIndex() == 2
+            self._dw.myComboBox32.currentIndex() == 1
+            or self._dw.myComboBox32.currentIndex() == 2
         ):
-            jpDataCensus.set_year_items(self.dockwidget.myComboBox31, 1995)
+            jpDataCensus.set_year_items(self._dw.myComboBox31, 1995)
         else:
-            jpDataCensus.set_year_items(self.dockwidget.myComboBox31, 2005)
+            jpDataCensus.set_year_items(self._dw.myComboBox31, 2005)
 
-        self.dockwidget.myListWidget33.clear()
-        self.dockwidget.myListWidget33.show()
+        self._dw.myListWidget33.clear()
+        self._dw.myListWidget33.show()
 
-        if len(self.dockwidget.myListWidget32.selectedItems()) == 0:
+        if len(self._dw.myListWidget32.selectedItems()) == 0:
             details = jpDataMesh.getMesh1ByPrefName(name_pref)
         else:
             name_munis = []
-            for name_muni in self.dockwidget.myListWidget32.selectedItems():
+            for name_muni in self._dw.myListWidget32.selectedItems():
                 name_munis.append(name_muni.text())
             jpDataUtils.printLog(name_munis)
             details = jpDataMesh.getMesh1ByPrefMuniName(name_pref, name_munis)
 
         for detail in details:
-            self.dockwidget.myListWidget33.addItem(detail)
+            self._dw.myListWidget33.addItem(detail)
 
     def tab3CheckSelected(self):
-        if len(self.dockwidget.myListWidget31.selectedItems()) == 0:
-            self.setLabel(self.ui.tr("Please choose a prefecture."))
+        if len(self._dw.myListWidget31.selectedItems()) == 0:
+            self.setLabel(self._ui.tr("Please choose a prefecture."))
             return False
-        if self.dockwidget.myComboBox32.currentIndex() == 0:
-            if len(self.dockwidget.myListWidget32.selectedItems()) == 0:
-                self.setLabel(self.ui.tr("Please choose a municipality."))
+        if self._dw.myComboBox32.currentIndex() == 0:
+            if len(self._dw.myListWidget32.selectedItems()) == 0:
+                self.setLabel(self._ui.tr("Please choose a municipality."))
                 return False
         else:
-            if len(self.dockwidget.myListWidget33.selectedItems()) == 0:
-                self.setLabel(self.ui.tr("Please choose a mesh code."))
+            if len(self._dw.myListWidget33.selectedItems()) == 0:
+                self.setLabel(self._ui.tr("Please choose a mesh code."))
                 return False
         return True
 
     def tab3DownloadAll2(self):
-        if self.dockwidget.myPushButton31.text() == self.ui.tr("Cancel"):
+        if self._dw.myPushButton31.text() == self._ui.tr("Cancel"):
             self.cancel_download()
             return
         if not self.tab3CheckSelected():
@@ -650,21 +648,21 @@ class JPDataManager:
 
         self._dl_url_zip = []
         self._dl_iter = 0
-        year = str(self.dockwidget.myComboBox31.currentText())
-        name_pref = self.dockwidget.myListWidget31.selectedItems()[0].text()
+        year = str(self._dw.myComboBox31.currentText())
+        name_pref = self._dw.myListWidget31.selectedItems()[0].text()
         code_pref = jpDataUtils.getPrefCodeByName(name_pref)
         # Check if municipality (shochiiki) is selected
-        if self.dockwidget.myComboBox32.currentIndex() == 0:
+        if self._dw.myComboBox32.currentIndex() == 0:
             # Get municipality names
-            muni_names = self.dockwidget.myListWidget32.selectedItems()
+            muni_names = self._dw.myListWidget32.selectedItems()
         else:
             # Get mesh codes
-            muni_names = self.dockwidget.myListWidget33.selectedItems()
+            muni_names = self._dw.myListWidget33.selectedItems()
         for muni_name in muni_names:
             # Usually, attributes are in one file, so for loop is not
             # really necessary
             row = jpDataMuni.getRowFromNames(name_pref, str(muni_name.text()))
-            if self.dockwidget.myComboBox32.currentIndex() == 0:
+            if self._dw.myComboBox32.currentIndex() == 0:
                 code_muni = row["code_muni"]
             else:
                 code_muni = str(muni_name.text())
@@ -674,7 +672,7 @@ class JPDataManager:
                 year,
                 code_pref,
                 code_muni,
-                self.dockwidget.myComboBox32.currentIndex(),
+                self._dw.myComboBox32.currentIndex(),
             )
             if tempZip is not None:
                 self._dl_url_zip.append(
@@ -690,7 +688,7 @@ class JPDataManager:
                 year,
                 code_pref,
                 code_muni,
-                self.dockwidget.myComboBox32.currentIndex(),
+                self._dw.myComboBox32.currentIndex(),
             )
             if tempZip is not None:
                 self._dl_url_zip.append(
@@ -707,32 +705,32 @@ class JPDataManager:
     def tab3AddMap(self):
         if not self.tab3CheckSelected():
             return
-        year = str(self.dockwidget.myComboBox31.currentText())
-        name_pref = self.dockwidget.myListWidget31.selectedItems()[0].text()
+        year = str(self._dw.myComboBox31.currentText())
+        name_pref = self._dw.myListWidget31.selectedItems()[0].text()
         code_pref = jpDataUtils.getPrefCodeByName(name_pref)
         tempSubFolder = jpDataCensus.getSubFolder(
-            self.dockwidget.myComboBox32.currentIndex()
+            self._dw.myComboBox32.currentIndex()
         )
 
-        if self.dockwidget.myComboBox32.currentIndex() == 0:
-            muni_names = self.dockwidget.myListWidget32.selectedItems()
+        if self._dw.myComboBox32.currentIndex() == 0:
+            muni_names = self._dw.myListWidget32.selectedItems()
             tempQmlFile = "Census-" + year + ".qml"
             name_muni_suffix = ""
         else:
-            muni_names = self.dockwidget.myListWidget33.selectedItems()
-            if self.dockwidget.myComboBox32.currentIndex() == 1:
+            muni_names = self._dw.myListWidget33.selectedItems()
+            if self._dw.myComboBox32.currentIndex() == 1:
                 tempQmlFile = "Census-SDDSWS-" + year + ".qml"
-                name_muni_suffix = " " + self.ui.tr("3rd")
-            elif self.dockwidget.myComboBox32.currentIndex() == 2:
+                name_muni_suffix = " " + self._ui.tr("3rd")
+            elif self._dw.myComboBox32.currentIndex() == 2:
                 tempQmlFile = "Census-HDDSWH-" + year + ".qml"
-                name_muni_suffix = " " + self.ui.tr("4th")
-            elif self.dockwidget.myComboBox32.currentIndex() == 3:
+                name_muni_suffix = " " + self._ui.tr("4th")
+            elif self._dw.myComboBox32.currentIndex() == 3:
                 tempQmlFile = "Census-QDDSWQ-" + year + ".qml"
-                name_muni_suffix = " " + self.ui.tr("5th")
+                name_muni_suffix = " " + self._ui.tr("5th")
 
         for muni_name in muni_names:
             name_muni = str(muni_name.text())
-            if self.dockwidget.myComboBox32.currentIndex() == 0:
+            if self._dw.myComboBox32.currentIndex() == 0:
                 row = jpDataMuni.getRowFromNames(name_pref, name_muni)
                 code_muni = row["code_muni"]
             else:
@@ -741,7 +739,7 @@ class JPDataManager:
                 year,
                 code_pref,
                 code_muni,
-                self.dockwidget.myComboBox32.currentIndex(),
+                self._dw.myComboBox32.currentIndex(),
             )
 
             tempShpFullPath = jpDataUtils.unzipAndGetShp(
@@ -751,7 +749,7 @@ class JPDataManager:
             )
 
             if tempShpFullPath is None:
-                self.setLabel(self.ui.tr("Cannot find the .shp file: ") + tempShpFileName)
+                self.setLabel(self._ui.tr("Cannot find the .shp file: ") + tempShpFileName)
                 self._iface.messageBar().pushMessage(
                     "Error",
                     "Cannot find the .shp file: " + tempShpFileName,
@@ -765,13 +763,13 @@ class JPDataManager:
                     year,
                     code_pref,
                     code_muni,
-                    self.dockwidget.myComboBox32.currentIndex(),
+                    self._dw.myComboBox32.currentIndex(),
                 )
                 tempUrl, tempZip, tempSubFolder = jpDataCensus.getAttr(
                     year,
                     code_pref,
                     code_muni,
-                    self.dockwidget.myComboBox32.currentIndex(),
+                    self._dw.myComboBox32.currentIndex(),
                 )
                 jpDataUtils.unzip(
                     posixpath.join(self._folderPath, tempSubFolder), tempZip
@@ -794,7 +792,7 @@ class JPDataManager:
 
 
     def myPB_Addr_1_clicked(self):
-        if self.dockwidget.myPB_Addr_1.text() == self.ui.tr("Download"):
+        if self._dw.myPB_Addr_1.text() == self._ui.tr("Download"):
             self._dl_url_zip = []
             self._dl_iter = 0
             for i in range(1, 48):
@@ -815,13 +813,13 @@ class JPDataManager:
                     )
             if len(self._dl_url_zip) > 0:
                 self._download_iter_2()
-        elif self.dockwidget.myPB_Addr_1.text() == self.ui.tr("Jump"):
+        elif self._dw.myPB_Addr_1.text() == self._ui.tr("Jump"):
             lon, lat = jpDataAddr.get_lonlat_by_addr(
                 self._folderPath,
-                str(self.dockwidget.myCB_Addr_1.currentText()),
-                str(self.dockwidget.myCB_Addr_2.currentText()),
-                str(self.dockwidget.myCB_Addr_3.currentText()),
-                str(self.dockwidget.myCB_Addr_4.currentText()),
+                str(self._dw.myCB_Addr_1.currentText()),
+                str(self._dw.myCB_Addr_2.currentText()),
+                str(self._dw.myCB_Addr_3.currentText()),
+                str(self._dw.myCB_Addr_4.currentText()),
             )
 
             if lon is None or lat is None:
@@ -842,12 +840,12 @@ class JPDataManager:
 
     def _myCB_Addr_1_changed(self):
         if not jpDataAddr.set_cb_cities(
-            self.dockwidget.myCB_Addr_2,
+            self._dw.myCB_Addr_2,
             self._folderPath,
-            self.dockwidget.myCB_Addr_1.currentText(),
+            self._dw.myCB_Addr_1.currentText(),
         ):
-            self.dockwidget.myPB_Addr_1.setText(self.ui.tr("Download"))
-            self.setLabel(self.ui.tr("Missing address data."))
+            self._dw.myPB_Addr_1.setText(self._ui.tr("Download"))
+            self.setLabel(self._ui.tr("Missing address data."))
             self._dl_status = "ADDRESS"
         else:
-            self.dockwidget.myPB_Addr_1.setText(self.ui.tr("Jump"))
+            self._dw.myPB_Addr_1.setText(self._ui.tr("Jump"))
