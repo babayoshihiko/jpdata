@@ -6,16 +6,20 @@ import zipfile
 from qgis import processing
 
 
-def getSubFolder(type_muni):
+def get_subfolder_qml(type_muni, year):
     if type_muni == 0:
         tempSubFolder = "Census"
+        tempQmlFile = "Census-" + year + ".qml"
     if type_muni == 1:
         tempSubFolder = "Census-SDDSWS"
+        tempQmlFile = "Census-SDDSWS-" + year + ".qml"
     elif type_muni == 2:
         tempSubFolder = "Census-HDDSWH"
+        tempQmlFile = "Census-HDDSWH-" + year + ".qml"
     elif type_muni == 3:
         tempSubFolder = "Census-QDDSWQ"
-    return tempSubFolder
+        tempQmlFile = "Census-QDDSWQ-" + year + ".qml"
+    return tempSubFolder, tempQmlFile
 
 
 def getZipShp(year, code_pref, code_muni, type_muni=0):
@@ -37,7 +41,7 @@ def getZipShp(year, code_pref, code_muni, type_muni=0):
 def getZip(year, code_pref, code_muni, type_muni=0):
     tempUrl = getUrl(year, code_pref, code_muni, type_muni)
     tempZip = getZipFileName(year, code_pref, code_muni, type_muni)
-    tempSubFolder = getSubFolder(type_muni)
+    tempSubFolder, tmpQmlFile = get_subfolder_qml(type_muni, year)
     return tempUrl, tempZip, tempSubFolder
 
 
@@ -133,7 +137,7 @@ def getShpFileName(year, code_pref, code_muni, type_muni=0):
 def getAttr(year, code_pref, code_muni, type_muni=0):
     tempUrl = getAttrUrl(year, code_pref, code_muni, type_muni)
     tempZip = getAttrZipFileName(year, code_pref, code_muni, type_muni)
-    tempSubFolder = getSubFolder(type_muni)
+    tempSubFolder, tmpQmlFile = get_subfolder_qml(type_muni, year)
     return tempUrl, tempZip, tempSubFolder
 
 
@@ -428,7 +432,7 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
 
 
 def performJoin(folder, year, shp, csv):
-    encoding = "CP932"
+    shp_encoding = "CP932"  # The encoding for shp
     if not folder in shp:
         shp = posixpath.join(folder, shp)
     output = shp[:-4] + "-" + year + ".shp"
@@ -440,6 +444,7 @@ def performJoin(folder, year, shp, csv):
         else:
             if os.path.exists(csv):
                 line_no = 0
+                # The encoding for csv
                 fout = open(csv[:-4] + ".csv", "w+", encoding="UTF-8")
                 with open(csv, "r", encoding="CP932") as fp:
                     for line in fp:
@@ -456,13 +461,13 @@ def performJoin(folder, year, shp, csv):
                                 minus = 3
                             for _ in range(count - minus):
                                 csvt += ",Integer"
-                                fout2 = open(csv[:-4] + ".csvt", "w+", encoding="UTF-8")
+
+                            with open(csv[:-4] + ".csvt", "w", encoding="UTF-8") as fout2:
                                 fout2.write(csvt)
-                                fout2.close()
                 fout.close()
                 csv = csv[:-4] + ".csv"
             else:
-                return shp, encoding
+                return shp, shp_encoding
 
     # Now all file names are full path
 
@@ -480,17 +485,16 @@ def performJoin(folder, year, shp, csv):
             processing.run("qgis:joinattributestable", joinInfo)
 
     cfg = output[:-4] + ".cpg"
-    encoding = "UTF-8"
     if os.path.exists(cfg):
         with open(cfg, "r") as fp:
             for line in fp:
                 if "shift_jis" in line.lower():
-                    encoding = "CP932"
+                    shp_encoding = "CP932"
                     break
                 elif "utf-8" in line.lower():
                     break
 
-    return output, encoding
+    return output, shp_encoding
 
 
 def set_year_items(combo_widget, first_year=2000):
@@ -527,3 +531,5 @@ def set_year_items(combo_widget, first_year=2000):
         combo_widget.setCurrentIndex(0)
     
     combo_widget.blockSignals(False)
+
+

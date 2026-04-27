@@ -82,7 +82,7 @@ class JPDataManager:
         # Tab 1
         dw.myPushButton2.clicked.connect(self.chooseFolder)
         dw.myPushButton11.clicked.connect(self.tab1DownloadAll)
-        dw.myPushButton14.clicked.connect(self.tab1AddMap)
+        dw.myPushButton14.clicked.connect(self._tab1_add_map)
         dw.myPushButton15.clicked.connect(self.tab1Web)
         dw.myListWidget11.itemSelectionChanged.connect(self.LW11_itemSelectionChanged)
         dw.myListWidget12.itemSelectionChanged.connect(self.LW12_itemSelectionChanged)
@@ -92,7 +92,7 @@ class JPDataManager:
         dw.myPushButton25.clicked.connect(self.addTile)
 
         # Tab 3
-        dw.myPushButton32.clicked.connect(self.tab3AddMap)
+        dw.myPushButton32.clicked.connect(self._tab3_add_map)
         dw.myPushButton31.clicked.connect(self.tab3DownloadAll2)
         dw.myListWidget31.currentItemChanged.connect(
             self._LW31_currentItemChanged
@@ -153,32 +153,70 @@ class JPDataManager:
         pass
         # This is a method for local testing purpose.
 
-    def _add_map(self, shpFileFullPath, layerName, qmlFileName, encoding="CP932"):
-        tempLayer = QgsVectorLayer(shpFileFullPath, layerName, "ogr")
-        tempLayer.setProviderEncoding(encoding)
-        if self._dw.myCheckBox2.isChecked() == False:
-            count_invalid_geom = jpDataUtils.count_invalid_geometry(tempLayer)
-            if count_invalid_geom > 0:
-                tempLayer.setName(layerName + " [invalid]")
+
+    def _add_map(
+        self,
+        shpFileFullPath,
+        layerName,
+        qmlFileName=None,
+        encoding="CP932",
+        epsg: int | None = None,
+    ):
+        # --- Create layer ---
+        if shpFileFullPath is None:
+            self.setLabel(
+                self._ui.tr("Failed to locate the file for layer: ") + layerName
+            )
+            return None
+        layer = QgsVectorLayer(shpFileFullPath, layerName, "ogr")
+        if not layer.isValid():
+            self.setLabel(
+                self._ui.tr("Failed to load layer: ") + shpFileFullPath
+            )
+            return None
+
+        layer.setProviderEncoding(encoding)
+
+        # --- CRS ---
+        if epsg is not None:
+            epsg = epsg.replace("EPSG:", "")
+            epsg = int(epsg)
+            crs = QgsCoordinateReferenceSystem.fromEpsgId(epsg)
+            if not crs.isValid():
                 self.setLabel(
-                    self._ui.tr("The layer has invalid geometries: ") + str(count_invalid_geom)
+                    self._ui.tr("Invalid EPSG. Uses default instead: ") + str(epsg) 
+                )
+            layer.setCrs(crs)
+
+        # --- Check geometry ---
+        if not self._dw.myCheckBox2.isChecked():
+            count_invalid = jpDataUtils.count_invalid_geometry(layer)
+            if count_invalid > 0:
+                layer.setName(f"{layerName} [invalid]")
+                self.setLabel(
+                    self._ui.tr("The layer has invalid geometries: ") + str(count_invalid)
                 )
 
-        if os.path.isfile(posixpath.join(self._plugin_dir, "qml", qmlFileName)):
-            # For the qml files that use SVG images in the plugin folder
-            with tempfile.TemporaryDirectory() as temp_dir:
-                with open(
-                    posixpath.join(self._plugin_dir, "qml", qmlFileName),
-                    "r",
-                ) as file:
-                    file_contents = file.read()
-                new_contents = file_contents.replace("PLUGIN_DIR", self._plugin_dir)
-                with open(posixpath.join(temp_dir, qmlFileName), "w") as file:
-                    file.write(new_contents)
-                if tempLayer.loadNamedStyle(posixpath.join(temp_dir, qmlFileName)):
-                    tempLayer.triggerRepaint()
-        QgsProject.instance().addMapLayer(tempLayer)
-        return tempLayer
+        # --- Style from QML file ---
+        if qmlFileName:
+            qml_path = os.path.join(self._plugin_dir, "qml", qmlFileName)
+            if os.path.isfile(qml_path):
+                with tempfile.TemporaryDirectory() as temp_dir:
+                    temp_qml = os.path.join(temp_dir, qmlFileName)
+
+                    with open(qml_path, "r") as f:
+                        contents = f.read().replace("PLUGIN_DIR", self._plugin_dir)
+
+                    with open(temp_qml, "w") as f:
+                        f.write(contents)
+
+                    if layer.loadNamedStyle(temp_qml):
+                        layer.triggerRepaint()
+
+        # --- Add to the current project ---
+        QgsProject.instance().addMapLayer(layer)
+
+        return layer
 
 
 
@@ -321,47 +359,6 @@ class JPDataManager:
             QSettings().setValue("jpdata/FolderPath", folder)
             self._dw.myLabel1.setText(folder)
 
-    def tab1AddMap(self):
-        if not self.tab1CheckSelected():
-            return
-            
-        thisLandNum = self._land_info[self._dw.myListWidget11.selectedItems()[0].text()]
-        year = self._dw.myComboBox11.currentText()
-        pref_names = self._dw.myListWidget12.selectedItems()
-        pref_code = []
-
-        if thisLandNum["type_muni"].lower() == "mesh1":
-            for code_mesh1 in self._dw.myListWidget13.selectedItems():
-                pref_code.append(code_mesh1.text())
-        else:
-            for pref_name in pref_names:
-                pref_code.append(jpDataUtils.getPrefCodeByName(pref_name.text()))
-
-        detail = None
-        if thisLandNum["type_muni"].lower() == "detail" and self._dw.myListWidget13.selectedItems():
-            detail = self._dw.myListWidget13.selectedItems()[0].text()
-            
-        if thisLandNum["type_muni"] == "single":
-            pref_code = [""]
-
-        for x in range(len(pref_code)):
-            (zip_filename, shp_filename, altdir, qml_file, epsg, encoding, subfolder, layer_name) = \
-                jpDataLNI.getZip(year, thisLandNum, pref_names[x].text() if x < len(pref_names) else "", 
-                                 pref_code[x], "full", detail=detail)
-
-            shp_full_path = jpDataUtils.unzipAndGetShp(
-                os.path.join(self._folderPath, subfolder),
-                zip_filename, shp_filename, altdir, pref_code[x],
-                epsg=epsg, encoding=encoding
-            )
-
-            if shp_full_path:
-                from qgis.core import QgsVectorLayer, QgsProject
-                layer = QgsVectorLayer(shp_full_path, layer_name, "ogr")
-                if layer.isValid():
-                    QgsProject.instance().addMapLayer(layer)
-            else:
-                self._dw.myLabelStatus.setText(self._ui.tr("Cannot find .shp file"))
 
     def addTile(self):
         from qgis.core import QgsRasterLayer, QgsProject
@@ -581,8 +578,12 @@ class JPDataManager:
             item = QListWidgetItem(name)
             
             if name in designated_cities:
-                item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
-                item.setForeground(Qt.gray)
+                if hasattr(Qt, 'ItemFlag'):
+                    item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsSelectable)
+                else:
+                    item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
+                gray = Qt.GlobalColor.gray if hasattr(Qt, 'GlobalColor') else Qt.gray
+                item.setForeground(gray)
                 
             self._dw.myListWidget32.addItem(item)
             
@@ -702,92 +703,6 @@ class JPDataManager:
 
         self._download_iter_2()
 
-    def tab3AddMap(self):
-        if not self.tab3CheckSelected():
-            return
-        year = str(self._dw.myComboBox31.currentText())
-        name_pref = self._dw.myListWidget31.selectedItems()[0].text()
-        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
-        tempSubFolder = jpDataCensus.getSubFolder(
-            self._dw.myComboBox32.currentIndex()
-        )
-
-        if self._dw.myComboBox32.currentIndex() == 0:
-            muni_names = self._dw.myListWidget32.selectedItems()
-            tempQmlFile = "Census-" + year + ".qml"
-            name_muni_suffix = ""
-        else:
-            muni_names = self._dw.myListWidget33.selectedItems()
-            if self._dw.myComboBox32.currentIndex() == 1:
-                tempQmlFile = "Census-SDDSWS-" + year + ".qml"
-                name_muni_suffix = " " + self._ui.tr("3rd")
-            elif self._dw.myComboBox32.currentIndex() == 2:
-                tempQmlFile = "Census-HDDSWH-" + year + ".qml"
-                name_muni_suffix = " " + self._ui.tr("4th")
-            elif self._dw.myComboBox32.currentIndex() == 3:
-                tempQmlFile = "Census-QDDSWQ-" + year + ".qml"
-                name_muni_suffix = " " + self._ui.tr("5th")
-
-        for muni_name in muni_names:
-            name_muni = str(muni_name.text())
-            if self._dw.myComboBox32.currentIndex() == 0:
-                row = jpDataMuni.getRowFromNames(name_pref, name_muni)
-                code_muni = row["code_muni"]
-            else:
-                code_muni = name_muni
-            tempZipFileName, tempShpFileName = jpDataCensus.getZipShp(
-                year,
-                code_pref,
-                code_muni,
-                self._dw.myComboBox32.currentIndex(),
-            )
-
-            tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                posixpath.join(self._folderPath, tempSubFolder),
-                tempZipFileName,
-                tempShpFileName,
-            )
-
-            if tempShpFullPath is None:
-                self.setLabel(self._ui.tr("Cannot find the .shp file: ") + tempShpFileName)
-                self._iface.messageBar().pushMessage(
-                    "Error",
-                    "Cannot find the .shp file: " + tempShpFileName,
-                    1,
-                    duration=10,
-                )
-                break
-
-            if tempShpFullPath != "":
-                tempCsvFileName = jpDataCensus.getAttrCsvFileName(
-                    year,
-                    code_pref,
-                    code_muni,
-                    self._dw.myComboBox32.currentIndex(),
-                )
-                tempUrl, tempZip, tempSubFolder = jpDataCensus.getAttr(
-                    year,
-                    code_pref,
-                    code_muni,
-                    self._dw.myComboBox32.currentIndex(),
-                )
-                jpDataUtils.unzip(
-                    posixpath.join(self._folderPath, tempSubFolder), tempZip
-                )
-                tempShpFullPath, encoding = jpDataCensus.performJoin(
-                    posixpath.join(self._folderPath, tempSubFolder),
-                    year,
-                    tempShpFileName,
-                    tempCsvFileName,
-                )
-                self._add_map(
-                    tempShpFullPath,
-                    name_muni + name_muni_suffix + " (" + year + ")",
-                    tempQmlFile,
-                    encoding=encoding,
-                )
-
-
 
 
 
@@ -849,3 +764,132 @@ class JPDataManager:
             self._dl_status = "ADDRESS"
         else:
             self._dw.myPB_Addr_1.setText(self._ui.tr("Jump"))
+
+
+
+
+
+    def _tab1_add_map(self):
+        if not self.tab1CheckSelected():
+            return
+        this_landmum = self._land_info[self._dw.myListWidget11.selectedItems()[0].text()]
+        year = self._dw.myComboBox11.currentText()
+        list_code = []
+        detail = None
+
+        if this_landmum["type_muni"].lower() == "mesh1":
+            for code_mesh1 in self._dw.myListWidget13.selectedItems():
+                list_code.append(code_mesh1.text())
+        elif this_landmum["type_muni"] == "single":
+            list_code = [""]
+        else:
+            for name_pref in self._dw.myListWidget12.selectedItems():
+                list_code.append(jpDataUtils.getPrefCodeByName(name_pref.text()))
+            if this_landmum["type_muni"].lower() == "detail" and self._dw.myListWidget13.selectedItems():
+                detail = self._dw.myListWidget13.selectedItems()[0].text()
+            
+        count_prefs = len(self._dw.myListWidget12.selectedItems())
+        for x in range(len(list_code)):
+            (zip_filename, shp_filename, altdir, qml_filename, epsg, encoding, subfolder, layer_name) = \
+                jpDataLNI.getZip(year, 
+                                 this_landmum, 
+                                 self._dw.myListWidget12.selectedItems()[x].text() if x < count_prefs else "", 
+                                 list_code[x], 
+                                 "full", 
+                                 detail=detail)
+
+            shp_full_path = jpDataUtils.unzipAndGetShp(
+                os.path.join(self._folderPath, subfolder),
+                zip_filename, shp_filename, altdir, list_code[x],
+                epsg=epsg, encoding=encoding
+            )
+            self._add_map(
+                shp_full_path,
+                layer_name,
+                qml_filename,
+                encoding=encoding,
+                epsg=epsg
+            )
+
+
+    def _tab3_add_map(self):
+        if not self.tab3CheckSelected():
+            return
+        year = self._dw.myComboBox31.currentText()
+        name_pref = self._dw.myListWidget31.selectedItems()[0].text()
+        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+        subfolder, qml_filename = jpDataCensus.get_subfolder_qml(
+            self._dw.myComboBox32.currentIndex(), year
+        )
+
+        if self._dw.myComboBox32.currentIndex() == 0:
+            # Get municipality names
+            list_item = self._dw.myListWidget32.selectedItems()
+            name_muni_suffix = ""
+        else:
+            # Get mesh codes
+            list_item = self._dw.myListWidget33.selectedItems()
+            if self._dw.myComboBox32.currentIndex() == 1:
+                name_muni_suffix = " " + self._ui.tr("3rd")
+            elif self._dw.myComboBox32.currentIndex() == 2:
+                name_muni_suffix = " " + self._ui.tr("4th")
+            elif self._dw.myComboBox32.currentIndex() == 3:
+                name_muni_suffix = " " + self._ui.tr("5th")
+
+        for _item_name_or_code in list_item:
+            if self._dw.myComboBox32.currentIndex() == 0:
+                row = jpDataMuni.getRowFromNames(name_pref, _item_name_or_code.text())
+                code_muni = row["code_muni"]
+            else:
+                code_muni = _item_name_or_code.text()
+            tempZipFileName, tempShpFileName = jpDataCensus.getZipShp(
+                year,
+                code_pref,
+                code_muni,
+                self._dw.myComboBox32.currentIndex(),
+            )
+
+            tempShpFullPath = jpDataUtils.unzipAndGetShp(
+                posixpath.join(self._folderPath, subfolder),
+                tempZipFileName,
+                tempShpFileName,
+            )
+
+            if tempShpFullPath is None:
+                self.setLabel(self._ui.tr("Cannot find the .shp file: ") + tempShpFileName)
+                self._iface.messageBar().pushMessage(
+                    "Error",
+                    "Cannot find the .shp file: " + tempShpFileName,
+                    1,
+                    duration=10,
+                )
+                break
+
+            if tempShpFullPath != "":
+                tempCsvFileName = jpDataCensus.getAttrCsvFileName(
+                    year,
+                    code_pref,
+                    code_muni,
+                    self._dw.myComboBox32.currentIndex(),
+                )
+                tempUrl, tempZip, subfolder = jpDataCensus.getAttr(
+                    year,
+                    code_pref,
+                    code_muni,
+                    self._dw.myComboBox32.currentIndex(),
+                )
+                jpDataUtils.unzip(
+                    posixpath.join(self._folderPath, subfolder), tempZip
+                )
+                tempShpFullPath, encoding = jpDataCensus.performJoin(
+                    posixpath.join(self._folderPath, subfolder),
+                    year,
+                    tempShpFileName,
+                    tempCsvFileName,
+                )
+                self._add_map(
+                    tempShpFullPath,
+                    name_muni + name_muni_suffix + " (" + year + ")",
+                    qml_filename,
+                    encoding=encoding
+                )
