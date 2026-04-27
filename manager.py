@@ -81,7 +81,7 @@ class JPDataManager:
         dw = self._dw
         # Tab 1
         dw.myPushButton2.clicked.connect(self.chooseFolder)
-        dw.myPushButton11.clicked.connect(self.tab1DownloadAll)
+        dw.myPushButton11.clicked.connect(self._tab1_download_all)
         dw.myPushButton14.clicked.connect(self._tab1_add_map)
         dw.myPushButton15.clicked.connect(self.tab1Web)
         dw.myListWidget11.itemSelectionChanged.connect(self.LW11_itemSelectionChanged)
@@ -92,8 +92,8 @@ class JPDataManager:
         dw.myPushButton25.clicked.connect(self.addTile)
 
         # Tab 3
+        dw.myPushButton31.clicked.connect(self._tab3_download_all)
         dw.myPushButton32.clicked.connect(self._tab3_add_map)
-        dw.myPushButton31.clicked.connect(self.tab3DownloadAll2)
         dw.myListWidget31.currentItemChanged.connect(
             self._LW31_currentItemChanged
         )  ## NEEDS REFACTORING to itemSelectionChanged
@@ -137,10 +137,17 @@ class JPDataManager:
         self._downloader.progress.connect(self._dw.progressBar.setValue)
         self._downloader.finished.connect(self.download_finished)
 
-    def setLabel(self, message):
+    def setLabel(self, message, critical=False):
         self._dw.myLabelStatus.setText(message)
         if self._verbose:
             jpDataUtils.printLog(message)
+        if critical:
+            self._iface.messageBar().pushMessage(
+                "Error",
+                message,
+                1,
+                duration=10,
+            )
 
     def unload(self):
         if self._dw:
@@ -160,7 +167,7 @@ class JPDataManager:
         layerName,
         qmlFileName=None,
         encoding="CP932",
-        epsg: int | None = None,
+        epsg = None,
     ):
         # --- Create layer ---
         if shpFileFullPath is None:
@@ -407,43 +414,14 @@ class JPDataManager:
         if index == 3:  # tab #3 (4th tab)
             self._dw.myCB_Addr_1.setCurrentIndex(12)
 
-    def tab1DownloadAll(self):
-        if not self.tab1CheckSelected():
-            return
+    def _tab1_download_all(self):
         if self._dw.myPushButton11.text() == self._ui.tr("Cancel"):
             self.cancel_download()
             return
+        self._tab1_iter(process = "download")
 
-        self._dl_url_zip = []
-        self._dl_iter = 0
-        year = str(self._dw.myComboBox11.currentText())
-        pref_names = self._dw.myListWidget12.selectedItems()
-
-        thisLandNum = self._land_info[
-            str(self._dw.myListWidget11.selectedItems()[0].text())
-        ]
-
-        for pref_name in pref_names:
-            if thisLandNum["type_muni"].lower() == "mesh1":
-                str_replace_after = str(
-                    self._dw.myListWidget13.selectedItems()[0].text()
-                )
-            else:
-                str_replace_after = jpDataUtils.getPrefCodeByName(str(pref_name.text()))
-
-            tempUrl, tempZip, tempSubFolder = jpDataLNI.getZip(
-                year, thisLandNum, str(pref_name.text()), str_replace_after, "urlzip"
-            )
-            if tempZip is not None:
-                self._dl_url_zip.append(
-                    {
-                        "year": year,
-                        "url": tempUrl,
-                        "zip": tempZip,
-                        "subfolder": tempSubFolder,
-                    }
-                )
-        self._download_iter_2()
+    def _tab1_add_map(self):
+        self._tab1_iter(process = "add")
 
     # year = 2023 and so on
     # type must be one of ["regional","detail","single","","census"]
@@ -645,69 +623,14 @@ class JPDataManager:
                 return False
         return True
 
-    def tab3DownloadAll2(self):
+    def _tab3_download_all(self):
         if self._dw.myPushButton31.text() == self._ui.tr("Cancel"):
             self.cancel_download()
             return
-        if not self.tab3CheckSelected():
-            return
-
-        self._dl_url_zip = []
-        self._dl_iter = 0
-        year = str(self._dw.myComboBox31.currentText())
-        name_pref = self._dw.myListWidget31.selectedItems()[0].text()
-        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
-        # Check if municipality (shochiiki) is selected
-        if self._dw.myComboBox32.currentIndex() == 0:
-            # Get municipality names
-            muni_names = self._dw.myListWidget32.selectedItems()
-        else:
-            # Get mesh codes
-            muni_names = self._dw.myListWidget33.selectedItems()
-        for muni_name in muni_names:
-            # Usually, attributes are in one file, so for loop is not
-            # really necessary
-            row = jpDataMuni.getRowFromNames(name_pref, str(muni_name.text()))
-            if self._dw.myComboBox32.currentIndex() == 0:
-                code_muni = row["code_muni"]
-            else:
-                code_muni = str(muni_name.text())
-
-            # Append the attribute data first
-            tempUrl, tempZip, tempSubFolder = jpDataCensus.getAttr(
-                year,
-                code_pref,
-                code_muni,
-                self._dw.myComboBox32.currentIndex(),
-            )
-            if tempZip is not None:
-                self._dl_url_zip.append(
-                    {
-                        "year": year,
-                        "url": tempUrl,
-                        "zip": tempZip,
-                        "subfolder": tempSubFolder,
-                    }
-                )
-            # Append the shp data
-            tempUrl, tempZip, tempSubFolder = jpDataCensus.getZip(
-                year,
-                code_pref,
-                code_muni,
-                self._dw.myComboBox32.currentIndex(),
-            )
-            if tempZip is not None:
-                self._dl_url_zip.append(
-                    {
-                        "year": year,
-                        "url": tempUrl,
-                        "zip": tempZip,
-                        "subfolder": tempSubFolder,
-                    }
-                )
-
-        self._download_iter_2()
-
+        self._tab3_iter(process = "download")
+ 
+    def _tab3_add_map(self):
+        self._tab3_iter(process = "add")
 
 
 
@@ -771,10 +694,7 @@ class JPDataManager:
             self._dw.myPB_Addr_1.setText(self._ui.tr("Jump"))
 
 
-
-
-
-    def _tab1_add_map(self):
+    def _tab1_iter(self, process):
         if not self.tab1CheckSelected():
             return
         this_landmum = self._land_info[self._dw.myListWidget11.selectedItems()[0].text()]
@@ -794,31 +714,52 @@ class JPDataManager:
                 detail = self._dw.myListWidget13.selectedItems()[0].text()
             
         count_prefs = len(self._dw.myListWidget12.selectedItems())
-        for x in range(len(list_code)):
-            (zip_filename, shp_filename, altdir, qml_filename, epsg, encoding, subfolder, layer_name) = \
-                jpDataLNI.getZip(year, 
-                                 this_landmum, 
-                                 self._dw.myListWidget12.selectedItems()[x].text() if x < count_prefs else "", 
-                                 list_code[x], 
-                                 "full", 
-                                 detail=detail)
-            self.setLabel(str(shp_filename))
-            shp_full_path = jpDataUtils.unzipAndGetShp(
-                posixpath.join(self._folderPath, subfolder),
-                zip_filename, shp_filename, altdir, list_code[x],
-                epsg=epsg, encoding=encoding
-            )
-            self.setLabel(str(shp_full_path))
-            self._add_map(
-                shp_full_path,
-                layer_name,
-                qml_filename,
-                encoding=encoding,
-                epsg=epsg
-            )
+
+        if process == "add":
+            for x in range(len(list_code)):
+                (zip_filename, shp_filename, altdir, qml_filename, epsg, encoding, subfolder, layer_name) = \
+                    jpDataLNI.getZip(year, 
+                                    this_landmum, 
+                                    self._dw.myListWidget12.selectedItems()[x].text() if x < count_prefs else "", 
+                                    list_code[x], 
+                                    type="full", 
+                                    detail=detail)
+                shp_full_path = jpDataUtils.unzipAndGetShp(
+                    posixpath.join(self._folderPath, subfolder),
+                    zip_filename, shp_filename, altdir, list_code[x],
+                    epsg=epsg, encoding=encoding
+                )
+                self._add_map(
+                    shp_full_path,
+                    layer_name,
+                    qml_filename,
+                    encoding=encoding,
+                    epsg=epsg
+                )
+        elif process == "download":
+            self._dl_url_zip = []
+            self._dl_iter = 0
+            for x in range(len(list_code)):
+                (url, zip_filename, subfolder) = \
+                    jpDataLNI.getZip(year, 
+                                    this_landmum, 
+                                    self._dw.myListWidget12.selectedItems()[x].text() if x < count_prefs else "", 
+                                    list_code[x], 
+                                    type="urlzip", 
+                                    detail=detail)
+                if zip_filename is not None:
+                    self._dl_url_zip.append(
+                        {
+                            "year": year,
+                            "url": url,
+                            "zip": zip_filename,
+                            "subfolder": subfolder
+                        }
+                    )
+            self._download_iter_2()
 
 
-    def _tab3_add_map(self):
+    def _tab3_iter(self, process):
         if not self.tab3CheckSelected():
             return
         year = self._dw.myComboBox31.currentText()
@@ -842,60 +783,100 @@ class JPDataManager:
             elif self._dw.myComboBox32.currentIndex() == 3:
                 name_muni_suffix = " " + self._ui.tr("5th")
 
-        for _item_name_or_code in list_item:
-            if self._dw.myComboBox32.currentIndex() == 0:
-                row = jpDataMuni.getRowFromNames(name_pref, _item_name_or_code.text())
-                code_muni = row["code_muni"]
-            else:
-                code_muni = _item_name_or_code.text()
-            tempZipFileName, tempShpFileName = jpDataCensus.getZipShp(
+        if process == "add":
+            for _item_name_or_code in list_item:
+                if self._dw.myComboBox32.currentIndex() == 0:
+                    row = jpDataMuni.getRowFromNames(name_pref, _item_name_or_code.text())
+                    code_muni = row["code_muni"]
+                else:
+                    code_muni = _item_name_or_code.text()
+                zip_filename, shp_filename = jpDataCensus.getZipShp(
+                    year,
+                    code_pref,
+                    code_muni,
+                    self._dw.myComboBox32.currentIndex(),
+                )
+
+                shp_full_path = jpDataUtils.unzipAndGetShp(
+                    posixpath.join(self._folderPath, subfolder),
+                    zip_filename,
+                    shp_filename,
+                )
+
+                if shp_full_path is None:
+                    self.setLabel(self._ui.tr("Cannot find the .shp file: ") + shp_filename, critical = True)
+                    break
+
+                if shp_full_path != "":
+                    csv_filename = jpDataCensus.getAttrCsvFileName(
+                        year,
+                        code_pref,
+                        code_muni,
+                        self._dw.myComboBox32.currentIndex(),
+                    )
+                    url, zip_filename, subfolder = jpDataCensus.getAttr(
+                        year,
+                        code_pref,
+                        code_muni,
+                        self._dw.myComboBox32.currentIndex(),
+                    )
+                    jpDataUtils.unzip(
+                        posixpath.join(self._folderPath, subfolder), zip_filename
+                    )
+                    shp_full_path, encoding = jpDataCensus.performJoin(
+                        posixpath.join(self._folderPath, subfolder),
+                        year,
+                        shp_filename,
+                        csv_filename,
+                    )
+                    self._add_map(
+                        shp_full_path,
+                        _item_name_or_code.text() + name_muni_suffix + " (" + year + ")",
+                        qml_filename,
+                        encoding=encoding
+                    )
+        elif process == "download":
+            self._dl_url_zip = []
+            self._dl_iter = 0
+            for _item_name_or_code in list_item:
+                if self._dw.myComboBox32.currentIndex() == 0:
+                    row = jpDataMuni.getRowFromNames(name_pref, _item_name_or_code.text())
+                    code_muni = row["code_muni"]
+                else:
+                    code_muni = _item_name_or_code.text()
+
+            # Append the attribute data first
+            url, zip_filename, subfolder = jpDataCensus.getAttr(
                 year,
                 code_pref,
                 code_muni,
                 self._dw.myComboBox32.currentIndex(),
             )
-
-            tempShpFullPath = jpDataUtils.unzipAndGetShp(
-                posixpath.join(self._folderPath, subfolder),
-                tempZipFileName,
-                tempShpFileName,
+            if zip_filename is not None:
+                self._dl_url_zip.append(
+                    {
+                        "year": year,
+                        "url": url,
+                        "zip": zip_filename,
+                        "subfolder": subfolder,
+                    }
+                )
+            # Append the shp data
+            url, zip_filename, subfolder = jpDataCensus.getZip(
+                year,
+                code_pref,
+                code_muni,
+                self._dw.myComboBox32.currentIndex(),
             )
+            if zip_filename is not None:
+                self._dl_url_zip.append(
+                    {
+                        "year": year,
+                        "url": url,
+                        "zip": zip_filename,
+                        "subfolder": subfolder,
+                    }
+                )
+            self._download_iter_2()
 
-            if tempShpFullPath is None:
-                self.setLabel(self._ui.tr("Cannot find the .shp file: ") + tempShpFileName)
-                self._iface.messageBar().pushMessage(
-                    "Error",
-                    "Cannot find the .shp file: " + tempShpFileName,
-                    1,
-                    duration=10,
-                )
-                break
-
-            if tempShpFullPath != "":
-                tempCsvFileName = jpDataCensus.getAttrCsvFileName(
-                    year,
-                    code_pref,
-                    code_muni,
-                    self._dw.myComboBox32.currentIndex(),
-                )
-                tempUrl, tempZip, subfolder = jpDataCensus.getAttr(
-                    year,
-                    code_pref,
-                    code_muni,
-                    self._dw.myComboBox32.currentIndex(),
-                )
-                jpDataUtils.unzip(
-                    posixpath.join(self._folderPath, subfolder), tempZip
-                )
-                tempShpFullPath, encoding = jpDataCensus.performJoin(
-                    posixpath.join(self._folderPath, subfolder),
-                    year,
-                    tempShpFileName,
-                    tempCsvFileName,
-                )
-                self._add_map(
-                    tempShpFullPath,
-                    _item_name_or_code.text() + name_muni_suffix + " (" + year + ")",
-                    qml_filename,
-                    encoding=encoding
-                )
+# End of manager.py
