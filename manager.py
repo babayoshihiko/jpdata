@@ -895,7 +895,7 @@ class JPDataManager:
                 )
                 self._add_map(
                     tempShpFullPath,
-                    name_muni + name_muni_suffix + " (" + year + ")",
+                    _item_name_or_code.text() + name_muni_suffix + " (" + year + ")",
                     qml_filename,
                     encoding=encoding
                 )
