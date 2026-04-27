@@ -178,15 +178,20 @@ class JPDataManager:
         layer.setProviderEncoding(encoding)
 
         # --- CRS ---
-        if epsg is not None:
-            epsg = epsg.replace("EPSG:", "")
-            epsg = int(epsg)
-            crs = QgsCoordinateReferenceSystem.fromEpsgId(epsg)
-            if not crs.isValid():
-                self.setLabel(
-                    self._ui.tr("Invalid EPSG. Uses default instead: ") + str(epsg) 
-                )
-            layer.setCrs(crs)
+        if epsg:
+            epsg_str = str(epsg).strip()
+            if epsg_str.upper().startswith("EPSG:"):
+                epsg_str = epsg_str[5:]
+            if epsg_str.isdigit():
+                epsg_int = int(epsg_str)
+                self.setLabel(str(epsg_int))
+                epsg = epsg_int
+                crs = QgsCoordinateReferenceSystem.fromEpsgId(epsg)
+                if not crs.isValid():
+                    self.setLabel(
+                        self._ui.tr("Invalid EPSG. Uses default instead: ") + str(epsg) 
+                    )
+                layer.setCrs(crs)
 
         # --- Check geometry ---
         if not self._dw.myCheckBox2.isChecked():
@@ -199,10 +204,10 @@ class JPDataManager:
 
         # --- Style from QML file ---
         if qmlFileName:
-            qml_path = os.path.join(self._plugin_dir, "qml", qmlFileName)
+            qml_path = posixpath.join(self._plugin_dir, "qml", qmlFileName)
             if os.path.isfile(qml_path):
                 with tempfile.TemporaryDirectory() as temp_dir:
-                    temp_qml = os.path.join(temp_dir, qmlFileName)
+                    temp_qml = posixpath.join(temp_dir, qmlFileName)
 
                     with open(qml_path, "r") as f:
                         contents = f.read().replace("PLUGIN_DIR", self._plugin_dir)
@@ -797,12 +802,13 @@ class JPDataManager:
                                  list_code[x], 
                                  "full", 
                                  detail=detail)
-
+            self.setLabel(str(shp_filename))
             shp_full_path = jpDataUtils.unzipAndGetShp(
-                os.path.join(self._folderPath, subfolder),
+                posixpath.join(self._folderPath, subfolder),
                 zip_filename, shp_filename, altdir, list_code[x],
                 epsg=epsg, encoding=encoding
             )
+            self.setLabel(str(shp_full_path))
             self._add_map(
                 shp_full_path,
                 layer_name,

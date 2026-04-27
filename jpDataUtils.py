@@ -377,41 +377,49 @@ def unzipAndGetShp(
     epsg="",
     encoding="CP932",
 ):
-    shp_full_path = findShpFile2(
-        folder_path, shp_file, altdir, code_pref, code_muni, name_muni
+    zip_to_folder = zip_file[:-4]
+
+    def try_find(base):
+        path = findShpFile2(
+            base, shp_file, altdir, code_pref, code_muni, name_muni
+        )
+        if path:
+            _create_proj_qix_cpg(path, epsg, encoding)
+            return path
+        return None
+
+    # --- Find shp ---
+    printLog("Find shp")
+    for base in [folder_path, posixpath.join(folder_path, zip_to_folder)]:
+        printLog("Looking in " + base)
+        result = try_find(base)
+        if result:
+            return result
+
+    # --- if not, unzip ---
+    printLog("If not, unzip")
+    zipFileName = (
+        zip_file
+        .replace("code_pref", code_pref)
+        .replace("code_muni", code_muni)
+        .replace("name_muni", name_muni)
     )
-
-    # --- If shapefile found ---
-    if shp_full_path is not None:
-        # Create .proj, .qix and .cpg
-        _create_proj_qix_cpg(shp_full_path, epsg, encoding)
-        return shp_full_path
-
-    # --- Otherwise unzip and retry ---
-    zipFileName = zip_file.replace("code_pref", code_pref)
-    zipFileName = zipFileName.replace("code_muni", code_muni)
-    zipFileName = zipFileName.replace("name_muni", name_muni)
 
     unzip(folder_path, zipFileName)
 
-    shp_full_path = findShpFile2(
-        folder_path, shp_file, altdir, code_pref, code_muni, name_muni
+    # --- Find shp again ---
+    printLog("Find shp again")
+    for base in [folder_path, posixpath.join(folder_path, zip_to_folder)]:
+        result = try_find(base)
+        if result:
+            return result
+
+    # --- if not, log ---
+    printLog(
+        f"jpDataUtils.unzipAndGetShp: Cannot find {shp_file} "
+        f"in {folder_path} or {posixpath.join(folder_path, altdir)}"
     )
-
-    if shp_full_path is None:
-        printLog(
-            "jpDataUtils.unzipAndGetShp: Cannot find the file "
-            + shp_file
-            + " in "
-            + folder_path
-            + " or in "
-            + posixpath.join(folder_path, altdir)
-        )
-    else:
-        # Create .proj, .qix and .cpg
-        _create_proj_qix_cpg(shp_full_path, epsg, encoding)
-
-    return shp_full_path
+    return None
 
 
 def _create_proj_qix_cpg(shp_full_path, epsg="", encoding="CP932"):
