@@ -100,6 +100,9 @@ class JPDataManager:
         dw.myListWidget32.itemSelectionChanged.connect(
             self._LW32_itemSelectionChanged
         )
+        dw.myComboBox32.currentIndexChanged.connect(
+            self._LW32_itemSelectionChanged
+        )
         
         # Tab 4 / Settings
         dw.myTabWidget.currentChanged.connect(self._tab_changed)
@@ -603,7 +606,6 @@ class JPDataManager:
             name_munis = []
             for name_muni in self._dw.myListWidget32.selectedItems():
                 name_munis.append(name_muni.text())
-            jpDataUtils.printLog(name_munis)
             details = jpDataMesh.getMesh1ByPrefMuniName(name_pref, name_munis)
 
         for detail in details:
