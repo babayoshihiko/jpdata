@@ -273,7 +273,7 @@ class JPDataManager:
                 bol_redraw_LW12 = False
                 self._dw.myListWidget13.hide()
         elif muni_type == "single":
-            str_new_LW12_text = ["Nation-wide"]
+            str_new_LW12_text = [self._ui.tr("Nation-wide")]
         elif muni_type in ("regional", "detail"):
             if muni_type == "detail": bol_show_LW13 = True
             str_new_LW12_text = jpDataLNI.getPrefsOrRegionsByMapCode(thisLandNum["code_map"], thisLandNum["year"])

@@ -1,4 +1,5 @@
 availability,year,url,zip,shp,altdir,source,col,levels,labels,palette,muni_column,muni_type,encoding,qml,epsg,filesize
+全国,2025,https://nlftp.mlit.go.jp/ksj/gml/data/{code_map}/{code_map}-{year2digit}/{code_map}-{year2digit}_GML.zip,{code_map}-{year2digit}_GML.zip,UTF-8/{code_map}-{year2digit}_RailroadSection2.shp,{code_map}-{year2digit}_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N05-2024.html,,,,,,,UTF-8,,6668,
 全国,2024,https://nlftp.mlit.go.jp/ksj/gml/data/N05/N05-24/N05-24_GML.zip,N05-24_GML.zip,UTF-8/N05-24_RailroadSection2.shp,N05-24_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N05-2024.html,,,,,,,UTF-8,,6668,
 全国,2023,https://nlftp.mlit.go.jp/ksj/gml/data/N05/N05-23/N05-23_GML.zip,N05-23_GML.zip,UTF-8/N05-23_RailroadSection2.shp,N05-23_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N05-2023.html,,,,,,,UTF-8,,6668,
 全国,2022,https://nlftp.mlit.go.jp/ksj/gml/data/N05/N05-22/N05-22_GML.zip,N05-22_GML.zip,UTF-8/N05-22_RailroadSection2.shp,N05-22_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N05-2022.html,,,,,,,UTF-8,,6668,
