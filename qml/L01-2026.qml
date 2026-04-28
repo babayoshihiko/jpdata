@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis autoRefreshMode="Disabled" autoRefreshTime="0" hasScaleBasedVisibilityFlag="0" labelsEnabled="0" layerType="Vector" maxScale="0" minScale="100000000" readOnly="0" simplifyAlgorithm="0" simplifyDrawingHints="0" simplifyDrawingTol="1" simplifyLocal="1" simplifyMaxScale="1" styleCategories="LayerConfiguration|Symbology|Labeling|Fields|Forms|Rendering" symbologyReferenceScale="-1" version="4.0.1-Norrköping">
+<qgis labelsEnabled="0" layerType="Vector" readOnly="0" styleCategories="LayerConfiguration|Symbology|Labeling|Fields" version="4.0.1-Norrköping">
   <flags>
     <Identifiable>1</Identifiable>
     <Removable>1</Removable>
@@ -326,1075 +326,155 @@
   </selection>
   <blendMode>0</blendMode>
   <featureBlendMode>0</featureBlendMode>
-  <layerOpacity>1</layerOpacity>
   <fieldConfiguration>
-    <field configurationFlags="NoFlag" name="L01_001">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="false"/>
-            <Option name="UseHtml" type="bool" value="false"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_002">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="false"/>
-            <Option name="UseHtml" type="bool" value="false"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_003">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="false"/>
-            <Option name="UseHtml" type="bool" value="false"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_004">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="false"/>
-            <Option name="UseHtml" type="bool" value="false"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_005">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="false"/>
-            <Option name="UseHtml" type="bool" value="false"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_006">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="false"/>
-            <Option name="UseHtml" type="bool" value="false"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_007">
-      <editWidget type="Range">
-        <config>
-          <Option type="Map">
-            <Option name="AllowNull" type="bool" value="true"/>
-            <Option name="Max" type="int" value="2147483647"/>
-            <Option name="Min" type="int" value="-2147483648"/>
-            <Option name="Precision" type="int" value="0"/>
-            <Option name="Step" type="int" value="1"/>
-            <Option name="Style" type="QString" value="SpinBox"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_008">
-      <editWidget type="Range">
-        <config>
-          <Option type="Map">
-            <Option name="AllowNull" type="bool" value="true"/>
-            <Option name="Max" type="int" value="2147483647"/>
-            <Option name="Min" type="int" value="-2147483648"/>
-            <Option name="Precision" type="int" value="0"/>
-            <Option name="Step" type="int" value="1"/>
-            <Option name="Style" type="QString" value="SpinBox"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_009">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="false"/>
-            <Option name="UseHtml" type="bool" value="false"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_010">
-      <editWidget type="Range">
-        <config>
-          <Option type="Map">
-            <Option name="AllowNull" type="bool" value="true"/>
-            <Option name="Max" type="int" value="2147483647"/>
-            <Option name="Min" type="int" value="-2147483648"/>
-            <Option name="Precision" type="int" value="0"/>
-            <Option name="Step" type="int" value="1"/>
-            <Option name="Style" type="QString" value="SpinBox"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_011">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="false"/>
-            <Option name="UseHtml" type="bool" value="false"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_012">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_013">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_014">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_015">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_016">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_017">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_018">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_019">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_020">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_021">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_022">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_023">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_024">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_025">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_026">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_027">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_028">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_029">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_030">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_031">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_032">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_033">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_034">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_035">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_036">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_037">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_038">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_039">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_040">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_041">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_042">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_043">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_044">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_045">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_046">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_047">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_048">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_049">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_050">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_051">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_052">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_053">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_054">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_055">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_056">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_057">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_058">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_059">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_060">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_061">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_062">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_063">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_064">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_065">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_066">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_067">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_068">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_069">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_070">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_071">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_072">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_073">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_074">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_075">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_076">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_077">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_078">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_079">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_080">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_081">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_082">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_083">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_084">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_085">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_086">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_087">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_088">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_089">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_090">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_091">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_092">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_093">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_094">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_095">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_096">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_097">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_098">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_099">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_100">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_101">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_102">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_103">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_104">
-      <editWidget type="Range">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_105">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_106">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_107">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_108">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_109">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_110">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_111">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_112">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_113">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_114">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_115">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_116">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_117">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_118">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_119">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_120">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_121">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_122">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_123">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_124">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_125">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_126">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_127">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_128">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_129">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_130">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_131">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_132">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_133">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_134">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_135">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_136">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_137">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_138">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_139">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_140">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_141">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_142">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_143">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_144">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_145">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="L01_146">
-      <editWidget type="TextEdit">
-        <config>
-          <Option/>
-        </config>
-      </editWidget>
-    </field>
+    <field configurationFlags="NoFlag" name="L01_001"/>
+    <field configurationFlags="NoFlag" name="L01_002"/>
+    <field configurationFlags="NoFlag" name="L01_003"/>
+    <field configurationFlags="NoFlag" name="L01_004"/>
+    <field configurationFlags="NoFlag" name="L01_005"/>
+    <field configurationFlags="NoFlag" name="L01_006"/>
+    <field configurationFlags="NoFlag" name="L01_007"/>
+    <field configurationFlags="NoFlag" name="L01_008"/>
+    <field configurationFlags="NoFlag" name="L01_009"/>
+    <field configurationFlags="NoFlag" name="L01_010"/>
+    <field configurationFlags="NoFlag" name="L01_011"/>
+    <field configurationFlags="NoFlag" name="L01_012"/>
+    <field configurationFlags="NoFlag" name="L01_013"/>
+    <field configurationFlags="NoFlag" name="L01_014"/>
+    <field configurationFlags="NoFlag" name="L01_015"/>
+    <field configurationFlags="NoFlag" name="L01_016"/>
+    <field configurationFlags="NoFlag" name="L01_017"/>
+    <field configurationFlags="NoFlag" name="L01_018"/>
+    <field configurationFlags="NoFlag" name="L01_019"/>
+    <field configurationFlags="NoFlag" name="L01_020"/>
+    <field configurationFlags="NoFlag" name="L01_021"/>
+    <field configurationFlags="NoFlag" name="L01_022"/>
+    <field configurationFlags="NoFlag" name="L01_023"/>
+    <field configurationFlags="NoFlag" name="L01_024"/>
+    <field configurationFlags="NoFlag" name="L01_025"/>
+    <field configurationFlags="NoFlag" name="L01_026"/>
+    <field configurationFlags="NoFlag" name="L01_027"/>
+    <field configurationFlags="NoFlag" name="L01_028"/>
+    <field configurationFlags="NoFlag" name="L01_029"/>
+    <field configurationFlags="NoFlag" name="L01_030"/>
+    <field configurationFlags="NoFlag" name="L01_031"/>
+    <field configurationFlags="NoFlag" name="L01_032"/>
+    <field configurationFlags="NoFlag" name="L01_033"/>
+    <field configurationFlags="NoFlag" name="L01_034"/>
+    <field configurationFlags="NoFlag" name="L01_035"/>
+    <field configurationFlags="NoFlag" name="L01_036"/>
+    <field configurationFlags="NoFlag" name="L01_037"/>
+    <field configurationFlags="NoFlag" name="L01_038"/>
+    <field configurationFlags="NoFlag" name="L01_039"/>
+    <field configurationFlags="NoFlag" name="L01_040"/>
+    <field configurationFlags="NoFlag" name="L01_041"/>
+    <field configurationFlags="NoFlag" name="L01_042"/>
+    <field configurationFlags="NoFlag" name="L01_043"/>
+    <field configurationFlags="NoFlag" name="L01_044"/>
+    <field configurationFlags="NoFlag" name="L01_045"/>
+    <field configurationFlags="NoFlag" name="L01_046"/>
+    <field configurationFlags="NoFlag" name="L01_047"/>
+    <field configurationFlags="NoFlag" name="L01_048"/>
+    <field configurationFlags="NoFlag" name="L01_049"/>
+    <field configurationFlags="NoFlag" name="L01_050"/>
+    <field configurationFlags="NoFlag" name="L01_051"/>
+    <field configurationFlags="NoFlag" name="L01_052"/>
+    <field configurationFlags="NoFlag" name="L01_053"/>
+    <field configurationFlags="NoFlag" name="L01_054"/>
+    <field configurationFlags="NoFlag" name="L01_055"/>
+    <field configurationFlags="NoFlag" name="L01_056"/>
+    <field configurationFlags="NoFlag" name="L01_057"/>
+    <field configurationFlags="NoFlag" name="L01_058"/>
+    <field configurationFlags="NoFlag" name="L01_059"/>
+    <field configurationFlags="NoFlag" name="L01_060"/>
+    <field configurationFlags="NoFlag" name="L01_061"/>
+    <field configurationFlags="NoFlag" name="L01_062"/>
+    <field configurationFlags="NoFlag" name="L01_063"/>
+    <field configurationFlags="NoFlag" name="L01_064"/>
+    <field configurationFlags="NoFlag" name="L01_065"/>
+    <field configurationFlags="NoFlag" name="L01_066"/>
+    <field configurationFlags="NoFlag" name="L01_067"/>
+    <field configurationFlags="NoFlag" name="L01_068"/>
+    <field configurationFlags="NoFlag" name="L01_069"/>
+    <field configurationFlags="NoFlag" name="L01_070"/>
+    <field configurationFlags="NoFlag" name="L01_071"/>
+    <field configurationFlags="NoFlag" name="L01_072"/>
+    <field configurationFlags="NoFlag" name="L01_073"/>
+    <field configurationFlags="NoFlag" name="L01_074"/>
+    <field configurationFlags="NoFlag" name="L01_075"/>
+    <field configurationFlags="NoFlag" name="L01_076"/>
+    <field configurationFlags="NoFlag" name="L01_077"/>
+    <field configurationFlags="NoFlag" name="L01_078"/>
+    <field configurationFlags="NoFlag" name="L01_079"/>
+    <field configurationFlags="NoFlag" name="L01_080"/>
+    <field configurationFlags="NoFlag" name="L01_081"/>
+    <field configurationFlags="NoFlag" name="L01_082"/>
+    <field configurationFlags="NoFlag" name="L01_083"/>
+    <field configurationFlags="NoFlag" name="L01_084"/>
+    <field configurationFlags="NoFlag" name="L01_085"/>
+    <field configurationFlags="NoFlag" name="L01_086"/>
+    <field configurationFlags="NoFlag" name="L01_087"/>
+    <field configurationFlags="NoFlag" name="L01_088"/>
+    <field configurationFlags="NoFlag" name="L01_089"/>
+    <field configurationFlags="NoFlag" name="L01_090"/>
+    <field configurationFlags="NoFlag" name="L01_091"/>
+    <field configurationFlags="NoFlag" name="L01_092"/>
+    <field configurationFlags="NoFlag" name="L01_093"/>
+    <field configurationFlags="NoFlag" name="L01_094"/>
+    <field configurationFlags="NoFlag" name="L01_095"/>
+    <field configurationFlags="NoFlag" name="L01_096"/>
+    <field configurationFlags="NoFlag" name="L01_097"/>
+    <field configurationFlags="NoFlag" name="L01_098"/>
+    <field configurationFlags="NoFlag" name="L01_099"/>
+    <field configurationFlags="NoFlag" name="L01_100"/>
+    <field configurationFlags="NoFlag" name="L01_101"/>
+    <field configurationFlags="NoFlag" name="L01_102"/>
+    <field configurationFlags="NoFlag" name="L01_103"/>
+    <field configurationFlags="NoFlag" name="L01_104"/>
+    <field configurationFlags="NoFlag" name="L01_105"/>
+    <field configurationFlags="NoFlag" name="L01_106"/>
+    <field configurationFlags="NoFlag" name="L01_107"/>
+    <field configurationFlags="NoFlag" name="L01_108"/>
+    <field configurationFlags="NoFlag" name="L01_109"/>
+    <field configurationFlags="NoFlag" name="L01_110"/>
+    <field configurationFlags="NoFlag" name="L01_111"/>
+    <field configurationFlags="NoFlag" name="L01_112"/>
+    <field configurationFlags="NoFlag" name="L01_113"/>
+    <field configurationFlags="NoFlag" name="L01_114"/>
+    <field configurationFlags="NoFlag" name="L01_115"/>
+    <field configurationFlags="NoFlag" name="L01_116"/>
+    <field configurationFlags="NoFlag" name="L01_117"/>
+    <field configurationFlags="NoFlag" name="L01_118"/>
+    <field configurationFlags="NoFlag" name="L01_119"/>
+    <field configurationFlags="NoFlag" name="L01_120"/>
+    <field configurationFlags="NoFlag" name="L01_121"/>
+    <field configurationFlags="NoFlag" name="L01_122"/>
+    <field configurationFlags="NoFlag" name="L01_123"/>
+    <field configurationFlags="NoFlag" name="L01_124"/>
+    <field configurationFlags="NoFlag" name="L01_125"/>
+    <field configurationFlags="NoFlag" name="L01_126"/>
+    <field configurationFlags="NoFlag" name="L01_127"/>
+    <field configurationFlags="NoFlag" name="L01_128"/>
+    <field configurationFlags="NoFlag" name="L01_129"/>
+    <field configurationFlags="NoFlag" name="L01_130"/>
+    <field configurationFlags="NoFlag" name="L01_131"/>
+    <field configurationFlags="NoFlag" name="L01_132"/>
+    <field configurationFlags="NoFlag" name="L01_133"/>
+    <field configurationFlags="NoFlag" name="L01_134"/>
+    <field configurationFlags="NoFlag" name="L01_135"/>
+    <field configurationFlags="NoFlag" name="L01_136"/>
+    <field configurationFlags="NoFlag" name="L01_137"/>
+    <field configurationFlags="NoFlag" name="L01_138"/>
+    <field configurationFlags="NoFlag" name="L01_139"/>
+    <field configurationFlags="NoFlag" name="L01_140"/>
+    <field configurationFlags="NoFlag" name="L01_141"/>
+    <field configurationFlags="NoFlag" name="L01_142"/>
+    <field configurationFlags="NoFlag" name="L01_143"/>
+    <field configurationFlags="NoFlag" name="L01_144"/>
+    <field configurationFlags="NoFlag" name="L01_145"/>
+    <field configurationFlags="NoFlag" name="L01_146"/>
+    <field configurationFlags="NoFlag" name="L01_147"/>
+    <field configurationFlags="NoFlag" name="L01_148"/>
   </fieldConfiguration>
   <aliases>
     <alias field="L01_001" index="0" name="行政区域コード"/>
@@ -1501,49 +581,61 @@
     <alias field="L01_102" index="101" name="公示価格2023"/>
     <alias field="L01_103" index="102" name="公示価格2024"/>
     <alias field="L01_104" index="103" name="公示価格2025"/>
-    <alias field="L01_105" index="104" name="属性移動1984"/>
-    <alias field="L01_106" index="105" name="属性移動1985"/>
-    <alias field="L01_107" index="106" name="属性移動1986"/>
-    <alias field="L01_108" index="107" name="属性移動1987"/>
-    <alias field="L01_109" index="108" name="属性移動1988"/>
-    <alias field="L01_110" index="109" name="属性移動1989"/>
-    <alias field="L01_111" index="110" name="属性移動1990"/>
-    <alias field="L01_112" index="111" name="属性移動1991"/>
-    <alias field="L01_113" index="112" name="属性移動1992"/>
-    <alias field="L01_114" index="113" name="属性移動1993"/>
-    <alias field="L01_115" index="114" name="属性移動1994"/>
-    <alias field="L01_116" index="115" name="属性移動1995"/>
-    <alias field="L01_117" index="116" name="属性移動1996"/>
-    <alias field="L01_118" index="117" name="属性移動1997"/>
-    <alias field="L01_119" index="118" name="属性移動1998"/>
-    <alias field="L01_120" index="119" name="属性移動1999"/>
-    <alias field="L01_121" index="120" name="属性移動2000"/>
-    <alias field="L01_122" index="121" name="属性移動2001"/>
-    <alias field="L01_123" index="122" name="属性移動2002"/>
-    <alias field="L01_124" index="123" name="属性移動2003"/>
-    <alias field="L01_125" index="124" name="属性移動2004"/>
-    <alias field="L01_126" index="125" name="属性移動2005"/>
-    <alias field="L01_127" index="126" name="属性移動2006"/>
-    <alias field="L01_128" index="127" name="属性移動2007"/>
-    <alias field="L01_129" index="128" name="属性移動2008"/>
-    <alias field="L01_130" index="129" name="属性移動2009"/>
-    <alias field="L01_131" index="130" name="属性移動2010"/>
-    <alias field="L01_132" index="131" name="属性移動2011"/>
-    <alias field="L01_133" index="132" name="属性移動2012"/>
-    <alias field="L01_134" index="133" name="属性移動2013"/>
-    <alias field="L01_135" index="134" name="属性移動2014"/>
-    <alias field="L01_136" index="135" name="属性移動2015"/>
-    <alias field="L01_137" index="136" name="属性移動2016"/>
-    <alias field="L01_138" index="137" name="属性移動2017"/>
-    <alias field="L01_139" index="138" name="属性移動2018"/>
-    <alias field="L01_140" index="139" name="属性移動2019"/>
-    <alias field="L01_141" index="140" name="属性移動2020"/>
-    <alias field="L01_142" index="141" name="属性移動2021"/>
-    <alias field="L01_143" index="142" name="属性移動2022"/>
-    <alias field="L01_144" index="143" name="属性移動2023"/>
-    <alias field="L01_145" index="144" name="属性移動2024"/>
-    <alias field="L01_146" index="145" name="属性移動2025"/>
+    <alias field="L01_105" index="104" name="公示価格2026"/>
+    <alias field="L01_106" index="105" name="属性移動1984"/>
+    <alias field="L01_107" index="106" name="属性移動1985"/>
+    <alias field="L01_108" index="107" name="属性移動1986"/>
+    <alias field="L01_109" index="108" name="属性移動1987"/>
+    <alias field="L01_110" index="109" name="属性移動1988"/>
+    <alias field="L01_111" index="110" name="属性移動1989"/>
+    <alias field="L01_112" index="111" name="属性移動1990"/>
+    <alias field="L01_113" index="112" name="属性移動1991"/>
+    <alias field="L01_114" index="113" name="属性移動1992"/>
+    <alias field="L01_115" index="114" name="属性移動1993"/>
+    <alias field="L01_116" index="115" name="属性移動1994"/>
+    <alias field="L01_117" index="116" name="属性移動1995"/>
+    <alias field="L01_118" index="117" name="属性移動1996"/>
+    <alias field="L01_119" index="118" name="属性移動1997"/>
+    <alias field="L01_120" index="119" name="属性移動1998"/>
+    <alias field="L01_121" index="120" name="属性移動1999"/>
+    <alias field="L01_122" index="121" name="属性移動2000"/>
+    <alias field="L01_123" index="122" name="属性移動2001"/>
+    <alias field="L01_124" index="123" name="属性移動2002"/>
+    <alias field="L01_125" index="124" name="属性移動2003"/>
+    <alias field="L01_126" index="125" name="属性移動2004"/>
+    <alias field="L01_127" index="126" name="属性移動2005"/>
+    <alias field="L01_128" index="127" name="属性移動2006"/>
+    <alias field="L01_129" index="128" name="属性移動2007"/>
+    <alias field="L01_130" index="129" name="属性移動2008"/>
+    <alias field="L01_131" index="130" name="属性移動2009"/>
+    <alias field="L01_132" index="131" name="属性移動2010"/>
+    <alias field="L01_133" index="132" name="属性移動2011"/>
+    <alias field="L01_134" index="133" name="属性移動2012"/>
+    <alias field="L01_135" index="134" name="属性移動2013"/>
+    <alias field="L01_136" index="135" name="属性移動2014"/>
+    <alias field="L01_137" index="136" name="属性移動2015"/>
+    <alias field="L01_138" index="137" name="属性移動2016"/>
+    <alias field="L01_139" index="138" name="属性移動2017"/>
+    <alias field="L01_140" index="139" name="属性移動2018"/>
+    <alias field="L01_141" index="140" name="属性移動2019"/>
+    <alias field="L01_142" index="141" name="属性移動2020"/>
+    <alias field="L01_143" index="142" name="属性移動2021"/>
+    <alias field="L01_144" index="143" name="属性移動2022"/>
+    <alias field="L01_145" index="144" name="属性移動2023"/>
+    <alias field="L01_146" index="145" name="属性移動2024"/>
+    <alias field="L01_147" index="146" name="属性移動2025"/>
+    <alias field="L01_148" index="147" name="属性移動2026"/>
   </aliases>
+  <splitPolicies>
+    <policy field="L01_063" policy="DefaultValue"/>
+    <policy field="L01_104" policy="DefaultValue"/>
+    <policy field="L01_105" policy="DefaultValue"/>
+    <policy field="L01_106" policy="DefaultValue"/>
+    <policy field="L01_107" policy="DefaultValue"/>
+    <policy field="L01_108" policy="DefaultValue"/>
+    <policy field="L01_109" policy="DefaultValue"/>
+    <policy field="L01_110" policy="DefaultValue"/>
+  </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="L01_001"/>
     <default applyOnUpdate="0" expression="" field="L01_002"/>
@@ -1691,6 +783,8 @@
     <default applyOnUpdate="0" expression="" field="L01_144"/>
     <default applyOnUpdate="0" expression="" field="L01_145"/>
     <default applyOnUpdate="0" expression="" field="L01_146"/>
+    <default applyOnUpdate="0" expression="" field="L01_147"/>
+    <default applyOnUpdate="0" expression="" field="L01_148"/>
   </defaults>
   <constraints>
     <constraint constraints="0" exp_strength="0" field="L01_001" notnull_strength="0" unique_strength="0"/>
@@ -1839,6 +933,8 @@
     <constraint constraints="0" exp_strength="0" field="L01_144" notnull_strength="0" unique_strength="0"/>
     <constraint constraints="0" exp_strength="0" field="L01_145" notnull_strength="0" unique_strength="0"/>
     <constraint constraints="0" exp_strength="0" field="L01_146" notnull_strength="0" unique_strength="0"/>
+    <constraint constraints="0" exp_strength="0" field="L01_147" notnull_strength="0" unique_strength="0"/>
+    <constraint constraints="0" exp_strength="0" field="L01_148" notnull_strength="0" unique_strength="0"/>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="L01_001"/>
@@ -1987,475 +1083,10 @@
     <constraint desc="" exp="" field="L01_144"/>
     <constraint desc="" exp="" field="L01_145"/>
     <constraint desc="" exp="" field="L01_146"/>
+    <constraint desc="" exp="" field="L01_147"/>
+    <constraint desc="" exp="" field="L01_148"/>
   </constraintExpressions>
   <expressionfields/>
-  <editform tolerant="1"></editform>
-  <editforminit/>
-  <editforminitcodesource>0</editforminitcodesource>
-  <editforminitfilepath></editforminitfilepath>
-  <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
-"""
-QGISフォームは、フォームを開いた直後に実行されるPython関数を設定できます。
-
-この関数でロジックを追加できます
-
-"Python Init function"に関数の名前を入力します
-以下はコード例です:
-"""
-from qgis.PyQt.QtWidgets import QWidget
-
-def my_form_open(dialog, layer, feature):
-    geom = feature.geometry()
-    control = dialog.findChild(QWidget, "MyLineEdit")
-]]></editforminitcode>
-  <featformsuppress>0</featformsuppress>
-  <editorlayout>generatedlayout</editorlayout>
-  <editable>
-    <field editable="1" name="L01_001"/>
-    <field editable="1" name="L01_002"/>
-    <field editable="1" name="L01_003"/>
-    <field editable="1" name="L01_004"/>
-    <field editable="1" name="L01_005"/>
-    <field editable="1" name="L01_006"/>
-    <field editable="1" name="L01_007"/>
-    <field editable="1" name="L01_008"/>
-    <field editable="1" name="L01_009"/>
-    <field editable="1" name="L01_010"/>
-    <field editable="1" name="L01_011"/>
-    <field editable="1" name="L01_012"/>
-    <field editable="1" name="L01_013"/>
-    <field editable="1" name="L01_014"/>
-    <field editable="1" name="L01_015"/>
-    <field editable="1" name="L01_016"/>
-    <field editable="1" name="L01_017"/>
-    <field editable="1" name="L01_018"/>
-    <field editable="1" name="L01_019"/>
-    <field editable="1" name="L01_020"/>
-    <field editable="1" name="L01_021"/>
-    <field editable="1" name="L01_022"/>
-    <field editable="1" name="L01_023"/>
-    <field editable="1" name="L01_024"/>
-    <field editable="1" name="L01_025"/>
-    <field editable="1" name="L01_026"/>
-    <field editable="1" name="L01_027"/>
-    <field editable="1" name="L01_028"/>
-    <field editable="1" name="L01_029"/>
-    <field editable="1" name="L01_030"/>
-    <field editable="1" name="L01_031"/>
-    <field editable="1" name="L01_032"/>
-    <field editable="1" name="L01_033"/>
-    <field editable="1" name="L01_034"/>
-    <field editable="1" name="L01_035"/>
-    <field editable="1" name="L01_036"/>
-    <field editable="1" name="L01_037"/>
-    <field editable="1" name="L01_038"/>
-    <field editable="1" name="L01_039"/>
-    <field editable="1" name="L01_040"/>
-    <field editable="1" name="L01_041"/>
-    <field editable="1" name="L01_042"/>
-    <field editable="1" name="L01_043"/>
-    <field editable="1" name="L01_044"/>
-    <field editable="1" name="L01_045"/>
-    <field editable="1" name="L01_046"/>
-    <field editable="1" name="L01_047"/>
-    <field editable="1" name="L01_048"/>
-    <field editable="1" name="L01_049"/>
-    <field editable="1" name="L01_050"/>
-    <field editable="1" name="L01_051"/>
-    <field editable="1" name="L01_052"/>
-    <field editable="1" name="L01_053"/>
-    <field editable="1" name="L01_054"/>
-    <field editable="1" name="L01_055"/>
-    <field editable="1" name="L01_056"/>
-    <field editable="1" name="L01_057"/>
-    <field editable="1" name="L01_058"/>
-    <field editable="1" name="L01_059"/>
-    <field editable="1" name="L01_060"/>
-    <field editable="1" name="L01_061"/>
-    <field editable="1" name="L01_062"/>
-    <field editable="1" name="L01_063"/>
-    <field editable="1" name="L01_064"/>
-    <field editable="1" name="L01_065"/>
-    <field editable="1" name="L01_066"/>
-    <field editable="1" name="L01_067"/>
-    <field editable="1" name="L01_068"/>
-    <field editable="1" name="L01_069"/>
-    <field editable="1" name="L01_070"/>
-    <field editable="1" name="L01_071"/>
-    <field editable="1" name="L01_072"/>
-    <field editable="1" name="L01_073"/>
-    <field editable="1" name="L01_074"/>
-    <field editable="1" name="L01_075"/>
-    <field editable="1" name="L01_076"/>
-    <field editable="1" name="L01_077"/>
-    <field editable="1" name="L01_078"/>
-    <field editable="1" name="L01_079"/>
-    <field editable="1" name="L01_080"/>
-    <field editable="1" name="L01_081"/>
-    <field editable="1" name="L01_082"/>
-    <field editable="1" name="L01_083"/>
-    <field editable="1" name="L01_084"/>
-    <field editable="1" name="L01_085"/>
-    <field editable="1" name="L01_086"/>
-    <field editable="1" name="L01_087"/>
-    <field editable="1" name="L01_088"/>
-    <field editable="1" name="L01_089"/>
-    <field editable="1" name="L01_090"/>
-    <field editable="1" name="L01_091"/>
-    <field editable="1" name="L01_092"/>
-    <field editable="1" name="L01_093"/>
-    <field editable="1" name="L01_094"/>
-    <field editable="1" name="L01_095"/>
-    <field editable="1" name="L01_096"/>
-    <field editable="1" name="L01_097"/>
-    <field editable="1" name="L01_098"/>
-    <field editable="1" name="L01_099"/>
-    <field editable="1" name="L01_100"/>
-    <field editable="1" name="L01_101"/>
-    <field editable="1" name="L01_102"/>
-    <field editable="1" name="L01_103"/>
-    <field editable="1" name="L01_104"/>
-    <field editable="1" name="L01_105"/>
-    <field editable="1" name="L01_106"/>
-    <field editable="1" name="L01_107"/>
-    <field editable="1" name="L01_108"/>
-    <field editable="1" name="L01_109"/>
-    <field editable="1" name="L01_110"/>
-    <field editable="1" name="L01_111"/>
-    <field editable="1" name="L01_112"/>
-    <field editable="1" name="L01_113"/>
-    <field editable="1" name="L01_114"/>
-    <field editable="1" name="L01_115"/>
-    <field editable="1" name="L01_116"/>
-    <field editable="1" name="L01_117"/>
-    <field editable="1" name="L01_118"/>
-    <field editable="1" name="L01_119"/>
-    <field editable="1" name="L01_120"/>
-    <field editable="1" name="L01_121"/>
-    <field editable="1" name="L01_122"/>
-    <field editable="1" name="L01_123"/>
-    <field editable="1" name="L01_124"/>
-    <field editable="1" name="L01_125"/>
-    <field editable="1" name="L01_126"/>
-    <field editable="1" name="L01_127"/>
-    <field editable="1" name="L01_128"/>
-    <field editable="1" name="L01_129"/>
-    <field editable="1" name="L01_130"/>
-    <field editable="1" name="L01_131"/>
-    <field editable="1" name="L01_132"/>
-    <field editable="1" name="L01_133"/>
-    <field editable="1" name="L01_134"/>
-    <field editable="1" name="L01_135"/>
-    <field editable="1" name="L01_136"/>
-    <field editable="1" name="L01_137"/>
-    <field editable="1" name="L01_138"/>
-    <field editable="1" name="L01_139"/>
-    <field editable="1" name="L01_140"/>
-    <field editable="1" name="L01_141"/>
-    <field editable="1" name="L01_142"/>
-    <field editable="1" name="L01_143"/>
-    <field editable="1" name="L01_144"/>
-    <field editable="1" name="L01_145"/>
-    <field editable="1" name="L01_146"/>
-  </editable>
-  <labelOnTop>
-    <field labelOnTop="0" name="L01_001"/>
-    <field labelOnTop="0" name="L01_002"/>
-    <field labelOnTop="0" name="L01_003"/>
-    <field labelOnTop="0" name="L01_004"/>
-    <field labelOnTop="0" name="L01_005"/>
-    <field labelOnTop="0" name="L01_006"/>
-    <field labelOnTop="0" name="L01_007"/>
-    <field labelOnTop="0" name="L01_008"/>
-    <field labelOnTop="0" name="L01_009"/>
-    <field labelOnTop="0" name="L01_010"/>
-    <field labelOnTop="0" name="L01_011"/>
-    <field labelOnTop="0" name="L01_012"/>
-    <field labelOnTop="0" name="L01_013"/>
-    <field labelOnTop="0" name="L01_014"/>
-    <field labelOnTop="0" name="L01_015"/>
-    <field labelOnTop="0" name="L01_016"/>
-    <field labelOnTop="0" name="L01_017"/>
-    <field labelOnTop="0" name="L01_018"/>
-    <field labelOnTop="0" name="L01_019"/>
-    <field labelOnTop="0" name="L01_020"/>
-    <field labelOnTop="0" name="L01_021"/>
-    <field labelOnTop="0" name="L01_022"/>
-    <field labelOnTop="0" name="L01_023"/>
-    <field labelOnTop="0" name="L01_024"/>
-    <field labelOnTop="0" name="L01_025"/>
-    <field labelOnTop="0" name="L01_026"/>
-    <field labelOnTop="0" name="L01_027"/>
-    <field labelOnTop="0" name="L01_028"/>
-    <field labelOnTop="0" name="L01_029"/>
-    <field labelOnTop="0" name="L01_030"/>
-    <field labelOnTop="0" name="L01_031"/>
-    <field labelOnTop="0" name="L01_032"/>
-    <field labelOnTop="0" name="L01_033"/>
-    <field labelOnTop="0" name="L01_034"/>
-    <field labelOnTop="0" name="L01_035"/>
-    <field labelOnTop="0" name="L01_036"/>
-    <field labelOnTop="0" name="L01_037"/>
-    <field labelOnTop="0" name="L01_038"/>
-    <field labelOnTop="0" name="L01_039"/>
-    <field labelOnTop="0" name="L01_040"/>
-    <field labelOnTop="0" name="L01_041"/>
-    <field labelOnTop="0" name="L01_042"/>
-    <field labelOnTop="0" name="L01_043"/>
-    <field labelOnTop="0" name="L01_044"/>
-    <field labelOnTop="0" name="L01_045"/>
-    <field labelOnTop="0" name="L01_046"/>
-    <field labelOnTop="0" name="L01_047"/>
-    <field labelOnTop="0" name="L01_048"/>
-    <field labelOnTop="0" name="L01_049"/>
-    <field labelOnTop="0" name="L01_050"/>
-    <field labelOnTop="0" name="L01_051"/>
-    <field labelOnTop="0" name="L01_052"/>
-    <field labelOnTop="0" name="L01_053"/>
-    <field labelOnTop="0" name="L01_054"/>
-    <field labelOnTop="0" name="L01_055"/>
-    <field labelOnTop="0" name="L01_056"/>
-    <field labelOnTop="0" name="L01_057"/>
-    <field labelOnTop="0" name="L01_058"/>
-    <field labelOnTop="0" name="L01_059"/>
-    <field labelOnTop="0" name="L01_060"/>
-    <field labelOnTop="0" name="L01_061"/>
-    <field labelOnTop="0" name="L01_062"/>
-    <field labelOnTop="0" name="L01_063"/>
-    <field labelOnTop="0" name="L01_064"/>
-    <field labelOnTop="0" name="L01_065"/>
-    <field labelOnTop="0" name="L01_066"/>
-    <field labelOnTop="0" name="L01_067"/>
-    <field labelOnTop="0" name="L01_068"/>
-    <field labelOnTop="0" name="L01_069"/>
-    <field labelOnTop="0" name="L01_070"/>
-    <field labelOnTop="0" name="L01_071"/>
-    <field labelOnTop="0" name="L01_072"/>
-    <field labelOnTop="0" name="L01_073"/>
-    <field labelOnTop="0" name="L01_074"/>
-    <field labelOnTop="0" name="L01_075"/>
-    <field labelOnTop="0" name="L01_076"/>
-    <field labelOnTop="0" name="L01_077"/>
-    <field labelOnTop="0" name="L01_078"/>
-    <field labelOnTop="0" name="L01_079"/>
-    <field labelOnTop="0" name="L01_080"/>
-    <field labelOnTop="0" name="L01_081"/>
-    <field labelOnTop="0" name="L01_082"/>
-    <field labelOnTop="0" name="L01_083"/>
-    <field labelOnTop="0" name="L01_084"/>
-    <field labelOnTop="0" name="L01_085"/>
-    <field labelOnTop="0" name="L01_086"/>
-    <field labelOnTop="0" name="L01_087"/>
-    <field labelOnTop="0" name="L01_088"/>
-    <field labelOnTop="0" name="L01_089"/>
-    <field labelOnTop="0" name="L01_090"/>
-    <field labelOnTop="0" name="L01_091"/>
-    <field labelOnTop="0" name="L01_092"/>
-    <field labelOnTop="0" name="L01_093"/>
-    <field labelOnTop="0" name="L01_094"/>
-    <field labelOnTop="0" name="L01_095"/>
-    <field labelOnTop="0" name="L01_096"/>
-    <field labelOnTop="0" name="L01_097"/>
-    <field labelOnTop="0" name="L01_098"/>
-    <field labelOnTop="0" name="L01_099"/>
-    <field labelOnTop="0" name="L01_100"/>
-    <field labelOnTop="0" name="L01_101"/>
-    <field labelOnTop="0" name="L01_102"/>
-    <field labelOnTop="0" name="L01_103"/>
-    <field labelOnTop="0" name="L01_104"/>
-    <field labelOnTop="0" name="L01_105"/>
-    <field labelOnTop="0" name="L01_106"/>
-    <field labelOnTop="0" name="L01_107"/>
-    <field labelOnTop="0" name="L01_108"/>
-    <field labelOnTop="0" name="L01_109"/>
-    <field labelOnTop="0" name="L01_110"/>
-    <field labelOnTop="0" name="L01_111"/>
-    <field labelOnTop="0" name="L01_112"/>
-    <field labelOnTop="0" name="L01_113"/>
-    <field labelOnTop="0" name="L01_114"/>
-    <field labelOnTop="0" name="L01_115"/>
-    <field labelOnTop="0" name="L01_116"/>
-    <field labelOnTop="0" name="L01_117"/>
-    <field labelOnTop="0" name="L01_118"/>
-    <field labelOnTop="0" name="L01_119"/>
-    <field labelOnTop="0" name="L01_120"/>
-    <field labelOnTop="0" name="L01_121"/>
-    <field labelOnTop="0" name="L01_122"/>
-    <field labelOnTop="0" name="L01_123"/>
-    <field labelOnTop="0" name="L01_124"/>
-    <field labelOnTop="0" name="L01_125"/>
-    <field labelOnTop="0" name="L01_126"/>
-    <field labelOnTop="0" name="L01_127"/>
-    <field labelOnTop="0" name="L01_128"/>
-    <field labelOnTop="0" name="L01_129"/>
-    <field labelOnTop="0" name="L01_130"/>
-    <field labelOnTop="0" name="L01_131"/>
-    <field labelOnTop="0" name="L01_132"/>
-    <field labelOnTop="0" name="L01_133"/>
-    <field labelOnTop="0" name="L01_134"/>
-    <field labelOnTop="0" name="L01_135"/>
-    <field labelOnTop="0" name="L01_136"/>
-    <field labelOnTop="0" name="L01_137"/>
-    <field labelOnTop="0" name="L01_138"/>
-    <field labelOnTop="0" name="L01_139"/>
-    <field labelOnTop="0" name="L01_140"/>
-    <field labelOnTop="0" name="L01_141"/>
-    <field labelOnTop="0" name="L01_142"/>
-    <field labelOnTop="0" name="L01_143"/>
-    <field labelOnTop="0" name="L01_144"/>
-    <field labelOnTop="0" name="L01_145"/>
-    <field labelOnTop="0" name="L01_146"/>
-  </labelOnTop>
-  <reuseLastValuePolicy>
-    <field name="L01_001" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_002" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_003" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_004" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_005" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_006" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_007" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_008" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_009" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_010" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_011" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_012" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_013" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_014" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_015" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_016" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_017" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_018" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_019" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_020" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_021" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_022" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_023" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_024" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_025" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_026" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_027" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_028" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_029" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_030" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_031" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_032" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_033" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_034" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_035" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_036" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_037" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_038" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_039" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_040" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_041" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_042" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_043" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_044" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_045" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_046" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_047" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_048" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_049" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_050" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_051" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_052" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_053" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_054" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_055" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_056" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_057" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_058" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_059" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_060" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_061" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_062" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_063" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_064" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_065" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_066" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_067" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_068" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_069" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_070" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_071" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_072" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_073" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_074" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_075" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_076" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_077" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_078" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_079" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_080" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_081" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_082" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_083" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_084" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_085" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_086" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_087" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_088" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_089" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_090" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_091" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_092" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_093" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_094" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_095" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_096" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_097" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_098" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_099" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_100" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_101" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_102" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_103" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_104" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_105" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_106" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_107" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_108" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_109" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_110" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_111" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_112" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_113" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_114" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_115" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_116" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_117" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_118" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_119" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_120" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_121" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_122" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_123" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_124" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_125" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_126" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_127" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_128" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_129" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_130" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_131" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_132" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_133" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_134" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_135" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_136" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_137" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_138" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_139" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_140" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_141" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_142" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_143" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_144" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_145" reuseLastValuePolicy="NotAllowed"/>
-    <field name="L01_146" reuseLastValuePolicy="NotAllowed"/>
-  </reuseLastValuePolicy>
-  <dataDefinedFieldProperties/>
-  <widgets/>
-  <previewExpression>"L01_001"</previewExpression>
+  <previewExpression>COALESCE( "L01_001", '&lt;NULL>' )</previewExpression>
   <layerGeometryType>0</layerGeometryType>
 </qgis>

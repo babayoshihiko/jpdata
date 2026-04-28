@@ -168,6 +168,7 @@ DID人口集中地区,,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A16/A
 鳥獣保護区,yes,A15,,Wildlife Preserve,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A15/A15-15/A15-15_code_pref_GML.zip,A15-15_code_pref_GML.zip,A15_15_code_pref_WildlifePreserve.shp,,A15-15_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A15.html,,,,,,,CP932,A15.qml,6668,
 4. 交通,heading,,,,,,,,,,,,,,,,,,,,
 【交通】,heading,,,,,,,,,,,,,,,,,,,,
+道路,yes,N13,mesh1,Road mesh,2024,https://nlftp.mlit.go.jp/ksj/gml/data/N13/N13-{year2digit}/N13-{year2digit}_{code_mesh1}_SHP.zip,N13-{year2digit}_{code_mesh1}_SHP.zip,N13-{year2digit}_{code_mesh1}.shp,,N13-{year2digit}_{code_mesh1}_SHP,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N13-2024.html,,,,,,,CP932,N13-2024.qml,6668,
 高速道路時系列（路線区間）,yes,N06,single,Highway Section,LandNumInfo_N06_HighwaySection.csv,https://nlftp.mlit.go.jp/ksj/gml/data/N06/N06-23/N06-23_GML.zip,N06-23_GML.zip,N06-23_HighwaySection.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N06-2024.html,,,,,,,CP932,,6668,
 高速道路時系列（接合部）,yes,N06,single,Highway Joint,LandNumInfo_N06_Joint.csv,https://nlftp.mlit.go.jp/ksj/gml/data/N06/N06-23/N06-23_GML.zip,N06-23_GML.zip,N06-23_Joint.shp,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N06-2024.html,,,,,,,CP932,,6668,
 緊急輸送道路,yes,N10,,Emergency Road,LandNumInfo_N10.csv,https://nlftp.mlit.go.jp/ksj/gml/data/N10/N10-20/N10-20_code_pref_GML.zip,N10-20_code_pref_GML.zip,N10-20_code_pref.shp,,N10-20_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N10-2024.html,,,,,,,CP932,N10.qml,6668,

@@ -194,7 +194,6 @@ class JPDataManager:
                 epsg_str = epsg_str[5:]
             if epsg_str.isdigit():
                 epsg_int = int(epsg_str)
-                self.setLabel(str(epsg_int))
                 epsg = epsg_int
                 crs = QgsCoordinateReferenceSystem.fromEpsgId(epsg)
                 if not crs.isValid():
@@ -436,12 +435,9 @@ class JPDataManager:
         _start_download = False
 
         for x in range(self._dl_iter, len(self._dl_url_zip)):
-            self.setLabel("Fetching " + str(x) + " in " + str(len(self._dl_url_zip)))
             tempUrl = self._dl_url_zip[x]["url"]
             tempZipFileName = self._dl_url_zip[x]["zip"]
             tempSubFolder = self._dl_url_zip[x]["subfolder"]
-            self.setLabel(self._folderPath)
-            self.setLabel(tempZipFileName)
             if not os.path.exists(
                 posixpath.join(
                     self._folderPath,
