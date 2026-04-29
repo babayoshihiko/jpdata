@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 import posixpath
-import os.path
+import os
 import zipfile
 from qgis import processing
 
@@ -432,6 +432,102 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
 
 
 def performJoin(folder, year, shp, csv):
+    import os
+    import posixpath
+    import processing
+    from qgis.core import (
+        QgsVectorLayer,
+        QgsVectorFileWriter,
+        QgsCoordinateTransformContext
+    )
+    
+    if folder not in shp:
+        shp = posixpath.join(folder, shp)
+    if folder not in csv:
+        csv = posixpath.join(folder, csv)
+
+    output = shp[:-4] + "-" + year + ".shp"
+
+    # --- CSV CP932 to UTF-8 ---
+    if csv.endswith(".txt"):
+        csv_utf8 = csv[:-4] + ".csv"
+
+        if not os.path.exists(csv_utf8):
+            if not os.path.exists(csv):
+                return shp, "CP932"
+
+            line_no = 0
+            with open(csv, "r", encoding="CP932") as fin, \
+                 open(csv_utf8, "w", encoding="UTF-8") as fout:
+
+                for line in fin:
+                    line_no += 1
+
+                    if line_no != 2:
+                        fout.write(line.replace("*", ""))
+                    else:
+                        count = line.count(",")
+
+                        if count <= 4:
+                            csvt = "String"
+                            minus = 0
+                        else:
+                            csvt = "String,Integer,String,String"
+                            minus = 3
+
+                        for _ in range(count - minus):
+                            csvt += ",Integer"
+
+                        with open(csv_utf8[:-4] + ".csvt", "w", encoding="UTF-8") as f2:
+                            f2.write(csvt)
+
+        csv = csv_utf8
+
+    # --- join ---
+    if not os.path.exists(output):
+        if os.path.exists(shp) and os.path.exists(csv):
+
+            joinInfo = {
+                "INPUT": shp,
+                "FIELD": "KEY_CODE",
+                "INPUT_2": csv,
+                "FIELD_2": "KEY_CODE",
+                "OUTPUT": output,
+            }
+
+            processing.run("qgis:joinattributestable", joinInfo)
+
+    # --- save as UTF-8 ---
+    fixed_output = output[:-4] + "_utf8.shp"
+
+    vl = QgsVectorLayer(output, "joined", "ogr")
+    if not vl.isValid():
+        raise Exception(f"Failed to load output: {output}")
+
+    options = QgsVectorFileWriter.SaveVectorOptions()
+    options.fileEncoding = "UTF-8"
+    options.driverName = "ESRI Shapefile"
+
+    QgsVectorFileWriter.writeAsVectorFormatV2(
+        vl,
+        fixed_output,
+        QgsCoordinateTransformContext(),
+        options
+    )
+
+    base = output[:-4]
+    for ext in [".shp", ".shx", ".dbf", ".prj", ".cpg"]:
+        f = base + ext
+        if os.path.exists(f):
+            os.remove(f)
+
+    # --- .cpg ---
+    with open(fixed_output[:-4] + ".cpg", "w", encoding="ascii") as f:
+        f.write("UTF-8")
+
+    return fixed_output, "UTF-8"
+
+def performJoin_old(folder, year, shp, csv):
     shp_encoding = "CP932"  # The encoding for shp
     if not folder in shp:
         shp = posixpath.join(folder, shp)
@@ -483,6 +579,18 @@ def performJoin(folder, year, shp, csv):
                 "OUTPUT": output,
             }
             processing.run("qgis:joinattributestable", joinInfo)
+    
+            vl = QgsVectorLayer(output, "joined", "ogr")
+
+            options = QgsVectorFileWriter.SaveVectorOptions()
+            options.fileEncoding = "UTF-8"
+
+            QgsVectorFileWriter.writeAsVectorFormatV2(
+                vl,
+                output,
+                QgsCoordinateTransformContext(),
+                options
+            )
 
     cfg = output[:-4] + ".cpg"
     if os.path.exists(cfg):
