@@ -7,8 +7,15 @@ from qgis import processing
 from . import jpDataUtils
 
 
-def _get_string_for_mesh(type_muni):
+def _get_char_for_mesh(type_muni):
     mapping = ["", "S", "H", "Q", "E"]
+    if 0 <= type_muni < len(mapping):
+        return mapping[type_muni]
+    return ""
+
+
+def _get_string_for_mesh(type_muni):
+    mapping = ["", "SDDSWS", "HDDSWH", "QDDSWQ", "EDDSWE"]
     if 0 <= type_muni < len(mapping):
         return mapping[type_muni]
     return ""
@@ -49,18 +56,9 @@ def get_subfolder_qml(type_muni, year):
     if type_muni == 0:
         tempSubFolder = "Census"
         tempQmlFile = "Census-" + year + ".qml"
-    if type_muni == 1:
-        tempSubFolder = "Census-SDDSWS"
-        tempQmlFile = "Census-SDDSWS-" + year + ".qml"
-    elif type_muni == 2:
-        tempSubFolder = "Census-HDDSWH"
-        tempQmlFile = "Census-HDDSWH-" + year + ".qml"
-    elif type_muni == 3:
-        tempSubFolder = "Census-QDDSWQ"
-        tempQmlFile = "Census-QDDSWQ-" + year + ".qml"
-    elif type_muni == 4:
-        tempSubFolder = "Census-EDDSWE"
-        tempQmlFile = "Census-EDDSWE-" + year + ".qml"
+    else:
+        tempSubFolder = _get_string_for_mesh(type_muni)
+        tempQmlFile = "Census-" + _get_string_for_mesh(type_muni) + "-" + year + ".qml"
     return tempSubFolder, tempQmlFile
 
 
@@ -98,7 +96,7 @@ def getUrl(year, code_pref, code_muni, type_muni=0):
             f"code={code_pref}{code_muni}&"
             f"coordSys=2&format=shape&downloadType=5&datum={datum}"
         )
-    survey_char = _get_string_for_mesh(type_muni)
+    survey_char = _get_char_for_mesh(type_muni)
 
     if not survey_char:
         return None
@@ -122,14 +120,8 @@ def getZipFileName(year, code_pref, code_muni, type_muni=0):
             )
         else:
             zipFileName = "A00200521" + year + "XYSWC" + code_pref + code_muni + ".zip"
-    elif type_muni == 1:
-        zipFileName = "SDDSWS" + code_muni + ".zip"
-    elif type_muni == 2:
-        zipFileName = "HDDSWH" + code_muni + ".zip"
-    elif type_muni == 3:
-        zipFileName = "QDDSWQ" + code_muni + ".zip"
-    elif type_muni == 4:
-        zipFileName = "EDDSWE" + code_muni + ".zip"
+    else:
+        zipFileName = _get_string_for_mesh(type_muni) + code_muni + ".zip"
     return zipFileName
 
 
@@ -170,7 +162,7 @@ def getAttrUrl(year, code_pref, code_muni, type_muni=0):
         return None
     url = (
         f"https://www.e-stat.go.jp/gis/statmap-search/data?"
-        f"statsId={_statsId}&"
+        f"statsId=T{_statsId}&"
         f"code={_code}&"
         f"downloadType=2"
     )
@@ -184,7 +176,7 @@ def _get_base_filename(year, code_pref, code_muni, type_muni):
     if type_muni == 0:
         suffix = f"C{str(code_pref).zfill(2)}"
     else:
-        char = _get_string_for_mesh(type_muni)
+        char = _get_char_for_mesh(type_muni)
         suffix = f"{char}{code_muni}"
 
     return f"{_statsId}{suffix}"
@@ -195,16 +187,51 @@ def getAttrZipFileName(year, code_pref, code_muni, type_muni=0):
     return f"tblT{base}.zip" if base else None
 
 
-def getAttrCsvFileName(year, code_pref, code_muni, type_muni=0):
+def get_attr_csv_filename(year, code_pref, code_muni, type_muni=0, folder="."):
     base = _get_base_filename(year, code_pref, code_muni, type_muni)
-    return f"tbl{base}.txt" if base else None
+    if not base:
+        return None
+    if type_muni == 0:
+        folder_path = posixpath.join(folder, "Census")
+    else:
+        folder_path = posixpath.join(folder, "Census-" + _get_string_for_mesh(type_muni) )
+
+    file_name = f"tbl{base}.txt"
+    path = posixpath.join(folder_path, file_name)
+    if os.path.exists(path):
+        return file_name
+    
+    file_name_t = f"tblT{base}.txt"
+    return file_name_t
 
 
-def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
+def get_attr_csv_fullpath(year, code_pref, code_muni, type_muni=0, folder="."):
+    base = _get_base_filename(year, code_pref, code_muni, type_muni)
+    if not base:
+        return None
+    if type_muni == 0:
+        folder_path = posixpath.join(folder, "Census")
+    else:
+        folder_path = posixpath.join(folder, "Census-" + _get_string_for_mesh(type_muni) )
+
+    file_name = f"tbl{base}.txt"
+    
+    path = posixpath.join(folder_path, file_name)
+    
+    if os.path.exists(path):
+        return path
+    
+    file_name_t = f"tblT{base}.txt"
+    path_t = posixpath.join(folder_path, file_name_t)
+    
+    if os.path.exists(path_t):
+        return path_t
+
+
+def DELETE_downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
 
     attrUrl = getAttrUrl(year, code_pref, code_muni, type_muni)
     attrZip = getAttrZipFileName(year, code_pref, code_muni, type_muni)
-    attrCsv = getAttrCsvFileName(year, code_pref, code_muni, type_muni)
     if not os.path.exists(posixpath.join(folder, "Census")):
         os.makedirs(posixpath.join(folder, "Census"), exist_ok=True)
     if type_muni == 0:
@@ -246,7 +273,7 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
                             out_file.write(file.read())
 
 
-def performJoin(folder, year, shp_name, csv_name):
+def perform_join(folder, year, shp_name, csv_name):
     import os
     import posixpath
     import processing
@@ -255,23 +282,18 @@ def performJoin(folder, year, shp_name, csv_name):
         QgsVectorFileWriter,
         QgsCoordinateTransformContext,
     )
-    from PyQt5.QtCore import QUrl
+    from qgis.PyQt.QtCore import QUrl
 
     # 1. Path
-    folder = folder.replace("\\", "/")
     shp_path = (
         posixpath.join(folder, shp_name)
-        if not posixpath.isabs(shp_name)
-        else shp_name.replace("\\", "/")
     )
     csv_path = (
         posixpath.join(folder, csv_name)
-        if not posixpath.isabs(csv_name)
-        else csv_name.replace("\\", "/")
     )
     output_path = shp_path[:-4] + "-" + year + ".shp"
 
-    # --- 2. CSV to UTF-8 ---
+    # --- 2. CSV from CP932 (.txt) to UTF-8 (.csv) ---
     csv_utf8 = csv_path[:-4] + ".csv"
     if not os.path.exists(csv_utf8):
         with open(csv_path, "r", encoding="CP932") as fin, open(
@@ -290,8 +312,7 @@ def performJoin(folder, year, shp_name, csv_name):
                     continue
                 fout.write(line.replace("*", ""))
 
-    # --- 3. レイヤオブジェクトを明示的に作成 (ここでエンコーディングを固定) ---
-    # 元のSHPを読み込み、CP932であることを強制
+    # --- 3. Create layer objects WITH ENCODING ---
     lyr_shp = QgsVectorLayer(shp_path, "base_shp", "ogr")
     lyr_shp.setProviderEncoding("CP932")
     lyr_shp.dataProvider().setEncoding("CP932")
@@ -303,58 +324,52 @@ def performJoin(folder, year, shp_name, csv_name):
     lyr_csv.dataProvider().setEncoding("UTF-8")
 
     if not lyr_shp.isValid() or not lyr_csv.isValid():
-        raise Exception("レイヤの読み込みに失敗しました。パスを確認してください。")
+        return None, None
 
-    # --- デバッグ開始 ---
+    # --- Debug begins ---
     print("--- JOIN DEBUG START ---")
 
     def debug_layer(label, lyr, field_name):
         print(f"[{label}]")
         if lyr is None:
-            print("  ❌ レイヤが None です")
+            print("  ❌ The layer is None.")
             return
         print(f"  Name: {lyr.name()}")
         print(f"  Valid: {lyr.isValid()}")
         print(f"  Source: {lyr.source()}")
 
-        # 全フィールド名をリスト化して、完全一致するものがあるか確認
+        # Checks all the fields of the both layers
         fields = lyr.fields()
         field_names = [f.name() for f in fields]
         print(f"  Available Fields: {field_names}")
 
         idx = fields.indexFromName(field_name)
         if idx == -1:
-            print(f"  ❌ フィールド '{field_name}' が見つかりません！")
-            # 大文字小文字の違いや、前後の空白をチェック
-            for n in field_names:
-                if n.upper().strip() == field_name.upper().strip():
-                    print(
-                        f"  ⚠️  ヒント: 近い名前が見つかりました -> '{n}' (長さ: {len(n)})"
-                    )
+            print(f"  ❌ Cannot find field '{field_name}' ")
         else:
             f_obj = fields[idx]
             print(
-                f"  ✅ フィールド '{field_name}' 発見 (Index: {idx}, Type: {f_obj.typeName()})"
+                f"  ✅ Found field '{field_name}' (Index: {idx}, Type: {f_obj.typeName()})"
             )
 
-    # shp と csv 両方をチェック
+    # Checks shp and csv 
     debug_layer("INPUT (SHP)", lyr_shp, "KEY_CODE")
     debug_layer("INPUT_2 (CSV)", lyr_csv, "KEY_CODE")
 
     print("--- JOIN DEBUG END ---")
-    # --- デバッグ終了 ---
+    # --- Debug ends ---
 
     join_params = {
         "INPUT": lyr_shp,
         "FIELD": "KEY_CODE",
         "INPUT_2": lyr_csv,
         "FIELD_2": "KEY_CODE",
-        "OUTPUT": "TEMPORARY_OUTPUT",  # 一旦メモリに持たせる
+        "OUTPUT": "TEMPORARY_OUTPUT",
     }
     result = processing.run("qgis:joinattributestable", join_params)
     joined_layer = result["OUTPUT"]
 
-    # --- 5. 最終的なUTF-8 Shapefileとして書き出し ---
+    # --- 5. Save as UTF-8 Shapefile ---
     options = QgsVectorFileWriter.SaveVectorOptions()
     options.fileEncoding = "UTF-8"
     options.driverName = "ESRI Shapefile"
@@ -363,18 +378,18 @@ def performJoin(folder, year, shp_name, csv_name):
         joined_layer, output_path, QgsCoordinateTransformContext(), options
     )
 
-    # --- 6. .cpgファイルを確実に作成 ---
+    # --- 6. .cpg ---
     with open(output_path[:-4] + ".cpg", "w") as f:
         f.write("UTF-8")
 
-    # メモリ解放
+    # Memory
     del lyr_shp
     del lyr_csv
 
     return output_path, "UTF-8"
 
 
-def performJoin_old(folder, year, shp, csv):
+def DELETE_performJoin_old(folder, year, shp, csv):
     shp_encoding = "CP932"  # The encoding for shp
     if not folder in shp:
         shp = posixpath.join(folder, shp)
