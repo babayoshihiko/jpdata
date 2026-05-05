@@ -13,7 +13,7 @@ def _get_string_for_mesh(type_muni):
         return mapping[type_muni]
     return ""
 
-def _get_code_for_mesh(year, type_muni=0, add_type_string = False):
+def _get_statsid_for_mesh(year, type_muni=0, add_type_string = False):
     mapping = {
         0: {
             "2020": "001082", 
@@ -163,29 +163,32 @@ def getAttr(year, code_pref, code_muni, type_muni=0):
 
 def getAttrUrl(year, code_pref, code_muni, type_muni=0):
     if type_muni == 0:
-        code_pref = str(code_pref).zfill(2)
-    _code = _get_code_for_mesh(year, type_muni)
+        _code = str(code_pref).zfill(2)
+    else:
+        _code = code_muni
+    _statsId = _get_statsid_for_mesh(year, type_muni)
     if not _code:
         return None
     url = (
         f"https://www.e-stat.go.jp/gis/statmap-search/data?"
-        f"statsId={_code}&"
-        f"code={code_pref}&"
+        f"statsId={_statsId}&"
+        f"code={_code}&"
         f"downloadType=2"
     )
     return url
 
 
 def _get_base_filename(year, code_pref, code_muni, type_muni):
-    mesh_code = _get_code_for_mesh(year, type_muni)
-    if not mesh_code:
+    _statsId = _get_statsid_for_mesh(year, type_muni)
+    if not _statsId:
         return None
     if type_muni == 0:
-        suffix = f"C{str(code_pref).zfill(2)}"
+        suffix = f"{str(code_pref).zfill(2)}"
     else:
         char = _get_string_for_mesh(type_muni)
         suffix = f"{char}{code_muni}"
-    return f"tblT{mesh_code}{suffix}"
+
+    return f"tblT{_statsId}{suffix}"
 
 def getAttrZipFileName(year, code_pref, code_muni, type_muni=0):
     base = _get_base_filename(year, code_pref, code_muni, type_muni)
@@ -193,6 +196,7 @@ def getAttrZipFileName(year, code_pref, code_muni, type_muni=0):
 
 def getAttrCsvFileName(year, code_pref, code_muni, type_muni=0):
     base = _get_base_filename(year, code_pref, code_muni, type_muni)
+    # e-Statは基本 .txt なのでこちらでOK
     return f"{base}.txt" if base else None
 
 
@@ -250,13 +254,13 @@ def performJoin(folder, year, shp_name, csv_name):
     import processing
     from qgis.core import QgsVectorLayer, QgsVectorFileWriter, QgsCoordinateTransformContext
 
-    # 1. パスの解決
+    # 1. Path
     folder = folder.replace('\\', '/')
     shp_path = posixpath.join(folder, shp_name) if not posixpath.isabs(shp_name) else shp_name.replace('\\', '/')
     csv_path = posixpath.join(folder, csv_name) if not posixpath.isabs(csv_name) else csv_name.replace('\\', '/')
     output_path = shp_path[:-4] + "-" + year + ".shp"
 
-    # --- 2. CSVをUTF-8に変換 (2行目削除 & .csvt作成) ---
+    # --- 2. CSV to UTF-8 ---
     csv_utf8 = csv_path[:-4] + ".csv"
     if not os.path.exists(csv_utf8):
         with open(csv_path, "r", encoding="CP932") as fin, \

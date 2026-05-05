@@ -846,38 +846,13 @@ class JPDataManager:
                 else:
                     code_muni = _item_name_or_code.text()
 
-            # Append the attribute data first
-            url, zip_filename, subfolder = jpDataCensus.getAttr(
-                year,
-                code_pref,
-                code_muni,
-                self._dw.myComboBox32.currentIndex(),
-            )
-            if zip_filename is not None:
-                self._dl_url_zip.append(
-                    {
-                        "year": year,
-                        "url": url,
-                        "zip": zip_filename,
-                        "subfolder": subfolder,
-                    }
-                )
-            # Append the shp data
-            url, zip_filename, subfolder = jpDataCensus.getZip(
-                year,
-                code_pref,
-                code_muni,
-                self._dw.myComboBox32.currentIndex(),
-            )
-            if zip_filename is not None:
-                self._dl_url_zip.append(
-                    {
-                        "year": year,
-                        "url": url,
-                        "zip": zip_filename,
-                        "subfolder": subfolder,
-                    }
-                )
+                attr_url, attr_zip, attr_sub = jpDataCensus.getAttr(year, code_pref, code_muni, self._dw.myComboBox32.currentIndex())
+                shp_url, shp_zip, shp_sub = jpDataCensus.getZip(year, code_pref, code_muni, self._dw.myComboBox32.currentIndex())
+
+                if attr_zip:
+                    self._dl_url_zip.append({"year": year, "url": attr_url, "zip": attr_zip, "subfolder": attr_sub})
+                if shp_zip:
+                    self._dl_url_zip.append({"year": year, "url": shp_url, "zip": shp_zip, "subfolder": shp_sub})
             self._download_iter_2()
 
 # End of manager.py
