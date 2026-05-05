@@ -13,38 +13,37 @@ def _get_string_for_mesh(type_muni):
         return mapping[type_muni]
     return ""
 
-def _get_statsid_for_mesh(year, type_muni=0, add_type_string = False):
+
+def _get_statsid_for_mesh(year, type_muni=0, add_type_string=False):
     mapping = {
         0: {
-            "2020": "001082", 
-            "2015": "000849", 
-            "2010": "000573", 
-            "2005": "000051", 
-            "2000": "000002"},
+            "2020": "001082",
+            "2015": "000849",
+            "2010": "000573",
+            "2005": "000051",
+            "2000": "000002",
+        },
         1: {
-            "2020": "001140", 
-            "2015": "000846", 
-            "2010": "000608", 
-            "2005": "000148", 
-            "2000": "000146", 
-            "1995": "000751"},
+            "2020": "001140",
+            "2015": "000846",
+            "2010": "000608",
+            "2005": "000148",
+            "2000": "000146",
+            "1995": "000751",
+        },
         2: {
-            "2020": "001141", 
-            "2015": "000847", 
-            "2010": "000609", 
-            "2005": "000387", 
-            "2000": "000386", 
-            "1995": "000752"},
-        3: {
-            "2020": "001142", 
-            "2015": "000876", 
-            "2010": "000649", 
-            "2005": "000652"},
-        4: {
-            "2020": "001231", 
-            "2015": "001218"}
+            "2020": "001141",
+            "2015": "000847",
+            "2010": "000609",
+            "2005": "000387",
+            "2000": "000386",
+            "1995": "000752",
+        },
+        3: {"2020": "001142", "2015": "000876", "2010": "000649", "2005": "000652"},
+        4: {"2020": "001231", "2015": "001218"},
     }
     return mapping.get(type_muni, {}).get(str(year))
+
 
 def get_subfolder_qml(type_muni, year):
     if type_muni == 0:
@@ -92,7 +91,7 @@ def getUrl(year, code_pref, code_muni, type_muni=0):
     code_pref = str(code_pref).zfill(2)
     if type_muni == 0:
         datum = "2011" if year in ["2020", "2015"] else "2000"
-        
+
         return (
             f"https://www.e-stat.go.jp/gis/statmap-search/data?"
             f"dlserveyId=A00200521{year}&"
@@ -100,7 +99,7 @@ def getUrl(year, code_pref, code_muni, type_muni=0):
             f"coordSys=2&format=shape&downloadType=5&datum={datum}"
         )
     survey_char = _get_string_for_mesh(type_muni)
-    
+
     if not survey_char:
         return None
 
@@ -183,21 +182,22 @@ def _get_base_filename(year, code_pref, code_muni, type_muni):
     if not _statsId:
         return None
     if type_muni == 0:
-        suffix = f"{str(code_pref).zfill(2)}"
+        suffix = f"C{str(code_pref).zfill(2)}"
     else:
         char = _get_string_for_mesh(type_muni)
         suffix = f"{char}{code_muni}"
 
-    return f"tblT{_statsId}{suffix}"
+    return f"{_statsId}{suffix}"
+
 
 def getAttrZipFileName(year, code_pref, code_muni, type_muni=0):
     base = _get_base_filename(year, code_pref, code_muni, type_muni)
-    return f"{base}.zip" if base else None
+    return f"tblT{base}.zip" if base else None
+
 
 def getAttrCsvFileName(year, code_pref, code_muni, type_muni=0):
     base = _get_base_filename(year, code_pref, code_muni, type_muni)
-    # e-Statは基本 .txt なのでこちらでOK
-    return f"{base}.txt" if base else None
+    return f"tbl{base}.txt" if base else None
 
 
 def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
@@ -222,7 +222,7 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
     urlData = requests.get(attrUrl).content
     with open(
         posixpath.join(folder_path, attrZip), mode="wb"
-    ) as f:  # "wb" can write bytes 
+    ) as f:  # "wb" can write bytes
         f.write(urlData)
 
     # Below is a workaround for a zip file with Japanese filenames/foldernames
@@ -246,29 +246,45 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
                             out_file.write(file.read())
 
 
-
-
 def performJoin(folder, year, shp_name, csv_name):
     import os
     import posixpath
     import processing
-    from qgis.core import QgsVectorLayer, QgsVectorFileWriter, QgsCoordinateTransformContext
+    from qgis.core import (
+        QgsVectorLayer,
+        QgsVectorFileWriter,
+        QgsCoordinateTransformContext,
+    )
+    from PyQt5.QtCore import QUrl
 
     # 1. Path
-    folder = folder.replace('\\', '/')
-    shp_path = posixpath.join(folder, shp_name) if not posixpath.isabs(shp_name) else shp_name.replace('\\', '/')
-    csv_path = posixpath.join(folder, csv_name) if not posixpath.isabs(csv_name) else csv_name.replace('\\', '/')
+    folder = folder.replace("\\", "/")
+    shp_path = (
+        posixpath.join(folder, shp_name)
+        if not posixpath.isabs(shp_name)
+        else shp_name.replace("\\", "/")
+    )
+    csv_path = (
+        posixpath.join(folder, csv_name)
+        if not posixpath.isabs(csv_name)
+        else csv_name.replace("\\", "/")
+    )
     output_path = shp_path[:-4] + "-" + year + ".shp"
 
     # --- 2. CSV to UTF-8 ---
     csv_utf8 = csv_path[:-4] + ".csv"
     if not os.path.exists(csv_utf8):
-        with open(csv_path, "r", encoding="CP932") as fin, \
-             open(csv_utf8, "w", encoding="UTF-8") as fout:
+        with open(csv_path, "r", encoding="CP932") as fin, open(
+            csv_utf8, "w", encoding="UTF-8"
+        ) as fout:
             for i, line in enumerate(fin):
                 if i == 1:
                     count = line.count(",")
-                    csvt = "String,Integer,String,String" + ",Integer" * (count - 3) if count > 4 else "String" + ",Integer" * count
+                    csvt = (
+                        "String,Integer,String,String" + ",Integer" * (count - 3)
+                        if count > 4
+                        else "String" + ",Integer" * count
+                    )
                     with open(csv_utf8 + "t", "w", encoding="UTF-8") as f_csvt:
                         f_csvt.write(csvt)
                     continue
@@ -280,21 +296,60 @@ def performJoin(folder, year, shp_name, csv_name):
     lyr_shp.setProviderEncoding("CP932")
     lyr_shp.dataProvider().setEncoding("CP932")
 
-    # 変換後のCSVを読み込み、UTF-8であることを強制
-    lyr_csv = QgsVectorLayer(csv_utf8, "data_csv", "ogr")
+    uri = QUrl.fromLocalFile(csv_utf8).toString()
+    uri += "?delimiter=,&useHeader=yes&detectTypes=yes"
+    lyr_csv = QgsVectorLayer(uri, "data_csv", "delimitedtext")
     lyr_csv.setProviderEncoding("UTF-8")
     lyr_csv.dataProvider().setEncoding("UTF-8")
 
     if not lyr_shp.isValid() or not lyr_csv.isValid():
         raise Exception("レイヤの読み込みに失敗しました。パスを確認してください。")
 
-    # --- 4. Join実行 (パスではなくオブジェクトを渡す) ---
+    # --- デバッグ開始 ---
+    print("--- JOIN DEBUG START ---")
+
+    def debug_layer(label, lyr, field_name):
+        print(f"[{label}]")
+        if lyr is None:
+            print("  ❌ レイヤが None です")
+            return
+        print(f"  Name: {lyr.name()}")
+        print(f"  Valid: {lyr.isValid()}")
+        print(f"  Source: {lyr.source()}")
+
+        # 全フィールド名をリスト化して、完全一致するものがあるか確認
+        fields = lyr.fields()
+        field_names = [f.name() for f in fields]
+        print(f"  Available Fields: {field_names}")
+
+        idx = fields.indexFromName(field_name)
+        if idx == -1:
+            print(f"  ❌ フィールド '{field_name}' が見つかりません！")
+            # 大文字小文字の違いや、前後の空白をチェック
+            for n in field_names:
+                if n.upper().strip() == field_name.upper().strip():
+                    print(
+                        f"  ⚠️  ヒント: 近い名前が見つかりました -> '{n}' (長さ: {len(n)})"
+                    )
+        else:
+            f_obj = fields[idx]
+            print(
+                f"  ✅ フィールド '{field_name}' 発見 (Index: {idx}, Type: {f_obj.typeName()})"
+            )
+
+    # shp と csv 両方をチェック
+    debug_layer("INPUT (SHP)", lyr_shp, "KEY_CODE")
+    debug_layer("INPUT_2 (CSV)", lyr_csv, "KEY_CODE")
+
+    print("--- JOIN DEBUG END ---")
+    # --- デバッグ終了 ---
+
     join_params = {
         "INPUT": lyr_shp,
         "FIELD": "KEY_CODE",
         "INPUT_2": lyr_csv,
         "FIELD_2": "KEY_CODE",
-        "OUTPUT": "TEMPORARY_OUTPUT" # 一旦メモリに持たせる
+        "OUTPUT": "TEMPORARY_OUTPUT",  # 一旦メモリに持たせる
     }
     result = processing.run("qgis:joinattributestable", join_params)
     joined_layer = result["OUTPUT"]
@@ -305,10 +360,7 @@ def performJoin(folder, year, shp_name, csv_name):
     options.driverName = "ESRI Shapefile"
 
     QgsVectorFileWriter.writeAsVectorFormatV2(
-        joined_layer, 
-        output_path, 
-        QgsCoordinateTransformContext(), 
-        options
+        joined_layer, output_path, QgsCoordinateTransformContext(), options
     )
 
     # --- 6. .cpgファイルを確実に作成 ---
@@ -320,9 +372,6 @@ def performJoin(folder, year, shp_name, csv_name):
     del lyr_csv
 
     return output_path, "UTF-8"
-
-
-
 
 
 def performJoin_old(folder, year, shp, csv):
@@ -356,7 +405,9 @@ def performJoin_old(folder, year, shp, csv):
                             for _ in range(count - minus):
                                 csvt += ",Integer"
 
-                            with open(csv[:-4] + ".csvt", "w", encoding="UTF-8") as fout2:
+                            with open(
+                                csv[:-4] + ".csvt", "w", encoding="UTF-8"
+                            ) as fout2:
                                 fout2.write(csvt)
                 fout.close()
                 csv = csv[:-4] + ".csv"
@@ -377,17 +428,14 @@ def performJoin_old(folder, year, shp, csv):
                 "OUTPUT": output,
             }
             processing.run("qgis:joinattributestable", joinInfo)
-    
+
             vl = QgsVectorLayer(output, "joined", "ogr")
 
             options = QgsVectorFileWriter.SaveVectorOptions()
             options.fileEncoding = "UTF-8"
 
             QgsVectorFileWriter.writeAsVectorFormatV2(
-                vl,
-                output,
-                QgsCoordinateTransformContext(),
-                options
+                vl, output, QgsCoordinateTransformContext(), options
             )
 
     cfg = output[:-4] + ".cpg"
@@ -410,11 +458,11 @@ def set_year_items(combo_widget, first_year=2000):
     """
     # Save current selection to restore it later
     current_year = combo_widget.currentText()
-    
+
     try:
         start_year = 2020
         target_year = int(first_year)
-        
+
         if target_year > start_year:
             years = [str(start_year)]
         else:
@@ -428,14 +476,12 @@ def set_year_items(combo_widget, first_year=2000):
     combo_widget.clear()
     if years:
         combo_widget.addItems(years)
-    
+
     # Restore selection if it still exists
     index = combo_widget.findText(current_year)
     if index != -1:
         combo_widget.setCurrentIndex(index)
     else:
         combo_widget.setCurrentIndex(0)
-    
+
     combo_widget.blockSignals(False)
-
-
