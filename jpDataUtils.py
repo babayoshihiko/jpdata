@@ -389,15 +389,12 @@ def unzipAndGetShp(
         return None
 
     # --- Find shp ---
-    printLog("Find shp")
     for base in [folder_path, posixpath.join(folder_path, zip_to_folder)]:
-        printLog("Looking in " + base)
         result = try_find(base)
         if result:
             return result
 
     # --- if not, unzip ---
-    printLog("If not, unzip")
     zipFileName = (
         zip_file
         .replace("code_pref", code_pref)
@@ -408,7 +405,6 @@ def unzipAndGetShp(
     unzip(folder_path, zipFileName)
 
     # --- Find shp again ---
-    printLog("Find shp again")
     for base in [folder_path, posixpath.join(folder_path, zip_to_folder)]:
         result = try_find(base)
         if result:

@@ -4,7 +4,47 @@ import posixpath
 import os
 import zipfile
 from qgis import processing
+from . import jpDataUtils
 
+
+def _get_string_for_mesh(type_muni):
+    mapping = ["", "S", "H", "Q", "E"]
+    if 0 <= type_muni < len(mapping):
+        return mapping[type_muni]
+    return ""
+
+def _get_code_for_mesh(year, type_muni=0, add_type_string = False):
+    mapping = {
+        0: {
+            "2020": "001082", 
+            "2015": "000849", 
+            "2010": "000573", 
+            "2005": "000051", 
+            "2000": "000002"},
+        1: {
+            "2020": "001140", 
+            "2015": "000846", 
+            "2010": "000608", 
+            "2005": "000148", 
+            "2000": "000146", 
+            "1995": "000751"},
+        2: {
+            "2020": "001141", 
+            "2015": "000847", 
+            "2010": "000609", 
+            "2005": "000387", 
+            "2000": "000386", 
+            "1995": "000752"},
+        3: {
+            "2020": "001142", 
+            "2015": "000876", 
+            "2010": "000649", 
+            "2005": "000652"},
+        4: {
+            "2020": "001231", 
+            "2015": "001218"}
+    }
+    return mapping.get(type_muni, {}).get(str(year))
 
 def get_subfolder_qml(type_muni, year):
     if type_muni == 0:
@@ -19,6 +59,9 @@ def get_subfolder_qml(type_muni, year):
     elif type_muni == 3:
         tempSubFolder = "Census-QDDSWQ"
         tempQmlFile = "Census-QDDSWQ-" + year + ".qml"
+    elif type_muni == 4:
+        tempSubFolder = "Census-EDDSWE"
+        tempQmlFile = "Census-EDDSWE-" + year + ".qml"
     return tempSubFolder, tempQmlFile
 
 
@@ -46,48 +89,27 @@ def getZip(year, code_pref, code_muni, type_muni=0):
 
 
 def getUrl(year, code_pref, code_muni, type_muni=0):
-    url = None
-    if len(code_pref) == 1:
-        code_pref = "0" + code_pref
-
+    code_pref = str(code_pref).zfill(2)
     if type_muni == 0:
-        if year == "2020" or year == "2015":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?dlserveyId=A00200521"
-                + year
-                + "&code="
-                + code_pref
-                + code_muni
-                + "&coordSys=2&format=shape&downloadType=5&datum=2011"
-            )
-        else:
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?dlserveyId=A00200521"
-                + year
-                + "&code="
-                + code_pref
-                + code_muni
-                + "&coordSys=2&format=shape&downloadType=5&datum=2000"
-            )
-    elif type_muni == 1:
-        url = (
-            "https://www.e-stat.go.jp/gis/statmap-search/data?dlserveyId=S&code="
-            + code_muni
-            + "&coordSys=1&format=shape&downloadType=5"
+        datum = "2011" if year in ["2020", "2015"] else "2000"
+        
+        return (
+            f"https://www.e-stat.go.jp/gis/statmap-search/data?"
+            f"dlserveyId=A00200521{year}&"
+            f"code={code_pref}{code_muni}&"
+            f"coordSys=2&format=shape&downloadType=5&datum={datum}"
         )
-    elif type_muni == 2:
-        url = (
-            "https://www.e-stat.go.jp/gis/statmap-search/data?dlserveyId=H&code="
-            + code_muni
-            + "&coordSys=1&format=shape&downloadType=5"
-        )
-    elif type_muni == 3:
-        url = (
-            "https://www.e-stat.go.jp/gis/statmap-search/data?dlserveyId=Q&code="
-            + code_muni
-            + "&coordSys=1&format=shape&downloadType=5"
-        )
-    return url
+    survey_char = _get_string_for_mesh(type_muni)
+    
+    if not survey_char:
+        return None
+
+    return (
+        f"https://www.e-stat.go.jp/gis/statmap-search/data?"
+        f"dlserveyId={survey_char}&"
+        f"code={code_muni}&"
+        f"coordSys=1&format=shape&downloadType=5"
+    )
 
 
 def getZipFileName(year, code_pref, code_muni, type_muni=0):
@@ -107,6 +129,8 @@ def getZipFileName(year, code_pref, code_muni, type_muni=0):
         zipFileName = "HDDSWH" + code_muni + ".zip"
     elif type_muni == 3:
         zipFileName = "QDDSWQ" + code_muni + ".zip"
+    elif type_muni == 4:
+        zipFileName = "EDDSWE" + code_muni + ".zip"
     return zipFileName
 
 
@@ -125,11 +149,7 @@ def getShpFileName(year, code_pref, code_muni, type_muni=0):
             shpFileName = "h17ka" + code_pref + code_muni + ".shp"
         elif year == "2000":
             shpFileName = "h12ka" + code_pref + code_muni + ".shp"
-    elif type_muni == 1:
-        shpFileName = "MESH0" + code_muni + ".shp"
-    elif type_muni == 2:
-        shpFileName = "MESH0" + code_muni + ".shp"
-    elif type_muni == 3:
+    elif type_muni >= 1:
         shpFileName = "MESH0" + code_muni + ".shp"
     return shpFileName
 
@@ -142,247 +162,38 @@ def getAttr(year, code_pref, code_muni, type_muni=0):
 
 
 def getAttrUrl(year, code_pref, code_muni, type_muni=0):
-    url = None
-
     if type_muni == 0:
-        if len(code_pref) == 1:
-            code_pref = "0" + code_pref
-        if year == "2020":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T001082&code="
-                + code_pref
-                + "&downloadType=2"
-            )
-        elif year == "2015":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000849&code="
-                + code_pref
-                + "&downloadType=2"
-            )
-        elif year == "2010":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000573&code="
-                + code_pref
-                + "&downloadType=2"
-            )
-        elif year == "2005":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000051&code="
-                + code_pref
-                + "&downloadType=2"
-            )
-        elif year == "2000":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000002&code="
-                + code_pref
-                + "&downloadType=2"
-            )
-    elif type_muni == 1:
-        if year == "2020":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T001140&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2015":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000846&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2010":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000608&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2005":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000148&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2000":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000146&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "1995":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000751&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-    elif type_muni == 2:
-        if year == "2020":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T001141&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2015":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000847&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2010":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000609&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2005":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000387&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2000":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000386&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "1995":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000752&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-    elif type_muni == 3:
-        if year == "2020":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T001142&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2015":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000876&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2010":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000649&code="
-                + code_muni
-                + "&downloadType=2"
-            )
-        elif year == "2005":
-            url = (
-                "https://www.e-stat.go.jp/gis/statmap-search/data?statsId=T000652&code="
-                + code_muni
-                + "&downloadType=2"
-            )
+        code_pref = str(code_pref).zfill(2)
+    _code = _get_code_for_mesh(year, type_muni)
+    if not _code:
+        return None
+    url = (
+        f"https://www.e-stat.go.jp/gis/statmap-search/data?"
+        f"statsId={_code}&"
+        f"code={code_pref}&"
+        f"downloadType=2"
+    )
     return url
 
 
-def getAttrZipFileName(year, code_pref, code_muni, type_muni=0):
-    zipFileName = None
+def _get_base_filename(year, code_pref, code_muni, type_muni):
+    mesh_code = _get_code_for_mesh(year, type_muni)
+    if not mesh_code:
+        return None
     if type_muni == 0:
-        if len(code_pref) == 1:
-            code_pref = "0" + code_pref
-        if year == "2020":
-            zipFileName = "tblT001082C" + code_pref + ".zip"
-        elif year == "2015":
-            zipFileName = "tblT000849C" + code_pref + ".zip"
-        elif year == "2010":
-            zipFileName = "tblT000573C" + code_pref + ".zip"
-        elif year == "2005":
-            zipFileName = "tblT000051C" + code_pref + ".zip"
-        elif year == "2000":
-            zipFileName = "tblT000002C" + code_pref + ".zip"
-    elif type_muni == 1:
-        if year == "2020":
-            zipFileName = "tblT001140S" + code_muni + ".zip"
-        elif year == "2015":
-            zipFileName = "tblT000846S" + code_muni + ".zip"
-        elif year == "2010":
-            zipFileName = "tblT000608S" + code_muni + ".zip"
-        elif year == "2005":
-            zipFileName = "tblT000148S" + code_muni + ".zip"
-        elif year == "2000":
-            zipFileName = "tblT000146S" + code_muni + ".zip"
-        elif year == "1995":
-            zipFileName = "tblT000751S" + code_muni + ".zip"
-    elif type_muni == 2:
-        if year == "2020":
-            zipFileName = "tblT001141H" + code_muni + ".zip"
-        elif year == "2015":
-            zipFileName = "tblT000847H" + code_muni + ".zip"
-        elif year == "2010":
-            zipFileName = "tblT000609H" + code_muni + ".zip"
-        elif year == "2005":
-            zipFileName = "tblT000387H" + code_muni + ".zip"
-        elif year == "2000":
-            zipFileName = "tblT000386H" + code_muni + ".zip"
-        elif year == "1995":
-            zipFileName = "tblT000752H" + code_muni + ".zip"
-    elif type_muni == 3:
-        if year == "2020":
-            zipFileName = "tblT001142Q" + code_muni + ".zip"
-        elif year == "2015":
-            zipFileName = "tblT000876Q" + code_muni + ".zip"
-        elif year == "2010":
-            zipFileName = "tblT000649Q" + code_muni + ".zip"
-        elif year == "2005":
-            zipFileName = "tblT000652Q" + code_muni + ".zip"
-    return zipFileName
+        suffix = f"C{str(code_pref).zfill(2)}"
+    else:
+        char = _get_string_for_mesh(type_muni)
+        suffix = f"{char}{code_muni}"
+    return f"tblT{mesh_code}{suffix}"
 
+def getAttrZipFileName(year, code_pref, code_muni, type_muni=0):
+    base = _get_base_filename(year, code_pref, code_muni, type_muni)
+    return f"{base}.zip" if base else None
 
 def getAttrCsvFileName(year, code_pref, code_muni, type_muni=0):
-    csvFileName = None
-    if type_muni == 0:
-        if len(code_pref) == 1:
-            code_pref = "0" + code_pref
-        if year == "2020":
-            csvFileName = "tblT001082C" + code_pref + ".txt"
-        elif year == "2015":
-            csvFileName = "tblT000849C" + code_pref + ".txt"
-        elif year == "2010":
-            csvFileName = "tblT000573C" + code_pref + ".txt"
-        elif year == "2005":
-            csvFileName = "tblT000051C" + code_pref + ".txt"
-        elif year == "2000":
-            csvFileName = "tblT000002C" + code_pref + ".txt"
-    elif type_muni == 1:
-        if year == "2020":
-            csvFileName = "tblT001140S" + code_muni + ".txt"
-        elif year == "2015":
-            csvFileName = "tblT000846S" + code_muni + ".txt"
-        elif year == "2010":
-            csvFileName = "tblT000608S" + code_muni + ".txt"
-        elif year == "2005":
-            csvFileName = "tblT000148S" + code_muni + ".txt"
-        elif year == "2000":
-            csvFileName = "tblT000146S" + code_muni + ".txt"
-        elif year == "1995":
-            csvFileName = "tblT000751S" + code_muni + ".txt"
-    elif type_muni == 2:
-        if year == "2020":
-            csvFileName = "tblT001141H" + code_muni + ".txt"
-        elif year == "2015":
-            csvFileName = "tblT000847H" + code_muni + ".txt"
-        elif year == "2010":
-            csvFileName = "tblT000609H" + code_muni + ".txt"
-        elif year == "2005":
-            csvFileName = "tblT000387H" + code_muni + ".txt"
-        elif year == "2000":
-            csvFileName = "tblT000386H" + code_muni + ".txt"
-        elif year == "1995":
-            csvFileName = "tblT000752H" + code_muni + ".txt"
-    elif type_muni == 3:
-        if year == "2020":
-            csvFileName = "tblT001142Q" + code_muni + ".txt"
-        elif year == "2015":
-            csvFileName = "tblT000876Q" + code_muni + ".txt"
-        elif year == "2010":
-            csvFileName = "tblT000649Q" + code_muni + ".txt"
-        elif year == "2005":
-            csvFileName = "tblT000652Q" + code_muni + ".txt"
-    return csvFileName
+    base = _get_base_filename(year, code_pref, code_muni, type_muni)
+    return f"{base}.txt" if base else None
 
 
 def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
@@ -407,7 +218,7 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
     urlData = requests.get(attrUrl).content
     with open(
         posixpath.join(folder_path, attrZip), mode="wb"
-    ) as f:  # wb でバイト型を書き込める
+    ) as f:  # "wb" can write bytes 
         f.write(urlData)
 
     # Below is a workaround for a zip file with Japanese filenames/foldernames
@@ -431,101 +242,84 @@ def downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
                             out_file.write(file.read())
 
 
-def performJoin(folder, year, shp, csv):
+
+
+def performJoin(folder, year, shp_name, csv_name):
     import os
     import posixpath
     import processing
-    from qgis.core import (
-        QgsVectorLayer,
-        QgsVectorFileWriter,
-        QgsCoordinateTransformContext
-    )
-    
-    if folder not in shp:
-        shp = posixpath.join(folder, shp)
-    if folder not in csv:
-        csv = posixpath.join(folder, csv)
+    from qgis.core import QgsVectorLayer, QgsVectorFileWriter, QgsCoordinateTransformContext
 
-    output = shp[:-4] + "-" + year + ".shp"
+    # 1. パスの解決
+    folder = folder.replace('\\', '/')
+    shp_path = posixpath.join(folder, shp_name) if not posixpath.isabs(shp_name) else shp_name.replace('\\', '/')
+    csv_path = posixpath.join(folder, csv_name) if not posixpath.isabs(csv_name) else csv_name.replace('\\', '/')
+    output_path = shp_path[:-4] + "-" + year + ".shp"
 
-    # --- CSV CP932 to UTF-8 ---
-    if csv.endswith(".txt"):
-        csv_utf8 = csv[:-4] + ".csv"
+    # --- 2. CSVをUTF-8に変換 (2行目削除 & .csvt作成) ---
+    csv_utf8 = csv_path[:-4] + ".csv"
+    if not os.path.exists(csv_utf8):
+        with open(csv_path, "r", encoding="CP932") as fin, \
+             open(csv_utf8, "w", encoding="UTF-8") as fout:
+            for i, line in enumerate(fin):
+                if i == 1:
+                    count = line.count(",")
+                    csvt = "String,Integer,String,String" + ",Integer" * (count - 3) if count > 4 else "String" + ",Integer" * count
+                    with open(csv_utf8 + "t", "w", encoding="UTF-8") as f_csvt:
+                        f_csvt.write(csvt)
+                    continue
+                fout.write(line.replace("*", ""))
 
-        if not os.path.exists(csv_utf8):
-            if not os.path.exists(csv):
-                return shp, "CP932"
+    # --- 3. レイヤオブジェクトを明示的に作成 (ここでエンコーディングを固定) ---
+    # 元のSHPを読み込み、CP932であることを強制
+    lyr_shp = QgsVectorLayer(shp_path, "base_shp", "ogr")
+    lyr_shp.setProviderEncoding("CP932")
+    lyr_shp.dataProvider().setEncoding("CP932")
 
-            line_no = 0
-            with open(csv, "r", encoding="CP932") as fin, \
-                 open(csv_utf8, "w", encoding="UTF-8") as fout:
+    # 変換後のCSVを読み込み、UTF-8であることを強制
+    lyr_csv = QgsVectorLayer(csv_utf8, "data_csv", "ogr")
+    lyr_csv.setProviderEncoding("UTF-8")
+    lyr_csv.dataProvider().setEncoding("UTF-8")
 
-                for line in fin:
-                    line_no += 1
+    if not lyr_shp.isValid() or not lyr_csv.isValid():
+        raise Exception("レイヤの読み込みに失敗しました。パスを確認してください。")
 
-                    if line_no != 2:
-                        fout.write(line.replace("*", ""))
-                    else:
-                        count = line.count(",")
+    # --- 4. Join実行 (パスではなくオブジェクトを渡す) ---
+    join_params = {
+        "INPUT": lyr_shp,
+        "FIELD": "KEY_CODE",
+        "INPUT_2": lyr_csv,
+        "FIELD_2": "KEY_CODE",
+        "OUTPUT": "TEMPORARY_OUTPUT" # 一旦メモリに持たせる
+    }
+    result = processing.run("qgis:joinattributestable", join_params)
+    joined_layer = result["OUTPUT"]
 
-                        if count <= 4:
-                            csvt = "String"
-                            minus = 0
-                        else:
-                            csvt = "String,Integer,String,String"
-                            minus = 3
-
-                        for _ in range(count - minus):
-                            csvt += ",Integer"
-
-                        with open(csv_utf8[:-4] + ".csvt", "w", encoding="UTF-8") as f2:
-                            f2.write(csvt)
-
-        csv = csv_utf8
-
-    # --- join ---
-    if not os.path.exists(output):
-        if os.path.exists(shp) and os.path.exists(csv):
-
-            joinInfo = {
-                "INPUT": shp,
-                "FIELD": "KEY_CODE",
-                "INPUT_2": csv,
-                "FIELD_2": "KEY_CODE",
-                "OUTPUT": output,
-            }
-
-            processing.run("qgis:joinattributestable", joinInfo)
-
-    # --- save as UTF-8 ---
-    fixed_output = output[:-4] + "_utf8.shp"
-
-    vl = QgsVectorLayer(output, "joined", "ogr")
-    if not vl.isValid():
-        raise Exception(f"Failed to load output: {output}")
-
+    # --- 5. 最終的なUTF-8 Shapefileとして書き出し ---
     options = QgsVectorFileWriter.SaveVectorOptions()
     options.fileEncoding = "UTF-8"
     options.driverName = "ESRI Shapefile"
 
     QgsVectorFileWriter.writeAsVectorFormatV2(
-        vl,
-        fixed_output,
-        QgsCoordinateTransformContext(),
+        joined_layer, 
+        output_path, 
+        QgsCoordinateTransformContext(), 
         options
     )
 
-    base = output[:-4]
-    for ext in [".shp", ".shx", ".dbf", ".prj", ".cpg"]:
-        f = base + ext
-        if os.path.exists(f):
-            os.remove(f)
-
-    # --- .cpg ---
-    with open(fixed_output[:-4] + ".cpg", "w", encoding="ascii") as f:
+    # --- 6. .cpgファイルを確実に作成 ---
+    with open(output_path[:-4] + ".cpg", "w") as f:
         f.write("UTF-8")
 
-    return fixed_output, "UTF-8"
+    # メモリ解放
+    del lyr_shp
+    del lyr_csv
+
+    return output_path, "UTF-8"
+
+
+
+
 
 def performJoin_old(folder, year, shp, csv):
     shp_encoding = "CP932"  # The encoding for shp

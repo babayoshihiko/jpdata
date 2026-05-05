@@ -51,13 +51,14 @@ class JPDataUIHandler:
         self.dw.myPushButton32.setText(self.tr("Add to Map"))
         self.dw.myComboBox31.setToolTip(
             self.tr(
-                "Nieghbourhood: Since 2000<br />5th Mesh: Since2005<br />Others: Since 1995"
+                "Nieghbourhood: Since 2000<br />1st throught 3rd: Since 1995<br />5th Mesh: Since2005<br />6th Mesh: Since2015"
             )
         )
         self.dw.myComboBox32.addItem(self.tr("Neighbourhood"))
         self.dw.myComboBox32.addItem(self.tr("3rd Mesh"))
         self.dw.myComboBox32.addItem(self.tr("4th Mesh"))
         self.dw.myComboBox32.addItem(self.tr("5th Mesh"))
+        self.dw.myComboBox32.addItem(self.tr("6th Mesh"))
         self.dw.myComboBox32.setToolTip(
             self.tr(
                 "Nieghbourhood: population of cho, aza, etc.<br />3rd Mesh: 1 km mesh<br />4th Mesh: 500 m mesh<br />5th Mesh: 250 m mesh"

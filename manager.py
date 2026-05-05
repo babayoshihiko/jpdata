@@ -141,6 +141,7 @@ class JPDataManager:
         self._downloader.finished.connect(self.download_finished)
 
     def setLabel(self, message, critical=False):
+        message = str(message)
         self._dw.myLabelStatus.setText(message)
         if self._verbose:
             jpDataUtils.printLog(message)
@@ -767,10 +768,10 @@ class JPDataManager:
             self._dw.myComboBox32.currentIndex(), year
         )
 
+        name_muni_suffix = ""
         if self._dw.myComboBox32.currentIndex() == 0:
             # Get municipality names
             list_item = self._dw.myListWidget32.selectedItems()
-            name_muni_suffix = ""
         else:
             # Get mesh codes
             list_item = self._dw.myListWidget33.selectedItems()
@@ -780,6 +781,8 @@ class JPDataManager:
                 name_muni_suffix = " " + self._ui.tr("4th")
             elif self._dw.myComboBox32.currentIndex() == 3:
                 name_muni_suffix = " " + self._ui.tr("5th")
+            elif self._dw.myComboBox32.currentIndex() == 4:
+                name_muni_suffix = " " + self._ui.tr("6th")
 
         if process == "add":
             for _item_name_or_code in list_item:
