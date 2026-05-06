@@ -861,12 +861,6 @@ class JPDataManager:
                     break
 
                 if shp_full_path != "":
-                    csv_filename = jpDataCensus.getAttrCsvFileName(
-                        year,
-                        code_pref,
-                        code_muni,
-                        self._dw.myComboBox32.currentIndex(),
-                    )
                     url, zip_filename, subfolder = jpDataCensus.getAttr(
                         year,
                         code_pref,
@@ -876,12 +870,23 @@ class JPDataManager:
                     jpDataUtils.unzip(
                         posixpath.join(self._folderPath, subfolder), zip_filename
                     )
-                    shp_full_path, encoding = jpDataCensus.performJoin(
-                        posixpath.join(self._folderPath, subfolder),
+                    csv_filename = jpDataCensus.get_attr_csv_filename(
                         year,
-                        shp_filename,
-                        csv_filename,
+                        code_pref,
+                        code_muni,
+                        self._dw.myComboBox32.currentIndex(),
+                        self._folderPath
                     )
+                    encoding = "CP932"
+                    if csv_filename is not None:
+                        shp_full_path, encoding = jpDataCensus.perform_join(
+                            posixpath.join(self._folderPath, subfolder),
+                            year,
+                            shp_filename,
+                            csv_filename,
+                        )
+                    else:
+                        self.setLabel("")
                     self._add_map(
                         shp_full_path,
                         _item_name_or_code.text()
