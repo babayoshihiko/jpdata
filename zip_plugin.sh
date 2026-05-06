@@ -1,11 +1,18 @@
 #!/bin/sh -eV
 
-perl -pi -e "s|version=0.6.24|version=0.6.25|g" metadata.txt
-git commit -m "Version 0.6.25"
-git push origin main
-git tag -a v0.6.25 -m 'version 0.6.25'
-git push origin v0.6.25
+# Translate
+/Volumes/mac/App/QGIS-LTR.app/Contents/MacOS/bin/pylupdate -noobsolete i18n/jpdata.pro
+open -a "Linguist" i18n/ja.ts
 
+# Version
+
+perl -pi -e "s|version=0.6.25|version=0.7.0|g" metadata.txt
+git commit -m "Version 0.7.0"
+git push origin main
+git tag -a v0.7.0 -m 'version 0.7.0'
+git push origin v0.7.0
+
+# Create ZIP
 mkdir ../qgis_plugins
 
 cd ../qgis_plugins

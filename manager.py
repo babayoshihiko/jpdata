@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, posixpath, tempfile
-from qgis.PyQt.QtCore import Qt, QSettings, QUrl
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QLocale, QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.core import (
@@ -13,6 +13,7 @@ from qgis.core import (
     QgsCoordinateTransform,
 )
 
+from .i18n import TR
 from .ui_handler import JPDataUIHandler
 from . import jpDataDownloader
 from . import jpDataUtils
@@ -27,6 +28,25 @@ class JPDataManager:
     def __init__(self, iface):
         self._iface = iface
         self._plugin_dir = os.path.dirname(__file__)
+
+        # 1. 言語コードの取得 (QGISの設定を優先)
+        # QLocale.system().name() でもOK
+        lang = QLocale().name()[0:2]
+
+        # 2. 正しいファイル名の組み立て
+        # 今回は "jpdata_ja.qm" を探す前提
+        locale_path = posixpath.join(self._plugin_dir, "i18n", f"jpdata_{lang}.qm")
+
+        if posixpath.exists(locale_path):
+            # 3. 親オブジェクト (QCoreApplication) を指定して消えないようにする
+            self.translator = QTranslator(QCoreApplication.instance())
+
+            if self.translator.load(locale_path):
+                QCoreApplication.installTranslator(self.translator)
+            else:
+                # 念のためロード失敗をログに出す
+                print(f"DEBUG: Failed to load {locale_path}")
+
         self._dw = None
         self._ui = None
 
@@ -36,12 +56,10 @@ class JPDataManager:
         self._GSI = jpDataUtils.getTilesFromCsv()
 
         self._downloader = jpDataDownloader.DownloadThread()
-
-        self._name_map_prev = ""
-
         self._dl_status = ""
         self._dl_url_zip = []
         self._dl_iter = 0
+        self._name_map_prev = ""
 
         self._verbose = True
 
@@ -72,7 +90,7 @@ class JPDataManager:
             self._dw.myLabel1.setText(self._folderPath)
             self._dw.myTabWidget.setCurrentIndex(0)
         else:
-            self._dw.myLabel1.setText("Choose folder for zip/shp files")
+            self._dw.myLabel1.setText(TR.CHOOSE_FOLDER_INIT)
             self._dw.myTabWidget.setCurrentIndex(4)
 
         if self._proxyServer:
@@ -198,9 +216,7 @@ class JPDataManager:
                 epsg = epsg_int
                 crs = QgsCoordinateReferenceSystem.fromEpsgId(epsg)
                 if not crs.isValid():
-                    self.setLabel(
-                        self._ui.tr("Invalid EPSG. Uses default instead: ") + str(epsg)
-                    )
+                    self.setLabel(TR.INVALID_EPSG(epsg))
                 layer.setCrs(crs)
 
         # --- Check geometry ---
@@ -208,10 +224,7 @@ class JPDataManager:
             count_invalid = jpDataUtils.count_invalid_geometry(layer)
             if count_invalid > 0:
                 layer.setName(f"{layerName} [invalid]")
-                self.setLabel(
-                    self._ui.tr("The layer has invalid geometries: ")
-                    + str(count_invalid)
-                )
+                self.setLabel(TR.INVALID_GEOM(count_invalid))
 
         # --- Style from QML file ---
         if qmlFileName:
@@ -264,7 +277,7 @@ class JPDataManager:
                 bol_redraw_LW12 = False
                 self._dw.myListWidget13.hide()
         elif muni_type == "single":
-            str_new_LW12_text = [self._ui.tr("Nation-wide")]
+            str_new_LW12_text = [TR.NATIONWIDE]
         elif muni_type in ("regional", "detail"):
             if muni_type == "detail":
                 bol_show_LW13 = True
@@ -381,7 +394,7 @@ class JPDataManager:
         from qgis.PyQt.QtWidgets import QFileDialog
 
         folder = QFileDialog.getExistingDirectory(
-            self._iface.mainWindow(), self._ui.tr("Select Directory"), self._folderPath
+            self._iface.mainWindow(), TR.CHOOSE_FOLDER, self._folderPath
         )
         if folder:
             self._folderPath = folder
@@ -422,12 +435,10 @@ class JPDataManager:
 
     def tab1CheckSelected(self):
         if not self._dw.myListWidget11.selectedItems():
-            self._dw.myLabelStatus.setText(self._ui.tr("Please choose a map."))
+            self._dw.myLabelStatus.setText(TR.CHOOSE_MAP_TYPE)
             return False
         if not self._dw.myListWidget12.selectedItems():
-            self._dw.myLabelStatus.setText(
-                self._ui.tr("Please choose a prefecture or region.")
-            )
+            self._dw.myLabelStatus.setText(TR.CHOOSE_PREFECTURE_REGION)
             return False
         return True
 
@@ -437,7 +448,7 @@ class JPDataManager:
             self._dw.myCB_Addr_1.setCurrentIndex(12)
 
     def _tab1_download_all(self):
-        if self._dw.myPushButton11.text() == self._ui.tr("Cancel"):
+        if self._dw.myPushButton11.text() == TR.CANCEL:
             self.cancel_download()
             return
         self._tab1_iter(process="download")
@@ -469,7 +480,7 @@ class JPDataManager:
                 break
             else:
                 # The file exists, so skip to the next one
-                self.setLabel(self._ui.tr("The file exists: ") + tempZipFileName)
+                self.setLabel(TR.FILE_EXISTS(tempZipFileName))
         if _start_download:
             self._dw.progressBar.setValue(0)
             self.enable_download(False)
@@ -481,13 +492,13 @@ class JPDataManager:
 
     def enable_download(self, enable=True):
         if enable:
-            self._dw.myPushButton11.setText(self._ui.tr("Download"))
-            self._dw.myPushButton31.setText(self._ui.tr("Download"))
+            self._dw.myPushButton11.setText(TR.DOWNLOAD)
+            self._dw.myPushButton31.setText(TR.DOWNLOAD)
             self._dw.myPushButton14.setEnabled(True)
             self._dw.myPushButton32.setEnabled(True)
         else:
-            self._dw.myPushButton11.setText(self._ui.tr("Cancel"))
-            self._dw.myPushButton31.setText(self._ui.tr("Cancel"))
+            self._dw.myPushButton11.setText(TR.CANCEL)
+            self._dw.myPushButton31.setText(TR.CANCEL)
             self._dw.myPushButton14.setEnabled(False)
             self._dw.myPushButton32.setEnabled(False)
 
@@ -497,7 +508,7 @@ class JPDataManager:
 
         if not os.path.exists(posixpath.join(self._folderPath, subFolder, zipFileName)):
             self.set_proxy()
-            self.setLabel(self._ui.tr("Downloading: ") + zipFileName)
+            self.setLabel(TR.DOWNLOADING(zipFileName))
             self._downloader.setUrl(url)
             self._downloader.setFilePath(
                 posixpath.join(self._folderPath, subFolder, zipFileName)
@@ -510,12 +521,12 @@ class JPDataManager:
                 self._downloader.start()
         else:
             # The file existance was checked, so this should not happen, but just in case
-            self.setLabel(self._ui.tr("The file exists: ") + zipFileName)
+            self.setLabel(TR.FILE_EXISTS(zipFileName))
             self.enable_download()
 
     def download_finished(self, success):
         current_text = self._dw.myLabelStatus.text()
-        self.setLabel(current_text + self._ui.tr("...Done"))
+        self.setLabel(current_text + TR.DONE)
         self.enable_download()
         self._dw.progressBar.setValue(100)
 
@@ -527,14 +538,14 @@ class JPDataManager:
             self._dl_iter = 0
             self._dl_url_zip = []
             if self._dl_status == "ADDRESS":
-                self._dw.myPB_Addr_1.setText(self._ui.tr("Jump"))
+                self._dw.myPB_Addr_1.setText(TR.JUMP)
                 self._myCB_Addr_1_changed()
 
     def cancel_download(self):
         self._dl_url_zip = []
         if self._downloader is not None:
             current_text = self._dw.myLabelStatus.text()
-            self.setLabel(current_text + self._ui.tr("...Cancelled"))
+            self.setLabel(current_text + TR.CANCELLED)
             self._downloader.stop()
         else:
             self._downloader = jpDataDownloader.DownloadThread()
@@ -622,20 +633,20 @@ class JPDataManager:
 
     def tab3CheckSelected(self):
         if len(self._dw.myListWidget31.selectedItems()) == 0:
-            self.setLabel(self._ui.tr("Please choose a prefecture."))
+            self.setLabel(TR.CHOOSE_PREFECTURE)
             return False
         if self._dw.myComboBox32.currentIndex() == 0:
             if len(self._dw.myListWidget32.selectedItems()) == 0:
-                self.setLabel(self._ui.tr("Please choose a municipality."))
+                self.setLabel(TR.CHOOSE_MUNICIPALITY)
                 return False
         else:
             if len(self._dw.myListWidget33.selectedItems()) == 0:
-                self.setLabel(self._ui.tr("Please choose a mesh code."))
+                self.setLabel(TR.CHOOSE_MESH)
                 return False
         return True
 
     def _tab3_download_all(self):
-        if self._dw.myPushButton31.text() == self._ui.tr("Cancel"):
+        if self._dw.myPushButton31.text() == TR.CANCEL:
             self.cancel_download()
             return
         self._tab3_iter(process="download")
@@ -644,7 +655,7 @@ class JPDataManager:
         self._tab3_iter(process="add")
 
     def myPB_Addr_1_clicked(self):
-        if self._dw.myPB_Addr_1.text() == self._ui.tr("Download"):
+        if self._dw.myPB_Addr_1.text() == TR.DOWNLOAD:
             self._dl_url_zip = []
             self._dl_iter = 0
             for i in range(1, 48):
@@ -665,7 +676,7 @@ class JPDataManager:
                     )
             if len(self._dl_url_zip) > 0:
                 self._download_iter_2()
-        elif self._dw.myPB_Addr_1.text() == self._ui.tr("Jump"):
+        elif self._dw.myPB_Addr_1.text() == TR.JUMP:
             lon, lat = jpDataAddr.get_lonlat_by_addr(
                 self._folderPath,
                 str(self._dw.myCB_Addr_1.currentText()),
@@ -696,11 +707,11 @@ class JPDataManager:
             self._folderPath,
             self._dw.myCB_Addr_1.currentText(),
         ):
-            self._dw.myPB_Addr_1.setText(self._ui.tr("Download"))
-            self.setLabel(self._ui.tr("Missing address data."))
+            self._dw.myPB_Addr_1.setText(TR.DOWNLOAD)
+            self.setLabel(TR.ADDRESS_MISSING)
             self._dl_status = "ADDRESS"
         else:
-            self._dw.myPB_Addr_1.setText(self._ui.tr("Jump"))
+            self._dw.myPB_Addr_1.setText(TR.JUMP)
 
     def _tab1_iter(self, process):
         if not self.tab1CheckSelected():
@@ -812,13 +823,13 @@ class JPDataManager:
             # Get mesh codes
             list_item = self._dw.myListWidget33.selectedItems()
             if self._dw.myComboBox32.currentIndex() == 1:
-                name_muni_suffix = " " + self._ui.tr("3rd")
+                name_muni_suffix = " " + TR.X3_MESH
             elif self._dw.myComboBox32.currentIndex() == 2:
-                name_muni_suffix = " " + self._ui.tr("4th")
+                name_muni_suffix = " " + TR.X4_MESH
             elif self._dw.myComboBox32.currentIndex() == 3:
-                name_muni_suffix = " " + self._ui.tr("5th")
+                name_muni_suffix = " " + TR.X5_MESH
             elif self._dw.myComboBox32.currentIndex() == 4:
-                name_muni_suffix = " " + self._ui.tr("6th")
+                name_muni_suffix = " " + TR.X6_MESH
 
         if process == "add":
             for _item_name_or_code in list_item:
@@ -844,7 +855,7 @@ class JPDataManager:
 
                 if shp_full_path is None:
                     self.setLabel(
-                        self._ui.tr("Cannot find the .shp file: ") + shp_filename,
+                        TR.CANNOT_FIND_SHP_FILE(shp_filename),
                         critical=True,
                     )
                     break

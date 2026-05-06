@@ -380,9 +380,7 @@ def unzipAndGetShp(
     zip_to_folder = zip_file[:-4]
 
     def try_find(base):
-        path = findShpFile2(
-            base, shp_file, altdir, code_pref, code_muni, name_muni
-        )
+        path = findShpFile2(base, shp_file, altdir, code_pref, code_muni, name_muni)
         if path:
             _create_proj_qix_cpg(path, epsg, encoding)
             return path
@@ -396,8 +394,7 @@ def unzipAndGetShp(
 
     # --- if not, unzip ---
     zipFileName = (
-        zip_file
-        .replace("code_pref", code_pref)
+        zip_file.replace("code_pref", code_pref)
         .replace("code_muni", code_muni)
         .replace("name_muni", name_muni)
     )
@@ -498,9 +495,9 @@ def set_pref_items(widget):
     widget.clear()
 
     # QListWidget and QComboBox has addItems(List[str])
-    if hasattr(widget, 'addItems'):
+    if hasattr(widget, "addItems"):
         widget.addItems(prefs)
-    
+
     widget.blockSignals(False)
 
 
