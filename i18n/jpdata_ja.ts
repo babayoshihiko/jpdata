@@ -184,24 +184,34 @@
         <translation>ファイルが見つかりません: %1</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="76"/>
+        <location filename="../i18n.py" line="88"/>
         <source>Downloading: %1</source>
         <translation>ダウンロード中: %1</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="81"/>
+        <location filename="../i18n.py" line="93"/>
         <source>The file already exists: %1</source>
         <translation>ファイルが存在します: %1</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="93"/>
+        <location filename="../i18n.py" line="105"/>
         <source>The layer has %1 invalid geometries.</source>
         <translation>このレイヤには、%1 の不正なジオメトリがあります。</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="86"/>
+        <location filename="../i18n.py" line="98"/>
         <source>Invalid EPSG: %1. Uses default instead.</source>
         <translation>不正な EPSG: %1。デフォルトを使用します。</translation>
+    </message>
+    <message>
+        <location filename="../i18n.py" line="76"/>
+        <source>Cannot find the file for layer: %1</source>
+        <translation>このレイヤのファイルが見つかりません: %1</translation>
+    </message>
+    <message>
+        <location filename="../i18n.py" line="83"/>
+        <source>Cannot load the layer: %1</source>
+        <translation>このレイヤを読み込むことができません: %1</translation>
     </message>
 </context>
 <context>

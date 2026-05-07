@@ -2,7 +2,8 @@
 
 # Translate
 /Volumes/mac/App/QGIS-LTR.app/Contents/MacOS/bin/pylupdate -noobsolete i18n/jpdata.pro
-open -a "Linguist" i18n/ja.ts
+/Volumes/mac/App/QGIS-LTR.app/Contents/MacOS/bin/pylupdate i18n.py -ts i18n/jpdata_ja.ts
+open -a "/Volumes/mac/App/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app"
 
 # Version
 

@@ -195,13 +195,11 @@ class JPDataManager:
     ):
         # --- Create layer ---
         if shpFileFullPath is None:
-            self.setLabel(
-                self._ui.tr("Failed to locate the file for layer: ") + layerName
-            )
+            self.setLabel(TR.CANNOT_FIND_FILE_LAYER(layerName))
             return None
         layer = QgsVectorLayer(shpFileFullPath, layerName, "ogr")
         if not layer.isValid():
-            self.setLabel(self._ui.tr("Failed to load layer: ") + shpFileFullPath)
+            self.setLabel(TR.CANNOT_LOAD_LAYER(layerName))
             return None
 
         layer.setProviderEncoding(encoding)
@@ -875,7 +873,7 @@ class JPDataManager:
                         code_pref,
                         code_muni,
                         self._dw.myComboBox32.currentIndex(),
-                        self._folderPath
+                        self._folderPath,
                     )
                     encoding = "CP932"
                     if csv_filename is not None:

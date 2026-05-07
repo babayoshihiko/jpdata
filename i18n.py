@@ -72,6 +72,18 @@ class TR:
         return template.replace("%1", str(name))
 
     @staticmethod
+    def CANNOT_FIND_FILE_LAYER(name):
+        template = QCoreApplication.translate(
+            "jpData", "Cannot find the file for layer: %1"
+        )
+        return template.replace("%1", str(name))
+
+    @staticmethod
+    def CANNOT_LOAD_LAYER(name):
+        template = QCoreApplication.translate("jpData", "Cannot load the layer: %1")
+        return template.replace("%1", str(name))
+
+    @staticmethod
     def DOWNLOADING(name):
         template = QCoreApplication.translate("jpData", "Downloading: %1")
         return template.replace("%1", str(name))
