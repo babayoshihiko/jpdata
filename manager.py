@@ -29,24 +29,6 @@ class JPDataManager:
         self._iface = iface
         self._plugin_dir = os.path.dirname(__file__)
 
-        # # 1. 言語コードの取得 (QGISの設定を優先)
-        # # QLocale.system().name() でもOK
-        # lang = QLocale().name()[0:2]
-
-        # # 2. 正しいファイル名の組み立て
-        # # 今回は "jpdata_ja.qm" を探す前提
-        # locale_path = posixpath.join(self._plugin_dir, "i18n", f"jpdata_{lang}.qm")
-
-        # if posixpath.exists(locale_path):
-        #     # 3. 親オブジェクト (QCoreApplication) を指定して消えないようにする
-        #     self.translator = QTranslator(QCoreApplication.instance())
-
-        #     if self.translator.load(locale_path):
-        #         QCoreApplication.installTranslator(self.translator)
-        #     else:
-        #         # 念のためロード失敗をログに出す
-        #         print(f"DEBUG: Failed to load {locale_path}")
-
         self._dw = None
         self._ui = None
 

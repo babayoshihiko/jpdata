@@ -228,51 +228,6 @@ def get_attr_csv_fullpath(year, code_pref, code_muni, type_muni=0, folder="."):
         return path_t
 
 
-def DELETE_downloadCsv(folder, year, code_pref, code_muni, type_muni=0):
-
-    attrUrl = getAttrUrl(year, code_pref, code_muni, type_muni)
-    attrZip = getAttrZipFileName(year, code_pref, code_muni, type_muni)
-    if not os.path.exists(posixpath.join(folder, "Census")):
-        os.makedirs(posixpath.join(folder, "Census"), exist_ok=True)
-    if type_muni == 0:
-        folder_path = posixpath.join(folder, "Census")
-    elif type_muni == 1:
-        folder_path = posixpath.join(folder, "Census", "SDDSWS")
-    elif type_muni == 2:
-        folder_path = posixpath.join(folder, "Census", "HDDSWH")
-    elif type_muni == 3:
-        folder_path = posixpath.join(folder, "Census", "QDDSWQ")
-
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path, exist_ok=True)
-
-    urlData = requests.get(attrUrl).content
-    with open(
-        posixpath.join(folder_path, attrZip), mode="wb"
-    ) as f:  # "wb" can write bytes
-        f.write(urlData)
-
-    # Below is a workaround for a zip file with Japanese filenames/foldernames
-    if os.path.exists(posixpath.join(folder_path, attrZip)):
-        with zipfile.ZipFile(posixpath.join(folder_path, attrZip), "r") as zf:
-            # Iterate through each file in the zip
-            for zip_info in zf.infolist():
-                # Extract the filename using the correct encoding
-                # (e.g. 'cp932' for Japanese Windows)
-                filename = zip_info.filename.encode("cp437").decode("cp932")
-                # Construct the output file path
-                output_file_path = posixpath.join(folder_path, filename)
-                if zip_info.is_dir():
-                    # Create directories if they do not exist
-                    os.makedirs(output_file_path, exist_ok=True)
-                else:
-                    os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
-                    # Extract the file
-                    with zf.open(zip_info) as file:
-                        with open(output_file_path, "wb") as out_file:
-                            out_file.write(file.read())
-
-
 def perform_join(folder, year, shp_name, csv_name):
     import os
     import posixpath
@@ -326,39 +281,6 @@ def perform_join(folder, year, shp_name, csv_name):
     if not lyr_shp.isValid() or not lyr_csv.isValid():
         return None, None
 
-    # --- Debug begins ---
-    print("--- JOIN DEBUG START ---")
-
-    def debug_layer(label, lyr, field_name):
-        print(f"[{label}]")
-        if lyr is None:
-            print("  ❌ The layer is None.")
-            return
-        print(f"  Name: {lyr.name()}")
-        print(f"  Valid: {lyr.isValid()}")
-        print(f"  Source: {lyr.source()}")
-
-        # Checks all the fields of the both layers
-        fields = lyr.fields()
-        field_names = [f.name() for f in fields]
-        print(f"  Available Fields: {field_names}")
-
-        idx = fields.indexFromName(field_name)
-        if idx == -1:
-            print(f"  ❌ Cannot find field '{field_name}' ")
-        else:
-            f_obj = fields[idx]
-            print(
-                f"  ✅ Found field '{field_name}' (Index: {idx}, Type: {f_obj.typeName()})"
-            )
-
-    # Checks shp and csv 
-    debug_layer("INPUT (SHP)", lyr_shp, "KEY_CODE")
-    debug_layer("INPUT_2 (CSV)", lyr_csv, "KEY_CODE")
-
-    print("--- JOIN DEBUG END ---")
-    # --- Debug ends ---
-
     join_params = {
         "INPUT": lyr_shp,
         "FIELD": "KEY_CODE",
@@ -387,83 +309,6 @@ def perform_join(folder, year, shp_name, csv_name):
     del lyr_csv
 
     return output_path, "UTF-8"
-
-
-def DELETE_performJoin_old(folder, year, shp, csv):
-    shp_encoding = "CP932"  # The encoding for shp
-    if not folder in shp:
-        shp = posixpath.join(folder, shp)
-    output = shp[:-4] + "-" + year + ".shp"
-    if not folder in csv:
-        csv = posixpath.join(folder, csv)
-    if csv[-4:] == ".txt":
-        if os.path.exists(csv[:-4] + ".csv"):
-            csv = csv[:-4] + ".csv"
-        else:
-            if os.path.exists(csv):
-                line_no = 0
-                # The encoding for csv
-                fout = open(csv[:-4] + ".csv", "w+", encoding="UTF-8")
-                with open(csv, "r", encoding="CP932") as fp:
-                    for line in fp:
-                        line_no = line_no + 1
-                        if line_no != 2:
-                            fout.write(line.replace("*", ""))
-                        else:
-                            count = line.count(",")
-                            if count <= 4:
-                                csvt = "String"
-                                minus = 0
-                            else:
-                                csvt = "String,Integer,String,String"
-                                minus = 3
-                            for _ in range(count - minus):
-                                csvt += ",Integer"
-
-                            with open(
-                                csv[:-4] + ".csvt", "w", encoding="UTF-8"
-                            ) as fout2:
-                                fout2.write(csvt)
-                fout.close()
-                csv = csv[:-4] + ".csv"
-            else:
-                return shp, shp_encoding
-
-    # Now all file names are full path
-
-    if not os.path.exists(output):
-        # See https://docs.qgis.org/testing/en/docs/user_manual/processing_algs/qgis/vectorgeneral.html#join-attributes-by-field-value
-        # Or type `processing.algorithmHelp("qgis:joinattributestable")`  in QGIS Python console.
-        if os.path.exists(shp) and os.path.exists(csv):
-            joinInfo = {
-                "INPUT": shp,
-                "FIELD": "KEY_CODE",
-                "INPUT_2": csv,
-                "FIELD_2": "KEY_CODE",
-                "OUTPUT": output,
-            }
-            processing.run("qgis:joinattributestable", joinInfo)
-
-            vl = QgsVectorLayer(output, "joined", "ogr")
-
-            options = QgsVectorFileWriter.SaveVectorOptions()
-            options.fileEncoding = "UTF-8"
-
-            QgsVectorFileWriter.writeAsVectorFormatV2(
-                vl, output, QgsCoordinateTransformContext(), options
-            )
-
-    cfg = output[:-4] + ".cpg"
-    if os.path.exists(cfg):
-        with open(cfg, "r") as fp:
-            for line in fp:
-                if "shift_jis" in line.lower():
-                    shp_encoding = "CP932"
-                    break
-                elif "utf-8" in line.lower():
-                    break
-
-    return output, shp_encoding
 
 
 def set_year_items(combo_widget, first_year=2000):
