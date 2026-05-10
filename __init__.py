@@ -32,5 +32,5 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :type iface: QgsInterface
     """
     #
-    from .jpdata import jpdata
-    return jpdata(iface)
+    from .jpdata import jpData
+    return jpData(iface)
