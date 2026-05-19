@@ -36,7 +36,7 @@
     <message>
         <location filename="../i18n.py" line="13"/>
         <source>Add to Map</source>
-        <translation>地図に追加&lt;</translation>
+        <translation>地図に追加</translation>
     </message>
     <message>
         <location filename="../i18n.py" line="14"/>
@@ -141,7 +141,7 @@
     <message>
         <location filename="../i18n.py" line="52"/>
         <source>LandNumInfo</source>
-        <translation>国土数値情報&lt;</translation>
+        <translation>国土数値情報</translation>
     </message>
     <message>
         <location filename="../i18n.py" line="53"/>
