@@ -8,6 +8,7 @@ open -a "/Volumes/mac/App/QGIS-LTR.app/Contents/Resources/python/site-packages/q
 # Version
 
 perl -pi -e "s|version=0.6.25|version=0.7.0|g" metadata.txt
+git add .
 git commit -m "Version 0.7.0"
 git push origin main
 git tag -a v0.7.0 -m 'version 0.7.0'

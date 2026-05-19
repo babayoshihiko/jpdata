@@ -25,6 +25,8 @@ hasProcessingProvider=no
 changelog=
       0.7.0:
         * Supports QGIS 4.0
+        * Refactoring
+        * Many new LNIs
       0.6.25:
         * Rewrote unzip
         * LNI: A31a
