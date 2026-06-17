@@ -7,12 +7,12 @@ open -a "/Volumes/mac/App/QGIS-LTR.app/Contents/Resources/python/site-packages/q
 
 # Version
 
-perl -pi -e "s|version=0.6.25|version=0.7.0|g" metadata.txt
+perl -pi -e "s|version=0.7.0|version=0.7.1|g" metadata.txt
 git add .
-git commit -m "Version 0.7.0"
+git commit -m "Version 0.7.1"
 git push origin main
-git tag -a v0.7.0 -m 'version 0.7.0'
-git push origin v0.7.0
+git tag -a v0.7.1 -m 'version 0.7.1'
+git push origin v0.7.1
 
 # Create ZIP
 mkdir ../qgis_plugins
@@ -36,6 +36,7 @@ rm -f jpdata/zip_plugin.sh
 rm -f jpdata/README.md
 rm -f jpdata/i18n/jpdata_ja.ts
 rm -f jpdata/i18n/jpdata.pro
+rm -rf jpdata/help
 rm -rf jpdata/helper_script
 rm -f jpdata/pylintrc
 rm -f jpdata/qml/G04-a-2011-20250219.qml

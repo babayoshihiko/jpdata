@@ -744,6 +744,7 @@ class JPDataManager:
                 )
                 shp_full_path = jpDataUtils.unzipAndGetShp(
                     posixpath.join(self._folderPath, subfolder),
+                    year,
                     zip_filename,
                     shp_filename,
                     altdir,
@@ -829,6 +830,7 @@ class JPDataManager:
 
                 shp_full_path = jpDataUtils.unzipAndGetShp(
                     posixpath.join(self._folderPath, subfolder),
+                    year,
                     zip_filename,
                     shp_filename,
                 )

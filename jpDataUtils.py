@@ -343,16 +343,17 @@ def getTilesFromCsv():
         return rows
 
 
-def findShpFile2(folderPath, shp, altdir, code_pref, code_muni="", name_muni=""):
+def findShpFile2(folderPath, year, shp, altdir, code_pref, code_muni="", name_muni=""):
     shpFile = None
     shpFileTarget = replaceCodes(
         shp,
+        year=year,
         code_pref_or_mesh1=code_pref,
         code_muni=code_muni,
         name_muni=name_muni,
     )
     altDir = replaceCodes(
-        altdir, code_pref_or_mesh1=code_pref, code_muni=code_muni, name_muni=name_muni
+        altdir, year=year, code_pref_or_mesh1=code_pref, code_muni=code_muni, name_muni=name_muni
     )
     if os.path.exists(posixpath.join(folderPath, shpFileTarget)):
         shpFile = posixpath.join(folderPath, shpFileTarget)
@@ -368,6 +369,7 @@ def findShpFile2(folderPath, shp, altdir, code_pref, code_muni="", name_muni="")
 
 def unzipAndGetShp(
     folder_path,
+    year,
     zip_file,
     shp_file,
     altdir="",
@@ -380,7 +382,7 @@ def unzipAndGetShp(
     zip_to_folder = zip_file[:-4]
 
     def try_find(base):
-        path = findShpFile2(base, shp_file, altdir, code_pref, code_muni, name_muni)
+        path = findShpFile2(base, year, shp_file, altdir, code_pref, code_muni, name_muni)
         if path:
             _create_proj_qix_cpg(path, epsg, encoding)
             return path
