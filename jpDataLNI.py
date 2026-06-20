@@ -31,6 +31,11 @@ def getPrefsOrRegionsByMapCode(code_map, csvfile=None):
 
 
 def getYearsByMapCode(code_map, name_pref=None, csvfile=None):
+    try:
+        years = [int(csvfile)]
+        return years
+    except ValueError:
+        pass
     if csvfile.upper()[-3:] == "CSV" and len(csvfile) > 3:
         file_path = _get_csv_full_path(csvfile)
     else:
@@ -203,11 +208,14 @@ def getZip(
 
     if dict_lni_item["year"].upper()[-3:] == "CSV" and len(dict_lni_item["year"]) > 3:
         tempCsvFile = dict_lni_item["year"]
+        year = None
+        dict_lni_item_from_csv = _get_url_by_pref_name(
+            dict_lni_item["code_map"], pref_name, year, detail, tempCsvFile
+        )
     else:
         tempCsvFile = None
-    dict_lni_item_from_csv = _get_url_by_pref_name(
-        dict_lni_item["code_map"], pref_name, year, detail, tempCsvFile
-    )
+        dict_lni_item_from_csv = None
+
 
     if tempTypeMuni == "mesh1":
         # str_replace_before = "code_mesh1"
