@@ -208,7 +208,6 @@ def getZip(
 
     if dict_lni_item["year"].upper()[-3:] == "CSV" and len(dict_lni_item["year"]) > 3:
         tempCsvFile = dict_lni_item["year"]
-        year = None
         dict_lni_item_from_csv = _get_url_by_pref_name(
             dict_lni_item["code_map"], pref_name, year, detail, tempCsvFile
         )

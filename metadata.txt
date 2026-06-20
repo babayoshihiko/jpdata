@@ -25,7 +25,7 @@ hasProcessingProvider=no
 changelog=
       0.7.0:
         * Removed unused help directory
-        * LNI A33, A40, A45, N03, N13, P29
+        * LNI A31b, A33, A40, A45, N03, N13, P29
       0.7.0:
         * Supports QGIS 4.0
         * Refactoring

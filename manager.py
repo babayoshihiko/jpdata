@@ -314,6 +314,7 @@ class JPDataManager:
             self._tab1_set_LW13(name_pref)
 
     def _tab1_check_year(self, name_map=None):
+        current_year = self._dw.myComboBox11.currentText()
         thisLandNum = self._land_info[name_map]
         name_pref = None
         self._dw.myComboBox11.clear()
@@ -329,12 +330,27 @@ class JPDataManager:
             for year in years:
                 if year:
                     self._dw.myComboBox11.addItem(year)
+        # Restore selection if it still exists
+        index = self._dw.myComboBox11.findText(current_year)
+        if index != -1:
+            self._dw.myComboBox11.setCurrentIndex(index)
+        else:
+            self._dw.myComboBox11.setCurrentIndex(0)
         self._tab1_set_LW13()
 
     def _cb11_changed(self, index):
         self._tab1_set_LW13()
 
+
     def _tab1_set_LW13(self, name_pref=None):
+        str_selected_details = {
+            item.text()
+            for item in self._dw.myListWidget13.selectedItems()
+        }
+        str_current_text = None
+        if self._dw.myListWidget13.currentItem():
+            str_current_text = self._dw.myListWidget13.currentItem().text()
+
         if len(self._dw.myListWidget11.selectedItems()) == 0:
             return
         if name_pref is None:
@@ -362,13 +378,22 @@ class JPDataManager:
             details = jpDataMesh.getMesh1ByPrefName(name_pref)
 
         for detail in details:
-            self._dw.myListWidget13.addItem(QListWidgetItem(detail))
+            item = QListWidgetItem(detail)
+            self._dw.myListWidget13.addItem(item)
+
+            if detail in str_selected_details:
+                item.setSelected(True)
+
+            if detail == str_current_text:
+                self._dw.myListWidget13.setCurrentItem(item)
+
 
     def tab1Web(self):
         items = self._dw.myListWidget11.selectedItems()
         if items:
             thisLandNum = self._land_info[items[0].text()]
             QDesktopServices.openUrl(QUrl(thisLandNum["source"]))
+
 
     def chooseFolder(self):
         from qgis.PyQt.QtWidgets import QFileDialog
