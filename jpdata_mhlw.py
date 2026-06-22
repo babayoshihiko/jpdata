@@ -61,13 +61,12 @@ class JPDataMHLW:
         self, year, name_map, type="urlzip", lang="ja"
     ):
         filePath = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
-        years = []
         with open(filePath, "r", encoding="utf-8-sig") as f:
             reader = csv.DictReader(f)
             for row in reader:
                 if row.get("name_j") == name_map and row.get("year") == year:
 
-                    tempSubFolder = "MHLW"
+                    tempSubFolder = posixpath.join("MHLW",year)
                     tempUrl = row.get("url")
                     tempZip = row.get("zip")
                     tempShp = row.get("shp")
@@ -80,6 +79,12 @@ class JPDataMHLW:
                     if type == "urlzip":
                         return tempUrl, tempZip, tempSubFolder
                     else:
+                        if row.get("code_map","")[:4] == "LTCI":
+                            xField = "経度"
+                            yField = "緯度"
+                        else:
+                            xField = "事業所経度"
+                            yField = "事業所緯度"
                         return (
                             tempZip,
                             tempShp,
@@ -89,5 +94,7 @@ class JPDataMHLW:
                             tempEncoding,
                             tempSubFolder,
                             tempLayerName,
+                            xField,
+                            yField
                         )
         return None

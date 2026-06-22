@@ -11,6 +11,7 @@ from qgis.core import (
     QgsPointXY,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
+    QgsWkbTypes
 )
 
 from .i18n import TR
@@ -178,7 +179,7 @@ class JPDataManager:
         pass
         # This is a method for local testing purpose.
 
-    def _add_map(
+    def _add_map_old(
         self,
         shpFileFullPath,
         layerName,
@@ -237,6 +238,100 @@ class JPDataManager:
         QgsProject.instance().addMapLayer(layer)
 
         return layer
+
+    def _add_map(
+        self,
+        shpFileFullPath,
+        layerName,
+        qmlFileName=None,
+        encoding="CP932",
+        epsg=None,
+        xField=None,
+        yField=None,
+    ):
+
+        if shpFileFullPath is None:
+            self.setLabel(TR.CANNOT_FIND_FILE_LAYER(layerName))
+            return None
+
+        # ------------------------------
+        # Create layer
+        # ------------------------------
+        if xField and yField:
+
+            uri = (
+                f"file:///{shpFileFullPath}"
+                f"?encoding={encoding}"
+                f"&delimiter=,"
+                f"&xField={xField}"
+                f"&yField={yField}"
+            )
+
+            layer = QgsVectorLayer(uri, layerName, "delimitedtext")
+
+        else:
+
+            layer = QgsVectorLayer(
+                shpFileFullPath,
+                layerName,
+                "ogr",
+            )
+
+            layer.setProviderEncoding(encoding)
+
+        if not layer.isValid():
+            self.setLabel(TR.CANNOT_LOAD_LAYER(layerName))
+            return None
+
+        # --- CRS ---
+        if epsg:
+            epsg_str = str(epsg).strip()
+
+            if epsg_str.upper().startswith("EPSG:"):
+                epsg_str = epsg_str[5:]
+
+            if epsg_str.isdigit():
+
+                epsg_int = int(epsg_str)
+                crs = QgsCoordinateReferenceSystem.fromEpsgId(epsg_int)
+
+                if crs.isValid():
+                    layer.setCrs(crs)
+                else:
+                    self.setLabel(TR.INVALID_EPSG(epsg))
+
+        # --- Check geometry ---
+        geom_type = layer.geometryType()
+        if (
+            geom_type != QgsWkbTypes.PointGeometry
+            and not self._dw.myCheckBox2.isChecked()
+        ):
+            count_invalid = jpDataUtils.count_invalid_geometry(layer)
+            if count_invalid > 0:
+                layer.setName(f"{layerName} [invalid]")
+                self.setLabel(TR.INVALID_GEOM(count_invalid))
+
+        # --- Style from QML file ---
+        if qmlFileName:
+            qml_path = posixpath.join(self._plugin_dir, "qml", qmlFileName)
+            if os.path.isfile(qml_path):
+                with tempfile.TemporaryDirectory() as temp_dir:
+                    temp_qml = posixpath.join(temp_dir, qmlFileName)
+
+                    with open(qml_path, "r") as f:
+                        contents = f.read().replace("PLUGIN_DIR", self._plugin_dir)
+
+                    with open(temp_qml, "w") as f:
+                        f.write(contents)
+
+                    if layer.loadNamedStyle(temp_qml):
+                        layer.triggerRepaint()
+
+        # --- Add to the current project ---
+        QgsProject.instance().addMapLayer(layer)
+
+        return layer
+
 
     def LW11_itemSelectionChanged(self):
         if len(self._dw.myListWidget11.selectedItems()) == 0:
@@ -961,6 +1056,8 @@ class JPDataManager:
                     encoding,
                     subfolder,
                     layer_name,
+                    xField,
+                    yField
                 ) =  self.MHLW.get_zip(
                     year,
                     this_service.text(),
@@ -981,6 +1078,8 @@ class JPDataManager:
                     qml_filename,
                     encoding=encoding,
                     epsg=epsg,
+                    xField=xField,
+                    yField=yField
                 )
         elif process == "download":
             self._dl_url_zip = []
