@@ -22,6 +22,7 @@ from . import jpDataCensus
 from . import jpDataMuni
 from . import jpDataMesh
 from . import jpDataAddr
+from . import jpdata_mhlw
 
 
 class JPDataManager:
@@ -36,6 +37,8 @@ class JPDataManager:
         self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
         self._land_info = jpDataUtils.getMapsFromCsv2()
         self._GSI = jpDataUtils.getTilesFromCsv()
+        self.MHLW = jpdata_mhlw.JPDataMHLW()
+        self.MHLW.init(self._folderPath)
 
         self._downloader = jpDataDownloader.DownloadThread()
         self._dl_status = ""
@@ -55,7 +58,9 @@ class JPDataManager:
             self.setup_initial_ui_state()
 
         if self._ui:
-            self._ui.init_tabs(self._land_info, self._folderPath)
+            self._ui.init_tabs(self._land_info, 
+                               self._folderPath,
+                               self.MHLW.get_names())
             jpDataCensus.set_year_items(self._dw.myComboBox31, 2000)
 
         # QGIS 4 compatible
@@ -73,7 +78,7 @@ class JPDataManager:
             self._dw.myTabWidget.setCurrentIndex(0)
         else:
             self._dw.myLabel1.setText(TR.CHOOSE_FOLDER_INIT())
-            self._dw.myTabWidget.setCurrentIndex(4)
+            self._dw.myTabWidget.setCurrentIndex(5)
 
         if self._proxyServer:
             self._dw.myLineEditSetting1.setText(self._proxyServer)
@@ -109,6 +114,12 @@ class JPDataManager:
         )  ## NEEDS REFACTORING to itemSelectionChanged
         dw.myListWidget32.itemSelectionChanged.connect(self._LW32_itemSelectionChanged)
         dw.myComboBox32.currentIndexChanged.connect(self._LW32_itemSelectionChanged)
+
+        # Tab MHLW
+        dw.myLW_MHLW.currentRowChanged.connect(self._mhlw_service_changed)
+        dw.myPB_MHLW_1.clicked.connect(self._tab_mhlw_web)
+        dw.myPB_MHLW_2.clicked.connect(self._tab_mhlw_download_all)
+        dw.myPB_MHLW_3.clicked.connect(self._tab_mhlw_add_map)
 
         # Tab 4 / Settings
         dw.myTabWidget.currentChanged.connect(self._tab_changed)
@@ -314,12 +325,11 @@ class JPDataManager:
             self._tab1_set_LW13(name_pref)
 
     def _tab1_check_year(self, name_map=None):
-        current_year = self._dw.myComboBox11.currentText()
-        thisLandNum = self._land_info[name_map]
+        years = []
         name_pref = None
-        self._dw.myComboBox11.clear()
+        thisLandNum = self._land_info[name_map]
         if thisLandNum["year"].upper()[-3:] != "CSV":
-            self._dw.myComboBox11.addItem(thisLandNum["year"])
+            years = thisLandNum["year"]
         else:
             if len(self._dw.myListWidget12.selectedItems()) > 0:
                 if thisLandNum["type_muni"].lower() != "mesh1":
@@ -327,15 +337,7 @@ class JPDataManager:
             years = jpDataLNI.getYearsByMapCode(
                 thisLandNum["code_map"], name_pref, thisLandNum["year"]
             )
-            for year in years:
-                if year:
-                    self._dw.myComboBox11.addItem(year)
-        # Restore selection if it still exists
-        index = self._dw.myComboBox11.findText(current_year)
-        if index != -1:
-            self._dw.myComboBox11.setCurrentIndex(index)
-        else:
-            self._dw.myComboBox11.setCurrentIndex(0)
+        self._ui.set_years_CB(years, self._dw.myComboBox11)
         self._tab1_set_LW13()
 
     def _cb11_changed(self, index):
@@ -488,24 +490,13 @@ class JPDataManager:
                 self.setLabel(TR.FILE_EXISTS(tempZipFileName))
         if _start_download:
             self._dw.progressBar.setValue(0)
-            self.enable_download(False)
+            self._ui.enable_download(False)
             self._dl_iter = x + 1
             self.start_download(tempUrl, tempSubFolder, tempZipFileName)
         else:
-            self.enable_download()
+            self._ui.enable_download()
             self._dl_iter = 0
 
-    def enable_download(self, enable=True):
-        if enable:
-            self._dw.myPushButton11.setText(TR.DOWNLOAD())
-            self._dw.myPushButton31.setText(TR.DOWNLOAD())
-            self._dw.myPushButton14.setEnabled(True)
-            self._dw.myPushButton32.setEnabled(True)
-        else:
-            self._dw.myPushButton11.setText(TR.CANCEL())
-            self._dw.myPushButton31.setText(TR.CANCEL())
-            self._dw.myPushButton14.setEnabled(False)
-            self._dw.myPushButton32.setEnabled(False)
 
     def start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(posixpath.join(self._folderPath, subFolder)):
@@ -518,21 +509,21 @@ class JPDataManager:
             self._downloader.setFilePath(
                 posixpath.join(self._folderPath, subFolder, zipFileName)
             )
-            self.enable_download(False)
+            self._ui.enable_download(False)
             if self._dw.myCheckBox1.isChecked():
                 self._downloader.download_wo_thread()
-                self.enable_download()
+                self._ui.enable_download()
             else:
                 self._downloader.start()
         else:
             # The file existance was checked, so this should not happen, but just in case
             self.setLabel(TR.FILE_EXISTS(zipFileName))
-            self.enable_download()
+            self._ui.enable_download()
 
     def download_finished(self, success):
         current_text = self._dw.myLabelStatus.text()
         self.setLabel(current_text + TR.DONE())
-        self.enable_download()
+        self._ui.enable_download()
         self._dw.progressBar.setValue(100)
 
         if len(self._dl_url_zip) > 0 and self._dl_iter < len(self._dl_url_zip):
@@ -554,7 +545,7 @@ class JPDataManager:
             self._downloader.stop()
         else:
             self._downloader = jpDataDownloader.DownloadThread()
-        self.enable_download()
+        self._ui.enable_download()
 
     def set_proxy(self):
         _proxyServer = self._dw.myLineEditSetting1.text()
@@ -943,5 +934,87 @@ class JPDataManager:
                     )
             self._download_iter_2()
 
+
+    def _mhlw_service_changed(self, row):
+        item = self._dw.myLW_MHLW.item(row)
+        if item is None:
+            return
+        service_name = item.text()
+        years = self.MHLW.get_years(service_name, self._plugin_dir)
+        self._ui.set_years_CB(years, self._dw.myCB_MHLW)
+
+
+    def _tab_mhlw_iter(self, process):
+        # if not self.tab1CheckSelected():
+        #     return
+        year = self._dw.myCB_MHLW.currentText()
+        these_services = self._dw.myLW_MHLW.selectedItems()
+
+        if process == "add":
+            for this_service in these_services:
+                (
+                    zip_filename,
+                    shp_filename,
+                    altdir,
+                    qml_filename,
+                    epsg,
+                    encoding,
+                    subfolder,
+                    layer_name,
+                ) =  self.MHLW.get_zip(
+                    year,
+                    this_service.text(),
+                    type="add"
+                )
+                shp_full_path = jpDataUtils.unzipAndGetShp(
+                    posixpath.join(self._folderPath, subfolder),
+                    year,
+                    zip_filename,
+                    shp_filename,
+                    altdir,
+                    epsg=epsg,
+                    encoding=encoding,
+                )
+                self._add_map(
+                    shp_full_path,
+                    layer_name,
+                    qml_filename,
+                    encoding=encoding,
+                    epsg=epsg,
+                )
+        elif process == "download":
+            self._dl_url_zip = []
+            self._dl_iter = 0
+            for this_service in these_services:
+                url, zip_filename, subfolder = self.MHLW.get_zip(
+                    year,
+                    this_service.text(),
+                    type="urlzip"
+                )
+                if zip_filename is not None:
+                    self._dl_url_zip.append(
+                        {
+                            "year": year,
+                            "url": url,
+                            "zip": zip_filename,
+                            "subfolder": subfolder,
+                        }
+                    )
+            self._download_iter_2()
+
+    def _tab_mhlw_web(self):
+        items = self._dw.myListWidget11.selectedItems()
+        if items:
+            thisLandNum = self._land_info[items[0].text()]
+            QDesktopServices.openUrl(QUrl(thisLandNum["source"]))
+
+    def _tab_mhlw_download_all(self):
+        if self._dw.myPB_MHLW_2.text() == TR.CANCEL():
+            self.cancel_download()
+            return
+        self._tab_mhlw_iter(process="download")
+
+    def _tab_mhlw_add_map(self):
+        self._tab_mhlw_iter(process="add")
 
 # End of manager.py

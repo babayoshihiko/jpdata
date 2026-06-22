@@ -23,7 +23,9 @@ repository=https://github.com/babayoshihiko/jpdata
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
-      0.7.0:
+      0.7.2
+        * Many bugfixes (Many thanks to MLIT College Geographical Survey Institute students 2026)
+      0.7.1:
         * Removed unused help directory
         * LNI A31b, A33, A40, A45, N03, N13, P29
       0.7.0:

@@ -11,26 +11,33 @@ def getYearAs(year, format="year2digit"):
     yearJP = 'R5'
     yearJP2digit = '05'
     """
-    year_as = ""
-    if format == "year4digit":
-        year_as = str(year)
-    elif format == "year2digit":
-        year_as = str(year)[2:4]
-    elif format == "yearJP":
-        if int(year) - 2018 > 0:
-            year_as = "R" + str(int(year) - 2018)
-        elif int(year) - 1998 > 0:
-            year_as = "H" + str(int(year) - 1988)
-        else:
-            year_as = "H" + str(int(year) - 1925)
-    elif format == "yearJP2digit":
-        if int(year) - 2018 > 0:
-            year_as = str(int(year) - 2018).zfill(2)
-        elif int(year) - 1998 > 0:
-            year_as = str(int(year) - 1988).zfill(2)
-        else:
-            year_as = str(int(year) - 1925).zfill(2)
-    return year_as
+    try:
+        if format == "year4digit":
+            return str(year)
+
+        elif format == "year2digit":
+            return str(year)[2:4]
+
+        elif format == "yearJP":
+            if int(year) - 2018 > 0:
+                return "R" + str(int(year) - 2018)
+            elif int(year) - 1998 > 0:
+                return "H" + str(int(year) - 1988)
+            else:
+                return "S" + str(int(year) - 1925)
+
+        elif format == "yearJP2digit":
+            if int(year) - 2018 > 0:
+                return str(int(year) - 2018).zfill(2)
+            elif int(year) - 1998 > 0:
+                return str(int(year) - 1988).zfill(2)
+            else:
+                return str(int(year) - 1925).zfill(2)
+
+        return str(year)
+
+    except Exception:
+        return year
 
 
 def getPrefNameByCode(pref_code):
@@ -303,36 +310,24 @@ def getPrefCodeByName(pref_name):
     return pref_code
 
 
-# def getMapsFromCsv():
-#     filePath = posixpath.join(os.path.dirname(__file__), "csv", "LandNumInfo.csv")
-#     with open(filePath, "r") as f:
-#         csvreader = csv.DictReader(f)
-#         rows = list(csvreader)
-#         return rows
-
-
-# def getMapsFromCsv2():
-#     filePath = posixpath.join(os.path.dirname(__file__), "csv", "LandNumInfo.csv")
-#     new_dict = dict()
-#
-#     with open(filePath, "r") as f:
-#         csvreader = csv.DictReader(f)
-#         for row in csvreader:
-#             new_dict.update({row["name_j"]: row})
-#     return new_dict
-
-
-def getMapsFromCsv2():
-    filePath = posixpath.join(os.path.dirname(__file__), "csv", "LandNumInfo.csv")
+def get_map_list_from_csv(csvfile, lang="ja"):
+    filePath = posixpath.join(os.path.dirname(__file__), "csv", csvfile)
     new_dict = {}
 
     with open(filePath, "r", encoding="utf-8") as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
-            key = row.get("name_j")
+            if lang=="en":
+                key = row.get("name_e")
+            else:
+                key = row.get("name_j")
             if key:  # only add if key exists
                 new_dict[key] = row
     return new_dict
+
+
+def getMapsFromCsv2():
+    return get_map_list_from_csv("LandNumInfo.csv")
 
 
 def getTilesFromCsv():

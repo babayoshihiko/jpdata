@@ -1,0 +1,93 @@
+# -*- coding: utf-8 -*-
+import os
+import csv
+import posixpath
+from . import jpDataUtils
+
+
+class JPDataMHLW:
+    """
+    MHLWデータコア（UI完全分離版）
+
+    責務：
+    - CSV読み込み
+    - データフィルタ
+    - download/extract情報生成
+    """
+
+    _instance = None
+
+    @classmethod
+    def instance(cls):
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
+
+    # --------------------------------------------------
+    # init（UIなし）
+    # --------------------------------------------------
+
+    def init(self, download_dir):
+
+        self.download_dir = download_dir
+
+        self.df_mhlw = jpDataUtils.get_map_list_from_csv("mhlw.csv")
+        self.mhlw_source_csv = "mhlw_source.csv"
+
+
+    # --------------------------------------------------
+    # selection logic（UIから呼ばれる）
+    # --------------------------------------------------
+
+
+    def get_names(self, lang="ja"):
+        return self.df_mhlw 
+
+
+    def get_years(self, name_j, plugin_dir):
+        filePath = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
+        years = []
+        with open(filePath, "r", encoding="utf-8-sig") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if row.get("name_j") == name_j:
+                    year = row.get("year")
+                    if year:
+                        years.append(year)
+        return years
+
+
+    def get_zip(
+        self, year, name_map, type="urlzip", lang="ja"
+    ):
+        filePath = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
+        years = []
+        with open(filePath, "r", encoding="utf-8-sig") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if row.get("name_j") == name_map and row.get("year") == year:
+
+                    tempSubFolder = "MHLW"
+                    tempUrl = row.get("url")
+                    tempZip = row.get("zip")
+                    tempShp = row.get("shp")
+                    tempAltdir = ""
+                    tempQml = row.get("qml")
+                    tempEpsg = "6668"
+                    tempEncoding = "UTF-8"
+                    tempLayerName = name_map + " (" + year + ")"
+
+                    if type == "urlzip":
+                        return tempUrl, tempZip, tempSubFolder
+                    else:
+                        return (
+                            tempZip,
+                            tempShp,
+                            tempAltdir,
+                            tempQml,
+                            tempEpsg,
+                            tempEncoding,
+                            tempSubFolder,
+                            tempLayerName,
+                        )
+        return None
