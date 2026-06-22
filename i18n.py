@@ -156,6 +156,10 @@ class TR:
         return QCoreApplication.translate("jpData", "LandNumInfo")
 
     @staticmethod
+    def MHLW():
+        return QCoreApplication.translate("jpData", "MHLW")
+
+    @staticmethod
     def NATIONWIDE():
         return QCoreApplication.translate("jpData", "Nation-wide")
 

@@ -82,7 +82,7 @@ class JPDataUIHandler:
         )
 
     def _set_tab_mhlw(self, i):
-        self.dw.myTabWidget.setTabText(i, "MHLW")
+        self.dw.myTabWidget.setTabText(i, TR.MHLW())
         self.dw.myPB_MHLW_1.setText(TR.WEB())
         self.dw.myPB_MHLW_2.setText(TR.DOWNLOAD())
         self.dw.myPB_MHLW_3.setText(TR.ADD_TO_MAP())
