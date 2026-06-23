@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, posixpath, tempfile
-from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QLocale, QUrl
+from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.core import (
@@ -34,7 +34,7 @@ class JPDataManager:
         self._dw = None
         self._ui = None
         self._lang = "e"
-        if QLocale.system().language() == "ja_JP":
+        if QgsSettings().value("locale/userLocale", "en") == "ja":
             self._lang = "j"
 
         self._folderPath = QSettings().value("jpdata/FolderPath", "~")
@@ -802,7 +802,7 @@ class JPDataManager:
             self._dw.myCB_Addr_1.currentText(),
         ):
             self._dw.myPB_Addr_1.setText(TR.DOWNLOAD())
-            self.setLabel(TR.ADDRESS_MISSING)
+            self.setLabel(TR.ADDRESS_MISSING())
             self._dl_status = "ADDRESS"
         else:
             self._dw.myPB_Addr_1.setText(TR.JUMP())
@@ -1038,7 +1038,7 @@ class JPDataManager:
         if item is None:
             return
         service_name = item.text()
-        years = self.MHLW.get_years(service_name, self._plugin_dir)
+        years = self.MHLW.get_years(service_name, self._lang)
         self._ui.set_years_CB(years, self._dw.myCB_MHLW)
 
 

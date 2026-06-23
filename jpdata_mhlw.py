@@ -41,7 +41,7 @@ class JPDataMHLW:
         with open(filePath, "r", encoding="utf-8-sig") as f:
             reader = csv.DictReader(f)
             for row in reader:
-                if row.get("name_j") == name_j or row.get("name_e") == name_j :
+                if row.get("name_j") == name_j or row.get("name_e") == name_j:
                     year = row.get("year")
                     if year:
                         years.append(year)
