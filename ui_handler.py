@@ -86,6 +86,12 @@ class JPDataUIHandler:
         self.dw.myPB_MHLW_1.setText(TR.WEB())
         self.dw.myPB_MHLW_2.setText(TR.DOWNLOAD())
         self.dw.myPB_MHLW_3.setText(TR.ADD_TO_MAP())
+        # Selection Modes
+        self.dw.myLW_MHLW.setSelectionMode(
+            QAbstractItemView.SelectionMode.ExtendedSelection
+            if hasattr(QAbstractItemView, "SelectionMode")
+            else QAbstractItemView.ExtendedSelection
+        )
 
     def _setup_tab_addr(self, i):
         self.dw.myTabWidget.setTabText(i, TR.ADDRESS())
@@ -101,7 +107,7 @@ class JPDataUIHandler:
         self._init_tab_mhlw(MHLW_names)
         self._init_tab_addr(folder_path)
 
-    def _init_tab1(self, land_info_dict):
+    def _init_tab1(self, land_info_dict, lang="ja"):
         self.dw.myListWidget11.clear()
         bg = (
             Qt.GlobalColor.darkGray
@@ -115,7 +121,9 @@ class JPDataUIHandler:
             Qt.GlobalColor.gray if hasattr(Qt, "GlobalColor") else Qt.gray
         )
         for thisLandNum in land_info_dict.values():
-            item = QListWidgetItem(thisLandNum["name_j"])
+            item = QListWidgetItem(thisLandNum["name_e"])
+            if lang=="ja":
+                item = QListWidgetItem(thisLandNum["name_j"])
 
             if thisLandNum["availability"] != "yes":
                 # Disable selection
@@ -135,7 +143,7 @@ class JPDataUIHandler:
     def _init_tab3(self):
         jpDataUtils.set_pref_items(self.dw.myListWidget31)
 
-    def _init_tab_mhlw(self, MHLW_names):
+    def _init_tab_mhlw(self, MHLW_names, lang="ja"):
         self.dw.myLW_MHLW.clear()
         bg = (
             Qt.GlobalColor.darkGray
@@ -146,7 +154,10 @@ class JPDataUIHandler:
             Qt.GlobalColor.white if hasattr(Qt, "GlobalColor") else Qt.white
         )
         for thisService in MHLW_names.values():
-            item = QListWidgetItem(thisService["name_j"])
+            item = QListWidgetItem(thisService["name_e"])
+            if lang=="ja":
+                item = QListWidgetItem(thisService["name_j"])
+ 
             if thisService["code_map"] != "heading":
                 # item.setBackground(fg)
                 # item.setForeground(bg)

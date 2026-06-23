@@ -33,6 +33,9 @@ class JPDataManager:
 
         self._dw = None
         self._ui = None
+        lang = "en"
+        if QLocale.system().language() == "ja_JP":
+            lang = "ja"
 
         self._folderPath = QSettings().value("jpdata/FolderPath", "~")
         self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")

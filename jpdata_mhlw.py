@@ -6,15 +6,6 @@ from . import jpDataUtils
 
 
 class JPDataMHLW:
-    """
-    MHLWデータコア（UI完全分離版）
-
-    責務：
-    - CSV読み込み
-    - データフィルタ
-    - download/extract情報生成
-    """
-
     _instance = None
 
     @classmethod
@@ -44,13 +35,13 @@ class JPDataMHLW:
         return self.df_mhlw 
 
 
-    def get_years(self, name_j, plugin_dir):
+    def get_years(self, name_j, lang="ja"):
         filePath = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
         years = []
         with open(filePath, "r", encoding="utf-8-sig") as f:
             reader = csv.DictReader(f)
             for row in reader:
-                if row.get("name_j") == name_j:
+                if row.get("name_j") == name_j or row.get("name_e") == name_j :
                     year = row.get("year")
                     if year:
                         years.append(year)
@@ -64,7 +55,7 @@ class JPDataMHLW:
         with open(filePath, "r", encoding="utf-8-sig") as f:
             reader = csv.DictReader(f)
             for row in reader:
-                if row.get("name_j") == name_map and row.get("year") == year:
+                if (row.get("name_j") == name_map or row.get("name_e") == name_map) and row.get("year") == year:
 
                     tempSubFolder = posixpath.join("MHLW",year)
                     tempUrl = row.get("url")

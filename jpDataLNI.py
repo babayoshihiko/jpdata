@@ -187,7 +187,13 @@ def _get_url_by_pref_code(
 
 
 def getZip(
-    year, dict_lni_item, pref_name, code_pref_or_mesh1, type="urlzip", detail=None
+    year, 
+    dict_lni_item, 
+    pref_name, 
+    code_pref_or_mesh1, 
+    type="urlzip", 
+    detail=None,
+    lang="ja"
 ):
     if not "code_map" in dict_lni_item:
         jpDataUtils.showError(
@@ -204,7 +210,9 @@ def getZip(
     tempQml = dict_lni_item["qml"]
     tempEpsg = dict_lni_item["epsg"]
     tempEncoding = dict_lni_item["encoding"].upper()
-    tempLayerName = dict_lni_item["name_j"] + " (" + pref_name + "," + year + ")"
+    tempLayerName = dict_lni_item["name_e"] + " (" + pref_name + "," + year + ")"
+    if lang == "ja":
+        tempLayerName = dict_lni_item["name_j"] + " (" + pref_name + "," + year + ")"
 
     if dict_lni_item["year"].upper()[-3:] == "CSV" and len(dict_lni_item["year"]) > 3:
         tempCsvFile = dict_lni_item["year"]
@@ -217,10 +225,13 @@ def getZip(
 
 
     if tempTypeMuni == "mesh1":
-        # str_replace_before = "code_mesh1"
         tempLayerName = (
-            dict_lni_item["name_j"] + " (" + code_pref_or_mesh1 + "," + year + ")"
+            dict_lni_item["name_e"] + " (" + code_pref_or_mesh1 + "," + year + ")"
         )
+        if lang == "ja":
+            tempLayerName = (
+                dict_lni_item["name_j"] + " (" + code_pref_or_mesh1 + "," + year + ")"
+            )
     if dict_lni_item_from_csv:
         # Read data from CSV
         tempUrl = dict_lni_item_from_csv["url"]
