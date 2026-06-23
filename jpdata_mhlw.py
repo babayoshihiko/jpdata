@@ -31,11 +31,11 @@ class JPDataMHLW:
     # --------------------------------------------------
 
 
-    def get_names(self, lang="ja"):
+    def get_names(self, lang="j"):
         return self.df_mhlw 
 
 
-    def get_years(self, name_j, lang="ja"):
+    def get_years(self, name_j, lang="j"):
         filePath = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
         years = []
         with open(filePath, "r", encoding="utf-8-sig") as f:
@@ -49,7 +49,7 @@ class JPDataMHLW:
 
 
     def get_zip(
-        self, year, name_map, type="urlzip", lang="ja"
+        self, year, name_map, type="urlzip", lang="j"
     ):
         filePath = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
         with open(filePath, "r", encoding="utf-8-sig") as f:

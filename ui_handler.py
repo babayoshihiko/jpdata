@@ -101,13 +101,13 @@ class JPDataUIHandler:
         self.dw.myCheckBox1.setText(TR.SETTING_BACKGROUND())
         self.dw.myCheckBox2.setText(TR.SETTING_GEOMETRY())
 
-    def init_tabs(self, land_info_dict, folder_path, MHLW_names):
-        self._init_tab1(land_info_dict)
-        self._init_tab3()
-        self._init_tab_mhlw(MHLW_names)
+    def init_tabs(self, land_info_dict, folder_path, MHLW_names, lang="j"):
+        self._init_tab1(land_info_dict, lang = lang)
+        self._init_tab3(lang = lang)
+        self._init_tab_mhlw(MHLW_names, lang = lang)
         self._init_tab_addr(folder_path)
 
-    def _init_tab1(self, land_info_dict, lang="ja"):
+    def _init_tab1(self, land_info_dict, lang="j"):
         self.dw.myListWidget11.clear()
         bg = (
             Qt.GlobalColor.darkGray
@@ -122,7 +122,7 @@ class JPDataUIHandler:
         )
         for thisLandNum in land_info_dict.values():
             item = QListWidgetItem(thisLandNum["name_e"])
-            if lang=="ja":
+            if lang=="j":
                 item = QListWidgetItem(thisLandNum["name_j"])
 
             if thisLandNum["availability"] != "yes":
@@ -140,10 +140,10 @@ class JPDataUIHandler:
 
             self.dw.myListWidget11.addItem(item)
 
-    def _init_tab3(self):
-        jpDataUtils.set_pref_items(self.dw.myListWidget31)
+    def _init_tab3(self, lang = "j"):
+        jpDataUtils.set_pref_items(self.dw.myListWidget31, lang = lang)
 
-    def _init_tab_mhlw(self, MHLW_names, lang="ja"):
+    def _init_tab_mhlw(self, MHLW_names, lang="j"):
         self.dw.myLW_MHLW.clear()
         bg = (
             Qt.GlobalColor.darkGray
@@ -155,7 +155,7 @@ class JPDataUIHandler:
         )
         for thisService in MHLW_names.values():
             item = QListWidgetItem(thisService["name_e"])
-            if lang=="ja":
+            if lang=="j":
                 item = QListWidgetItem(thisService["name_j"])
  
             if thisService["code_map"] != "heading":
@@ -172,7 +172,7 @@ class JPDataUIHandler:
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
             self.dw.myLW_MHLW.addItem(item)
 
-    def _init_tab_addr(self, folder_path):
+    def _init_tab_addr(self, folder_path, lang = "j"):
         jpDataUtils.set_pref_items(self.dw.myCB_Addr_1)
         if os.path.exists(
             os.path.join(folder_path, "Addr")

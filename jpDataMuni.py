@@ -19,13 +19,13 @@ def getMuniFromPrefCode(code_pref):
     return filtered_rows
 
 
-def getMuniFromPrefName(name_pref):
+def getMuniFromPrefName(name_pref, lang="j"):
     filePath = os.path.join(os.path.dirname(__file__), "csv", "code_pref_muni.csv")
     filtered_rows = []
     with open(filePath, "r") as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
-            if len(row) >= 2 and row["name_pref"] == name_pref:
+            if len(row) >= 2 and row["name_pref_" + lang] == name_pref:
                 filtered_rows.append(row)
     return filtered_rows
 
@@ -67,23 +67,34 @@ def getRowFromNames(name_pref, name_muni):
                 return row
 
 
-def get_all_designated_cities(year=2024):
+def get_all_designated_cities(year=2024, lang="j"):
     """Return all the designated cities"""
     year_int = int(year)
     # The current list as of 2026
-    cities = {
-        "札幌市", "仙台市", "千葉市", "さいたま市", "横浜市", "川崎市",
-        "相模原市", "新潟市", "静岡市", "浜松市", "名古屋市", "京都市",
-        "大阪市", "堺市", "神戸市", "岡山市", "広島市", "福岡市",
-        "北九州市", "熊本市"
-    }
+    if lang == "ja":
+        cities = {
+            "札幌市", "仙台市", "千葉市", "さいたま市", "横浜市", "川崎市",
+            "相模原市", "新潟市", "静岡市", "浜松市", "名古屋市", "京都市",
+            "大阪市", "堺市", "神戸市", "岡山市", "広島市", "福岡市",
+            "北九州市", "熊本市"
+        }
+    else:
+        cities = {
+            "Sapporo", "Sendai", "Chiba", "Saitama", "Yokohama", "Kawasaki",
+            "Sagamihara", "Niigata", "Shizuoka", "Hamamatsu", "Nagoya", "Kyoto",
+            "Osaka", "Sakai", "Kobe", "Okayama", "Hiroshima", "Fukuoka",
+            "Kitakyushu", "Kumamoto"
+        }
 
-    # Discard cities by
+    # Discard cities by year
     if year_int < 2012:
         cities.discard("熊本市")
+        cities.discard("Kumamoto")
     if year_int < 2010:
         cities.discard("相模原市")
+        cities.discard("Sagamihara")
     if year_int < 2009:
         cities.discard("岡山市")
+        cities.discard("Okayama")
 
     return cities

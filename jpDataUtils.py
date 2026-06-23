@@ -40,137 +40,142 @@ def getYearAs(year, format="year2digit"):
         return year
 
 
-def getPrefNameByCode(pref_code):
-    pref_name = ""
-    if pref_code == 1:
-        pref_name = "北海道"
-    elif pref_code == 2:
-        pref_name = "青森県"
-    elif pref_code == 3:
-        pref_name = "岩手県"
-    elif pref_code == 4:
-        pref_name = "宮城県"
-    elif pref_code == 5:
-        pref_name = "秋田県"
-    elif pref_code == 6:
-        pref_name = "山形県"
-    elif pref_code == 7:
-        pref_name = "福島県"
-    elif pref_code == 8:
-        pref_name = "茨城県"
-    elif pref_code == 9:
-        pref_name = "栃木県"
-    elif pref_code == 10:
-        pref_name = "群馬県"
-    elif pref_code == 11:
-        pref_name = "埼玉県"
-    elif pref_code == 12:
-        pref_name = "千葉県"
-    elif pref_code == 13:
-        pref_name = "東京都"
-    elif pref_code == 14:
-        pref_name = "神奈川県"
-    elif pref_code == 15:
-        pref_name = "新潟県"
-    elif pref_code == 16:
-        pref_name = "富山県"
-    elif pref_code == 17:
-        pref_name = "石川県"
-    elif pref_code == 18:
-        pref_name = "福井県"
-    elif pref_code == 19:
-        pref_name = "山梨県"
-    elif pref_code == 20:
-        pref_name = "長野県"
-    elif pref_code == 21:
-        pref_name = "岐阜県"
-    elif pref_code == 22:
-        pref_name = "静岡県"
-    elif pref_code == 23:
-        pref_name = "愛知県"
-    elif pref_code == 24:
-        pref_name = "三重県"
-    elif pref_code == 25:
-        pref_name = "滋賀県"
-    elif pref_code == 26:
-        pref_name = "京都府"
-    elif pref_code == 27:
-        pref_name = "大阪府"
-    elif pref_code == 28:
-        pref_name = "兵庫県"
-    elif pref_code == 29:
-        pref_name = "奈良県"
-    elif pref_code == 30:
-        pref_name = "和歌山県"
-    elif pref_code == 31:
-        pref_name = "鳥取県"
-    elif pref_code == 32:
-        pref_name = "島根県"
-    elif pref_code == 33:
-        pref_name = "岡山県"
-    elif pref_code == 34:
-        pref_name = "広島県"
-    elif pref_code == 35:
-        pref_name = "山口県"
-    elif pref_code == 36:
-        pref_name = "徳島県"
-    elif pref_code == 37:
-        pref_name = "香川県"
-    elif pref_code == 38:
-        pref_name = "愛媛県"
-    elif pref_code == 39:
-        pref_name = "高知県"
-    elif pref_code == 40:
-        pref_name = "福岡県"
-    elif pref_code == 41:
-        pref_name = "佐賀県"
-    elif pref_code == 42:
-        pref_name = "長崎県"
-    elif pref_code == 43:
-        pref_name = "熊本県"
-    elif pref_code == 44:
-        pref_name = "大分県"
-    elif pref_code == 45:
-        pref_name = "宮崎県"
-    elif pref_code == 46:
-        pref_name = "鹿児島県"
-    elif pref_code == 47:
-        pref_name = "沖縄県"
-    elif pref_code == 52:
-        pref_name = "東北地方"
-    elif pref_code == 53:
-        pref_name = "関東地方"
-    elif pref_code == 54:
-        pref_name = "甲信越・北陸地方"
-    elif pref_code == 55:
-        pref_name = "東海地方"
-    elif pref_code == 56:
-        pref_name = "近畿地方"
-    elif pref_code == 57:
-        pref_name = "中国地方"
-    elif pref_code == 58:
-        pref_name = "四国地方"
-    elif pref_code == 59:
-        pref_name = "九州地方"
-    elif pref_code == 81:
-        pref_name = "北海道開発局"
-    elif pref_code == 82:
-        pref_name = "東北地方整備局"
-    elif pref_code == 83:
-        pref_name = "関東地方整備局"
-    elif pref_code == 84:
-        pref_name = "北陸地方整備局"
-    elif pref_code == 85:
-        pref_name = "中部地方整備局"
-    elif pref_code == 86:
-        pref_name = "近畿地方整備局"
-    elif pref_code == 87:
-        pref_name = "中国地方整備局"
-    elif pref_code == 88:
-        pref_name = "四国地方整備局"
-    elif pref_code == 89:
-        pref_name = "九州地方整備局"
-
+def getPrefNameByCode(pref_code, lang="j"):
+    PREF_NAMES = {
+        "j": {
+            1: "北海道",
+            2: "青森県",
+            3: "岩手県",
+            4: "宮城県",
+            5: "秋田県",
+            6: "山形県",
+            7: "福島県",
+            8: "茨城県",
+            9: "栃木県",
+            10: "群馬県",
+            11: "埼玉県",
+            12: "千葉県",
+            13: "東京都",
+            14: "神奈川県",
+            15: "新潟県",
+            16: "富山県",
+            17: "石川県",
+            18: "福井県",
+            19: "山梨県",
+            20: "長野県",
+            21: "岐阜県",
+            22: "静岡県",
+            23: "愛知県",
+            24: "三重県",
+            25: "滋賀県",
+            26: "京都府",
+            27: "大阪府",
+            28: "兵庫県",
+            29: "奈良県",
+            30: "和歌山県",
+            31: "鳥取県",
+            32: "島根県",
+            33: "岡山県",
+            34: "広島県",
+            35: "山口県",
+            36: "徳島県",
+            37: "香川県",
+            38: "愛媛県",
+            39: "高知県",
+            40: "福岡県",
+            41: "佐賀県",
+            42: "長崎県",
+            43: "熊本県",
+            44: "大分県",
+            45: "宮崎県",
+            46: "鹿児島県",
+            47: "沖縄県",
+            52: "東北地方",
+            53: "関東地方",
+            54: "甲信越・北陸地方",
+            55: "東海地方",
+            56: "近畿地方",
+            57: "中国地方",
+            58: "四国地方",
+            59: "九州地方",
+            81: "北海道開発局",
+            82: "東北地方整備局",
+            83: "関東地方整備局",
+            84: "北陸地方整備局",
+            85: "中部地方整備局",
+            86: "近畿地方整備局",
+            87: "中国地方整備局",
+            88: "四国地方整備局",
+            89: "九州地方整備局",
+        },
+        "e": {
+            1: "Hokkaido",
+            2: "Aomori",
+            3: "Iwate",
+            4: "Miyagi",
+            5: "Akita",
+            6: "Yamagata",
+            7: "Fukushima",
+            8: "Ibaraki",
+            9: "Tochigi",
+            10: "Gunma",
+            11: "Saitama",
+            12: "Chiba",
+            13: "Tokyo",
+            14: "Kanagawa",
+            15: "Niigata",
+            16: "Toyama",
+            17: "Ishikawa",
+            18: "Fukui",
+            19: "Yamanashi",
+            20: "Nagano",
+            21: "Gifu",
+            22: "Shizuoka",
+            23: "Aichi",
+            24: "Mie",
+            25: "Shiga",
+            26: "Kyoto",
+            27: "Osaka",
+            28: "Hyogo",
+            29: "Nara",
+            30: "Wakayama",
+            31: "Tottori",
+            32: "Shimane",
+            33: "Okayama",
+            34: "Hiroshima",
+            35: "Yamaguchi",
+            36: "Tokushima",
+            37: "Kagawa",
+            38: "Ehime",
+            39: "Kochi",
+            40: "Fukuoka",
+            41: "Saga",
+            42: "Nagasaki",
+            43: "Kumamoto",
+            44: "Oita",
+            45: "Miyazaki",
+            46: "Kagoshima",
+            47: "Okinawa",
+            52: "Tohoku",
+            53: "Kanto",
+            54: "Koshinetsu and Hokuriku",
+            55: "Tokai",
+            56: "Kinki",
+            57: "Chugoku",
+            58: "Shikoku",
+            59: "Kyushu",
+            81: "Hokkaido Regional Development Bureau",
+            82: "Tohoku Regional Development Bureau",
+            83: "Kanto Regional Development Bureau",
+            84: "Hokuriku Regional Development Bureau",
+            85: "Chubu Regional Development Bureau",
+            86: "Kinki Regional Development Bureau",
+            87: "Chugoku Regional Development Bureau",
+            88: "Shikoku Regional Development Bureau",
+            89: "Kyushu Regional Development Bureau",
+        },
+    }
+    pref_name = PREF_NAMES.get(lang, PREF_NAMES["e"]).get(pref_code, "")
     return pref_name
 
 
@@ -178,156 +183,152 @@ def getPrefCodeByName(pref_name):
     pref_code = ""
     pref_name = pref_name.strip()
     pref_name = pref_name.replace("県", "")
-    if pref_name == "北海道":
+    if pref_name == "北海道" or pref_name == "Hokkaido":
         pref_code = "01"
-    elif pref_name == "青森":
+    elif pref_name == "青森" or pref_name == "Aomori":
         pref_code = "02"
-    elif pref_name == "岩手":
+    elif pref_name == "岩手" or pref_name == "Iwate":
         pref_code = "03"
-    elif pref_name == "宮城":
+    elif pref_name == "宮城" or pref_name == "Miyagi":
         pref_code = "04"
-    elif pref_name == "秋田":
+    elif pref_name == "秋田" or pref_name == "Akita":
         pref_code = "05"
-    elif pref_name == "山形":
+    elif pref_name == "山形" or pref_name == "Yamagata":
         pref_code = "06"
-    elif pref_name == "福島":
+    elif pref_name == "福島" or pref_name == "Fukushima":
         pref_code = "07"
-    elif pref_name == "茨城":
+    elif pref_name == "茨城" or pref_name == "Ibaraki":
         pref_code = "08"
-    elif pref_name == "栃木":
+    elif pref_name == "栃木" or pref_name == "Tochigi":
         pref_code = "09"
-    elif pref_name == "群馬":
+    elif pref_name == "群馬" or pref_name == "Gunma":
         pref_code = "10"
-    elif pref_name == "埼玉":
+    elif pref_name == "埼玉" or pref_name == "Saitama":
         pref_code = "11"
-    elif pref_name == "千葉":
+    elif pref_name == "千葉" or pref_name == "Chiba":
         pref_code = "12"
-    elif pref_name == "東京都" or pref_name == "東京":
+    elif pref_name == "東京都" or pref_name == "東京" or pref_name == "Tokyo":
         pref_code = "13"
-    elif pref_name == "神奈川":
+    elif pref_name == "神奈川" or pref_name == "Kanagawa":
         pref_code = "14"
-    elif pref_name == "新潟":
+    elif pref_name == "新潟" or pref_name == "Niigata":
         pref_code = "15"
-    elif pref_name == "富山":
+    elif pref_name == "富山" or pref_name == "Toyama":
         pref_code = "16"
-    elif pref_name == "石川":
+    elif pref_name == "石川" or pref_name == "Ishikawa":
         pref_code = "17"
-    elif pref_name == "福井":
+    elif pref_name == "福井" or pref_name == "Fukui":
         pref_code = "18"
-    elif pref_name == "山梨":
+    elif pref_name == "山梨" or pref_name == "Yamanashi":
         pref_code = "19"
-    elif pref_name == "長野":
+    elif pref_name == "長野" or pref_name == "Nagano":
         pref_code = "20"
-    elif pref_name == "岐阜":
+    elif pref_name == "岐阜" or pref_name == "Gifu":
         pref_code = "21"
-    elif pref_name == "静岡":
+    elif pref_name == "静岡" or pref_name == "Shizuoka":
         pref_code = "22"
-    elif pref_name == "愛知":
+    elif pref_name == "愛知" or pref_name == "Aichi":
         pref_code = "23"
-    elif pref_name == "三重":
+    elif pref_name == "三重" or pref_name == "Mie":
         pref_code = "24"
-    elif pref_name == "滋賀":
+    elif pref_name == "滋賀" or pref_name == "Shiga":
         pref_code = "25"
-    elif pref_name == "京都府" or pref_name == "京都":
+    elif pref_name == "京都府" or pref_name == "京都" or pref_name == "Kyoto":
         pref_code = "26"
-    elif pref_name == "大阪府" or pref_name == "大阪":
+    elif pref_name == "大阪府" or pref_name == "大阪" or pref_name == "Osaka":
         pref_code = "27"
-    elif pref_name == "兵庫":
+    elif pref_name == "兵庫" or pref_name == "Hyogo":
         pref_code = "28"
-    elif pref_name == "奈良":
+    elif pref_name == "奈良" or pref_name == "Nara":
         pref_code = "29"
-    elif pref_name == "和歌山":
+    elif pref_name == "和歌山" or pref_name == "Wakayama":
         pref_code = "30"
-    elif pref_name == "鳥取":
+    elif pref_name == "鳥取" or pref_name == "Tottori":
         pref_code = "31"
-    elif pref_name == "島根":
+    elif pref_name == "島根" or pref_name == "Shimane":
         pref_code = "32"
-    elif pref_name == "岡山":
+    elif pref_name == "岡山" or pref_name == "Okayama":
         pref_code = "33"
-    elif pref_name == "広島":
+    elif pref_name == "広島" or pref_name == "Hiroshima":
         pref_code = "34"
-    elif pref_name == "山口":
+    elif pref_name == "山口" or pref_name == "Yamaguchi":
         pref_code = "35"
-    elif pref_name == "徳島":
+    elif pref_name == "徳島" or pref_name == "Tokushima":
         pref_code = "36"
-    elif pref_name == "香川":
+    elif pref_name == "香川" or pref_name == "Kagawa":
         pref_code = "37"
-    elif pref_name == "愛媛":
+    elif pref_name == "愛媛" or pref_name == "Ehime":
         pref_code = "38"
-    elif pref_name == "高知":
+    elif pref_name == "高知" or pref_name == "Kochi":
         pref_code = "39"
-    elif pref_name == "福岡":
+    elif pref_name == "福岡" or pref_name == "Fkuoka":
         pref_code = "40"
-    elif pref_name == "佐賀":
+    elif pref_name == "佐賀" or pref_name == "Saga":
         pref_code = "41"
-    elif pref_name == "長崎":
+    elif pref_name == "長崎" or pref_name == "Nagasaki":
         pref_code = "42"
-    elif pref_name == "熊本":
+    elif pref_name == "熊本" or pref_name == "Kumamoto":
         pref_code = "43"
-    elif pref_name == "大分":
+    elif pref_name == "大分" or pref_name == "Oita":
         pref_code = "44"
-    elif pref_name == "宮崎":
+    elif pref_name == "宮崎" or pref_name == "Miyazaki":
         pref_code = "45"
-    elif pref_name == "鹿児島":
+    elif pref_name == "鹿児島" or pref_name == "Kagoshima":
         pref_code = "46"
-    elif pref_name == "沖縄":
+    elif pref_name == "沖縄" or pref_name == "Okinawa":
         pref_code = "47"
-    elif pref_name == "東北地方":
+    elif pref_name == "東北地方" or pref_name == "Tohoku":
         pref_code = "52"
-    elif pref_name == "関東地方":
+    elif pref_name == "関東地方" or pref_name == "Kanto":
         pref_code = "53"
-    elif pref_name == "甲信越・北陸地方":
+    elif pref_name == "甲信越・北陸地方" or pref_name == "Koshinetsu and Hokuriku":
         pref_code = "54"
-    elif pref_name == "東海地方":
+    elif pref_name == "東海地方" or pref_name == "Tokai":
         pref_code = "55"
-    elif pref_name == "近畿地方":
+    elif pref_name == "近畿地方" or pref_name == "Kinki":
         pref_code = "56"
-    elif pref_name == "中国地方":
+    elif pref_name == "中国地方" or pref_name == "Chugoku":
         pref_code = "57"
-    elif pref_name == "四国地方":
+    elif pref_name == "四国地方" or pref_name == "Shikoku":
         pref_code = "58"
-    elif pref_name == "九州地方":
+    elif pref_name == "九州地方" or pref_name == "Kyushu":
         pref_code = "59"
-    elif pref_name == "北海道開発局":
+    elif pref_name == "北海道開発局" or pref_name == "Hokkaido Regional Development Bureau":
         pref_code = "81"
-    elif pref_name == "東北地方整備局":
+    elif pref_name == "東北地方整備局" or pref_name == "Tohoku Regional Development Bureau":
         pref_code = "82"
-    elif pref_name == "関東地方整備局":
+    elif pref_name == "関東地方整備局" or pref_name == "Kanto Regional Development Bureau":
         pref_code = "83"
-    elif pref_name == "北陸地方整備局":
+    elif pref_name == "北陸地方整備局" or pref_name == "Hokuriku Regional Development Bureau":
         pref_code = "84"
-    elif pref_name == "中部地方整備局":
+    elif pref_name == "中部地方整備局" or pref_name == "Chubu Regional Development Bureau":
         pref_code = "85"
-    elif pref_name == "近畿地方整備局":
+    elif pref_name == "近畿地方整備局" or pref_name == "Kinki Regional Development Bureau":
         pref_code = "86"
-    elif pref_name == "中国地方整備局":
+    elif pref_name == "中国地方整備局" or pref_name == "Chugoku Regional Development Bureau":
         pref_code = "87"
-    elif pref_name == "四国地方整備局":
+    elif pref_name == "四国地方整備局" or pref_name == "Shikoku Regional Development Bureau":
         pref_code = "88"
-    elif pref_name == "九州地方整備局":
+    elif pref_name == "九州地方整備局" or pref_name == "Kyushu Regional Development Bureau":
         pref_code = "89"
-
     return pref_code
 
 
-def get_map_list_from_csv(csvfile, lang="ja"):
+def get_map_list_from_csv(csvfile, lang="j"):
     filePath = posixpath.join(os.path.dirname(__file__), "csv", csvfile)
     new_dict = {}
 
     with open(filePath, "r", encoding="utf-8") as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
-            if lang=="en":
-                key = row.get("name_e")
-            else:
-                key = row.get("name_j")
+            key = row.get("name_" + lang)
             if key:  # only add if key exists
                 new_dict[key] = row
     return new_dict
 
 
-def getMapsFromCsv2():
-    return get_map_list_from_csv("LandNumInfo.csv")
+def getMapsFromCsv2(lang="j"):
+    return get_map_list_from_csv("LandNumInfo.csv", lang)
 
 
 def getTilesFromCsv():
@@ -485,8 +486,8 @@ def replaceCodes(
     return text
 
 
-def set_pref_items(widget):
-    prefs = [getPrefNameByCode(i) for i in range(1, 48)]
+def set_pref_items(widget, lang = "j"):
+    prefs = [getPrefNameByCode(i, lang = lang) for i in range(1, 48)]
 
     widget.blockSignals(True)
     widget.clear()

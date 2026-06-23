@@ -33,13 +33,13 @@ class JPDataManager:
 
         self._dw = None
         self._ui = None
-        lang = "en"
+        self._lang = "e"
         if QLocale.system().language() == "ja_JP":
-            lang = "ja"
+            self._lang = "j"
 
         self._folderPath = QSettings().value("jpdata/FolderPath", "~")
         self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
-        self._land_info = jpDataUtils.getMapsFromCsv2()
+        self._land_info = jpDataUtils.getMapsFromCsv2(self._lang)
         self._GSI = jpDataUtils.getTilesFromCsv()
         self.MHLW = jpdata_mhlw.JPDataMHLW()
         self.MHLW.init(self._folderPath)
@@ -64,7 +64,8 @@ class JPDataManager:
         if self._ui:
             self._ui.init_tabs(self._land_info, 
                                self._folderPath,
-                               self.MHLW.get_names())
+                               self.MHLW.get_names(),
+                               lang = self._lang)
             jpDataCensus.set_year_items(self._dw.myComboBox31, 2000)
 
         # QGIS 4 compatible
@@ -94,7 +95,8 @@ class JPDataManager:
         )
 
         for row in self._GSI:
-            self._dw.myListWidget23.addItem(row["name_j"])
+            self._dw.myListWidget23.addItem(row["name_" + self._lang])
+
 
     def connect_signals(self):
         dw = self._dw
@@ -355,7 +357,7 @@ class JPDataManager:
         muni_type = thisLandNum.get("type_muni", "").lower()
 
         def all_prefs():
-            return [jpDataUtils.getPrefNameByCode(code) for code in range(1, 48)]
+            return [jpDataUtils.getPrefNameByCode(code, self._lang) for code in range(1, 48)]
 
         if muni_type in ("", "allprefs"):
             if not self._name_map_prev or prevLandNum.get(
@@ -371,7 +373,7 @@ class JPDataManager:
             if muni_type == "detail":
                 bol_show_LW13 = True
             str_new_LW12_text = jpDataLNI.getPrefsOrRegionsByMapCode(
-                thisLandNum["code_map"], thisLandNum["year"]
+                thisLandNum["code_map"], thisLandNum["year"], self._lang
             )
         elif muni_type == "mesh1":
             bol_show_LW13 = True
@@ -519,7 +521,7 @@ class JPDataManager:
         zoom_max = ""
 
         for current_gsi in self._GSI:
-            if current_gsi["name_j"] == tile_name:
+            if current_gsi["name_" + self._lang] == tile_name:
                 tile_url_base = current_gsi["url"]
                 zoom_min = current_gsi["zoom_min"]
                 zoom_max = current_gsi["zoom_max"]
@@ -666,18 +668,16 @@ class JPDataManager:
         name_pref = current.text()
         year = self._dw.myComboBox31.currentText()
 
-        designated_cities = jpDataMuni.get_all_designated_cities(year)
+        designated_cities = jpDataMuni.get_all_designated_cities(year, self._lang)
 
-        rows = jpDataMuni.getMuniFromPrefName(name_pref)
+        rows = jpDataMuni.getMuniFromPrefName(name_pref, self._lang)
         self._dw.myListWidget32.clear()
 
         for row in rows:
-            name = row["name_muni"]
+            name = row["name_muni_" + self._lang]
             if not name:
                 continue
-
             item = QListWidgetItem(name)
-
             if name in designated_cities:
                 if hasattr(Qt, "ItemFlag"):
                     item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsSelectable)

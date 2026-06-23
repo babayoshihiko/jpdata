@@ -3,7 +3,7 @@ import os, csv, posixpath
 from . import jpDataUtils
 
 
-def getPrefsOrRegionsByMapCode(code_map, csvfile=None):
+def getPrefsOrRegionsByMapCode(code_map, csvfile=None, lang="j"):
     if csvfile and csvfile.upper()[-3:] == "CSV" and len(csvfile) > 3:
         file_path = _get_csv_full_path(csvfile)
     else:
@@ -19,7 +19,7 @@ def getPrefsOrRegionsByMapCode(code_map, csvfile=None):
                         _allprefs = True
                         for code_pref in range(1, 48):
                             prefs_or_regions.append(
-                                jpDataUtils.getPrefNameByCode(code_pref)
+                                jpDataUtils.getPrefNameByCode(code_pref, lang)
                             )
                 else:
                     prefs_or_regions.append(row["availability"])
@@ -112,16 +112,16 @@ def getShapeByMapCodePrefNameYearDetail(code_map, name_pref, year, detail):
     return unique_details
 
 
-def _get_url_by_pref_name(code_map, name_pref, year, detail=None, csvfile=None):
+def _get_url_by_pref_name(code_map, name_pref, year, detail=None, csvfile=None, lang="j"):
     code_pref = jpDataUtils.getPrefCodeByName(name_pref)
-    return _get_url_by_pref_code(code_map, code_pref, year, detail, name_pref, csvfile)
+    return _get_url_by_pref_code(code_map, code_pref, year, detail, name_pref, csvfile, lang)
 
 
 def _get_url_by_pref_code(
-    code_map, code_pref, year, detail=None, name_pref=None, csvfile=None
+    code_map, code_pref, year, detail=None, name_pref=None, csvfile=None, lang="j"
 ):
     if name_pref is None:
-        name_pref = jpDataUtils.getPrefNameByCode(code_pref)
+        name_pref = jpDataUtils.getPrefNameByCode(code_pref, lang)
     file_path = ""
     if csvfile is not None:
         file_path = _get_csv_full_path(csvfile)
@@ -210,14 +210,12 @@ def getZip(
     tempQml = dict_lni_item["qml"]
     tempEpsg = dict_lni_item["epsg"]
     tempEncoding = dict_lni_item["encoding"].upper()
-    tempLayerName = dict_lni_item["name_e"] + " (" + pref_name + "," + year + ")"
-    if lang == "ja":
-        tempLayerName = dict_lni_item["name_j"] + " (" + pref_name + "," + year + ")"
+    tempLayerName = dict_lni_item["name_" + lang] + " (" + pref_name + "," + year + ")"
 
     if dict_lni_item["year"].upper()[-3:] == "CSV" and len(dict_lni_item["year"]) > 3:
         tempCsvFile = dict_lni_item["year"]
         dict_lni_item_from_csv = _get_url_by_pref_name(
-            dict_lni_item["code_map"], pref_name, year, detail, tempCsvFile
+            dict_lni_item["code_map"], pref_name, year, detail, tempCsvFile, lang
         )
     else:
         tempCsvFile = None
@@ -226,12 +224,8 @@ def getZip(
 
     if tempTypeMuni == "mesh1":
         tempLayerName = (
-            dict_lni_item["name_e"] + " (" + code_pref_or_mesh1 + "," + year + ")"
+            dict_lni_item["name_" + lang] + " (" + code_pref_or_mesh1 + "," + year + ")"
         )
-        if lang == "ja":
-            tempLayerName = (
-                dict_lni_item["name_j"] + " (" + code_pref_or_mesh1 + "," + year + ")"
-            )
     if dict_lni_item_from_csv:
         # Read data from CSV
         tempUrl = dict_lni_item_from_csv["url"]
