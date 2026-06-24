@@ -77,14 +77,17 @@ class jpDataLNI:
         csvfile = self.records[name_map].get("year")
         try:
             if csvfile is not None:
-                years = [int(csvfile)]
-                pref_or_region = self.records[name_map].get("availability",{})
+                # "type_muni" (record) == "availability" (source)
+                # THIS PART OF THE METHOD should be shared?
+                pref_or_region = self.records[name_map].get("type_muni",{})
                 if pref_or_region == "allprefs":
                     for code_pref in range(1, 48):
                         prefs_or_regions.append(
                             jpDataUtils.getPrefNameByCode(code_pref, self.lang)
                         )
-                return pref_or_region
+                else:
+                    prefs_or_regions.append(pref_or_region)
+                return prefs_or_regions
         except (ValueError, TypeError):
             pass
         
@@ -113,13 +116,9 @@ class jpDataLNI:
 
     def getYearsByMapCode(self, name_map, name_pref=None, csvfile=None):
         years = []
-        csvfile = self.records[name_map].get("year")
-        try:
-            if csvfile is not None:
-                years = [int(csvfile)]
-                return years
-        except (ValueError, TypeError):
-            pass
+        csvfile = self.records[name_map].get("year", "")
+        if csvfile.isdigit():
+            years.append(csvfile)
         
         self._set_source(name_map)
         for row in self.source:

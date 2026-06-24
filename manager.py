@@ -427,14 +427,11 @@ class JPDataManager:
     def _tab1_check_year(self, name_map):
         years = []
         name_pref = None
-        thisLandNum = self.LNI.get_records()[name_map]
-        if thisLandNum["year"].upper()[-3:] != "CSV":
-            years = thisLandNum["year"]
-        else:
-            if len(self._dw.myListWidget12.selectedItems()) > 0:
-                if thisLandNum["type_muni"].lower() != "mesh1":
-                    name_pref = self._dw.myListWidget12.selectedItems()[0].text()
-            years = self.LNI.get_years(name_map, name_pref)
+        record = self.LNI.get_records()[name_map]
+        if len(self._dw.myListWidget12.selectedItems()) > 0:
+            if record["type_muni"].lower() != "mesh1":
+                name_pref = self._dw.myListWidget12.selectedItems()[0].text()
+        years = self.LNI.get_years(name_map, name_pref)
         self._ui.set_years_CB(years, self._dw.myComboBox11)
         self._tab1_set_LW13()
 
