@@ -41,9 +41,13 @@ class JPDataManager:
         self._folderPath = QSettings().value("jpdata/FolderPath", "~")
         self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
         #self._land_info = jpDataUtils.getMapsFromCsv2(self._lang)
-        self.LNI = jpDataLNI(self._folderPath, self._lang)
+        self.LNI = jpDataLNI()
         self._GSI = jpDataUtils.getTilesFromCsv()
-        self.MHLW = jpDataMHLW(self._folderPath, self._lang)
+        self.MHLW = jpDataMHLW()
+        self.LNI.set_download_folder(self._folderPath)
+        self.LNI.set_lang(self._lang)
+        self.MHLW.set_download_folder(self._folderPath)
+        self.MHLW.set_lang(self._lang)
 
         self._downloader = jpDataDownloader.DownloadThread()
         self._dl_status = ""
@@ -371,9 +375,7 @@ class JPDataManager:
         elif muni_type in ("regional", "detail"):
             if muni_type == "detail":
                 bol_show_LW13 = True
-            str_new_LW12_text = self.LNI.get_prefs(
-                thisLandNum["code_map"], thisLandNum["year"]
-            )
+            str_new_LW12_text = self.LNI.get_prefs(name_map)
         elif muni_type == "mesh1":
             bol_show_LW13 = True
             str_new_LW12_text = all_prefs()
@@ -422,7 +424,7 @@ class JPDataManager:
         if thisLandNum["type_muni"].lower() in ("detail", "mesh1"):
             self._tab1_set_LW13(name_pref)
 
-    def _tab1_check_year(self, name_map=None):
+    def _tab1_check_year(self, name_map):
         years = []
         name_pref = None
         thisLandNum = self.LNI.get_records()[name_map]
@@ -432,9 +434,7 @@ class JPDataManager:
             if len(self._dw.myListWidget12.selectedItems()) > 0:
                 if thisLandNum["type_muni"].lower() != "mesh1":
                     name_pref = self._dw.myListWidget12.selectedItems()[0].text()
-            years = jpDataLNI.getYearsByMapCode(
-                thisLandNum["code_map"], name_pref, thisLandNum["year"]
-            )
+            years = self.LNI.get_years(name_map, name_pref)
         self._ui.set_years_CB(years, self._dw.myComboBox11)
         self._tab1_set_LW13()
 
@@ -471,7 +471,7 @@ class JPDataManager:
         self._dw.myListWidget13.show()
 
         if thisLandNum["type_muni"].lower() == "detail":
-            details = jpDataLNI.getDetailsByMapCodePrefNameYear(
+            details = self.LNI.get_details(
                 thisLandNum["code_map"], name_pref, str_year
             )
         else:
@@ -504,6 +504,8 @@ class JPDataManager:
         if folder:
             self._folderPath = folder
             QSettings().setValue("jpdata/FolderPath", folder)
+            self.LNI.set_download_folder(folder)
+            self.MHLW.set_download_folder(folder)
             self._dw.myLabel1.setText(folder)
 
     def addTile(self):
@@ -842,16 +844,15 @@ class JPDataManager:
                     encoding,
                     subfolder,
                     layer_name,
-                ) = jpDataLNI.getZip(
+                ) = self.LNI.get_zip_shp(
+                    self._dw.myListWidget11.selectedItems()[0].text(),
                     year,
-                    this_landmum,
                     (
                         self._dw.myListWidget12.selectedItems()[x].text()
                         if x < count_prefs
                         else ""
                     ),
                     list_code[x],
-                    type="full",
                     detail=detail,
                 )
                 shp_full_path = jpDataUtils.unzipAndGetShp(
@@ -875,16 +876,15 @@ class JPDataManager:
             self._dl_url_zip = []
             self._dl_iter = 0
             for x in range(len(list_code)):
-                url, zip_filename, subfolder = jpDataLNI.getZip(
+                url, zip_filename, subfolder = self.LNI.get_url_zip(
+                    self._dw.myListWidget11.selectedItems()[0].text(),
                     year,
-                    this_landmum,
                     (
                         self._dw.myListWidget12.selectedItems()[x].text()
                         if x < count_prefs
                         else ""
                     ),
                     list_code[x],
-                    type="urlzip",
                     detail=detail,
                 )
                 if zip_filename is not None:

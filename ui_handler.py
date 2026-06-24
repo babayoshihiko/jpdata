@@ -4,12 +4,15 @@ from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView
 from . import jpDataUtils
 from .i18n import TR
 import os
-
+from .jpdata_lni import jpDataLNI
+from .jpdata_mhlw import jpDataMHLW
 
 class JPDataUIHandler:
     def __init__(self, dockwidget):
         self.dw = dockwidget
         self.setup_ui_static_text()
+        self.LNI = jpDataLNI.instance()     # See manager.py
+        self.MHLW = jpDataMHLW.instance()   # See manager.py
 
     def setup_ui_static_text(self):
         # Global / Folder Settings

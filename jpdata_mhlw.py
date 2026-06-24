@@ -12,17 +12,19 @@ class jpDataMHLW:
             cls._instance = cls()
         return cls._instance
 
-    def __init__(self, download_fullpath, lang="j"):
+    def __init__(self):
         self.download_fullpath = ""
-        self.set_download_folder(download_fullpath)
-        self.mhlw_source_csv = "mhlw_source.csv"
-        self.lang = lang
+        self.lang = "j"
         self.records = []
+        self.mhlw_source_csv = "mhlw_source.csv"
 
     def set_download_folder(self, download_fullpath):
         if not os.path.exists(posixpath.join(download_fullpath, "MHLW")):
             os.mkdir(posixpath.join(download_fullpath, "MHLW"))
         self.download_fullpath = posixpath.join(download_fullpath, "MHLW")
+
+    def set_lang(self, lang):
+        self.lang = lang[:1]
 
     def load_records(self):
         self.records = jpDataUtils.get_records_from_csv("mhlw.csv", "name_" + self.lang)

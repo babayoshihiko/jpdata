@@ -12,17 +12,20 @@ class jpDataLNI:
             cls._instance = cls()
         return cls._instance
 
-    def __init__(self, download_fullpath, lang="j"):
+    def __init__(self):
         self.download_fullpath = ""
-        self.set_download_folder(download_fullpath)
-        self.source_csv = ""
-        self.lang = lang
+        self.lang = "j"
         self.records = []
+        self.source_csv = ""
+        self.source = []
         self.prev_name = ""
         self.current_name = ""
     
     def set_download_folder(self, download_fullpath):
         self.download_fullpath = download_fullpath
+
+    def set_lang(self, lang):
+        self.lang = lang[:1]
 
     def load_records(self):
         self.records = jpDataUtils.get_records_from_csv("LandNumInfo.csv", "name_" + self.lang)
@@ -38,48 +41,69 @@ class jpDataLNI:
     def get_records(self):
         return self.records
     
-    def get_years(self, code_map, name_pref=None, csvfile=None):
-        return self.getYearsByMapCode(code_map, name_pref, csvfile)
+    def get_years(self, name_map, name_pref=None, csvfile=None):
+        return self.getYearsByMapCode(name_map, name_pref, csvfile)
 
-    def get_prefs(self, code_map, csvfile=None):
-        return self.getPrefsOrRegionsByMapCode(code_map, csvfile)
+    def get_prefs(self, name_map, csvfile=None):
+        return self.getPrefsOrRegionsByMapCode(name_map, csvfile)
     
-    def get_shp(self, code_map, name_pref, year, detail):
-        return self.getShapeByMapCodePrefNameYearDetail(code_map, name_pref, year, detail)
+    def get_shp(self, name_map, name_pref, year, detail):
+        return self.getShapeByMapCodePrefNameYearDetail(name_map, name_pref, year, detail)
     
-    def get_zip(self, code_map, name_pref, code_pref_mesh, detail=None, type="urlzip"):
+    def get_url_zip(self, name_map, year, pref_name, code_pref_mesh, detail=None):
         return self.getZip(
+            name_map,
             year, 
             pref_name, 
-            code_pref_or_mesh1, 
-            type="urlzip", 
-            detail=None,
-            lang="ja"
-        )
+            code_pref_mesh, 
+            "urlzip", 
+            detail)
+
+    def get_zip_shp(self, name_map, year, pref_name, code_pref_mesh, detail=None):
+        return self.getZip(
+            name_map,
+            year, 
+            pref_name, 
+            code_pref_mesh, 
+            "zipshp", 
+            detail)
+    
+    def get_details(self, name_map, name_pref, year):
+        return self.getDetailsByMapCodePrefNameYear(name_map, name_pref, year)
 
 
-
-
-    def getPrefsOrRegionsByMapCode(self, code_map, csvfile):
-        if csvfile and csvfile.upper()[-3:] == "CSV" and len(csvfile) > 3:
-            file_path = self._get_csv_full_path(csvfile)
-        else:
-            file_path = self._get_csv_full_path(code_map)
+    def getPrefsOrRegionsByMapCode(self, name_map, csvfile=None):
         prefs_or_regions = []
+        csvfile = self.records[name_map].get("year")
+        try:
+            if csvfile is not None:
+                years = [int(csvfile)]
+                pref_or_region = self.records[name_map].get("availability",{})
+                if pref_or_region == "allprefs":
+                    for code_pref in range(1, 48):
+                        prefs_or_regions.append(
+                            jpDataUtils.getPrefNameByCode(code_pref, self.lang)
+                        )
+                return pref_or_region
+        except (ValueError, TypeError):
+            pass
+        
+        self._set_source(name_map)
         _allprefs = False
-        with open(file_path, "r") as f:
-            csvreader = csv.DictReader(f)
-            for row in csvreader:
-                if len(row) >= 2:
-                    if row["availability"] == "allprefs":
-                        if _allprefs == False:
-                            _allprefs = True
-                            for code_pref in range(1, 48):
-                                prefs_or_regions.append(
-                                    jpDataUtils.getPrefNameByCode(code_pref, lang)
-                                )
-                    else:
-                        prefs_or_regions.append(row["availability"])
+        # This method DOES NOT translate
+        # regional names defined in CSV files
+        # but returns as are
+        for row in self.source:
+            if len(row) >= 2:
+                if row["availability"] == "allprefs":
+                    if _allprefs == False:
+                        _allprefs = True
+                        for code_pref in range(1, 48):
+                            prefs_or_regions.append(
+                                jpDataUtils.getPrefNameByCode(code_pref, self.lang)
+                            )
+                else:
+                    prefs_or_regions.append(row["availability"])
         unique_prefs_or_regions = []
         for x in prefs_or_regions:
             if x not in unique_prefs_or_regions:
@@ -87,40 +111,36 @@ class jpDataLNI:
         return unique_prefs_or_regions
 
 
-    def getYearsByMapCode(self, code_map, name_pref=None, csvfile=None):
-        try:
-            if csvfile is None:
-                return []
-            years = [int(csvfile)]
-            return years
-        except (ValueError, TypeError):
-            return []
-        if csvfile.upper()[-3:] == "CSV" and len(csvfile) > 3:
-            file_path = self._get_csv_full_path(csvfile)
-        else:
-            file_path = self._get_csv_full_path(code_map)
+    def getYearsByMapCode(self, name_map, name_pref=None, csvfile=None):
         years = []
-        with open(file_path, "r") as f:
-            csvreader = csv.DictReader(f)
-            for row in csvreader:
-                if len(row) >= 2:
-                    if name_pref is None:
+        csvfile = self.records[name_map].get("year")
+        try:
+            if csvfile is not None:
+                years = [int(csvfile)]
+                return years
+        except (ValueError, TypeError):
+            pass
+        
+        self._set_source(name_map)
+        for row in self.source:
+            if len(row) >= 2:
+                if name_pref is None:
+                    years.append(row["year"])
+                elif row["availability"] == name_pref:
+                    years.append(row["year"])
+                elif (
+                    row["availability"] == "allprefs"
+                    and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) >= 1
+                    and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) <= 46
+                ):
+                    years.append(row["year"])
+                elif (
+                    row["availability"] == "allprefs"
+                    and name_pref.replace("県", "") == "沖縄"
+                ):
+                    if row["year"] not in ["1955", "1960", "1965", "1970"]:
+                        # N03 ["1955","1960","1965","1970"]
                         years.append(row["year"])
-                    elif row["availability"] == name_pref:
-                        years.append(row["year"])
-                    elif (
-                        row["availability"] == "allprefs"
-                        and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) >= 1
-                        and int("0" + jpDataUtils.getPrefCodeByName(name_pref)) <= 46
-                    ):
-                        years.append(row["year"])
-                    elif (
-                        row["availability"] == "allprefs"
-                        and name_pref.replace("県", "") == "沖縄"
-                    ):
-                        if row["year"] not in ["1955", "1960", "1965", "1970"]:
-                            # N03 ["1955","1960","1965","1970"]
-                            years.append(row["year"])
 
         unique_years = []
         for x in years:
@@ -129,21 +149,19 @@ class jpDataLNI:
         return unique_years
 
 
-    def getDetailsByMapCodePrefNameYear(self, code_map, name_pref, year):
-        file_path = self._get_csv_full_path(code_map)
+    def getDetailsByMapCodePrefNameYear(self, name_map, name_pref, year):
+        self._set_source(name_map)
         details = []
-        with open(file_path, "r") as f:
-            csvreader = csv.DictReader(f)
-            for row in csvreader:
-                if (
-                    len(row) >= 2
-                    and (
-                        row["availability"] == name_pref
-                        or row["availability"] == "allprefs"
-                    )
-                    and row["year"] == year
-                ):
-                    details.append(row["detail1"] + " " + row["detail2"])
+        for row in self.source:
+            if (
+                len(row) >= 2
+                and (
+                    row["availability"] == name_pref
+                    or row["availability"] == "allprefs"
+                )
+                and row["year"] == year
+            ):
+                details.append(row["detail1"] + " " + row["detail2"])
         unique_details = []
         for x in details:
             if x not in unique_details:
@@ -151,19 +169,17 @@ class jpDataLNI:
         return unique_details
 
 
-    def getShapeByMapCodePrefNameYearDetail(self, code_map, name_pref, year, detail):
-        file_path = self._get_csv_full_path(code_map)
+    def getShapeByMapCodePrefNameYearDetail(self, name_map, name_pref, year, detail):
+        self._set_source(name_map)
         details = []
-        with open(file_path, "r") as f:
-            csvreader = csv.DictReader(f)
-            for row in csvreader:
-                if (
-                    len(row) >= 2
-                    and row["availability"] == name_pref
-                    and row["year"] == year
-                    and row["detail1"] + " " + row["detail2"] == detail
-                ):
-                    details.append(row["shp"])
+        for row in self.source:
+            if (
+                len(row) >= 2
+                and row["availability"] == name_pref
+                and row["year"] == year
+                and row["detail1"] + " " + row["detail2"] == detail
+            ):
+                details.append(row["shp"])
         unique_details = []
         for x in details:
             if x not in unique_details:
@@ -171,21 +187,18 @@ class jpDataLNI:
         return unique_details
 
 
-    def _get_url_by_pref_name(self, code_map, name_pref, year, detail=None, csvfile=None, lang="j"):
+    def _get_url_by_pref_name(self, code_map, name_pref, year, detail=None, csvfile=None):
         code_pref = jpDataUtils.getPrefCodeByName(name_pref)
-        return self._get_url_by_pref_code(code_map, code_pref, year, detail, name_pref, csvfile, lang)
+        return self._get_url_by_pref_code(code_map, code_pref, year, detail, name_pref, csvfile)
 
 
     def _get_url_by_pref_code(
-        self, code_map, code_pref, year, detail=None, name_pref=None, csvfile=None, lang="j"
-    ):
+        self, code_map, code_pref, year, detail=None, name_pref=None, csvfile=None):
         if name_pref is None:
-            name_pref = jpDataUtils.getPrefNameByCode(code_pref, lang)
+            name_pref = jpDataUtils.getPrefNameByCode(code_pref, self.lang)
         file_path = ""
         if csvfile is not None:
             file_path = self._get_csv_full_path(csvfile)
-        else:
-            file_path = self._get_csv_full_path(code_map)
         if not os.path.exists(file_path):
             return None
         x = {
@@ -245,91 +258,78 @@ class jpDataLNI:
         return x
 
 
-    def getZip(
-        self,
-        year, 
-        pref_name, 
-        code_pref_or_mesh1, 
-        type="urlzip", 
-        detail=None,
-        lang="ja"
-    ):
-        if not "code_map" in self.records:
-            jpDataUtils.showError(
-                "jpDataLNI.getZip",
-                "The dictionary item does not contain 'code_map'.",
-            )
-            return None
-        tempTypeMuni = self.records["type_muni"].lower()
-        tempSubFolder = self.records["code_map"]
-        tempUrl = self.records["url"]
-        tempZip = self.records["zip"]
-        tempShp = self.records["shp"]
-        tempAltdir = self.records["altdir"]
-        tempQml = self.records["qml"]
-        tempEpsg = self.records["epsg"]
-        tempEncoding = self.records["encoding"].upper()
-        tempLayerName = self.records["name_" + lang] + " (" + pref_name + "," + year + ")"
+    def getZip( self,
+                name_map,
+                year, 
+                pref_name, 
+                code_pref_or_mesh1, 
+                type="urlzip", 
+                detail=None):
+        record = self.records()[name_map]
+        tempTypeMuni = record["type_muni"].lower()
+        tempSubFolder = record["code_map"]
 
-        if self.records["year"].upper()[-3:] == "CSV" and len(self.records["year"]) > 3:
-            tempCsvFile = self.records["year"]
-            records_from_csv = self._get_url_by_pref_name(
-                self.records["code_map"], pref_name, year, detail, tempCsvFile, lang
-            )
-        else:
-            tempCsvFile = None
-            records_from_csv = None
+        tempUrl = record["url"]
+        tempZip = record["zip"]
+        tempShp = record["shp"]
+        tempAltdir = record["altdir"]
+        tempQml = record["qml"]
+        tempEpsg = record["epsg"]
+        tempEncoding = record["encoding"].upper()
+        tempLayerName = record["name_" + self.lang] + " (" + pref_name + "," + year + ")"
+
+        if self.prev_name != name_map:
+            self._set_source(record["year"])
+            # Read data from CSV
+            tempUrl = self.source["url"]
+            tempZip = self.source["zip"]
+            tempShp = self.source["shp"]
+            if "altdir" in self.source:
+                tempAltdir = self.source["altdir"]
+            if "qml" in self.source:
+                tempQml = self.source["qml"]
+            if "epsg" in self.source:
+                tempEpsg = self.source["epsg"]
+            if "encoding" in self.source:
+                tempEncoding = self.source["encoding"]
 
 
         if tempTypeMuni == "mesh1":
             tempLayerName = (
-                self.records["name_" + lang] + " (" + code_pref_or_mesh1 + "," + year + ")"
+                record["name_" + self.lang] + " (" + code_pref_or_mesh1 + "," + year + ")"
             )
-        if records_from_csv:
-            # Read data from CSV
-            tempUrl = records_from_csv["url"]
-            tempZip = records_from_csv["zip"]
-            tempShp = records_from_csv["shp"]
-            if "altdir" in records_from_csv:
-                tempAltdir = records_from_csv["altdir"]
-            if "qml" in records_from_csv:
-                tempQml = records_from_csv["qml"]
-            if "epsg" in records_from_csv:
-                tempEpsg = records_from_csv["epsg"]
-            if "encoding" in records_from_csv:
-                tempEncoding = records_from_csv["encoding"]
-            if tempEncoding[:3] == "UTF":
-                tempEncoding = "UTF-8"
-            else:
-                tempEncoding = "CP932"
+        if tempEncoding[:3] == "UTF":
+            tempEncoding = "UTF-8"
+        else:
+            tempEncoding = "CP932"
 
         tempUrl = jpDataUtils.replaceCodes(
             tempUrl,
-            code_map=self.records["code_map"],
+            code_map=record["code_map"],
             code_pref_or_mesh1=code_pref_or_mesh1,
             year=year,
         )
         tempZip = jpDataUtils.replaceCodes(
             tempZip,
-            code_map=self.records["code_map"],
+            code_map=record["code_map"],
             code_pref_or_mesh1=code_pref_or_mesh1,
             year=year,
         )
         tempShp = jpDataUtils.replaceCodes(
             tempShp,
-            code_map=self.records["code_map"],
+            code_map=record["code_map"],
             code_pref_or_mesh1=code_pref_or_mesh1,
             year=year,
         )
         tempAltdir = jpDataUtils.replaceCodes(
             tempAltdir,
-            code_map=self.records["code_map"],
+            code_map=record["code_map"],
             code_pref_or_mesh1=code_pref_or_mesh1,
             year=year,
         )
         tempQml = jpDataUtils.replaceCodes(
             tempQml,
-            code_map=self.records["code_map"],
+            code_map=record["code_map"],
             code_pref_or_mesh1=code_pref_or_mesh1,
             year=year,
         )
@@ -349,27 +349,33 @@ class jpDataLNI:
             )
 
 
-    def _get_csv_full_path(self, arg1):
-        if arg1.upper() == "CSV":
-            jpDataUtils.printLog(
-                "jpDataLNI._get_csv_full_path: "
-                + "Wrong argument, expected a map code or CSV file name, not 'CSV'. "
-                + arg1
-            )
-            return None
-
+    def _get_csv_full_path(self, csvfile):
         csv_full_path = ""
-        if arg1.upper()[-3:] == "CSV" and len(arg1) > 3:
-            # If the arg1 is CSV, we use it
-            csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", arg1)
-        if not os.path.exists(csv_full_path):
-            csv_full_path = posixpath.join(
-                os.path.dirname(__file__), "csv", "LandNumInfo_" + arg1 + ".csv"
-            )
+        if csvfile.upper()[-3:] == "CSV" and len(csvfile) > 3:
+            csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", csvfile)
         if not os.path.exists(csv_full_path):
             jpDataUtils.printLog(
                 "jpDataLNI._get_csv_full_path: "
                 + "The CSV file does not exist: "
                 + csv_full_path,
             )
+        self.source_csv = csv_full_path
         return csv_full_path
+
+    def _set_source(self, name_map):
+        if self.current_name == name_map:
+            return
+        csv_full_path = ""
+        csvfile = self.records[name_map]["year"]
+        if csvfile.upper()[-3:] == "CSV" and len(csvfile) > 3:
+            csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", csvfile)
+        if not os.path.exists(csv_full_path):
+            jpDataUtils.printLog(
+                "jpdata_lni._set_source: "
+                + "The CSV file does not exist: "
+                + name_map,
+            )
+        else:
+            self.source = jpDataUtils.get_records_from_csv(csv_full_path)
+            self.prev_name = self.current_name
+            self.current_name = name_map
