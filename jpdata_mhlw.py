@@ -14,21 +14,14 @@ class JPDataMHLW:
             cls._instance = cls()
         return cls._instance
 
-    # --------------------------------------------------
-    # init（UIなし）
-    # --------------------------------------------------
 
     def init(self, download_dir):
 
         self.download_dir = download_dir
-
+        if not os.path.exists(posixpath.join(self.download_dir, "MHLW")):
+            os.mkdir(posixpath.join(self.download_dir, "MHLW"))
         self.df_mhlw = jpDataUtils.get_map_list_from_csv("mhlw.csv")
         self.mhlw_source_csv = "mhlw_source.csv"
-
-
-    # --------------------------------------------------
-    # selection logic（UIから呼ばれる）
-    # --------------------------------------------------
 
 
     def get_names(self, lang="j"):
