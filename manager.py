@@ -34,7 +34,7 @@ class JPDataManager:
         self._dw = None
         self._ui = None
         self._lang = "e"
-        if QgsSettings().value("locale/userLocale", "en") == "ja":
+        if QgsSettings().value("locale/userLocale", "en")[:2] == "ja":
             self._lang = "j"
 
         self._folderPath = QSettings().value("jpdata/FolderPath", "~")
