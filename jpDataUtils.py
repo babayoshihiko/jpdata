@@ -314,21 +314,21 @@ def getPrefCodeByName(pref_name):
     return pref_code
 
 
-def get_map_list_from_csv(csvfile, lang="j"):
+def get_records_from_csv(csvfile, key_column):
     filePath = posixpath.join(os.path.dirname(__file__), "csv", csvfile)
     new_dict = {}
 
     with open(filePath, "r", encoding="utf-8") as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
-            key = row.get("name_" + lang)
+            key = row.get(key_column)
             if key:  # only add if key exists
                 new_dict[key] = row
     return new_dict
 
 
 def getMapsFromCsv2(lang="j"):
-    return get_map_list_from_csv("LandNumInfo.csv", lang)
+    return get_records_from_csv("LandNumInfo.csv", "name_" + lang)
 
 
 def getTilesFromCsv():

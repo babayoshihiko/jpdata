@@ -18,12 +18,13 @@ from .i18n import TR
 from .ui_handler import JPDataUIHandler
 from . import jpDataDownloader
 from . import jpDataUtils
-from . import jpDataLNI
+#from . import jpDataLNI
 from . import jpDataCensus
 from . import jpDataMuni
 from . import jpDataMesh
 from . import jpDataAddr
-from . import jpdata_mhlw
+from .jpdata_lni import jpDataLNI
+from .jpdata_mhlw import jpDataMHLW
 
 
 class JPDataManager:
@@ -39,10 +40,10 @@ class JPDataManager:
 
         self._folderPath = QSettings().value("jpdata/FolderPath", "~")
         self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
-        self._land_info = jpDataUtils.getMapsFromCsv2(self._lang)
+        #self._land_info = jpDataUtils.getMapsFromCsv2(self._lang)
+        self.LNI = jpDataLNI(self._folderPath, self._lang)
         self._GSI = jpDataUtils.getTilesFromCsv()
-        self.MHLW = jpdata_mhlw.JPDataMHLW()
-        self.MHLW.init(self._folderPath)
+        self.MHLW = jpDataMHLW(self._folderPath, self._lang)
 
         self._downloader = jpDataDownloader.DownloadThread()
         self._dl_status = ""
@@ -62,10 +63,9 @@ class JPDataManager:
             self.setup_initial_ui_state()
 
         if self._ui:
-            self._ui.init_tabs(self._land_info, 
+            self._ui.init_tabs(self.LNI,
                                self._folderPath,
-                               self.MHLW.get_names(),
-                               lang = self._lang)
+                               self.MHLW)
             jpDataCensus.set_year_items(self._dw.myComboBox31, 2000)
 
         # QGIS 4 compatible
@@ -343,8 +343,7 @@ class JPDataManager:
             return
         name_map = self._dw.myListWidget11.selectedItems()[0].text()
 
-        prevLandNum = self._land_info.get(self._name_map_prev, {})
-        thisLandNum = self._land_info[name_map]
+        thisLandNum = self.LNI.get_records()[name_map]
 
         self._dw.myLabelStatus.setText(thisLandNum.get("code_map", ""))
 
@@ -360,7 +359,7 @@ class JPDataManager:
             return [jpDataUtils.getPrefNameByCode(code, self._lang) for code in range(1, 48)]
 
         if muni_type in ("", "allprefs"):
-            if not self._name_map_prev or prevLandNum.get(
+            if self.LNI.get_prev_name() == "" or self.LNI.get_records()[self.LNI.get_prev_name()].get(
                 "type_muni", ""
             ).lower() not in ("", "allprefs", "mesh1"):
                 str_new_LW12_text = all_prefs()
@@ -372,8 +371,8 @@ class JPDataManager:
         elif muni_type in ("regional", "detail"):
             if muni_type == "detail":
                 bol_show_LW13 = True
-            str_new_LW12_text = jpDataLNI.getPrefsOrRegionsByMapCode(
-                thisLandNum["code_map"], thisLandNum["year"], self._lang
+            str_new_LW12_text = self.LNI.get_prefs(
+                thisLandNum["code_map"], thisLandNum["year"]
             )
         elif muni_type == "mesh1":
             bol_show_LW13 = True
@@ -388,7 +387,6 @@ class JPDataManager:
                     item.setSelected(True)
 
         self._tab1_check_year(name_map)
-        self._name_map_prev = name_map
 
     def _tab1_clear(self, bol_show_LW13):
         self._dw.myListWidget12.clear()
@@ -420,14 +418,14 @@ class JPDataManager:
         name_map = self._dw.myListWidget11.selectedItems()[0].text()
         name_pref = self._dw.myListWidget12.selectedItems()[0].text()
         self._tab1_check_year(name_map)
-        thisLandNum = self._land_info[name_map]
+        thisLandNum = self.LNI.get_records()[name_map]
         if thisLandNum["type_muni"].lower() in ("detail", "mesh1"):
             self._tab1_set_LW13(name_pref)
 
     def _tab1_check_year(self, name_map=None):
         years = []
         name_pref = None
-        thisLandNum = self._land_info[name_map]
+        thisLandNum = self.LNI.get_records()[name_map]
         if thisLandNum["year"].upper()[-3:] != "CSV":
             years = thisLandNum["year"]
         else:
@@ -465,7 +463,7 @@ class JPDataManager:
         if not str_year.strip():
             return
 
-        thisLandNum = self._land_info[str_name_j]
+        thisLandNum = self.LNI.get_records()[str_name_j]
         if thisLandNum["type_muni"].lower() not in ("detail", "mesh1"):
             return
 
@@ -493,7 +491,7 @@ class JPDataManager:
     def tab1Web(self):
         items = self._dw.myListWidget11.selectedItems()
         if items:
-            thisLandNum = self._land_info[items[0].text()]
+            thisLandNum = self.LNI.get_records()[items[0].text()]
             QDesktopServices.openUrl(QUrl(thisLandNum["source"]))
 
 
@@ -810,7 +808,7 @@ class JPDataManager:
     def _tab1_iter(self, process):
         if not self.tab1CheckSelected():
             return
-        this_landmum = self._land_info[
+        this_landmum = self.LNI.get_records()[
             self._dw.myListWidget11.selectedItems()[0].text()
         ]
         year = self._dw.myComboBox11.currentText()
@@ -1038,7 +1036,7 @@ class JPDataManager:
         if item is None:
             return
         service_name = item.text()
-        years = self.MHLW.get_years(service_name, self._lang)
+        years = self.MHLW.get_years(service_name)
         self._ui.set_years_CB(years, self._dw.myCB_MHLW)
 
 
@@ -1105,9 +1103,9 @@ class JPDataManager:
             self._download_iter_2()
 
     def _tab_mhlw_web(self):
-        items = self._dw.myListWidget11.selectedItems()
+        items = self._dw.myLW_MHLW.selectedItems()
         if items:
-            thisLandNum = self._land_info[items[0].text()]
+            thisLandNum = self.MHLW.get_records()[items[0].text()]
             QDesktopServices.openUrl(QUrl(thisLandNum["source"]))
 
     def _tab_mhlw_download_all(self):

@@ -25,6 +25,7 @@ cp -R ../jpdata ./jpdata
 perl -pi -e "s|self._verbose = True|self._verbose = False|g" jpdata/manager.py
 
 rm -f jpdata/csv/.~lock*
+rm -f jpdata/MEMO.py
 rm -rf jpdata/docs
 rm -rf jpdata/temp
 

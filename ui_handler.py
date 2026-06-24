@@ -101,13 +101,14 @@ class JPDataUIHandler:
         self.dw.myCheckBox1.setText(TR.SETTING_BACKGROUND())
         self.dw.myCheckBox2.setText(TR.SETTING_GEOMETRY())
 
-    def init_tabs(self, land_info_dict, folder_path, MHLW_names, lang="j"):
-        self._init_tab1(land_info_dict, lang = lang)
-        self._init_tab3(lang = lang)
-        self._init_tab_mhlw(MHLW_names, lang = lang)
+    def init_tabs(self, LNI, folder_path, MHLW):
+        self._init_tab1(LNI)
+        self._init_tab3()
+        self._init_tab_mhlw(MHLW)
         self._init_tab_addr(folder_path)
 
-    def _init_tab1(self, land_info_dict, lang="j"):
+    def _init_tab1(self, LNI):
+        LNI.load_records()
         self.dw.myListWidget11.clear()
         bg = (
             Qt.GlobalColor.darkGray
@@ -120,19 +121,17 @@ class JPDataUIHandler:
         gray = (
             Qt.GlobalColor.gray if hasattr(Qt, "GlobalColor") else Qt.gray
         )
-        for thisLandNum in land_info_dict.values():
-            item = QListWidgetItem(thisLandNum["name_e"])
-            if lang=="j":
-                item = QListWidgetItem(thisLandNum["name_j"])
+        for key, record in LNI.get_records().items():
+            item = QListWidgetItem(key)
 
-            if thisLandNum["availability"] != "yes":
+            if record["availability"] != "yes":
                 # Disable selection
                 if hasattr(Qt, "ItemFlag"):
                     item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsSelectable)
                 else:
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
 
-                if thisLandNum["availability"] == "heading":
+                if record["availability"] == "heading":
                     item.setBackground(bg)
                     item.setForeground(fg)
                 else:
@@ -140,10 +139,11 @@ class JPDataUIHandler:
 
             self.dw.myListWidget11.addItem(item)
 
-    def _init_tab3(self, lang = "j"):
-        jpDataUtils.set_pref_items(self.dw.myListWidget31, lang = lang)
+    def _init_tab3(self):
+        jpDataUtils.set_pref_items(self.dw.myListWidget31)
 
-    def _init_tab_mhlw(self, MHLW_names, lang="j"):
+    def _init_tab_mhlw(self, MHLW):
+        MHLW.load_records()
         self.dw.myLW_MHLW.clear()
         bg = (
             Qt.GlobalColor.darkGray
@@ -153,12 +153,10 @@ class JPDataUIHandler:
         fg = (
             Qt.GlobalColor.white if hasattr(Qt, "GlobalColor") else Qt.white
         )
-        for thisService in MHLW_names.values():
-            item = QListWidgetItem(thisService["name_e"])
-            if lang=="j":
-                item = QListWidgetItem(thisService["name_j"])
+        for key, record in MHLW.get_records().items():
+            item = QListWidgetItem(key)
  
-            if thisService["code_map"] != "heading":
+            if record["code_map"] != "heading":
                 # item.setBackground(fg)
                 # item.setForeground(bg)
                 pass
@@ -172,7 +170,7 @@ class JPDataUIHandler:
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
             self.dw.myLW_MHLW.addItem(item)
 
-    def _init_tab_addr(self, folder_path, lang = "j"):
+    def _init_tab_addr(self, folder_path):
         jpDataUtils.set_pref_items(self.dw.myCB_Addr_1)
         if os.path.exists(
             os.path.join(folder_path, "Addr")
