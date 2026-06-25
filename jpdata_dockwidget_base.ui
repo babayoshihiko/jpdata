@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="myTabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -291,13 +291,43 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
-             <widget class="QPushButton" name="myPB_Addr_1">
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="myPB_Addr_2">
               <property name="text">
-               <string>PushButton</string>
+               <string>myPB_Addr_1</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="myPB_Addr_4">
+              <property name="text">
+               <string>myPB_Addr_2</string>
               </property>
              </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QComboBox" name="myCB_Addr_Projection"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="myPB_Addr_3">
+            <property name="text">
+             <string>myPB_Addr_3</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -476,7 +506,6 @@
   <tabstop>myCB_Addr_2</tabstop>
   <tabstop>myCB_Addr_3</tabstop>
   <tabstop>myCB_Addr_4</tabstop>
-  <tabstop>myPB_Addr_1</tabstop>
   <tabstop>myPushButton2</tabstop>
   <tabstop>myLineEditSetting1</tabstop>
   <tabstop>myLineEditSetting2</tabstop>
