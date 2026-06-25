@@ -15,8 +15,13 @@ class jpDataMHLW:
     def __init__(self):
         self.download_fullpath = ""
         self.lang = "j"
-        self.records = []
+        self.records = None
         self.mhlw_source_csv = "mhlw_source.csv"
+        self.source = None
+
+    def init(self):
+        if self.records is None:
+            self.load_records()
 
     def set_download_folder(self, download_fullpath):
         if not os.path.exists(posixpath.join(download_fullpath, "MHLW")):
@@ -24,7 +29,7 @@ class jpDataMHLW:
         self.download_fullpath = posixpath.join(download_fullpath, "MHLW")
 
     def set_lang(self, lang):
-        self.lang = lang[:1]
+        self.lang = lang[:1].lower()
 
     def load_records(self):
         self.records = jpDataUtils.get_records_from_csv("mhlw.csv", "name_" + self.lang)
@@ -33,15 +38,13 @@ class jpDataMHLW:
         return self.records 
 
     def get_years(self, name):
-        filePath = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
+        self._set_source()
         years = []
-        with open(filePath, "r", encoding="utf-8-sig") as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if row.get("name_j") == name or row.get("name_e") == name:
-                    year = row.get("year")
-                    if year:
-                        years.append(year)
+        for row in self.source:
+            if row.get("name_j") == name or row.get("name_e") == name:
+                year = row.get("year")
+                if year:
+                    years.append(year)
         return years
 
     def get_zip(
@@ -85,3 +88,8 @@ class jpDataMHLW:
                             yField
                         )
         return None
+
+    def _set_source(self):
+        if self.source is None:
+            csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
+            self.source = jpDataUtils.get_records_from_csv(csv_full_path)

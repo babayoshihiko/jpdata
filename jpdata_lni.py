@@ -15,17 +15,21 @@ class jpDataLNI:
     def __init__(self):
         self.download_fullpath = ""
         self.lang = "j"
-        self.records = []
+        self.records = None
         self.source_csv = ""
         self.source = []
         self.prev_name = ""
         self.current_name = ""
     
+    def init(self):
+        if self.records is None:
+            self.load_records()
+
     def set_download_folder(self, download_fullpath):
         self.download_fullpath = download_fullpath
 
     def set_lang(self, lang):
-        self.lang = lang[:1]
+        self.lang = lang[:1].lower()
 
     def load_records(self):
         self.records = jpDataUtils.get_records_from_csv("LandNumInfo.csv", "name_" + self.lang)
@@ -277,7 +281,7 @@ class jpDataLNI:
         tempEncoding = record["encoding"].upper()
         tempLayerName = record["name_" + self.lang] + " (" + pref_name + "," + year + ")"
 
-        if self.prev_name != name_map:
+        if self.current_name != name_map:
             self._set_source(record["year"])
             # Read data from CSV
             tempUrl = self.source["url"]

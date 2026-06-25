@@ -25,7 +25,9 @@ if not logger.handlers:
 
 class DownloadThread(QThread):
     progress = pyqtSignal(int)
-    finished = pyqtSignal(bool)
+    success = pyqtSignal()
+    error = pyqtSignal(str)
+    finished = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -110,6 +112,7 @@ class DownloadThread(QThread):
         proxies = self._get_proxies()
 
         try:
+            self.setStatus("Downloading")
             with requests.get(
                 self.url,
                 stream=True,
@@ -135,12 +138,14 @@ class DownloadThread(QThread):
                                 dl += len(data)
                                 f.write(data)
                                 self.progress.emit(int(100 * dl / total_length))
-            self.checkStatus()
-            self.finished.emit(True)
+            self.setStatus("Success")
+            self.success.emit()
 
-        except Exception as e:
-            self.setStatus(f"Download failed: {e}")
-            self.finished.emit(False)
+        except requests.exceptions.RequestException as e:
+            self.setStatus(str(e))
+            self.error.emit(str(e))
+        finally:
+            self.finished.emit()
 
     def stop(self):
         self._is_running = False
