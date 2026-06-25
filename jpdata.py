@@ -16,18 +16,9 @@ class jpData:
         )
         self.iface = iface
 
-        # locale = QSettings().value("locale/userLocale")[0:2]
-        # locale_path = os.path.join(self.plugin_dir, "i18n", f"jpdata_{locale}.qm")
-        # if os.path.exists(locale_path):
-        #     self.translator = QTranslator()
-        #     self.translator.load(locale_path)
-        #     QCoreApplication.installTranslator(self.translator)
-
         self.manager = JPDataManager(self.iface)
         self.action = None
 
-    # def tr(self, message):
-    #     return QCoreApplication.translate("jpdata", message)
 
     def initGui(self):
         icon_path = os.path.join(self.plugin_dir, "icon.png")
@@ -37,10 +28,12 @@ class jpData:
             self.iface.mainWindow()
         )
         self.action.triggered.connect(self.run)
+        self.iface.addToolBarIcon(self.action)
         self.iface.addPluginToMenu("&jpdata", self.action)
 
     def unload(self):
         if self.action:
+            self.iface.removeToolBarIcon(self.action)
             self.iface.removePluginMenu("&jpdata", self.action)
         self.manager.unload()
 

@@ -3,9 +3,12 @@ import os
 from qgis.PyQt.QtCore import QCoreApplication, Qt
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView
 from qgis.PyQt.QtGui import QDesktopServices
+from . import jpDataMesh
+from . import jpDataMuni
 from . import jpDataUtils
 from .i18n import TR
 from .jpdata_lni import jpDataLNI
+from .jpdata_census import jpDataCensus
 from .jpdata_mhlw import jpDataMHLW
 
 class JPDataUIHandler:
@@ -14,9 +17,10 @@ class JPDataUIHandler:
         self._lang = lang
         self._connect_signals()
         self._setup_ui_static_text()
-        self._LNI = jpDataLNI.instance()     # Singleton. See manager.py
+        self._LNI = jpDataLNI.instance()           # Singleton. See manager.py
         self._GSI = jpDataUtils.getTilesFromCsv()
-        self._MHLW = jpDataMHLW.instance()   # Singleton. See manager.py
+        self._Census = jpDataCensus.instance()     # Singleton. See manager.py
+        self._MHLW = jpDataMHLW.instance()         # Singleton. See manager.py
 
 
     def setLabel(self, message, critical=False):
@@ -36,13 +40,16 @@ class JPDataUIHandler:
     def _connect_signals(self):
         self._dw.myTabWidget.currentChanged.connect(self._tab_changed)
 
-
         # Tab LNI
         self._dw.myListWidget11.itemSelectionChanged.connect(self._LW11_itemSelectionChanged)
         self._dw.myListWidget12.itemSelectionChanged.connect(self._LW12_itemSelectionChanged)
         self._dw.myComboBox11.currentIndexChanged.connect(self._CB11_changed)
         self._dw.myPushButton15.clicked.connect(self._lni_web)
 
+        # Tab Census
+        self._dw.myListWidget31.currentItemChanged.connect(self._LW31_currentItemChanged)
+        self._dw.myListWidget32.itemSelectionChanged.connect(self._LW32_itemSelectionChanged)
+        self._dw.myComboBox32.currentIndexChanged.connect(self._LW32_itemSelectionChanged)
 
         # Tab MHLW
         self._dw.myLW_MHLW.currentRowChanged.connect(self._mhlw_map_changed)
@@ -102,6 +109,7 @@ class JPDataUIHandler:
         self._dw.myComboBox32.addItem(TR.X5_MESH())
         self._dw.myComboBox32.addItem(TR.X6_MESH())
         self._dw.myComboBox32.setToolTip(TR.CENSUS_TYPE_TOOLTIP())
+        self._populate_LW("allprefs", self._dw.myListWidget31)
         self._dw.myPushButton31.setText(TR.DOWNLOAD())
         self._dw.myPushButton31.setToolTip(TR.DOWNLOAD_CENSUS())
         self._dw.myPushButton32.setText(TR.ADD_TO_MAP())
@@ -176,7 +184,9 @@ class JPDataUIHandler:
             self._dw.myListWidget11.addItem(item)
 
     def _init_tab3(self):
-        jpDataUtils.set_pref_items(self._dw.myListWidget31)
+        # jpDataUtils.set_pref_items(self._dw.myListWidget31)
+        index = self._dw.myComboBox32.currentIndex()
+        self._populate_CB(self._Census.get_years(index), self._dw.myComboBox31)
 
     def _init_tab_mhlw(self, MHLW=None):
         self._MHLW.init()
@@ -231,19 +241,43 @@ class JPDataUIHandler:
             self._dw.myPushButton32.setEnabled(False)
             self._dw.myPB_MHLW_2.setEnabled(False)
 
-
-    def _populate_years_CB(self, years, combBox):
-        current_year = combBox.currentText()
-        combBox.clear()
-        for year in years:
-            if year:
-                combBox.addItem(year)
+    #
+    #  Common UI handlers
+    #
+    def _populate_CB(self, texts, combo_widget):
+        current_text = combo_widget.currentText()
+        combo_widget.blockSignals(True)
+        combo_widget.clear()
+        for text in texts:
+            if text and text != "":
+                combo_widget.addItem(text)
         # Restore selection if it still exists
-        index = combBox.findText(current_year)
+        index = combo_widget.findText(current_text)
         if index != -1:
-            combBox.setCurrentIndex(index)
+            combo_widget.setCurrentIndex(index)
         else:
-            combBox.setCurrentIndex(0)
+            combo_widget.setCurrentIndex(0)
+        combo_widget.blockSignals(False)
+
+    def _populate_LW(self, texts, list_widget):
+        if texts == "allprefs":
+            texts = [jpDataUtils.getPrefNameByCode(i, lang = self._lang) for i in range(1, 48)]
+        current_selected = [
+            item.text() for item in list_widget.selectedItems()
+        ]
+        current_text = ""
+        if list_widget.currentItem():
+            current_text = list_widget.currentItem().text()
+        list_widget.blockSignals(True)
+        list_widget.clear()
+        for text in texts:
+            item = QListWidgetItem(text)
+            list_widget.addItem(item)
+            if text in current_selected:
+                item.setSelected(True)
+            if current_text != "" and text == current_text:
+                list_widget.setCurrentItem(item)
+        list_widget.blockSignals(False)
 
     def _tab_changed(self, index):
         """Called whenever the current tab changes."""
@@ -299,11 +333,7 @@ class JPDataUIHandler:
 
         if bol_redraw_LW12:
             self._tab1_clear(bol_show_LW13)
-            for new_text in str_new_LW12_text:
-                item = QListWidgetItem(new_text)
-                self._dw.myListWidget12.addItem(item)
-                if new_text in str_current_LW12_selected:
-                    item.setSelected(True)
+            self._populate_LW(str_new_LW12_text, self._dw.myListWidget12)
 
         self._tab1_check_year(name_map)
 
@@ -349,7 +379,7 @@ class JPDataUIHandler:
             if record["type_muni"].lower() != "mesh1":
                 name_pref = self._dw.myListWidget12.selectedItems()[0].text()
         years = self._LNI.get_years(name_map, name_pref)
-        self._populate_years_CB(years, self._dw.myComboBox11)
+        self._populate_CB(years, self._dw.myComboBox11)
         self._tab1_set_LW13()
 
     def _CB11_changed(self, index):
@@ -357,33 +387,21 @@ class JPDataUIHandler:
 
 
     def _tab1_set_LW13(self, name_pref=None):
-        str_selected_details = {
-            item.text()
-            for item in self._dw.myListWidget13.selectedItems()
-        }
-        str_current_text = None
-        if self._dw.myListWidget13.currentItem():
-            str_current_text = self._dw.myListWidget13.currentItem().text()
-
         if len(self._dw.myListWidget11.selectedItems()) == 0:
             return
         if name_pref is None:
             if len(self._dw.myListWidget12.selectedItems()) == 0:
                 return
             name_pref = self._dw.myListWidget12.selectedItems()[0].text()
-
         str_name_j = self._dw.myListWidget11.selectedItems()[0].text()
         str_year = self._dw.myComboBox11.currentText()
         if not str_year.strip():
             return
-
         thisLandNum = self._LNI.get_records()[str_name_j]
         if thisLandNum["type_muni"].lower() not in ("detail", "mesh1"):
+            self._dw.myListWidget13.hide()
             return
-
-        self._dw.myListWidget13.clear()
         self._dw.myListWidget13.show()
-
         if thisLandNum["type_muni"].lower() == "detail":
             details = self._LNI.get_details(
                 thisLandNum["code_map"], name_pref, str_year
@@ -391,16 +409,7 @@ class JPDataUIHandler:
         else:
             details = jpDataMesh.getMesh1ByPrefName(name_pref)
 
-        for detail in details:
-            item = QListWidgetItem(detail)
-            self._dw.myListWidget13.addItem(item)
-
-            if detail in str_selected_details:
-                item.setSelected(True)
-
-            if detail == str_current_text:
-                self._dw.myListWidget13.setCurrentItem(item)
-
+        self._populate_LW(details, self._dw.myListWidget13)
 
     def _lni_web(self):
         items = self._dw.myListWidget11.selectedItems()
@@ -411,13 +420,77 @@ class JPDataUIHandler:
 
 
 
+
+
+    def _LW31_currentItemChanged(self, current, previous):
+        if not current or current == previous or isinstance(current, int):
+            return
+
+        name_pref = current.text()
+        year = self._dw.myComboBox31.currentText()
+
+        designated_cities = jpDataMuni.get_all_designated_cities(year, self._lang)
+
+        rows = jpDataMuni.getMuniFromPrefName(name_pref, self._lang)
+        self._dw.myListWidget32.clear()
+
+        for row in rows:
+            name = row["name_muni_" + self._lang]
+            if not name:
+                continue
+            item = QListWidgetItem(name)
+            if name in designated_cities:
+                if hasattr(Qt, "ItemFlag"):
+                    item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsSelectable)
+                else:
+                    item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
+                gray = Qt.GlobalColor.gray if hasattr(Qt, "GlobalColor") else Qt.gray
+                item.setForeground(gray)
+
+            self._dw.myListWidget32.addItem(item)
+
+        self._tab3_set_mesh()
+
+    def _LW32_itemSelectionChanged(self):
+        self._tab3_set_mesh()
+
+    def _tab3_set_mesh(self):
+        if len(self._dw.myListWidget31.selectedItems()) == 0:
+            return
+        name_pref = str(self._dw.myListWidget31.selectedItems()[0].text())
+
+        if self._dw.myComboBox32.currentIndex() == 0:
+            self._dw.myListWidget33.clear()
+            self._dw.myListWidget33.hide()
+            return
+        
+        years = self._Census.get_years(self._dw.myComboBox32.currentIndex())
+        self._populate_CB(years, self._dw.myComboBox31)
+        self._dw.myListWidget33.clear()
+        self._dw.myListWidget33.show()
+
+        details = []
+        if len(self._dw.myListWidget32.selectedItems()) == 0:
+            details = jpDataMesh.getMesh1ByPrefName(name_pref)
+        else:
+            name_munis = []
+            for name_muni in self._dw.myListWidget32.selectedItems():
+                name_munis.append(name_muni.text())
+            details = jpDataMesh.getMesh1ByPrefMuniName(name_pref, name_munis, self._lang)
+        self._populate_LW(details, self._dw.myListWidget33)
+
+
+
+
+
+
     def _mhlw_map_changed(self, row):
         item = self._dw.myLW_MHLW.item(row)
         if item is None:
             return
-        service_name = item.text()
-        years = self._MHLW.get_years(service_name)
-        self._populate_years_CB(years, self._dw.myCB_MHLW)
+        name_map = item.text()
+        years = self._MHLW.get_years(name_map)
+        self._populate_CB(years, self._dw.myCB_MHLW)
 
     def _mhlw_web(self):
         items = self._dw.myLW_MHLW.selectedItems()

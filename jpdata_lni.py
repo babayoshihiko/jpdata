@@ -54,20 +54,20 @@ class jpDataLNI:
     def get_shp(self, name_map, name_pref, year, detail):
         return self.getShapeByMapCodePrefNameYearDetail(name_map, name_pref, year, detail)
     
-    def get_url_zip(self, name_map, year, pref_name, code_pref_mesh, detail=None):
+    def get_url_zip(self, name_map, year, name_pref, code_pref_mesh, detail=None):
         return self.getZip(
             name_map,
             year, 
-            pref_name, 
+            name_pref, 
             code_pref_mesh, 
             "urlzip", 
             detail)
 
-    def get_zip_shp(self, name_map, year, pref_name, code_pref_mesh, detail=None):
+    def get_zip_shp(self, name_map, year, name_pref, code_pref_mesh, detail=None):
         return self.getZip(
             name_map,
             year, 
-            pref_name, 
+            name_pref, 
             code_pref_mesh, 
             "zipshp", 
             detail)
@@ -78,28 +78,25 @@ class jpDataLNI:
 
     def getPrefsOrRegionsByMapCode(self, name_map, csvfile=None):
         prefs_or_regions = []
-        csvfile = self.records[name_map].get("year")
-        try:
-            if csvfile is not None:
-                # "type_muni" (record) == "availability" (source)
-                # THIS PART OF THE METHOD should be shared?
-                pref_or_region = self.records[name_map].get("type_muni",{})
-                if pref_or_region == "allprefs":
-                    for code_pref in range(1, 48):
-                        prefs_or_regions.append(
-                            jpDataUtils.getPrefNameByCode(code_pref, self.lang)
-                        )
-                else:
-                    prefs_or_regions.append(pref_or_region)
-                return prefs_or_regions
-        except (ValueError, TypeError):
-            pass
-        
-        self._set_source(name_map)
-        _allprefs = False
+        csvfile = self.records[name_map].get("year", "")
+
+        pref_or_region = self.records[name_map].get("type_muni",{})
+        if pref_or_region == "allprefs" or pref_or_region == "" or pref_or_region == "mesh1":
+            for code_pref in range(1, 48):
+                prefs_or_regions.append(
+                    jpDataUtils.getPrefNameByCode(code_pref, self.lang)
+                )
+            return prefs_or_regions
+        elif pref_or_region == "single" or pref_or_region == "Nation-wide":
+            prefs_or_regions.append(TR.NATIONWIDE())
+            return prefs_or_regions
+
+        # pref_or_region == "regional" OR "detail"
         # This method DOES NOT translate
         # regional names defined in CSV files
         # but returns as are
+        self._set_source(name_map)
+        _allprefs = False
         for row in self.source:
             if len(row) >= 2:
                 if row["availability"] == "allprefs":

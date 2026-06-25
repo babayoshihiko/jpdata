@@ -19,11 +19,11 @@ from .ui_handler import JPDataUIHandler
 from . import jpDataDownloader
 from . import jpDataUtils
 #from . import jpDataLNI
-from . import jpDataCensus
+#from . import jpDataCensus
 from . import jpDataMuni
-from . import jpDataMesh
 from . import jpDataAddr
 from .jpdata_lni import jpDataLNI
+from .jpdata_census import jpDataCensus
 from .jpdata_mhlw import jpDataMHLW
 
 
@@ -43,9 +43,11 @@ class JPDataManager:
         #self._land_info = jpDataUtils.getMapsFromCsv2(self._lang)
         self._LNI = jpDataLNI.instance()
         self._GSI = jpDataUtils.getTilesFromCsv()
+        self._Census = jpDataMHLW.instance()
         self._MHLW = jpDataMHLW.instance()
         self._LNI.set_download_folder(self._folderPath)
         self._LNI.set_lang(self._lang)
+        self._Census.set_download_folder(self._folderPath)
         self._MHLW.set_download_folder(self._folderPath)
         self._MHLW.set_lang(self._lang)
 
@@ -67,7 +69,7 @@ class JPDataManager:
 
         if self._ui:
             self._ui.init_tabs(self._folderPath)
-            jpDataCensus.set_year_items(self._dw.myComboBox31, 2000)
+            # jpDataCensus.set_year_items(self._dw.myComboBox31, 2000)
 
         # QGIS 4 compatible
         dock_area = (
@@ -111,11 +113,6 @@ class JPDataManager:
         # Tab 3
         self._dw.myPushButton31.clicked.connect(self._tab3_download_all)
         self._dw.myPushButton32.clicked.connect(self._tab3_add_map)
-        self._dw.myListWidget31.currentItemChanged.connect(
-            self._LW31_currentItemChanged
-        )  ## NEEDS REFACTORING to itemSelectionChanged
-        self._dw.myListWidget32.itemSelectionChanged.connect(self._LW32_itemSelectionChanged)
-        self._dw.myComboBox32.currentIndexChanged.connect(self._LW32_itemSelectionChanged)
 
         # Tab MHLW
         self._dw.myPB_MHLW_2.clicked.connect(self._tab_mhlw_download_all)
@@ -187,11 +184,11 @@ class JPDataManager:
     ):
         # --- Create layer ---
         if shpFileFullPath is None:
-            self._setLabel(TR.CANNOT_FIND_FILE_LAYER(layerName))
+            self.setLabel(TR.CANNOT_FIND_FILE_LAYER(layerName))
             return None
         layer = QgsVectorLayer(shpFileFullPath, layerName, "ogr")
         if not layer.isValid():
-            self._setLabel(TR.CANNOT_LOAD_LAYER(layerName))
+            self.setLabel(TR.CANNOT_LOAD_LAYER(layerName))
             return None
 
         layer.setProviderEncoding(encoding)
@@ -206,7 +203,7 @@ class JPDataManager:
                 epsg = epsg_int
                 crs = QgsCoordinateReferenceSystem.fromEpsgId(epsg)
                 if not crs.isValid():
-                    self._setLabel(TR.INVALID_EPSG(epsg))
+                    self.setLabel(TR.INVALID_EPSG(epsg))
                 layer.setCrs(crs)
 
         # --- Check geometry ---
@@ -214,7 +211,7 @@ class JPDataManager:
             count_invalid = jpDataUtils.count_invalid_geometry(layer)
             if count_invalid > 0:
                 layer.setName(f"{layerName} [invalid]")
-                self._setLabel(TR.INVALID_GEOM(count_invalid))
+                self.setLabel(TR.INVALID_GEOM(count_invalid))
 
         # --- Style from QML file ---
         if qmlFileName:
@@ -249,7 +246,7 @@ class JPDataManager:
     ):
 
         if shpFileFullPath is None:
-            self._setLabel(TR.CANNOT_FIND_FILE_LAYER(layerName))
+            self.setLabel(TR.CANNOT_FIND_FILE_LAYER(layerName))
             return None
 
         # ------------------------------
@@ -278,7 +275,7 @@ class JPDataManager:
             layer.setProviderEncoding(encoding)
 
         if not layer.isValid():
-            self._setLabel(TR.CANNOT_LOAD_LAYER(layerName))
+            self.setLabel(TR.CANNOT_LOAD_LAYER(layerName))
             return None
 
         # --- CRS ---
@@ -296,7 +293,7 @@ class JPDataManager:
                 if crs.isValid():
                     layer.setCrs(crs)
                 else:
-                    self._setLabel(TR.INVALID_EPSG(epsg))
+                    self.setLabel(TR.INVALID_EPSG(epsg))
 
         # --- Check geometry ---
         geom_type = layer.geometryType()
@@ -307,7 +304,7 @@ class JPDataManager:
             count_invalid = jpDataUtils.count_invalid_geometry(layer)
             if count_invalid > 0:
                 layer.setName(f"{layerName} [invalid]")
-                self._setLabel(TR.INVALID_GEOM(count_invalid))
+                self.setLabel(TR.INVALID_GEOM(count_invalid))
 
         # --- Style from QML file ---
         if qmlFileName:
@@ -422,7 +419,7 @@ class JPDataManager:
                 break
             else:
                 # The file exists, so skip to the next one
-                self._setLabel(TR.FILE_EXISTS(tempZipFileName))
+                self.setLabel(TR.FILE_EXISTS(tempZipFileName))
         if _start_download:
             self._dw.progressBar.setValue(0)
             self._ui.enable_download(False)
@@ -439,7 +436,7 @@ class JPDataManager:
 
         if not os.path.exists(posixpath.join(self._folderPath, subFolder, zipFileName)):
             self._set_proxy()
-            self._setLabel(TR.DOWNLOADING(zipFileName))
+            self.setLabel(TR.DOWNLOADING(zipFileName))
             self._downloader.setUrl(url)
             self._downloader.setFilePath(
                 posixpath.join(self._folderPath, subFolder, zipFileName)
@@ -452,12 +449,12 @@ class JPDataManager:
                 self._downloader.start()
         else:
             # The file existance was checked, so this should not happen, but just in case
-            self._setLabel(TR.FILE_EXISTS(zipFileName))
+            self.setLabel(TR.FILE_EXISTS(zipFileName))
             self._ui.enable_download()
 
     def _download_finished(self, success):
         current_text = self._dw.myLabelStatus.text()
-        self._setLabel(current_text + TR.DONE())
+        self.setLabel(current_text + TR.DONE())
         self._ui.enable_download()
         self._dw.progressBar.setValue(100)
 
@@ -476,7 +473,7 @@ class JPDataManager:
         self._dl_url_zip = []
         if self._downloader is not None:
             current_text = self._dw.myLabelStatus.text()
-            self._setLabel(current_text + TR.CANCELLED())
+            self.setLabel(current_text + TR.CANCELLED())
             self._downloader.stop()
         else:
             self._downloader = jpDataDownloader.DownloadThread()
@@ -496,81 +493,17 @@ class JPDataManager:
             QgsSettings().setValue("jpdata/ProxyServer", "http://")
             self._proxyServer = "http://"
 
-    def _LW31_currentItemChanged(self, current, previous):
-        if not current or current == previous or isinstance(current, int):
-            return
-
-        name_pref = current.text()
-        year = self._dw.myComboBox31.currentText()
-
-        designated_cities = jpDataMuni.get_all_designated_cities(year, self._lang)
-
-        rows = jpDataMuni.getMuniFromPrefName(name_pref, self._lang)
-        self._dw.myListWidget32.clear()
-
-        for row in rows:
-            name = row["name_muni_" + self._lang]
-            if not name:
-                continue
-            item = QListWidgetItem(name)
-            if name in designated_cities:
-                if hasattr(Qt, "ItemFlag"):
-                    item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsSelectable)
-                else:
-                    item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
-                gray = Qt.GlobalColor.gray if hasattr(Qt, "GlobalColor") else Qt.gray
-                item.setForeground(gray)
-
-            self._dw.myListWidget32.addItem(item)
-
-        self._tab3_set_mesh()
-
-    def _LW32_itemSelectionChanged(self):
-        self._tab3_set_mesh()
-
-    def _tab3_set_mesh(self):
-        if len(self._dw.myListWidget31.selectedItems()) == 0:
-            return
-        name_pref = str(self._dw.myListWidget31.selectedItems()[0].text())
-
-        if self._dw.myComboBox32.currentIndex() == 0:
-            self._dw.myListWidget33.clear()
-            self._dw.myListWidget33.hide()
-            jpDataCensus.set_year_items(self._dw.myComboBox31, 2000)
-            return
-        elif (
-            self._dw.myComboBox32.currentIndex() == 1
-            or self._dw.myComboBox32.currentIndex() == 2
-        ):
-            jpDataCensus.set_year_items(self._dw.myComboBox31, 1995)
-        else:
-            jpDataCensus.set_year_items(self._dw.myComboBox31, 2005)
-
-        self._dw.myListWidget33.clear()
-        self._dw.myListWidget33.show()
-
-        if len(self._dw.myListWidget32.selectedItems()) == 0:
-            details = jpDataMesh.getMesh1ByPrefName(name_pref)
-        else:
-            name_munis = []
-            for name_muni in self._dw.myListWidget32.selectedItems():
-                name_munis.append(name_muni.text())
-            details = jpDataMesh.getMesh1ByPrefMuniName(name_pref, name_munis)
-
-        for detail in details:
-            self._dw.myListWidget33.addItem(detail)
-
     def tab3CheckSelected(self):
         if len(self._dw.myListWidget31.selectedItems()) == 0:
-            self._setLabel(TR.CHOOSE_PREFECTURE())
+            self.setLabel(TR.CHOOSE_PREFECTURE())
             return False
         if self._dw.myComboBox32.currentIndex() == 0:
             if len(self._dw.myListWidget32.selectedItems()) == 0:
-                self._setLabel(TR.CHOOSE_MUNICIPALITY())
+                self.setLabel(TR.CHOOSE_MUNICIPALITY())
                 return False
         else:
             if len(self._dw.myListWidget33.selectedItems()) == 0:
-                self._setLabel(TR.CHOOSE_MESH())
+                self.setLabel(TR.CHOOSE_MESH())
                 return False
         return True
 
@@ -637,7 +570,7 @@ class JPDataManager:
             self._dw.myCB_Addr_1.currentText(),
         ):
             self._dw.myPB_Addr_1.setText(TR.DOWNLOAD())
-            self._setLabel(TR.ADDRESS_MISSING())
+            self.setLabel(TR.ADDRESS_MISSING())
             self._dl_status = "ADDRESS"
         else:
             self._dw.myPB_Addr_1.setText(TR.JUMP())
@@ -783,7 +716,7 @@ class JPDataManager:
                 )
 
                 if shp_full_path is None:
-                    self._setLabel(
+                    self.setLabel(
                         TR.CANNOT_FIND_SHP_FILE(shp_filename),
                         critical=True,
                     )
@@ -815,7 +748,7 @@ class JPDataManager:
                             csv_filename,
                         )
                     else:
-                        self._setLabel("")
+                        self.setLabel("")
                     self._add_map(
                         shp_full_path,
                         _item_name_or_code.text()

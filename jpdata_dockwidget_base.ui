@@ -304,14 +304,14 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="myPB_Addr_2">
+             <widget class="QPushButton" name="myPB_Addr_1">
               <property name="text">
                <string>myPB_Addr_1</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="myPB_Addr_4">
+             <widget class="QPushButton" name="myPB_Addr_2">
               <property name="text">
                <string>myPB_Addr_2</string>
               </property>

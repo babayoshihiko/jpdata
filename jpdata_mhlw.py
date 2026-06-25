@@ -93,3 +93,23 @@ class jpDataMHLW:
         if self.source is None:
             csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
             self.source = jpDataUtils.get_records_from_csv(csv_full_path)
+
+
+
+    #  UI Handlers
+    #
+    #
+    def populate_years(combo_widget, map_name):
+        years = self.get_years(map_name)
+        current_year = combo_widget.currentText()
+        combo_widget.clear()
+        for year in years:
+            if year:
+                combo_widget.addItem(year)
+        # Restore selection if it still exists
+        index = combo_widget.findText(current_year)
+        if index != -1:
+            combo_widget.setCurrentIndex(index)
+        else:
+            combo_widget.setCurrentIndex(0)
+
