@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os, csv, posixpath
 from . import jpDataUtils
+from qgis.core import QgsMessageLog, Qgis
 
 
 def getPrefsOrRegionsByMapCode(code_map, csvfile=None, lang="j"):

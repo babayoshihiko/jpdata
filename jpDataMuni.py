@@ -22,11 +22,12 @@ def getMuniFromPrefCode(code_pref):
 def getMuniFromPrefName(name_pref, lang="j"):
     filePath = os.path.join(os.path.dirname(__file__), "csv", "code_pref_muni.csv")
     filtered_rows = []
+    filtered_rows.append[""]
     with open(filePath, "r") as f:
         csvreader = csv.DictReader(f)
         for row in csvreader:
             if len(row) >= 2 and row["name_pref_" + lang] == name_pref:
-                filtered_rows.append(row)
+                filtered_rows.append(row["name_muni_" + lang])
     return filtered_rows
 
 

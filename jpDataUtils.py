@@ -315,10 +315,10 @@ def getPrefCodeByName(pref_name):
 
 
 def get_records_from_csv(csvfile, key_column=None):
-    filePath = posixpath.join(os.path.dirname(__file__), "csv", csvfile)
+    if not os.path.isabs(csvfile):
+        csvfile = posixpath.join(os.path.dirname(__file__), "csv", csvfile)
     new_dict = {}
-
-    with open(filePath, "r", encoding="utf-8") as f:
+    with open(csvfile, "r", encoding="utf-8") as f:
         csvreader = csv.DictReader(f)
         if key_column is not None:
             for row in csvreader:

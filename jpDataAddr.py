@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # For path join, poxispath.join seems a better option for cross-platform compatibility
 # when a path contains both slash and backslash.
-import os, csv, posixpath
+# import os, csv, posixpath
+# from . import jpDataMuni
 from . import jpDataUtils
+from .jpdata_muni import jpDataMuni
 
 
 # --- Module-level cache: dict {pref_code: list_of_rows} ---
@@ -12,6 +14,10 @@ from collections import OrderedDict
 _csv_cache = OrderedDict()
 _CACHE_SIZE = 5
 
+# For Tokyo (13) Year 2025
+#   url: https://nlftp.mlit.go.jp/isj/dls/data/24.0a/13000-24.0a.zip
+#   zip: 13000-24.0a.zip   ({code_pref}000-{year2digit-1}.0a.zip)
+#   csv: 13_2025.csv       ({code_pref}_{year4digit}.csv) 
 
 def get_url(pref_code):
     return (
@@ -81,19 +87,6 @@ def _load_csv(folder, pref_code, encoding="cp932"):
     return rows
 
 
-def set_cb_cities(combobox, folder, pref_name):
-    """Set city names in the combobox based on the selected prefecture code."""
-    combobox.clear()
-    cities = _get_cities_by_prefcode(folder, pref_name)
-    if cities:
-        for city in cities:
-            combobox.addItem(city)
-        combobox.setCurrentIndex(0)
-        return True
-    else:
-        return False
-
-
 def set_cb_towns(combobox, folder, pref_name, city_name):
     """Set town names in the combobox based on the selected prefecture code and city name."""
     combobox.clear()
@@ -114,20 +107,17 @@ def set_cb_details(combobox, folder, pref_name, city_name, town_name):
         combobox.setCurrentIndex(0)
 
 
-def _get_cities_by_prefcode(folder, pref_name):
-    pref_code = jpDataUtils.getPrefCodeByName(pref_name)
-    unzip_addr_data(folder)
-    rows = _load_csv(folder, pref_code)
+def _get_cities_by_prefcode(pref_name):
+    rows = jpDataMuni.getMuniFromPrefName(pref_name)
     if rows is None:
         return False
+    return rows
 
-    cities = [row[1] for row in rows if len(row) > 1]
-    unique_rows = []
-    for x in cities:
-        if x not in unique_rows and x not in ("", "市区町村名"):
-            unique_rows.append(x)
-    return unique_rows
 
+def get_munis_by_pref(pref_name):
+    Muni = jpDataMuni.instance()
+    rows = Muni.get_munis(pref_name)
+    return rows
 
 def _get_towns_by_municode(folder, pref_name, city_name):
     pref_code = jpDataUtils.getPrefCodeByName(pref_name)

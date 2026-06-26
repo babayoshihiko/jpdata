@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, csv, posixpath
+import os, posixpath
 from . import jpDataUtils
 from qgis import processing
 
@@ -59,15 +59,6 @@ class jpDataCensus:
 
     def set_lang(self, lang):
         self.lang = lang[:1].lower()
-
-    def load_records(self):
-        return
-
-    def set_name(self, name):
-        return
-
-    def get_prev_name(self):
-        return
 
     def get_records(self):
         return

@@ -50,43 +50,41 @@ class jpDataMHLW:
     def get_zip(
         self, year, name_map, type="urlzip"
     ):
-        filePath = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
-        with open(filePath, "r", encoding="utf-8-sig") as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                if (row.get("name_j") == name_map or row.get("name_e") == name_map) and row.get("year") == year:
+        self._set_source()
+        for row in self.source:
+            if (row.get("name_j") == name_map or row.get("name_e") == name_map) and row.get("year") == year:
 
-                    tempSubFolder = posixpath.join("MHLW",year)
-                    tempUrl = row.get("url")
-                    tempZip = row.get("zip")
-                    tempShp = row.get("shp")
-                    tempAltdir = ""
-                    tempQml = row.get("qml")
-                    tempEpsg = "6668"
-                    tempEncoding = "UTF-8"
-                    tempLayerName = name_map + " (" + year + ")"
+                tempSubFolder = posixpath.join("MHLW",year)
+                tempUrl = row.get("url")
+                tempZip = row.get("zip")
+                tempShp = row.get("shp")
+                tempAltdir = ""
+                tempQml = row.get("qml")
+                tempEpsg = "6668"
+                tempEncoding = "UTF-8"
+                tempLayerName = name_map + " (" + year + ")"
 
-                    if type == "urlzip":
-                        return tempUrl, tempZip, tempSubFolder
+                if type == "urlzip":
+                    return tempUrl, tempZip, tempSubFolder
+                else:
+                    if row.get("code_map","")[:4] == "LTCI":
+                        xField = "経度"
+                        yField = "緯度"
                     else:
-                        if row.get("code_map","")[:4] == "LTCI":
-                            xField = "経度"
-                            yField = "緯度"
-                        else:
-                            xField = "事業所経度"
-                            yField = "事業所緯度"
-                        return (
-                            tempZip,
-                            tempShp,
-                            tempAltdir,
-                            tempQml,
-                            tempEpsg,
-                            tempEncoding,
-                            tempSubFolder,
-                            tempLayerName,
-                            xField,
-                            yField
-                        )
+                        xField = "事業所経度"
+                        yField = "事業所緯度"
+                    return (
+                        tempZip,
+                        tempShp,
+                        tempAltdir,
+                        tempQml,
+                        tempEpsg,
+                        tempEncoding,
+                        tempSubFolder,
+                        tempLayerName,
+                        xField,
+                        yField
+                    )
         return None
 
     def _set_source(self):
@@ -95,21 +93,4 @@ class jpDataMHLW:
             self.source = jpDataUtils.get_records_from_csv(csv_full_path)
 
 
-
-    #  UI Handlers
-    #
-    #
-    def populate_years(combo_widget, map_name):
-        years = self.get_years(map_name)
-        current_year = combo_widget.currentText()
-        combo_widget.clear()
-        for year in years:
-            if year:
-                combo_widget.addItem(year)
-        # Restore selection if it still exists
-        index = combo_widget.findText(current_year)
-        if index != -1:
-            combo_widget.setCurrentIndex(index)
-        else:
-            combo_widget.setCurrentIndex(0)
 

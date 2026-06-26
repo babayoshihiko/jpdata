@@ -168,6 +168,10 @@ class TR:
         return QCoreApplication.translate("jpData", "Neighbourhood")
 
     @staticmethod
+    def REPROJECT():
+        return QCoreApplication.translate("jpData", "Reproject")
+
+    @staticmethod
     def RUN():
         return QCoreApplication.translate("jpData", "Run")
 

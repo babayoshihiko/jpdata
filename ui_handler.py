@@ -1,24 +1,30 @@
 # -*- coding: utf-8 -*-
 import os
 from qgis.PyQt.QtCore import QCoreApplication, Qt
-from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView
+from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.PyQt.QtGui import QDesktopServices
+from . import jpDataAddr
 from . import jpDataMesh
-from . import jpDataMuni
+# from . import jpDataMuni
 from . import jpDataUtils
 from .i18n import TR
 from .jpdata_lni import jpDataLNI
 from .jpdata_census import jpDataCensus
 from .jpdata_mhlw import jpDataMHLW
+from .jpdata_muni import jpDataMuni
+
 
 class JPDataUIHandler:
-    def __init__(self, dockwidget, lang):
+    _verbose = True
+
+    def __init__(self, iface, dockwidget, lang):
+        self._iface = iface
         self._dw = dockwidget
         self._lang = lang
         self._connect_signals()
         self._setup_ui_static_text()
+        self._Muni = jpDataMuni.instance()
         self._LNI = jpDataLNI.instance()           # Singleton. See manager.py
-        self._GSI = jpDataUtils.getTilesFromCsv()
         self._Census = jpDataCensus.instance()     # Singleton. See manager.py
         self._MHLW = jpDataMHLW.instance()         # Singleton. See manager.py
 
@@ -43,7 +49,7 @@ class JPDataUIHandler:
         # Tab LNI
         self._dw.myListWidget11.itemSelectionChanged.connect(self._LW11_itemSelectionChanged)
         self._dw.myListWidget12.itemSelectionChanged.connect(self._LW12_itemSelectionChanged)
-        self._dw.myComboBox11.currentIndexChanged.connect(self._CB11_changed)
+        # self._dw.myComboBox11.currentIndexChanged.connect(self._CB11_changed)
         self._dw.myPushButton15.clicked.connect(self._lni_web)
 
         # Tab Census
@@ -55,12 +61,40 @@ class JPDataUIHandler:
         self._dw.myLW_MHLW.currentRowChanged.connect(self._mhlw_map_changed)
         self._dw.myPB_MHLW_1.clicked.connect(self._mhlw_web)
 
+        # Tab 4 / Settings
+        self._dw.myCB_Addr_1.currentIndexChanged.connect(self._myCB_Addr_1_changed)
+        #self._dw.myCB_Addr_2.currentIndexChanged.connect(
+        #    lambda: jpDataAddr.set_cb_towns(
+        #        self._dw.myCB_Addr_3,
+        #        self._folderPath,
+        #        self._dw.myCB_Addr_1.currentText(),
+        #        self._dw.myCB_Addr_2.currentText(),
+        #    )
+        #)
+        #self._dw.myCB_Addr_3.currentIndexChanged.connect(
+        #    lambda: jpDataAddr.set_cb_details(
+        #        self._dw.myCB_Addr_4,
+        #        self._folderPath,
+        #        self._dw.myCB_Addr_1.currentText(),
+        #        self._dw.myCB_Addr_2.currentText(),
+        #        self._dw.myCB_Addr_3.currentText(),
+        #    )
+        #)
+        # self._dw.myPB_Addr_1.clicked.connect(self._myPB_Addr_1_clicked)
+        self._dw.myPB_Addr_2.clicked.connect(self._myPB_Addr_2_clicked)
+        self._dw.myPB_Addr_3.clicked.connect(self._myPB_Addr_3_clicked)
+
+
 
     def _setup_ui_static_text(self):
-        # Global / Folder Settings
         self._dw.myPushButton2.setText(TR.CHOOSE_FOLDER())
         self._dw.myPushButton2.setToolTip(TR.CHOOSE_FOLDER())
         self._dw.myLabelStatus.setText("")
+        self._dw.myLineEditSetting3.setEchoMode(
+            QLineEdit.EchoMode.Password
+            if hasattr(QLineEdit, "EchoMode")
+            else QLineEdit.Password
+        )
 
         self._setup_tab1(0)
         self._setup_tab2(1)
@@ -96,7 +130,7 @@ class JPDataUIHandler:
         self._dw.myTabWidget.setTabText(i, TR.GSI_TILES())
         self._dw.myPushButton25.setText(TR.ADD_TO_MAP())
         self._dw.myPushButton25.setToolTip(TR.GSI_TILES_TOOLTIP())
-
+    
     def _setup_tab3(self, i):
         self._dw.myTabWidget.setTabText(i, TR.CENSUS())
         self._dw.myLabel31.setText(TR.YEAR())
@@ -141,6 +175,10 @@ class JPDataUIHandler:
 
     def _setup_tab_addr(self, i):
         self._dw.myTabWidget.setTabText(i, TR.ADDRESS())
+        self._dw.myPB_Addr_1.setText(TR.DOWNLOAD())
+        self._dw.myPB_Addr_2.setText(TR.JUMP())
+        self._dw.myPB_Addr_3.setText(TR.REPROJECT())
+        self._dw.myCB_Addr_Projection.addItem("正距方位図法")
 
     def _setup_tab_setting(self, i):
         self._dw.myTabWidget.setTabText(i, TR.SETTING())
@@ -218,12 +256,7 @@ class JPDataUIHandler:
 
     def _init_tab_addr(self, folder_path):
         jpDataUtils.set_pref_items(self._dw.myCB_Addr_1)
-        if os.path.exists(
-            os.path.join(folder_path, "Addr")
-        ):  # If the folder exists, set cities
-            self._dw.myPB_Addr_1.setText(TR.JUMP())
-        else:
-            self._dw.myPB_Addr_1.setText(TR.DOWNLOAD())
+
 
     def enable_download(self, enable=True):
         if enable:
@@ -249,7 +282,7 @@ class JPDataUIHandler:
         combo_widget.blockSignals(True)
         combo_widget.clear()
         for text in texts:
-            if text and text != "":
+            if text:
                 combo_widget.addItem(text)
         # Restore selection if it still exists
         index = combo_widget.findText(current_text)
@@ -293,18 +326,12 @@ class JPDataUIHandler:
 
 
     def _LW11_itemSelectionChanged(self):
+        jpDataUtils.printLog("_LW11_itemSelectionChanged")
         if len(self._dw.myListWidget11.selectedItems()) == 0:
             return
         name_map = self._dw.myListWidget11.selectedItems()[0].text()
-
-        thisLandNum = self._LNI.get_records()[name_map]
-        self._LNI.set_name(name_map)
-
+        thisLandNum = self._LNI.get_record(name_map)
         self._dw.myLabelStatus.setText(thisLandNum.get("code_map", ""))
-
-        str_current_LW12_selected = [
-            item.text() for item in self._dw.myListWidget12.selectedItems()
-        ]
         str_new_LW12_text = []
         bol_redraw_LW12 = True
         bol_show_LW13 = False
@@ -314,20 +341,22 @@ class JPDataUIHandler:
             return [jpDataUtils.getPrefNameByCode(code, self._lang) for code in range(1, 48)]
 
         if muni_type in ("", "allprefs"):
-            if self._LNI.get_prev_name() == "" or self._LNI.get_records()[self._LNI.get_prev_name()].get(
-                "type_muni", ""
-            ).lower() not in ("", "allprefs", "mesh1"):
+            jpDataUtils.printLog("allprefs")
+            if self._LNI.get_prev_name() == "" or self._LNI.get_record(self._LNI.get_prev_name()).get("type_muni", "").lower() not in ("", "allprefs", "mesh1"):
                 str_new_LW12_text = all_prefs()
             else:
                 bol_redraw_LW12 = False
                 self._dw.myListWidget13.hide()
         elif muni_type == "single":
+            jpDataUtils.printLog("single")
             str_new_LW12_text = [TR.NATIONWIDE()]
         elif muni_type in ("regional", "detail"):
+            jpDataUtils.printLog("regional or detail")
             if muni_type == "detail":
                 bol_show_LW13 = True
             str_new_LW12_text = self._LNI.get_prefs(name_map)
         elif muni_type == "mesh1":
+            jpDataUtils.printLog("mesh1")
             bol_show_LW13 = True
             str_new_LW12_text = all_prefs()
 
@@ -335,7 +364,7 @@ class JPDataUIHandler:
             self._tab1_clear(bol_show_LW13)
             self._populate_LW(str_new_LW12_text, self._dw.myListWidget12)
 
-        self._tab1_check_year(name_map)
+        self._tab1_populate_years(name_map)
 
     def _tab1_clear(self, bol_show_LW13):
         self._dw.myListWidget12.clear()
@@ -366,25 +395,18 @@ class JPDataUIHandler:
             return
         name_map = self._dw.myListWidget11.selectedItems()[0].text()
         name_pref = self._dw.myListWidget12.selectedItems()[0].text()
-        self._tab1_check_year(name_map)
-        thisLandNum = self._LNI.get_records()[name_map]
+        self._tab1_populate_years(name_map)
+        thisLandNum = self._LNI.get_record(name_map)
         if thisLandNum["type_muni"].lower() in ("detail", "mesh1"):
             self._tab1_set_LW13(name_pref)
 
-    def _tab1_check_year(self, name_map):
+    def _tab1_populate_years(self, name_map):
         years = []
         name_pref = None
-        record = self._LNI.get_records()[name_map]
         if len(self._dw.myListWidget12.selectedItems()) > 0:
-            if record["type_muni"].lower() != "mesh1":
-                name_pref = self._dw.myListWidget12.selectedItems()[0].text()
+            name_pref = self._dw.myListWidget12.selectedItems()[0].text()
         years = self._LNI.get_years(name_map, name_pref)
         self._populate_CB(years, self._dw.myComboBox11)
-        self._tab1_set_LW13()
-
-    def _CB11_changed(self, index):
-        self._tab1_set_LW13()
-
 
     def _tab1_set_LW13(self, name_pref=None):
         if len(self._dw.myListWidget11.selectedItems()) == 0:
@@ -411,6 +433,9 @@ class JPDataUIHandler:
 
         self._populate_LW(details, self._dw.myListWidget13)
 
+    # def _CB11_changed(self, index):
+    #     self._tab1_set_LW13()
+
     def _lni_web(self):
         items = self._dw.myListWidget11.selectedItems()
         if items:
@@ -434,8 +459,7 @@ class JPDataUIHandler:
         rows = jpDataMuni.getMuniFromPrefName(name_pref, self._lang)
         self._dw.myListWidget32.clear()
 
-        for row in rows:
-            name = row["name_muni_" + self._lang]
+        for name in rows:
             if not name:
                 continue
             item = QListWidgetItem(name)
@@ -498,3 +522,59 @@ class JPDataUIHandler:
             thisLandNum = self._MHLW.get_records()[items[0].text()]
             QDesktopServices.openUrl(QUrl(thisLandNum["source"]))
         
+
+
+
+
+    def _myPB_Addr_2_clicked(self):
+        lon, lat = jpDataAddr.get_lonlat_by_addr(
+            self._folderPath,
+            str(self._dw.myCB_Addr_1.currentText()),
+            str(self._dw.myCB_Addr_2.currentText()),
+            str(self._dw.myCB_Addr_3.currentText()),
+            str(self._dw.myCB_Addr_4.currentText()),
+        )
+
+        if lon is None or lat is None:
+            return
+
+        point_jgd2011 = QgsPointXY(lon, lat)
+
+        # Transform to project CRS
+        crs_src = QgsCoordinateReferenceSystem("EPSG:6668")  # JGD2011
+        crs_dest = self._iface.mapCanvas().mapSettings().destinationCrs()
+        transform = QgsCoordinateTransform(crs_src, crs_dest, QgsProject.instance())
+        point_project = transform.transform(point_jgd2011)
+
+        # Set canvas center
+        canvas = self._iface.mapCanvas()
+        canvas.setCenter(point_project)
+        canvas.refresh()
+
+    def _myPB_Addr_3_clicked(self):
+        from qgis.core import QgsCoordinateReferenceSystem, QgsProject
+        proj = (
+            "+proj=aeqd "
+            "+lat_0=35.681236 "
+            "+lon_0=139.767125 "
+            "+datum=WGS84 "
+            "+units=m "
+            "+no_defs"
+        )
+
+        crs = QgsCoordinateReferenceSystem.fromProj(proj)
+
+        if crs.isValid():
+            QgsProject.instance().setCrs(crs)
+        else:
+            self.iface.messageBar().pushWarning(
+                "jpData",
+                "正距方位CRSを作成できませんでした。"
+            )
+        return
+
+    def _myCB_Addr_1_changed(self):
+        cities = self._Muni.get_munis(self._dw.myCB_Addr_1.currentText())
+        self._populate_CB(cities, self._dw.myCB_Addr_2)
+
+

@@ -1,16 +1,11 @@
 # -*- coding: utf-8 -*-
 import os, posixpath, tempfile
-from qgis.PyQt.QtCore import Qt, QSettings, QTranslator, QCoreApplication, QUrl
-from qgis.PyQt.QtGui import QDesktopServices
-from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
+from qgis.PyQt.QtCore import Qt, QSettings
 from qgis.core import (
     QgsProject,
     QgsSettings,
     QgsVectorLayer,
-    QgsRasterLayer,
-    QgsPointXY,
     QgsCoordinateReferenceSystem,
-    QgsCoordinateTransform,
     QgsWkbTypes
 )
 
@@ -20,14 +15,17 @@ from . import jpDataDownloader
 from . import jpDataUtils
 #from . import jpDataLNI
 #from . import jpDataCensus
-from . import jpDataMuni
+#from . import jpDataMuni
 from . import jpDataAddr
 from .jpdata_lni import jpDataLNI
 from .jpdata_census import jpDataCensus
 from .jpdata_mhlw import jpDataMHLW
+from .jpdata_muni import jpDataMuni
 
 
 class JPDataManager:
+    _verbose = True
+
     def __init__(self, iface):
         self._iface = iface
         self._plugin_dir = os.path.dirname(__file__)
@@ -41,29 +39,30 @@ class JPDataManager:
         self._folderPath = QSettings().value("jpdata/FolderPath", "~")
         self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
         #self._land_info = jpDataUtils.getMapsFromCsv2(self._lang)
+        self._Muni = jpDataMuni.instance()
+        self._Muni.set_download_folder(self._folderPath)
+        self._Muni.set_lang("j")
         self._LNI = jpDataLNI.instance()
-        self._GSI = jpDataUtils.getTilesFromCsv()
-        self._Census = jpDataMHLW.instance()
+        self._Census = jpDataCensus.instance()
         self._MHLW = jpDataMHLW.instance()
         self._LNI.set_download_folder(self._folderPath)
         self._LNI.set_lang(self._lang)
         self._Census.set_download_folder(self._folderPath)
         self._MHLW.set_download_folder(self._folderPath)
         self._MHLW.set_lang(self._lang)
+        self._GSI = jpDataUtils.getTilesFromCsv()
 
         self._downloader = jpDataDownloader.DownloadThread()
         self._dl_status = ""
         self._dl_url_zip = []
         self._dl_iter = 0
 
-        self._verbose = True
-
     def run(self):
         if not self._dw:
             from .jpdata_dockwidget import jpdataDockWidget
             self._dw = jpdataDockWidget()
 
-        self._ui = JPDataUIHandler(self._dw, self._lang)
+        self._ui = JPDataUIHandler(self._iface, self._dw, self._lang)
         self._connect_signals()
         self._setup_initial_ui_state()
 
@@ -91,14 +90,7 @@ class JPDataManager:
         if self._proxyServer:
             self._dw.myLineEditSetting1.setText(self._proxyServer)
 
-        self._dw.myLineEditSetting3.setEchoMode(
-            QLineEdit.EchoMode.Password
-            if hasattr(QLineEdit, "EchoMode")
-            else QLineEdit.Password
-        )
 
-        for row in self._GSI:
-            self._dw.myListWidget23.addItem(row["name_" + self._lang])
 
 
     def _connect_signals(self):
@@ -109,7 +101,9 @@ class JPDataManager:
 
         # Tab 2
         self._dw.myPushButton25.clicked.connect(self._addTile)
-
+        for row in self._GSI:
+            self._dw.myListWidget23.addItem(row["name_" + self._lang])
+        
         # Tab 3
         self._dw.myPushButton31.clicked.connect(self._tab3_download_all)
         self._dw.myPushButton32.clicked.connect(self._tab3_add_map)
@@ -118,26 +112,9 @@ class JPDataManager:
         self._dw.myPB_MHLW_2.clicked.connect(self._tab_mhlw_download_all)
         self._dw.myPB_MHLW_3.clicked.connect(self._tab_mhlw_add_map)
 
-        # Tab 4 / Settings
-        self._dw.myCB_Addr_1.currentIndexChanged.connect(self._myCB_Addr_1_changed)
-        self._dw.myCB_Addr_2.currentIndexChanged.connect(
-            lambda: jpDataAddr.set_cb_towns(
-                self._dw.myCB_Addr_3,
-                self._folderPath,
-                self._dw.myCB_Addr_1.currentText(),
-                self._dw.myCB_Addr_2.currentText(),
-            )
-        )
-        self._dw.myCB_Addr_3.currentIndexChanged.connect(
-            lambda: jpDataAddr.set_cb_details(
-                self._dw.myCB_Addr_4,
-                self._folderPath,
-                self._dw.myCB_Addr_1.currentText(),
-                self._dw.myCB_Addr_2.currentText(),
-                self._dw.myCB_Addr_3.currentText(),
-            )
-        )
-        self._dw.myPB_Addr_1.clicked.connect(self._myPB_Addr_1_clicked)
+        # Tab Address
+        self._dw.myPB_Addr_1.clicked.connect(self._myPB_Addr_dl_clicked)
+
 
         # For local testing purpose
         if self._verbose:
@@ -377,7 +354,7 @@ class JPDataManager:
         if layer.isValid():
             QgsProject.instance().addMapLayer(layer)
 
-    def tab1CheckSelected(self):
+    def _tab1CheckSelected(self):
         if not self._dw.myListWidget11.selectedItems():
             self._dw.myLabelStatus.setText(TR.CHOOSE_MAP_TYPE())
             return False
@@ -402,7 +379,7 @@ class JPDataManager:
     # a list of "code_pref"s (type = "" or "region")
     # or a list of "code_muni"s (type = "census")
     def _download_iter_2(self):
-        _start_download = False
+        _bol_start_download = False
 
         for x in range(self._dl_iter, len(self._dl_url_zip)):
             tempUrl = self._dl_url_zip[x]["url"]
@@ -415,12 +392,12 @@ class JPDataManager:
                     tempZipFileName,
                 )
             ):
-                _start_download = True
+                _bol_start_download = True
                 break
             else:
                 # The file exists, so skip to the next one
                 self.setLabel(TR.FILE_EXISTS(tempZipFileName))
-        if _start_download:
+        if _bol_start_download:
             self._dw.progressBar.setValue(0)
             self._ui.enable_download(False)
             self._dl_iter = x + 1
@@ -430,12 +407,12 @@ class JPDataManager:
             self._dl_iter = 0
 
 
-    def start_download(self, url, subFolder, zipFileName):
+    def _start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(posixpath.join(self._folderPath, subFolder)):
             os.mkdir(posixpath.join(self._folderPath, subFolder))
 
         if not os.path.exists(posixpath.join(self._folderPath, subFolder, zipFileName)):
-            self._set_proxy()
+            self.set_proxy()
             self.setLabel(TR.DOWNLOADING(zipFileName))
             self._downloader.setUrl(url)
             self._downloader.setFilePath(
@@ -452,7 +429,7 @@ class JPDataManager:
             self.setLabel(TR.FILE_EXISTS(zipFileName))
             self._ui.enable_download()
 
-    def _download_finished(self, success):
+    def _download_finished(self):
         current_text = self._dw.myLabelStatus.text()
         self.setLabel(current_text + TR.DONE())
         self._ui.enable_download()
@@ -465,9 +442,6 @@ class JPDataManager:
             # All downloads finished
             self._dl_iter = 0
             self._dl_url_zip = []
-            if self._dl_status == "ADDRESS":
-                self._dw.myPB_Addr_1.setText(TR.JUMP())
-                self._myCB_Addr_1_changed()
 
     def _cancel_download(self):
         self._dl_url_zip = []
@@ -516,64 +490,6 @@ class JPDataManager:
     def _tab3_add_map(self):
         self._tab3_iter(process="add")
 
-    def _myPB_Addr_1_clicked(self):
-        if self._dw.myPB_Addr_1.text() == TR.DOWNLOAD():
-            self._dl_url_zip = []
-            self._dl_iter = 0
-            for i in range(1, 48):
-                if not os.path.exists(
-                    posixpath.join(
-                        self._folderPath,
-                        "Addr",
-                        jpDataAddr.get_zip(i),
-                    )
-                ) and not jpDataAddr.get_csv_fullpath(i, self._folderPath):
-                    self._dl_url_zip.append(
-                        {
-                            "year": "2024",
-                            "url": jpDataAddr.get_url(i),
-                            "zip": jpDataAddr.get_zip(i),
-                            "subfolder": "Addr",
-                        }
-                    )
-            if len(self._dl_url_zip) > 0:
-                self._download_iter_2()
-        elif self._dw.myPB_Addr_1.text() == TR.JUMP():
-            lon, lat = jpDataAddr.get_lonlat_by_addr(
-                self._folderPath,
-                str(self._dw.myCB_Addr_1.currentText()),
-                str(self._dw.myCB_Addr_2.currentText()),
-                str(self._dw.myCB_Addr_3.currentText()),
-                str(self._dw.myCB_Addr_4.currentText()),
-            )
-
-            if lon is None or lat is None:
-                return
-
-            point_jgd2011 = QgsPointXY(lon, lat)
-
-            # Transform to project CRS
-            crs_src = QgsCoordinateReferenceSystem("EPSG:6668")  # JGD2011
-            crs_dest = self._iface.mapCanvas().mapSettings().destinationCrs()
-            transform = QgsCoordinateTransform(crs_src, crs_dest, QgsProject.instance())
-            point_project = transform.transform(point_jgd2011)
-
-            # Set canvas center
-            canvas = self._iface.mapCanvas()
-            canvas.setCenter(point_project)
-            canvas.refresh()
-
-    def _myCB_Addr_1_changed(self):
-        if not jpDataAddr.set_cb_cities(
-            self._dw.myCB_Addr_2,
-            self._folderPath,
-            self._dw.myCB_Addr_1.currentText(),
-        ):
-            self._dw.myPB_Addr_1.setText(TR.DOWNLOAD())
-            self.setLabel(TR.ADDRESS_MISSING())
-            self._dl_status = "ADDRESS"
-        else:
-            self._dw.myPB_Addr_1.setText(TR.JUMP())
 
     def _tab1_iter(self, process):
         if not self._tab1CheckSelected():
@@ -871,5 +787,29 @@ class JPDataManager:
 
     def _tab_mhlw_add_map(self):
         self._tab_mhlw_iter(process="add")
+
+
+    def _myPB_Addr_dl_clicked(self):
+        self._dl_url_zip = []
+        self._dl_iter = 0
+        for i in range(1, 48):
+            if not os.path.exists(
+                posixpath.join(
+                    self._folderPath,
+                    "Addr",
+                    jpDataAddr.get_zip(i),
+                )
+            ) and not jpDataAddr.get_csv_fullpath(i, self._folderPath):
+                self._dl_url_zip.append(
+                    {
+                        "year": "2024",
+                        "url": jpDataAddr.get_url(i),
+                        "zip": jpDataAddr.get_zip(i),
+                        "subfolder": "Addr",
+                    }
+                )
+        if len(self._dl_url_zip) > 0:
+            self._download_iter_2()
+
 
 # End of manager.py
