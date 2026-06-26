@@ -322,7 +322,7 @@ code_pref,code_muni,name_muni_j,code_mesh1,name_muni_e
 1,642,広尾町,6343,Hiroo
 1,643,幕別町,6343,Makubetsu
 1,643,幕別町,6443,Makubetsu
-1,644,池田町,6443,Ikeda
+1,644,池田町,6443,Ikeda (Hokkaido)
 1,645,豊頃町,6343,Toyokoro
 1,645,豊頃町,6443,Toyokoro
 1,646,本別町,6443,Honbetsu
@@ -533,7 +533,7 @@ code_pref,code_muni,name_muni_j,code_mesh1,name_muni_e
 4,321,大河原町,5740,Ogawara
 4,322,村田町,5740,Murata
 4,323,柴田町,5740,Shibata
-4,324,川崎町,5740,Kawasaki
+4,324,川崎町,5740,Kawasaki (Miyagi)
 4,341,丸森町,5640,Marumori
 4,361,亘理町,5640,Watari
 4,361,亘理町,5740,Watari
@@ -1371,7 +1371,7 @@ code_pref,code_muni,name_muni_j,code_mesh1,name_muni_e
 18,209,越前市,5336,Echizen
 18,210,坂井市,5436,Sakai
 18,322,永平寺町,5436,Eiheiji
-18,382,池田町,5336,Ikeda
+18,382,池田町,5336,Ikeda (Fukui)
 18,404,南越前町,5336,Minamiechizen
 18,423,越前町,5335,Echizen
 18,423,越前町,5336,Echizen
@@ -1511,7 +1511,7 @@ code_pref,code_muni,name_muni_j,code_mesh1,name_muni_e
 20,451,朝日村,5437,Asahi
 20,452,筑北村,5437,Chikuhoku
 20,452,筑北村,5438,Chikuhoku
-20,481,池田町,5437,Ikeda
+20,481,池田町,5437,Ikeda (Nagano)
 20,482,松川村,5437,Matsukawa
 20,485,白馬村,5437,Hakuba
 20,485,白馬村,5537,Hakuba
@@ -1582,7 +1582,7 @@ code_pref,code_muni,name_muni_j,code_mesh1,name_muni_e
 21,383,安八町,5336,Anpachi
 21,401,揖斐川町,5336,Ibigawa
 21,403,大野町,5336,Ōno
-21,404,池田町,5336,Ikeda
+21,404,池田町,5336,Ikeda (Gifu)
 21,421,北方町,5336,Kitagata
 21,501,坂祝町,5336,Sakahogi
 21,501,坂祝町,5337,Sakahogi
@@ -1926,7 +1926,7 @@ code_pref,code_muni,name_muni_j,code_mesh1,name_muni_e
 27,147,堺市美原区,5135,"Mihara, Sakai"
 27,202,岸和田市,5135,Kishiwada
 27,203,豊中市,5235,Toyonaka
-27,204,池田市,5235,Ikeda
+27,204,池田市,5235,Ikeda (Osaka)
 27,205,吹田市,5235,Suita
 27,206,泉大津市,5135,Izumiotsu
 27,207,高槻市,5235,Takatsuki
