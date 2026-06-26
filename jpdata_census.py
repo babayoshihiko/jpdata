@@ -69,9 +69,6 @@ class jpDataCensus:
     def get_prefs(self, code_census):
         return
     
-    def get_shp(self, code_census, name_pref, year, detail):
-        return self.getZipShp()
-    
     def get_url_zip(self, code_census, year, name_pref, code_muni_mesh):
         return self.getZip()
 

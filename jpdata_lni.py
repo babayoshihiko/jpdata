@@ -54,9 +54,6 @@ class jpDataLNI:
     def get_prefs(self, name_map, csvfile=None):
         return self.getPrefsOrRegionsByMapCode(name_map, csvfile)
     
-    def get_shp(self, name_map, name_pref, year, detail):
-        return self.getShapeByMapCodePrefNameYearDetail(name_map, name_pref, year, detail)
-    
     def get_source(self, name_map=None):
         if name_map is not None:
             self._set_source(name_map)
@@ -163,24 +160,6 @@ class jpDataLNI:
                 and row["year"] == year
             ):
                 details.append(row["detail1"] + " " + row["detail2"])
-        unique_details = []
-        for x in details:
-            if x not in unique_details:
-                unique_details.append(x)
-        return unique_details
-
-
-    def getShapeByMapCodePrefNameYearDetail(self, name_map, name_pref, year, detail):
-        self._set_source(name_map)
-        details = []
-        for row in self.source:
-            if (
-                len(row) >= 2
-                and row["availability"] == name_pref
-                and row["year"] == year
-                and row["detail1"] + " " + row["detail2"] == detail
-            ):
-                details.append(row["shp"])
         unique_details = []
         for x in details:
             if x not in unique_details:
@@ -370,6 +349,7 @@ class jpDataLNI:
         self.prev_name = self.current_name
         self.current_name = name_map
         csv_full_path = ""
+        jpDataUtils.printLog(self.records.keys())
         csvfile = self.records[name_map].get("year", "")
         if csvfile.isdigit():
             return

@@ -398,7 +398,7 @@ class JPDataUIHandler:
         self._tab1_populate_years(name_map)
         thisLandNum = self._LNI.get_record(name_map)
         if thisLandNum["type_muni"].lower() in ("detail", "mesh1"):
-            self._tab1_set_LW13(name_pref)
+            self._tab1_set_LW13(name_map, name_pref)
 
     def _tab1_populate_years(self, name_map):
         years = []
@@ -408,25 +408,18 @@ class JPDataUIHandler:
         years = self._LNI.get_years(name_map, name_pref)
         self._populate_CB(years, self._dw.myComboBox11)
 
-    def _tab1_set_LW13(self, name_pref=None):
-        if len(self._dw.myListWidget11.selectedItems()) == 0:
+    def _tab1_set_LW13(self, name_map, name_pref):
+        year = self._dw.myComboBox11.currentText()
+        if not year.strip():
             return
-        if name_pref is None:
-            if len(self._dw.myListWidget12.selectedItems()) == 0:
-                return
-            name_pref = self._dw.myListWidget12.selectedItems()[0].text()
-        str_name_j = self._dw.myListWidget11.selectedItems()[0].text()
-        str_year = self._dw.myComboBox11.currentText()
-        if not str_year.strip():
-            return
-        thisLandNum = self._LNI.get_records()[str_name_j]
+        thisLandNum = self._LNI.get_records()[name_map]
         if thisLandNum["type_muni"].lower() not in ("detail", "mesh1"):
             self._dw.myListWidget13.hide()
             return
         self._dw.myListWidget13.show()
         if thisLandNum["type_muni"].lower() == "detail":
             details = self._LNI.get_details(
-                thisLandNum["code_map"], name_pref, str_year
+                name_map, name_pref, year
             )
         else:
             details = jpDataMesh.getMesh1ByPrefName(name_pref)
