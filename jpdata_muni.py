@@ -45,70 +45,82 @@ class jpDataMuni:
 
     def get_munis(self, name_pref):
         return self._getMuniFromPrefName(name_pref)
+    
+    def get_towns(self, name_pref, name_muni):
+        self._load_csv(name_pref)
+        rows = self._addr
+        if rows is None:
+            return (None, None)
+        filtered_rows = ["---"]
+        for row in rows:
+            if row["都道府県名"] == name_pref and row["市区町村名"] == name_muni:
+                filtered_rows.append(row["大字・丁目名"])
+        return jpDataUtils.unique_list(filtered_rows)
+
+
+    def get_details(self, name_pref, name_muni, name_town):
+        self._load_csv(name_pref)
+        rows = self._addr
+        if rows is None:
+            return (None, None)
+        filtered_rows = ["---"]
+        for row in rows:
+            if row["都道府県名"] == name_pref and row["市区町村名"] == name_muni and row["大字・丁目名"] == name_town:
+                filtered_rows.append(row["街区符号・地番"])
+        return jpDataUtils.unique_list(filtered_rows)
 
     # For Tokyo (13) Year 2025
     #   url: https://nlftp.mlit.go.jp/isj/dls/data/24.0a/13000-24.0a.zip
     #   zip: 13000-24.0a.zip   ({code_pref}000-{year2digit-1}.0a.zip)
     #   csv: 13_2025.csv       ({code_pref}_{year4digit}.csv) 
 
-    def get_url(rowself, pref_code, year=2024):
+    def get_url(rowself, code_pref, year=2024):
         year2digit = str(year - 1)[:2]
         return (
             "https://nlftp.mlit.go.jp/isj/dls/data/" + year2digit + ".0a/"
-            + str(pref_code).zfill(2)
+            + str(code_pref).zfill(2)
             + "000-" + year2digit + ".0a.zip"
         )
 
-    def get_zip(rowself, pref_code, year=2024):
+    def get_zip(rowself, code_pref, year=2024):
         year2digit = str(year - 1)[:2]
-        return str(pref_code).zfill(2) + "000-" + year2digit + ".0a.zip"
+        return str(code_pref).zfill(2) + "000-" + year2digit + ".0a.zip"
 
-    def get_csv_fullpath(rowself, pref_code, year=2024):
+    def get_csv_fullpath(self, code_pref, year=2024):
         year4digit = str(year)[:4]
         year2digit = str(year - 1)[:2]
         fullpath = posixpath.join(
             folder,
             "Addr",
-            str(pref_code).zfill(2) + "000-" + year2digit + ".0a",
-            str(pref_code).zfill(2) + "_" + year4digit + ".csv",
+            str(code_pref).zfill(2) + "000-" + year2digit + ".0a",
+            str(code_pref).zfill(2) + "_" + year4digit + ".csv",
         )
         if os.path.exists(os.path.normpath(fullpath)):
             return fullpath
         else:
             return None
 
-    def _load_csv(pref_code, year=2024, encoding="cp932"):
-        pref_code = str(pref_code).zfill(2)
-        if self._current_pref == pref_code:
+    def _load_csv(name_pref, year=2024, encoding="cp932"):
+        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+        if self._current_pref == code_pref:
             return
         year4digit = str(year)[:4]
         year2digit = str(year - 1)[:2]
-        csvfullpath = get_csv_fullpath(year, pref_code)
+        csvfullpath = get_csv_fullpath(year, code_pref)
         if csvfullpath:
-            self._current_pref = pref_code
+            self._current_pref = code_pref
             self._addr = jpDataUtils.get_records_from_csv(csvfullpath)
 
 
-    def _getMuniFromPrefCode(self, code_pref):
-        self._load_code_pref_muni()
-        # No city name on top. For selecting prefecture only.
-        filtered_rows = [""]
-        for row in self._code_pref_muni:
-            if len(row) >= 2 and row["code_pref"] == code_pref:
-                filtered_rows.append(row)
-        return filtered_rows
-
     def _getMuniFromPrefName(self, name_pref):
         self._load_code_pref_muni()
-        # No city name on top. For selecting prefecture only.
-        filtered_rows = [""]
-        from qgis.core import QgsMessageLog, Qgis
-        
+        # No city name on top. For selected prefecture only.
+        filtered_rows = ["---"]
+        jpDataUtils.printDebugLog("lang = " + self._lang)
         for row in self._code_pref_muni:
-            QgsMessageLog.logMessage("checking " + row["name_muni_j"], "jpdata", Qgis.Info)
             if row["name_pref_" + self._lang] == name_pref:
                 filtered_rows.append(row["name_muni_" + self._lang])
-        return filtered_rows
+        return jpDataUtils.unique_list(filtered_rows)
 
 
     def _getMesh1FromPrefName(self, name_muni):
@@ -118,7 +130,6 @@ class jpDataMuni:
             if len(row) >= 2 and row["name_muni"] == name_muni:
                 filtered_rows.append(row)
         return filtered_rows
-
 
     def _getMesh3FromPrefName(self, name_muni):
         filePath = posixpath.join(os.path.dirname(__file__), "csv", "muni_mesh3.csv")
@@ -145,11 +156,11 @@ class jpDataMuni:
                 row["code_pref"] = row["code_pref"].zfill(2)
                 return row
 
-    def get_all_designated_cities(self, year=2024, lang="j"):
+    def get_all_designated_cities(self, year=2024):
         """Return all the designated cities"""
         year_int = int(year)
         # The current list as of 2026
-        if lang == "ja":
+        if self._lang == "j":
             cities = {
                 "札幌市", "仙台市", "千葉市", "さいたま市", "横浜市", "川崎市",
                 "相模原市", "新潟市", "静岡市", "浜松市", "名古屋市", "京都市",
@@ -177,70 +188,99 @@ class jpDataMuni:
 
         return cities
 
-    # def get_munis_by_pref(pref_name):
-    #     Muni = jpDataMuni.instance()
-    #     rows = self.get_munis(pref_name)
-    #     return rows
-
-    def _get_towns_by_municode(self, folder, pref_name, city_name):
-        pref_code = jpDataUtils.getPrefCodeByName(pref_name)
-        rows = _load_csv(folder, pref_code)
-        if rows is None:
-            return False
-
-        towns = [row[2] for row in rows if len(row) > 2 and row[1] == city_name]
-        return sorted(set(towns))
-
-
-    def _get_details_by_town(self, folder, pref_name, city_name, town_name):
-        pref_code = jpDataUtils.getPrefCodeByName(pref_name)
-        rows = _load_csv(folder, pref_code)
-        if rows is None:
-            return False
-
-        details = [
-            row[4]
-            for row in rows
-            if len(row) > 5 and row[1] == city_name and row[2] == town_name
-        ]
-        return sorted(set(details))
-
-
     def unzip_addr_data(self, year):
-        for pref_code in range(1, 48):
+        for code_pref in range(1, 48):
             if os.path.exists(
-                posixpath.join(self._download_fullpath, self.get_zip(year, pref_code))
+                posixpath.join(self._download_fullpath, self.get_zip(year, code_pref))
             ) and not os.path.exists(
-                posixpath.join(self._download_fullpath, self.get_csv_fullpath(year, pref_code))
+                posixpath.join(self._download_fullpath, self.get_csv_fullpath(year, code_pref))
             ):
-                jpDataUtils.unzip(self._download_fullpath, self.get_zip(year, pref_code))
+                jpDataUtils.unzip(self._download_fullpath, self.get_zip(year, code_pref))
 
 
     def get_lonlat_by_addr(self, name_pref, name_muni, name_town, detail_code):
         jpDataUtils.printDebugLog(name_town)
-        if not name_town:
-            rows = self._code_pref_muni
-            if rows is None:
-                return (None, None)
-
-            for row in rows:
-                if (
-                    row["name_pref_" + self._lang] == name_pref
-                    and row["name_muni_" + self._lang] == name_muni
-                ):
-                    return (float(row["X"]), float(row["Y"]))  # lon, lat
+        if name_muni == "" or name_muni == "---":
+            return self._get_lonlat_by_pref(name_pref)
+        elif name_town == "" or name_town == "---":
+            return self._get_lonlat_by_muni(name_pref, name_muni)
+        elif detail_code == "" or detail_code == "---":
+            return self._get_lonlat_by_town(name_pref, name_muni, name_town)
         else:
-            pref_code = jpDataUtils.getPrefCodeByName(pref_name)
-            rows = self._load_csv(folder, pref_code)
-            if rows is None:
-                return (None, None)
-
-            for row in rows:
-                if (
-                    row[1] == name_muni
-                    and row[2] == name_town
-                    and row[4] == detail_code
-                ):
-                    return (float(row[9]), float(row[8]))  # lon, lat
+            return self._get_lonlat_by_detail(name_pref, name_muni, name_town, detail_code)
         return (None, None)
 
+    def _get_lonlat_by_pref(self, name_pref):
+        rows = self._code_pref_muni
+        if rows is None:
+            return (None, None)
+        for row in rows:
+            if (
+                row["name_pref_" + self._lang] == name_pref
+                and row["name_muni_" + self._lang] == ""
+            ):
+                return (float(row["X"]), float(row["Y"]))
+
+    def _get_lonlat_by_muni(self, name_pref, name_muni):
+        rows = self._code_pref_muni
+        if rows is None:
+            return (None, None)
+        for row in rows:
+            if (
+                row["name_pref_" + self._lang] == name_pref
+                and row["name_muni_" + self._lang] == name_muni
+            ):
+                return (float(row["X"]), float(row["Y"]))
+
+
+    def _get_lonlat_by_town(self, name_pref, name_muni, name_town):
+        self._load_csv(name_pref)
+        rows = self._addr
+        if rows is None:
+            return (None, None)
+        for row in rows:
+            if (
+                row[1] == name_muni
+                and row[2] == name_town
+                and row[4] == ""
+            ):
+                return (float(row[9]), float(row[8]))
+
+    def _get_lonlat_by_detail(self, name_pref, name_muni, name_town, detail_code):
+        self._load_csv(name_pref)
+        rows = self._addr
+        if rows is None:
+            return (None, None)
+        for row in rows:
+            if (
+                row[1] == name_muni
+                and row[2] == name_town
+                and row[4] == detail_code
+            ):
+                return (float(row[9]), float(row[8]))
+
+    def get_projections(self):
+        dict_projection = {
+            0: {"j": "正距方位図法", "e": "Azimuthal Equidistant"},
+            1: {"j": "ランベルト正積方位図法", "e": "Lambert Azimuthal Equal Area"},
+            2: {"j": "正射図法", "e": "Orthographic"},
+        }
+
+        projections = []
+        for row in dict_projection.values():
+            projections.append(row.get(self._lang, ""))
+
+        return projections
+
+    def get_proj_string(self, i, lat, lon):
+        if lat is None or lon is None:
+            return
+        proj_strings = {
+            0: "+proj=aeqd +lat_0={lat} +lon_0={lon} +datum=WGS84 +units=m +no_defs",
+            1: "+proj=laea +lat_0={lat} +lon_0={lon} +datum=WGS84 +units=m +no_defs",
+            2: "+proj=ortho +lat_0={lat} +lon_0={lon} +datum=WGS84 +units=m +no_defs"
+        }
+        proj_string = proj_strings[i]
+        proj_string = proj_string.replace("{lat}", str(lat))
+        proj_string = proj_string.replace("{lon}", str(lon))
+        return proj_string

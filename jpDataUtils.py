@@ -498,7 +498,7 @@ def replaceCodes(
     return text
 
 
-def set_pref_items(widget, lang = "j"):
+def set_pref_items(widget, lang):
     prefs = [getPrefNameByCode(i, lang = lang) for i in range(1, 48)]
 
     widget.blockSignals(True)
@@ -519,3 +519,10 @@ def count_invalid_geometry(layer):
             if not feature.geometry().isGeosValid():
                 count = count + 1
     return count
+
+def unique_list(given_list):
+    unique_list = []
+    for x in given_list:
+        if x not in unique_list:
+            unique_list.append(x)
+    return unique_list

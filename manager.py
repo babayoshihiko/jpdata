@@ -16,7 +16,7 @@ from . import jpDataUtils
 #from . import jpDataLNI
 #from . import jpDataCensus
 #from . import jpDataMuni
-from . import jpDataAddr
+#from . import jpDataAddr
 from .jpdata_lni import jpDataLNI
 from .jpdata_census import jpDataCensus
 from .jpdata_mhlw import jpDataMHLW
@@ -41,7 +41,7 @@ class JPDataManager:
         #self._land_info = jpDataUtils.getMapsFromCsv2(self._lang)
         self._Muni = jpDataMuni.instance()
         self._Muni.set_download_folder(self._folderPath)
-        self._Muni.set_lang("j")
+        self._Muni.set_lang(self._lang)
         self._LNI = jpDataLNI.instance()
         self._Census = jpDataCensus.instance()
         self._MHLW = jpDataMHLW.instance()
@@ -786,14 +786,14 @@ class JPDataManager:
                 posixpath.join(
                     self._folderPath,
                     "Addr",
-                    jpDataAddr.get_zip(i),
+                    self._Muni.get_zip(i),
                 )
-            ) and not jpDataAddr.get_csv_fullpath(i, self._folderPath):
+            ) and not self._Muni.get_csv_fullpath(i):
                 self._dl_url_zip.append(
                     {
                         "year": "2024",
-                        "url": jpDataAddr.get_url(i),
-                        "zip": jpDataAddr.get_zip(i),
+                        "url": self._Muni.get_url(i),
+                        "zip": self._Muni.get_zip(i),
                         "subfolder": "Addr",
                     }
                 )

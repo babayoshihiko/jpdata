@@ -67,7 +67,7 @@ class JPDataUIHandler:
         self._dw.myLW_MHLW.currentRowChanged.connect(self._mhlw_map_changed)
         self._dw.myPB_MHLW_1.clicked.connect(self._mhlw_web)
 
-        # Tab 4 / Settings
+        # Tab Addr
         self._dw.myCB_Addr_1.currentIndexChanged.connect(self._myCB_Addr_1_changed)
         #self._dw.myCB_Addr_2.currentIndexChanged.connect(
         #    lambda: jpDataAddr.set_cb_towns(
@@ -184,7 +184,6 @@ class JPDataUIHandler:
         self._dw.myPB_Addr_1.setText(TR.DOWNLOAD())
         self._dw.myPB_Addr_2.setText(TR.JUMP())
         self._dw.myPB_Addr_3.setText(TR.REPROJECT())
-        self._dw.myCB_Addr_Projection.addItem("正距方位図法")
 
     def _setup_tab_setting(self, i):
         self._dw.myTabWidget.setTabText(i, TR.SETTING())
@@ -193,7 +192,7 @@ class JPDataUIHandler:
 
     def init_tabs(self, folder_path, LNI=None, MHLW=None):
         self._init_tab3()
-        self._init_tab_addr(folder_path)
+        self._init_tab_addr()
 
     def _init_tab1(self, LNI=None):
         self._LNI.init()
@@ -260,9 +259,11 @@ class JPDataUIHandler:
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
             self._dw.myLW_MHLW.addItem(item)
 
-    def _init_tab_addr(self, folder_path):
-        jpDataUtils.set_pref_items(self._dw.myCB_Addr_1)
-
+    def _init_tab_addr(self):
+        jpDataUtils.set_pref_items(self._dw.myCB_Addr_1, self._lang)
+        projs = self._Muni.get_projections()
+        for proj in projs:
+            self._dw.myCB_Addr_Projection.addItem(proj)
 
     def enable_download(self, enable=True):
         if enable:
@@ -561,28 +562,17 @@ class JPDataUIHandler:
             str(self._dw.myCB_Addr_4.currentText()),
         )
         from qgis.core import QgsCoordinateReferenceSystem, QgsProject
-        proj = (
-            "+proj=aeqd "
-            + "+lat_0=" + str(lat) + " "
-            + "+lon_0=" + str(lon) + " "
-            + "+datum=WGS84 "
-            + "+units=m "
-            + "+no_defs"
-        )
-
-        crs = QgsCoordinateReferenceSystem.fromProj(proj)
-
+        proj_index = self._dw.myCB_Addr_Projection.currentIndex()
+        proj_string = self._Muni.get_proj_string(proj_index, lat, lon)
+        crs = QgsCoordinateReferenceSystem.fromProj(proj_string)
         if crs.isValid():
             QgsProject.instance().setCrs(crs)
-        else:
-            self.iface.messageBar().pushWarning(
-                "jpData",
-                "正距方位CRSを作成できませんでした。"
-            )
-        return
+
 
     def _myCB_Addr_1_changed(self):
+        jpDataUtils.printDebugLog(self._dw.myCB_Addr_1.currentText())
         cities = self._Muni.get_munis(self._dw.myCB_Addr_1.currentText())
+        jpDataUtils.printDebugLog(cities)
         self._populate_CB(cities, self._dw.myCB_Addr_2)
 
 

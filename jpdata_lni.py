@@ -111,11 +111,7 @@ class jpDataLNI:
                             )
                 else:
                     prefs_or_regions.append(row["availability"])
-        unique_prefs_or_regions = []
-        for x in prefs_or_regions:
-            if x not in unique_prefs_or_regions:
-                unique_prefs_or_regions.append(x)
-        return unique_prefs_or_regions
+        return jpDataUtils.unique_list(prefs_or_regions)
 
 
     def getYearsByMapCode(self, name_map, name_pref=None, csvfile=None):
