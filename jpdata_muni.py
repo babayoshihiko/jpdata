@@ -4,9 +4,10 @@ from . import jpDataUtils
 from qgis.core import QgsMessageLog, Qgis
 # QgsMessageLog.logMessage(str(len(self._code_pref_muni)), "jpdata", Qgis.Info)
 
-# The CSV contains the codes and names of prefs and munis in Japan
+# The default CSV files are: code_pref_muni.csv and muni_mesh1.csv.
 #
-# code_dantai	code_region	code_pref	code_muni	name_pref	name_muni	name_muni_kana
+# Additionally, the address CSV files can be downloaded and saved in FOLDER/Addr.
+# 
 
 
 class jpDataMuni:
@@ -21,6 +22,8 @@ class jpDataMuni:
     def __init__(self):
         self._code_pref_muni = None
         self._muni_mesh1 = None
+        self._addr = None
+        self._current_pref = ""
         self._lang = "j"
         self._download_fullpath = ""
 
@@ -42,6 +45,48 @@ class jpDataMuni:
 
     def get_munis(self, name_pref):
         return self._getMuniFromPrefName(name_pref)
+
+    # For Tokyo (13) Year 2025
+    #   url: https://nlftp.mlit.go.jp/isj/dls/data/24.0a/13000-24.0a.zip
+    #   zip: 13000-24.0a.zip   ({code_pref}000-{year2digit-1}.0a.zip)
+    #   csv: 13_2025.csv       ({code_pref}_{year4digit}.csv) 
+
+    def get_url(rowself, pref_code, year=2024):
+        year2digit = str(year - 1)[:2]
+        return (
+            "https://nlftp.mlit.go.jp/isj/dls/data/" + year2digit + ".0a/"
+            + str(pref_code).zfill(2)
+            + "000-" + year2digit + ".0a.zip"
+        )
+
+    def get_zip(rowself, pref_code, year=2024):
+        year2digit = str(year - 1)[:2]
+        return str(pref_code).zfill(2) + "000-" + year2digit + ".0a.zip"
+
+    def get_csv_fullpath(rowself, pref_code, year=2024):
+        year4digit = str(year)[:4]
+        year2digit = str(year - 1)[:2]
+        fullpath = posixpath.join(
+            folder,
+            "Addr",
+            str(pref_code).zfill(2) + "000-" + year2digit + ".0a",
+            str(pref_code).zfill(2) + "_" + year4digit + ".csv",
+        )
+        if os.path.exists(os.path.normpath(fullpath)):
+            return fullpath
+        else:
+            return None
+
+    def _load_csv(pref_code, year=2024, encoding="cp932"):
+        pref_code = str(pref_code).zfill(2)
+        if self._current_pref == pref_code:
+            return
+        year4digit = str(year)[:4]
+        year2digit = str(year - 1)[:2]
+        csvfullpath = get_csv_fullpath(year, pref_code)
+        if csvfullpath:
+            self._current_pref = pref_code
+            self._addr = jpDataUtils.get_records_from_csv(csvfullpath)
 
 
     def _getMuniFromPrefCode(self, code_pref):
@@ -100,7 +145,6 @@ class jpDataMuni:
                 row["code_pref"] = row["code_pref"].zfill(2)
                 return row
 
-
     def get_all_designated_cities(self, year=2024, lang="j"):
         """Return all the designated cities"""
         year_int = int(year)
@@ -132,3 +176,71 @@ class jpDataMuni:
             cities.discard("Okayama")
 
         return cities
+
+    # def get_munis_by_pref(pref_name):
+    #     Muni = jpDataMuni.instance()
+    #     rows = self.get_munis(pref_name)
+    #     return rows
+
+    def _get_towns_by_municode(self, folder, pref_name, city_name):
+        pref_code = jpDataUtils.getPrefCodeByName(pref_name)
+        rows = _load_csv(folder, pref_code)
+        if rows is None:
+            return False
+
+        towns = [row[2] for row in rows if len(row) > 2 and row[1] == city_name]
+        return sorted(set(towns))
+
+
+    def _get_details_by_town(self, folder, pref_name, city_name, town_name):
+        pref_code = jpDataUtils.getPrefCodeByName(pref_name)
+        rows = _load_csv(folder, pref_code)
+        if rows is None:
+            return False
+
+        details = [
+            row[4]
+            for row in rows
+            if len(row) > 5 and row[1] == city_name and row[2] == town_name
+        ]
+        return sorted(set(details))
+
+
+    def unzip_addr_data(self, year):
+        for pref_code in range(1, 48):
+            if os.path.exists(
+                posixpath.join(self._download_fullpath, self.get_zip(year, pref_code))
+            ) and not os.path.exists(
+                posixpath.join(self._download_fullpath, self.get_csv_fullpath(year, pref_code))
+            ):
+                jpDataUtils.unzip(self._download_fullpath, self.get_zip(year, pref_code))
+
+
+    def get_lonlat_by_addr(self, name_pref, name_muni, name_town, detail_code):
+        jpDataUtils.printDebugLog(name_town)
+        if not name_town:
+            rows = self._code_pref_muni
+            if rows is None:
+                return (None, None)
+
+            for row in rows:
+                if (
+                    row["name_pref_" + self._lang] == name_pref
+                    and row["name_muni_" + self._lang] == name_muni
+                ):
+                    return (float(row["X"]), float(row["Y"]))  # lon, lat
+        else:
+            pref_code = jpDataUtils.getPrefCodeByName(pref_name)
+            rows = self._load_csv(folder, pref_code)
+            if rows is None:
+                return (None, None)
+
+            for row in rows:
+                if (
+                    row[1] == name_muni
+                    and row[2] == name_town
+                    and row[4] == detail_code
+                ):
+                    return (float(row[9]), float(row[8]))  # lon, lat
+        return (None, None)
+

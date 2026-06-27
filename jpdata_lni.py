@@ -59,21 +59,19 @@ class jpDataLNI:
             self._set_source(name_map)
         return self.source
     
-    def get_url_zip(self, name_map, year, name_pref, code_pref_mesh, detail=None):
+    def get_url_zip(self, name_map, year, name_pref_mesh, detail=None):
         return self.getZip(
             name_map,
             year, 
-            name_pref, 
-            code_pref_mesh, 
+            name_pref_mesh, 
             "urlzip", 
             detail)
 
-    def get_zip_shp(self, name_map, year, name_pref, code_pref_mesh, detail=None):
+    def get_zip_shp(self, name_map, year, name_pref_mesh, detail=None):
         return self.getZip(
             name_map,
             year, 
-            name_pref, 
-            code_pref_mesh, 
+            name_pref_mesh, 
             "zipshp", 
             detail)
     
@@ -241,11 +239,13 @@ class jpDataLNI:
     def getZip( self,
                 name_map,
                 year, 
-                pref_name, 
-                code_pref_or_mesh1, 
+                name_pref_mesh, 
                 type="urlzip", 
                 detail=None):
+        jpDataUtils.printDebugLog("Line 248 in jpdata_lni.py: " + name_map)
         record = self.records[name_map]
+        if record["type_muni"] == "detail" and detail is None:
+            return
         tempTypeMuni = record["type_muni"].lower()
         tempSubFolder = record["code_map"]
 
@@ -256,28 +256,37 @@ class jpDataLNI:
         tempQml = record["qml"]
         tempEpsg = record["epsg"]
         tempEncoding = record["encoding"].upper()
-        tempLayerName = record["name_" + self.lang] + " (" + pref_name + "," + year + ")"
-
-        if self.current_name != name_map:
+        tempLayerName = record["name_" + self.lang] + " (" + name_pref_mesh + "," + year + ")"
+        if (not record["year"].isdigit()) or record["year"][:3].upper() == "CSV":
             self._set_source(name_map)
             # Read data from CSV
-            tempUrl = self.source["url"]
-            tempZip = self.source["zip"]
-            tempShp = self.source["shp"]
-            if "altdir" in self.source:
-                tempAltdir = self.source["altdir"]
-            if "qml" in self.source:
-                tempQml = self.source["qml"]
-            if "epsg" in self.source:
-                tempEpsg = self.source["epsg"]
-            if "encoding" in self.source:
-                tempEncoding = self.source["encoding"]
+            for row in self.source:
+                jpDataUtils.printDebugLog(row)
+                if row["year"] != year:
+                    continue
+                if tempTypeMuni != "single" and row["availability"] != name_pref_mesh and row["availability"] != "allprefs" and row["availability"] != "all":
+                    continue
+                if tempTypeMuni == "detail" and row["detail1"] + " " + row["detail1"] != detail:
+                    continue
 
+                tempUrl = row["url"]
+                tempZip = row["zip"]
+                tempShp = row["shp"]
+                if "altdir" in row:
+                    tempAltdir = row["altdir"]
+                if "qml" in row:
+                    tempQml = row["qml"]
+                if "epsg" in row:
+                    tempEpsg = row["epsg"]
+                if "encoding" in row:
+                    tempEncoding = row["encoding"]
 
+        code_pref_or_mesh1 = jpDataUtils.getPrefCodeByName(name_pref_mesh)
         if tempTypeMuni == "mesh1":
             tempLayerName = (
-                record["name_" + self.lang] + " (" + code_pref_or_mesh1 + "," + year + ")"
+                record["name_" + self.lang] + " (" + name_pref_mesh + "," + year + ")"
             )
+            code_pref_or_mesh1 = name_pref_mesh
         if tempEncoding[:3] == "UTF":
             tempEncoding = "UTF-8"
         else:
@@ -313,7 +322,6 @@ class jpDataLNI:
             code_pref_or_mesh1=code_pref_or_mesh1,
             year=year,
         )
-
         if type == "urlzip":
             return tempUrl, tempZip, tempSubFolder
         else:
@@ -335,7 +343,7 @@ class jpDataLNI:
             csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", csvfile)
         if not os.path.exists(csv_full_path):
             jpDataUtils.printLog(
-                "jpDataLNI._get_csv_full_path: "
+                "jpdata_lni._get_csv_full_path: "
                 + "The CSV file does not exist: "
                 + csv_full_path,
             )
@@ -343,13 +351,9 @@ class jpDataLNI:
         return csv_full_path
 
     def _set_source(self, name_map):
-        jpDataUtils.printLog("jpdata_lni._set_source: " + name_map)
         if name_map is None or self.current_name == name_map:
             return
-        self.prev_name = self.current_name
-        self.current_name = name_map
         csv_full_path = ""
-        jpDataUtils.printLog(self.records.keys())
         csvfile = self.records[name_map].get("year", "")
         if csvfile.isdigit():
             return
@@ -357,10 +361,10 @@ class jpDataLNI:
             csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", csvfile)
         if not os.path.exists(csv_full_path):
             jpDataUtils.printLog(
-                "jpdata_lni._set_source: "
-                + "The CSV file does not exist: "
-                + name_map,
+                "jpdata_lni._set_source: Cannot find the CSV file for " + name_map + " " + csvfile,
             )
         else:
+            self.prev_name = self.current_name
+            self.current_name = name_map
             self.source = jpDataUtils.get_records_from_csv(csv_full_path)
 

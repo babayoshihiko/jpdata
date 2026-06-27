@@ -5,6 +5,15 @@ import csv, os, posixpath
 from . import jpdata_unzip
 
 
+def DEBUG():
+    DEBUG_MODE = True
+    return DEBUG_MODE
+
+def printDebugLog(message):
+    if DEBUG():
+        printLog("DEBUG: ")
+        printLog(message)
+
 def getYearAs(year, format="year2digit"):
     """year4digit = '2023'
     year2digit = '23'

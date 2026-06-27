@@ -494,12 +494,11 @@ class JPDataManager:
     def _tab1_iter(self, process):
         if not self._tab1CheckSelected():
             return
-        this_landmum = self._LNI.get_records()[
-            self._dw.myListWidget11.selectedItems()[0].text()
-        ]
+        name_map = self._dw.myListWidget11.selectedItems()[0].text()
+        this_landmum = self._LNI.get_record(name_map)
         year = self._dw.myComboBox11.currentText()
-        list_code = []
-        detail = None
+        list_code = []  # Either name_pref from LW12 or code_mesh from LW13 (multiple)
+        detail = None   # detail from LW13 (single)
 
         if this_landmum["type_muni"].lower() == "mesh1":
             for code_mesh1 in self._dw.myListWidget13.selectedItems():
@@ -508,7 +507,7 @@ class JPDataManager:
             list_code = [""]
         else:
             for name_pref in self._dw.myListWidget12.selectedItems():
-                list_code.append(jpDataUtils.getPrefCodeByName(name_pref.text()))
+                list_code.append(name_pref.text())
             if (
                 this_landmum["type_muni"].lower() == "detail"
                 and self._dw.myListWidget13.selectedItems()
@@ -529,13 +528,8 @@ class JPDataManager:
                     subfolder,
                     layer_name,
                 ) = self._LNI.get_zip_shp(
-                    self._dw.myListWidget11.selectedItems()[0].text(),
+                    name_map,
                     year,
-                    (
-                        self._dw.myListWidget12.selectedItems()[x].text()
-                        if x < count_prefs
-                        else ""
-                    ),
                     list_code[x],
                     detail=detail,
                 )
@@ -561,13 +555,8 @@ class JPDataManager:
             self._dl_iter = 0
             for x in range(len(list_code)):
                 url, zip_filename, subfolder = self._LNI.get_url_zip(
-                    self._dw.myListWidget11.selectedItems()[0].text(),
+                    name_map,
                     year,
-                    (
-                        self._dw.myListWidget12.selectedItems()[x].text()
-                        if x < count_prefs
-                        else ""
-                    ),
                     list_code[x],
                     detail=detail,
                 )

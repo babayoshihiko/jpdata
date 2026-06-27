@@ -24,6 +24,7 @@ rm -f jpdata.zip
 cp -R ../jpdata ./jpdata
 perl -pi -e "s|self._verbose = True|self._verbose = False|g" jpdata/manager.py
 perl -pi -e "s|self._verbose = True|self._verbose = False|g" jpdata/ui_handler.py
+perl -pi -e "s|DEBUG_MODE = True|DEBUG_MODE = False|g" jpdata/jpDataUtils.py
 
 rm -f jpdata/csv/.~lock*
 rm -f jpdata/MEMO.py

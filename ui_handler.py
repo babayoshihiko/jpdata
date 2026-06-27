@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
+from qgis.core import (
+    QgsPointXY,
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
+    QgsProject,
+)
 from qgis.PyQt.QtCore import QCoreApplication, Qt
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.PyQt.QtGui import QDesktopServices
-from . import jpDataAddr
+# from . import jpDataAddr
 from . import jpDataMesh
 # from . import jpDataMuni
 from . import jpDataUtils
@@ -301,6 +307,10 @@ class JPDataUIHandler:
         current_text = ""
         if list_widget.currentItem():
             current_text = list_widget.currentItem().text()
+        if len(texts) == 1:
+            current_text = texts[0]
+            current_selected = texts
+
         list_widget.blockSignals(True)
         list_widget.clear()
         for text in texts:
@@ -520,8 +530,7 @@ class JPDataUIHandler:
 
 
     def _myPB_Addr_2_clicked(self):
-        lon, lat = jpDataAddr.get_lonlat_by_addr(
-            self._folderPath,
+        lon, lat = self._Muni.get_lonlat_by_addr(
             str(self._dw.myCB_Addr_1.currentText()),
             str(self._dw.myCB_Addr_2.currentText()),
             str(self._dw.myCB_Addr_3.currentText()),
@@ -545,14 +554,20 @@ class JPDataUIHandler:
         canvas.refresh()
 
     def _myPB_Addr_3_clicked(self):
+        lon, lat = self._Muni.get_lonlat_by_addr(
+            str(self._dw.myCB_Addr_1.currentText()),
+            str(self._dw.myCB_Addr_2.currentText()),
+            str(self._dw.myCB_Addr_3.currentText()),
+            str(self._dw.myCB_Addr_4.currentText()),
+        )
         from qgis.core import QgsCoordinateReferenceSystem, QgsProject
         proj = (
             "+proj=aeqd "
-            "+lat_0=35.681236 "
-            "+lon_0=139.767125 "
-            "+datum=WGS84 "
-            "+units=m "
-            "+no_defs"
+            + "+lat_0=" + str(lat) + " "
+            + "+lon_0=" + str(lon) + " "
+            + "+datum=WGS84 "
+            + "+units=m "
+            + "+no_defs"
         )
 
         crs = QgsCoordinateReferenceSystem.fromProj(proj)
