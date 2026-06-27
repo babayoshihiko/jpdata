@@ -170,6 +170,10 @@ class TR:
     @staticmethod
     def NEIGHBOURHOOD():
         return QCoreApplication.translate("jpData", "Neighbourhood")
+    
+    @staticmethod
+    def NO_XY():
+        return QCoreApplication.translate("jpData", "No coordinate data available")
 
     @staticmethod
     def REPROJECT():
@@ -211,6 +215,13 @@ class TR:
     @staticmethod
     def YEAR():
         return QCoreApplication.translate("jpData", "Year")
+    
+    # 
+    # From this point
+    # 
+    # The text accepts arguments
+    # 
+    # 
 
     @staticmethod
     def CANNOT_FIND_FILE(name):

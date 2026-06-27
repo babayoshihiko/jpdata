@@ -234,7 +234,10 @@ class jpDataMuni:
                 row["name_pref_" + self._lang] == name_pref
                 and row["name_muni_" + self._lang] == name_muni
             ):
-                return (float(row["X"]), float(row["Y"]))
+                if row["X"].isdigit() and row["Y"].isdigit():
+                    return (float(row["X"]), float(row["Y"]))
+                else:
+                    return (None, None)
 
 
     def _get_lonlat_by_town(self, name_pref, name_muni, name_town):

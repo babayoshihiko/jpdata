@@ -279,11 +279,12 @@ class JPDataUIHandler:
         current_text = combo_widget.currentText()
         combo_widget.blockSignals(True)
         combo_widget.clear()
-        if add_empty_item:
-            texts.insert(0, "---")
-        for text in texts:
-            if text:
-                combo_widget.addItem(text)
+        if texts is not None:
+            if add_empty_item:
+                texts.insert(0, "---")
+            for text in texts:
+                if text:
+                    combo_widget.addItem(text)
         # Restore selection if it still exists
         index = combo_widget.findText(current_text)
         if index != -1:
@@ -526,10 +527,9 @@ class JPDataUIHandler:
             str(self._dw.myCB_Addr_3.currentText()),
             str(self._dw.myCB_Addr_4.currentText()),
         )
-
         if lon is None or lat is None:
+            self.setLabel(TR.NO_XY())
             return
-
         point_jgd2011 = QgsPointXY(lon, lat)
 
         # Transform to project CRS
@@ -550,6 +550,9 @@ class JPDataUIHandler:
             str(self._dw.myCB_Addr_3.currentText()),
             str(self._dw.myCB_Addr_4.currentText()),
         )
+        if lon is None or lat is None:
+            self.setLabel(TR.NO_XY())
+            return
         from qgis.core import QgsCoordinateReferenceSystem, QgsProject
         proj_index = self._dw.myCB_Addr_Projection.currentIndex()
         proj_string = self._Muni.get_proj_string(proj_index, lat, lon)
