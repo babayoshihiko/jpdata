@@ -341,6 +341,7 @@ class jpDataLNI:
                 + "The CSV file does not exist: "
                 + csv_full_path,
             )
+            return
         self.source_csv = csv_full_path
         return csv_full_path
 

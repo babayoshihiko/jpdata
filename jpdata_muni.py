@@ -52,7 +52,7 @@ class jpDataMuni:
         rows = self._addr
         if rows is None:
             return None
-        filtered_rows = ["---"]
+        filtered_rows = []
         for row in rows:
             if row["都道府県名"] == name_pref and row["市区町村名"] == name_muni:
                 filtered_rows.append(row["大字・丁目名"])
@@ -64,7 +64,7 @@ class jpDataMuni:
         rows = self._addr
         if rows is None:
             return None
-        filtered_rows = ["---"]
+        filtered_rows = []
         for row in rows:
             if row["都道府県名"] == name_pref and row["市区町村名"] == name_muni and row["大字・丁目名"] == name_town:
                 filtered_rows.append(row["街区符号・地番"])
@@ -125,7 +125,7 @@ class jpDataMuni:
     def _getMuniFromPrefName(self, name_pref):
         self._load_code_pref_muni()
         # No city name on top. For selected prefecture only.
-        filtered_rows = ["---"]
+        filtered_rows = []
         for row in self._code_pref_muni:
             if row["name_pref_" + self._lang] == name_pref:
                 filtered_rows.append(row["name_muni_" + self._lang])
@@ -269,11 +269,9 @@ class jpDataMuni:
             1: {"j": "ランベルト正積方位図法", "e": "Lambert Azimuthal Equal Area"},
             2: {"j": "正射図法", "e": "Orthographic"},
         }
-
         projections = []
         for row in dict_projection.values():
             projections.append(row.get(self._lang, ""))
-
         return projections
 
     def get_proj_string(self, i, lat, lon):

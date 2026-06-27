@@ -46,7 +46,7 @@ class jpDataCensus:
         self.download_fullpath = ""
 
 
-    def _get_statsid_for_mesh(index_census, year):
+    def _get_statsid_for_mesh(self, index_census, year):
         return self._CENSUS_YEAR_STATSID.get(index_census, {}).get(str(year))
 
     def init(self):
@@ -70,25 +70,25 @@ class jpDataCensus:
         return
     
     def get_url_zip(self, code_census, year, name_pref, code_muni_mesh):
-        return self.getZip()
+        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+        return self.getZip(year, code_pref, code_muni, type_muni=0)
 
     def get_zip_shp(self, code_census, year, name_pref, code_muni_mesh):
-        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
         return self.getZipShp(year, code_pref, code_muni_mesh, code_census)
 
 
 
-    def _get_char_for_mesh(index_census):
+    def _get_char_for_mesh(self, index_census):
         if 0 <= index_census < len(_CENSUS_CODE):
             return _CENSUS_CODE[index_census][:1]
         return ""
 
-    def _get_string_for_mesh(index_census):
+    def _get_string_for_mesh(self, index_census):
         if 0 <= index_census < len(_CENSUS_CODE):
             return _CENSUS_CODE[index_census]
         return ""
 
-    def get_subfolder_qml(type_muni, year):
+    def get_subfolder_qml(self, type_muni, year):
         if type_muni == 0:
             tempSubFolder = "Census"
             tempQmlFile = "Census-" + year + ".qml"
@@ -97,14 +97,14 @@ class jpDataCensus:
             tempQmlFile = "Census-" + _get_string_for_mesh(type_muni) + "-" + year + ".qml"
         return tempSubFolder, tempQmlFile
 
-    def getZipShp(year, code_pref, code_muni, type_muni=0):
-        tempZipFileName = getZipFileName(
+    def getZipShp(self, year, code_pref, code_muni, type_muni=0):
+        tempZipFileName = self.getZipFileName(
             year,
             code_pref,
             code_muni,
             type_muni,
         )
-        tempShpFileName = getShpFileName(
+        tempShpFileName = self.getShpFileName(
             year,
             code_pref,
             code_muni,
@@ -112,13 +112,13 @@ class jpDataCensus:
         )
         return tempZipFileName, tempShpFileName
 
-    def getZip(year, code_pref, code_muni, type_muni=0):
-        tempUrl = getUrl(year, code_pref, code_muni, type_muni)
-        tempZip = getZipFileName(year, code_pref, code_muni, type_muni)
-        tempSubFolder, tmpQmlFile = get_subfolder_qml(type_muni, year)
+    def getZip(self, year, code_pref, code_muni, type_muni=0):
+        tempUrl = self.getUrl(year, code_pref, code_muni, type_muni)
+        tempZip = self.getZipFileName(year, code_pref, code_muni, type_muni)
+        tempSubFolder, tmpQmlFile = self.get_subfolder_qml(type_muni, year)
         return tempUrl, tempZip, tempSubFolder
 
-    def getUrl(year, code_pref, code_muni, type_muni=0):
+    def getUrl(self, year, code_pref, code_muni, type_muni=0):
         code_pref = str(code_pref).zfill(2)
         if type_muni == 0:
             datum = "2011" if year in ["2020", "2015"] else "2000"
@@ -141,7 +141,7 @@ class jpDataCensus:
             f"coordSys=1&format=shape&downloadType=5"
         )
 
-    def getZipFileName(year, code_pref, code_muni, type_muni=0):
+    def getZipFileName(self, year, code_pref, code_muni, type_muni=0):
         zipFileName = None
         if type_muni == 0:
             if len(code_pref) == 1:
@@ -156,7 +156,7 @@ class jpDataCensus:
             zipFileName = _get_string_for_mesh(type_muni) + code_muni + ".zip"
         return zipFileName
 
-    def getShpFileName(year, code_pref, code_muni, type_muni=0):
+    def getShpFileName(self, year, code_pref, code_muni, type_muni=0):
         shpFileName = None
         if len(code_pref) == 1:
             code_pref = "0" + code_pref
@@ -176,19 +176,19 @@ class jpDataCensus:
         return shpFileName
 
 
-    def getAttr(year, code_pref, code_muni, type_muni=0):
-        tempUrl = getAttrUrl(year, code_pref, code_muni, type_muni)
-        tempZip = getAttrZipFileName(year, code_pref, code_muni, type_muni)
-        tempSubFolder, tmpQmlFile = get_subfolder_qml(type_muni, year)
+    def getAttr(self, year, code_pref, code_muni, type_muni=0):
+        tempUrl = self.getAttrUrl(year, code_pref, code_muni, type_muni)
+        tempZip = self.getAttrZipFileName(year, code_pref, code_muni, type_muni)
+        tempSubFolder, tmpQmlFile = self.get_subfolder_qml(type_muni, year)
         return tempUrl, tempZip, tempSubFolder
 
 
-    def getAttrUrl(year, code_pref, code_muni, type_muni=0):
+    def getAttrUrl(self, year, code_pref, code_muni, type_muni=0):
         if type_muni == 0:
             _code = str(code_pref).zfill(2)
         else:
             _code = code_muni
-        _statsId = _get_statsid_for_mesh(year, type_muni)
+        _statsId = self._get_statsid_for_mesh(year, type_muni)
         if not _code:
             return None
         url = (
@@ -200,23 +200,23 @@ class jpDataCensus:
         return url
 
     def _get_base_filename(year, code_pref, code_muni, type_muni):
-        _statsId = _get_statsid_for_mesh(year, type_muni)
+        _statsId = self._get_statsid_for_mesh(year, type_muni)
         if not _statsId:
             return None
         if type_muni == 0:
             suffix = f"C{str(code_pref).zfill(2)}"
         else:
-            char = _get_char_for_mesh(type_muni)
+            char = self._get_char_for_mesh(type_muni)
             suffix = f"{char}{code_muni}"
 
         return f"{_statsId}{suffix}"
 
     def getAttrZipFileName(year, code_pref, code_muni, type_muni=0):
-        base = _get_base_filename(year, code_pref, code_muni, type_muni)
+        base = self._get_base_filename(year, code_pref, code_muni, type_muni)
         return f"tblT{base}.zip" if base else None
 
     def get_attr_csv_filename(year, code_pref, code_muni, type_muni=0, folder="."):
-        base = _get_base_filename(year, code_pref, code_muni, type_muni)
+        base = self._get_base_filename(year, code_pref, code_muni, type_muni)
         if not base:
             return None
         if type_muni == 0:
@@ -233,7 +233,7 @@ class jpDataCensus:
         return file_name_t
 
     def get_attr_csv_fullpath(year, code_pref, code_muni, type_muni=0, folder="."):
-        base = _get_base_filename(year, code_pref, code_muni, type_muni)
+        base = self._get_base_filename(year, code_pref, code_muni, type_muni)
         if not base:
             return None
         if type_muni == 0:

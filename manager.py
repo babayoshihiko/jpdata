@@ -13,10 +13,6 @@ from .i18n import TR
 from .ui_handler import JPDataUIHandler
 from . import jpDataDownloader
 from . import jpDataUtils
-#from . import jpDataLNI
-#from . import jpDataCensus
-#from . import jpDataMuni
-#from . import jpDataAddr
 from .jpdata_lni import jpDataLNI
 from .jpdata_census import jpDataCensus
 from .jpdata_mhlw import jpDataMHLW
@@ -38,7 +34,6 @@ class JPDataManager:
 
         self._folderPath = QSettings().value("jpdata/FolderPath", "~")
         self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
-        #self._land_info = jpDataUtils.getMapsFromCsv2(self._lang)
         self._Muni = jpDataMuni.instance()
         self._Muni.set_download_folder(self._folderPath)
         self._Muni.set_lang(self._lang)
@@ -67,8 +62,7 @@ class JPDataManager:
         self._setup_initial_ui_state()
 
         if self._ui:
-            self._ui.init_tabs(self._folderPath)
-            # jpDataCensus.set_year_items(self._dw.myComboBox31, 2000)
+            self._ui.init_tabs()
 
         # QGIS 4 compatible
         dock_area = (
@@ -320,6 +314,7 @@ class JPDataManager:
             QSettings().setValue("jpdata/FolderPath", folder)
             self._LNI.set_download_folder(folder)
             self._MHLW.set_download_folder(folder)
+            self._Muni.set_download_folder(folder)
             self._dw.myLabel1.setText(folder)
 
     def _addTile(self):
@@ -467,7 +462,7 @@ class JPDataManager:
             QgsSettings().setValue("jpdata/ProxyServer", "http://")
             self._proxyServer = "http://"
 
-    def tab3CheckSelected(self):
+    def _tab3CheckSelected(self):
         if len(self._dw.myListWidget31.selectedItems()) == 0:
             self.setLabel(TR.CHOOSE_PREFECTURE())
             return False
@@ -577,7 +572,7 @@ class JPDataManager:
         year = self._dw.myComboBox31.currentText()
         name_pref = self._dw.myListWidget31.selectedItems()[0].text()
         code_pref = jpDataUtils.getPrefCodeByName(name_pref)
-        subfolder, qml_filename = jpDataCensus.get_subfolder_qml(
+        subfolder, qml_filename = self._Census.get_subfolder_qml(
             self._dw.myComboBox32.currentIndex(), year
         )
 
@@ -600,13 +595,10 @@ class JPDataManager:
         if process == "add":
             for _item_name_or_code in list_item:
                 if self._dw.myComboBox32.currentIndex() == 0:
-                    row = jpDataMuni.getRowFromNames(
-                        name_pref, _item_name_or_code.text()
-                    )
-                    code_muni = row["code_muni"]
+                    code_muni = self._Muni.get_code_muni(name_pref, _item_name_or_code.text())
                 else:
                     code_muni = _item_name_or_code.text()
-                zip_filename, shp_filename = jpDataCensus.getZipShp(
+                zip_filename, shp_filename = self._Census.getZipShp(
                     year,
                     code_pref,
                     code_muni,
@@ -628,7 +620,7 @@ class JPDataManager:
                     break
 
                 if shp_full_path != "":
-                    url, zip_filename, subfolder = jpDataCensus.getAttr(
+                    url, zip_filename, subfolder = self._Census.getAttr(
                         year,
                         code_pref,
                         code_muni,
@@ -637,7 +629,7 @@ class JPDataManager:
                     jpDataUtils.unzip(
                         posixpath.join(self._folderPath, subfolder), zip_filename
                     )
-                    csv_filename = jpDataCensus.get_attr_csv_filename(
+                    csv_filename = self._Census.get_attr_csv_filename(
                         year,
                         code_pref,
                         code_muni,
@@ -646,7 +638,7 @@ class JPDataManager:
                     )
                     encoding = "CP932"
                     if csv_filename is not None:
-                        shp_full_path, encoding = jpDataCensus.perform_join(
+                        shp_full_path, encoding = self._Census.perform_join(
                             posixpath.join(self._folderPath, subfolder),
                             year,
                             shp_filename,
@@ -669,17 +661,14 @@ class JPDataManager:
             self._dl_iter = 0
             for _item_name_or_code in list_item:
                 if self._dw.myComboBox32.currentIndex() == 0:
-                    row = jpDataMuni.getRowFromNames(
-                        name_pref, _item_name_or_code.text()
-                    )
-                    code_muni = row["code_muni"]
+                    code_muni = self._Muni.get_code_muni(name_pref, _item_name_or_code.text())
                 else:
                     code_muni = _item_name_or_code.text()
 
-                attr_url, attr_zip, attr_sub = jpDataCensus.getAttr(
+                attr_url, attr_zip, attr_sub = self._Census.getAttr(
                     year, code_pref, code_muni, self._dw.myComboBox32.currentIndex()
                 )
-                shp_url, shp_zip, shp_sub = jpDataCensus.getZip(
+                shp_url, shp_zip, shp_sub = self._Census.getZip(
                     year, code_pref, code_muni, self._dw.myComboBox32.currentIndex()
                 )
 

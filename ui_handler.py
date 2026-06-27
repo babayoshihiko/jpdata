@@ -14,9 +14,7 @@ from qgis.core import (
 from qgis.PyQt.QtCore import QCoreApplication, Qt, QVariant
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.PyQt.QtGui import QDesktopServices
-# from . import jpDataAddr
 from . import jpDataMesh
-# from . import jpDataMuni
 from . import jpDataUtils
 from .i18n import TR
 from .jpdata_lni import jpDataLNI
@@ -60,7 +58,6 @@ class JPDataUIHandler:
         # Tab LNI
         self._dw.myListWidget11.itemSelectionChanged.connect(self._LW11_itemSelectionChanged)
         self._dw.myListWidget12.itemSelectionChanged.connect(self._LW12_itemSelectionChanged)
-        # self._dw.myComboBox11.currentIndexChanged.connect(self._CB11_changed)
         self._dw.myPushButton15.clicked.connect(self._lni_web)
 
         # Tab Census
@@ -76,24 +73,6 @@ class JPDataUIHandler:
         self._dw.myCB_Addr_1.currentIndexChanged.connect(self._myCB_Addr_1_changed)
         self._dw.myCB_Addr_2.currentIndexChanged.connect(self._myCB_Addr_2_changed)
         self._dw.myCB_Addr_3.currentIndexChanged.connect(self._myCB_Addr_3_changed)
-        #self._dw.myCB_Addr_2.currentIndexChanged.connect(
-        #    lambda: jpDataAddr.set_cb_towns(
-        #        self._dw.myCB_Addr_3,
-        #        self._folderPath,
-        #        self._dw.myCB_Addr_1.currentText(),
-        #        self._dw.myCB_Addr_2.currentText(),
-        #    )
-        #)
-        #self._dw.myCB_Addr_3.currentIndexChanged.connect(
-        #    lambda: jpDataAddr.set_cb_details(
-        #        self._dw.myCB_Addr_4,
-        #        self._folderPath,
-        #        self._dw.myCB_Addr_1.currentText(),
-        #        self._dw.myCB_Addr_2.currentText(),
-        #        self._dw.myCB_Addr_3.currentText(),
-        #    )
-        #)
-        # self._dw.myPB_Addr_1.clicked.connect(self._myPB_Addr_1_clicked)
         self._dw.myPB_Addr_2.clicked.connect(self._myPB_Addr_2_clicked)
         self._dw.myPB_Addr_3.clicked.connect(self._myPB_Addr_3_clicked)
         self._dw.myPB_Addr_4.clicked.connect(self._myPB_Addr_4_clicked)
@@ -199,11 +178,10 @@ class JPDataUIHandler:
         self._dw.myCheckBox1.setText(TR.SETTING_BACKGROUND())
         self._dw.myCheckBox2.setText(TR.SETTING_GEOMETRY())
 
-    def init_tabs(self, folder_path, LNI=None, MHLW=None):
-        self._init_tab3()
-        self._init_tab_addr()
+    def init_tabs(self):
+        pass
 
-    def _init_tab1(self, LNI=None):
+    def _lni_populate_init_values(self):
         self._LNI.init()
         self._dw.myListWidget11.clear()
         bg = (
@@ -235,12 +213,12 @@ class JPDataUIHandler:
 
             self._dw.myListWidget11.addItem(item)
 
-    def _init_tab3(self):
+    def _census_populate_init_values(self):
         # jpDataUtils.set_pref_items(self._dw.myListWidget31)
         index = self._dw.myComboBox32.currentIndex()
         self._populate_CB(self._Census.get_years(index), self._dw.myComboBox31)
 
-    def _init_tab_mhlw(self, MHLW=None):
+    def _mhlw_populate_init_values(self, MHLW=None):
         self._MHLW.init()
         self._dw.myLW_MHLW.clear()
         bg = (
@@ -268,7 +246,8 @@ class JPDataUIHandler:
                     item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
             self._dw.myLW_MHLW.addItem(item)
 
-    def _init_tab_addr(self):
+    def _addr_populate_init_values(self):
+        self._populate_CB("allprefs", self._dw.myCB_Addr_1, add_empty_item=True)
         projs = self._Muni.get_projections()
         for proj in projs:
             self._dw.myCB_Addr_Projection.addItem(proj)
@@ -280,6 +259,7 @@ class JPDataUIHandler:
             self._dw.myPB_MHLW_2.setText(TR.DOWNLOAD())
             self._dw.myPushButton14.setEnabled(True)
             self._dw.myPushButton32.setEnabled(True)
+            self._dw.myPB_Addr_1.setEnabled(True)
             self._dw.myPB_MHLW_2.setEnabled(True)
         else:
             self._dw.myPushButton11.setText(TR.CANCEL())
@@ -287,15 +267,20 @@ class JPDataUIHandler:
             self._dw.myPB_MHLW_2.setText(TR.CANCEL())
             self._dw.myPushButton14.setEnabled(False)
             self._dw.myPushButton32.setEnabled(False)
+            self._dw.myPB_Addr_1.setEnabled(False)
             self._dw.myPB_MHLW_2.setEnabled(False)
 
     #
     #  Common UI handlers
     #
-    def _populate_CB(self, texts, combo_widget):
+    def _populate_CB(self, texts, combo_widget, add_empty_item=False):
+        if texts == "allprefs":
+            texts = [jpDataUtils.getPrefNameByCode(i, lang = self._lang) for i in range(1, 48)]
         current_text = combo_widget.currentText()
         combo_widget.blockSignals(True)
         combo_widget.clear()
+        if add_empty_item:
+            texts.insert(0, "---")
         for text in texts:
             if text:
                 combo_widget.addItem(text)
@@ -334,19 +319,18 @@ class JPDataUIHandler:
     def _tab_changed(self, index):
         """Called whenever the current tab changes."""
         if index == 0:
-            self._init_tab1()
+            self._lni_populate_init_values()
+        elif index == 2:
+            self._census_populate_init_values()
         elif index == 3:
-            self._init_tab_mhlw()
-        elif index == 4:  # tab #3 (4th tab)
-            jpDataUtils.set_pref_items(self._dw.myCB_Addr_1, self._lang)
-            # self._dw.myCB_Addr_1.setCurrentIndex(12)
-
+            self._mhlw_populate_init_values()
+        elif index == 4:  # addr
+            self._addr_populate_init_values()
 
 
 
 
     def _LW11_itemSelectionChanged(self):
-        jpDataUtils.printLog("_LW11_itemSelectionChanged")
         if len(self._dw.myListWidget11.selectedItems()) == 0:
             return
         name_map = self._dw.myListWidget11.selectedItems()[0].text()
@@ -361,22 +345,18 @@ class JPDataUIHandler:
             return [jpDataUtils.getPrefNameByCode(code, self._lang) for code in range(1, 48)]
 
         if muni_type in ("", "allprefs"):
-            jpDataUtils.printLog("allprefs")
             if self._LNI.get_prev_name() == "" or self._LNI.get_record(self._LNI.get_prev_name()).get("type_muni", "").lower() not in ("", "allprefs", "mesh1"):
                 str_new_LW12_text = all_prefs()
             else:
                 bol_redraw_LW12 = False
                 self._dw.myListWidget13.hide()
         elif muni_type == "single":
-            jpDataUtils.printLog("single")
             str_new_LW12_text = [TR.NATIONWIDE()]
         elif muni_type in ("regional", "detail"):
-            jpDataUtils.printLog("regional or detail")
             if muni_type == "detail":
                 bol_show_LW13 = True
             str_new_LW12_text = self._LNI.get_prefs(name_map)
         elif muni_type == "mesh1":
-            jpDataUtils.printLog("mesh1")
             bol_show_LW13 = True
             str_new_LW12_text = all_prefs()
 
@@ -467,9 +447,9 @@ class JPDataUIHandler:
         name_pref = current.text()
         year = self._dw.myComboBox31.currentText()
 
-        designated_cities = jpDataMuni.get_all_designated_cities(year, self._lang)
+        designated_cities = self._Muni.get_all_designated_cities(year)
 
-        rows = jpDataMuni.getMuniFromPrefName(name_pref, self._lang)
+        rows = self._Muni.get_munis(name_pref) # (name_pref, self._lang)
         self._dw.myListWidget32.clear()
 
         for name in rows:
@@ -584,20 +564,20 @@ class JPDataUIHandler:
     def _myCB_Addr_1_changed(self):
         name_pref = self._dw.myCB_Addr_1.currentText()
         munis = self._Muni.get_munis(name_pref)
-        self._populate_CB(munis, self._dw.myCB_Addr_2)
+        self._populate_CB(munis, self._dw.myCB_Addr_2, add_empty_item=True)
 
     def _myCB_Addr_2_changed(self):
         name_pref = self._dw.myCB_Addr_1.currentText()
         name_muni = self._dw.myCB_Addr_2.currentText()
         towns = self._Muni.get_towns(name_pref, name_muni)
-        self._populate_CB(towns, self._dw.myCB_Addr_3)
+        self._populate_CB(towns, self._dw.myCB_Addr_3, add_empty_item=True)
 
     def _myCB_Addr_3_changed(self):
         name_pref = self._dw.myCB_Addr_1.currentText()
         name_muni = self._dw.myCB_Addr_2.currentText()
         name_town = self._dw.myCB_Addr_3.currentText()
         details = self._Muni.get_details(name_pref, name_muni, name_town)
-        self._populate_CB(details, self._dw.myCB_Addr_4)
+        self._populate_CB(details, self._dw.myCB_Addr_4, add_empty_item=True)
 
 
     def add_graticule_layer(self, interval=10):

@@ -13,34 +13,36 @@ class jpDataMHLW:
         return cls._instance
 
     def __init__(self):
-        self.download_fullpath = ""
-        self.lang = "j"
-        self.records = None
-        self.mhlw_source_csv = "mhlw_source.csv"
-        self.source = None
+        self._download_fullpath = ""
+        self._lang = "j"
+        self._records = None
+        self._source = None
 
     def init(self):
-        if self.records is None:
+        if self._records is None:
             self.load_records()
 
     def set_download_folder(self, download_fullpath):
         if not os.path.exists(posixpath.join(download_fullpath, "MHLW")):
             os.mkdir(posixpath.join(download_fullpath, "MHLW"))
-        self.download_fullpath = posixpath.join(download_fullpath, "MHLW")
+        self._download_fullpath = posixpath.join(download_fullpath, "MHLW")
 
     def set_lang(self, lang):
-        self.lang = lang[:1].lower()
+        self._lang = lang[:1].lower()
 
     def load_records(self):
-        self.records = jpDataUtils.get_records_from_csv("mhlw.csv", "name_" + self.lang)
+        self._records = jpDataUtils.get_records_from_csv("MHLW.csv", "name_" + self._lang)
 
     def get_records(self):
-        return self.records 
+        return self._records
+    
+    def get_record(self, name_map):
+        return self.records[name_map]
 
     def get_years(self, name):
         self._set_source()
         years = []
-        for row in self.source:
+        for row in self._source:
             if row.get("name_j") == name or row.get("name_e") == name:
                 year = row.get("year")
                 if year:
@@ -51,7 +53,7 @@ class jpDataMHLW:
         self, year, name_map, type="urlzip"
     ):
         self._set_source()
-        for row in self.source:
+        for row in self._source:
             if (row.get("name_j") == name_map or row.get("name_e") == name_map) and row.get("year") == year:
 
                 tempSubFolder = posixpath.join("MHLW",year)
@@ -88,9 +90,9 @@ class jpDataMHLW:
         return None
 
     def _set_source(self):
-        if self.source is None:
-            csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", self.mhlw_source_csv)
-            self.source = jpDataUtils.get_records_from_csv(csv_full_path)
+        if self._source is None:
+            csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", "MHLW_source.csv")
+            self._source = jpDataUtils.get_records_from_csv(csv_full_path)
 
 
 
