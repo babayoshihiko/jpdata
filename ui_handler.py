@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 import os
 from qgis.core import (
+    QgsVectorLayer,
+    QgsFeature,
+    QgsGeometry,
     QgsPointXY,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
     QgsProject,
+    QgsField,
+
 )
-from qgis.PyQt.QtCore import QCoreApplication, Qt
+from qgis.PyQt.QtCore import QCoreApplication, Qt, QVariant
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.PyQt.QtGui import QDesktopServices
 # from . import jpDataAddr
@@ -69,6 +74,8 @@ class JPDataUIHandler:
 
         # Tab Addr
         self._dw.myCB_Addr_1.currentIndexChanged.connect(self._myCB_Addr_1_changed)
+        self._dw.myCB_Addr_2.currentIndexChanged.connect(self._myCB_Addr_2_changed)
+        self._dw.myCB_Addr_3.currentIndexChanged.connect(self._myCB_Addr_3_changed)
         #self._dw.myCB_Addr_2.currentIndexChanged.connect(
         #    lambda: jpDataAddr.set_cb_towns(
         #        self._dw.myCB_Addr_3,
@@ -89,6 +96,7 @@ class JPDataUIHandler:
         # self._dw.myPB_Addr_1.clicked.connect(self._myPB_Addr_1_clicked)
         self._dw.myPB_Addr_2.clicked.connect(self._myPB_Addr_2_clicked)
         self._dw.myPB_Addr_3.clicked.connect(self._myPB_Addr_3_clicked)
+        self._dw.myPB_Addr_4.clicked.connect(self._myPB_Addr_4_clicked)
 
 
 
@@ -184,6 +192,7 @@ class JPDataUIHandler:
         self._dw.myPB_Addr_1.setText(TR.DOWNLOAD())
         self._dw.myPB_Addr_2.setText(TR.JUMP())
         self._dw.myPB_Addr_3.setText(TR.REPROJECT())
+        self._dw.myPB_Addr_4.setText(TR.ADD_GRATICULES())
 
     def _setup_tab_setting(self, i):
         self._dw.myTabWidget.setTabText(i, TR.SETTING())
@@ -260,7 +269,6 @@ class JPDataUIHandler:
             self._dw.myLW_MHLW.addItem(item)
 
     def _init_tab_addr(self):
-        jpDataUtils.set_pref_items(self._dw.myCB_Addr_1, self._lang)
         projs = self._Muni.get_projections()
         for proj in projs:
             self._dw.myCB_Addr_Projection.addItem(proj)
@@ -330,7 +338,8 @@ class JPDataUIHandler:
         elif index == 3:
             self._init_tab_mhlw()
         elif index == 4:  # tab #3 (4th tab)
-            self._dw.myCB_Addr_1.setCurrentIndex(12)
+            jpDataUtils.set_pref_items(self._dw.myCB_Addr_1, self._lang)
+            # self._dw.myCB_Addr_1.setCurrentIndex(12)
 
 
 
@@ -567,12 +576,65 @@ class JPDataUIHandler:
         crs = QgsCoordinateReferenceSystem.fromProj(proj_string)
         if crs.isValid():
             QgsProject.instance().setCrs(crs)
+        self.add_graticule_layer()
 
+    def _myPB_Addr_4_clicked(self):
+        self.add_graticule_layer()
 
     def _myCB_Addr_1_changed(self):
-        jpDataUtils.printDebugLog(self._dw.myCB_Addr_1.currentText())
-        cities = self._Muni.get_munis(self._dw.myCB_Addr_1.currentText())
-        jpDataUtils.printDebugLog(cities)
-        self._populate_CB(cities, self._dw.myCB_Addr_2)
+        name_pref = self._dw.myCB_Addr_1.currentText()
+        munis = self._Muni.get_munis(name_pref)
+        self._populate_CB(munis, self._dw.myCB_Addr_2)
+
+    def _myCB_Addr_2_changed(self):
+        name_pref = self._dw.myCB_Addr_1.currentText()
+        name_muni = self._dw.myCB_Addr_2.currentText()
+        towns = self._Muni.get_towns(name_pref, name_muni)
+        self._populate_CB(towns, self._dw.myCB_Addr_3)
+
+    def _myCB_Addr_3_changed(self):
+        name_pref = self._dw.myCB_Addr_1.currentText()
+        name_muni = self._dw.myCB_Addr_2.currentText()
+        name_town = self._dw.myCB_Addr_3.currentText()
+        details = self._Muni.get_details(name_pref, name_muni, name_town)
+        self._populate_CB(details, self._dw.myCB_Addr_4)
 
 
+    def add_graticule_layer(self, interval=10):
+        layer = QgsVectorLayer(
+            "LineString?crs=EPSG:4326",
+            f"Graticule_{interval}deg",
+            "memory",
+        )
+        provider = layer.dataProvider()
+        provider.addAttributes([
+            QgsField("type", QVariant.String),
+            QgsField("value", QVariant.Int),
+        ])
+        layer.updateFields()
+        features = []
+        for lon in range(-180, 181, interval):
+            points = [
+                QgsPointXY(lon, lat)
+                for lat in range(-90, 91)
+            ]
+
+            feat = QgsFeature(layer.fields())
+            feat.setGeometry(QgsGeometry.fromPolylineXY(points))
+            feat["type"] = "longitude"
+            feat["value"] = lon
+            features.append(feat)
+        for lat in range(-80, 81, interval):
+            points = [
+                QgsPointXY(lon, lat)
+                for lon in range(-180, 181)
+            ]
+            feat = QgsFeature(layer.fields())
+            feat.setGeometry(QgsGeometry.fromPolylineXY(points))
+            feat["type"] = "latitude"
+            feat["value"] = lat
+            features.append(feat)
+        provider.addFeatures(features)
+        layer.updateExtents()
+        QgsProject.instance().addMapLayer(layer)
+        return layer

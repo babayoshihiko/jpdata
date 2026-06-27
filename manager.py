@@ -781,22 +781,17 @@ class JPDataManager:
     def _myPB_Addr_dl_clicked(self):
         self._dl_url_zip = []
         self._dl_iter = 0
-        for i in range(1, 48):
-            if not os.path.exists(
-                posixpath.join(
-                    self._folderPath,
-                    "Addr",
-                    self._Muni.get_zip(i),
-                )
-            ) and not self._Muni.get_csv_fullpath(i):
-                self._dl_url_zip.append(
-                    {
-                        "year": "2024",
-                        "url": self._Muni.get_url(i),
-                        "zip": self._Muni.get_zip(i),
-                        "subfolder": "Addr",
-                    }
-                )
+        name_pref = self._dw.myCB_Addr_1.currentText()
+        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+        url = self._Muni.get_url(code_pref)
+        zip = self._Muni.get_zip(code_pref)
+        self._dl_url_zip.append(
+            {
+                "year": "2024",
+                "url": url,
+                "zip": zip,
+                "subfolder": "Addr",
+            })
         if len(self._dl_url_zip) > 0:
             self._download_iter_2()
 

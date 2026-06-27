@@ -27,15 +27,8 @@ class TR:
         return QCoreApplication.translate("jpData", "6th Mesh")
 
     @staticmethod
-    def ADDRESS():
-        return QCoreApplication.translate("jpData", "Address")
-
-    @staticmethod
-    def ADDRESS_MISSING():
-        return QCoreApplication.translate(
-            "jpData",
-            "Address data is missing"
-        )
+    def ADD_GRATICULES():
+        return QCoreApplication.translate("jpData", "Add Graticules")
 
     @staticmethod
     def ADD_TO_MAP():
@@ -46,6 +39,17 @@ class TR:
         return QCoreApplication.translate(
             "jpData",
             "Add Shapefile as a Layer to Map on QGIS"
+        )
+    
+    @staticmethod
+    def ADDRESS():
+        return QCoreApplication.translate("jpData", "Address")
+
+    @staticmethod
+    def ADDRESS_MISSING():
+        return QCoreApplication.translate(
+            "jpData",
+            "Address data is missing"
         )
 
     @staticmethod

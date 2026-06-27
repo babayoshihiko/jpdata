@@ -238,7 +238,6 @@ class jpDataLNI:
                 name_pref_mesh, 
                 type="urlzip", 
                 detail=None):
-        jpDataUtils.printDebugLog("Line 248 in jpdata_lni.py: " + name_map)
         record = self.records[name_map]
         if record["type_muni"] == "detail" and detail is None:
             return
@@ -257,7 +256,6 @@ class jpDataLNI:
             self._set_source(name_map)
             # Read data from CSV
             for row in self.source:
-                jpDataUtils.printDebugLog(row)
                 if row["year"] != year:
                     continue
                 if tempTypeMuni != "single" and row["availability"] != name_pref_mesh and row["availability"] != "allprefs" and row["availability"] != "all":
