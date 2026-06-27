@@ -568,6 +568,11 @@ class JPDataUIHandler:
         name_pref = self._dw.myCB_Addr_1.currentText()
         munis = self._Muni.get_munis(name_pref)
         self._populate_CB(munis, self._dw.myCB_Addr_2, add_empty_item=True)
+        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
+        if self._Muni.get_csv_fullpath(code_pref):
+            self._dw.myPB_Addr_1.setEnabled(False)
+        else:
+            self._dw.myPB_Addr_1.setEnabled(True)
 
     def _myCB_Addr_2_changed(self):
         name_pref = self._dw.myCB_Addr_1.currentText()

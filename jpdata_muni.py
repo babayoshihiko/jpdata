@@ -101,7 +101,7 @@ class jpDataMuni:
             str(code_pref).zfill(2) + "000-" + year2digit + ".0a",
             str(code_pref).zfill(2) + "_" + year4digit + ".csv",
         )
-        if os.path.exists(os.path.normpath(fullpath)):
+        if os.path.exists(fullpath):
             return fullpath
         else:
             return None
