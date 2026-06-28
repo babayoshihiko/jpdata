@@ -45,9 +45,9 @@ class JPDataManager:
         self._set_download_fullpath(self._folderPath)
 
         self._downloader = jpDataDownloader.DownloadThread()
-        self._dl_status = ""
-        self._dl_url_zip = []
-        self._dl_iter = 0
+        #self._dl_status = ""
+        #self._dl_url_zip = []
+        #self._dl_iter = 0
     
     def _set_download_fullpath(self, fullpath):
         self._Muni.set_download_folder(fullpath)
@@ -431,13 +431,13 @@ class JPDataManager:
         self._ui.enable_download()
         self._dw.progressBar.setValue(100)
 
-        if len(self._dl_url_zip) > 0 and self._dl_iter < len(self._dl_url_zip):
-            # Download next
-            self._download_iter_2()
-        else:
-            # All downloads finished
-            self._dl_iter = 0
-            self._dl_url_zip = []
+        #if len(self._dl_url_zip) > 0 and self._dl_iter < len(self._dl_url_zip):
+        #    # Download next
+        #    self._download_iter_2()
+        #else:
+        #    # All downloads finished
+        #    self._dl_iter = 0
+        #    self._dl_url_zip = []
 
     def _cancel_download(self):
         self._dl_url_zip = []
@@ -547,8 +547,8 @@ class JPDataManager:
                     epsg=epsg,
                 )
         elif process == "download":
-            self._dl_url_zip = []
-            self._dl_iter = 0
+            #self._dl_url_zip = []
+            #self._dl_iter = 0
             for x in range(len(list_code)):
                 url, zip_filename, subfolder = self._LNI.get_url_zip(
                     name_map,
@@ -557,15 +557,21 @@ class JPDataManager:
                     detail=detail,
                 )
                 if zip_filename is not None:
-                    self._dl_url_zip.append(
-                        {
-                            "year": year,
-                            "url": url,
-                            "zip": zip_filename,
-                            "subfolder": subfolder,
-                        }
+                    #self._dl_url_zip.append(
+                    #    {
+                    #        "year": year,
+                    #        "url": url,
+                    #        "zip": zip_filename,
+                    #        "subfolder": subfolder,
+                    #    }
+                    #)
+
+                    self._downloader.addJob(
+                        url,
+                        posixpath.join(self._folderPath, subfolder, zip_filename),
                     )
-            self._download_iter_2()
+            #self._download_iter_2()
+            self._download.start()
 
     def _tab3_iter(self, process):
         if not self._tab3CheckSelected():
@@ -594,8 +600,9 @@ class JPDataManager:
             list_item = self._dw.myListWidget33.selectedItems()
 
         if process == "download":
-            self._dl_url_zip = []
-            self._dl_iter = 0
+            self._downloader.clearJobs()
+            #self._dl_url_zip = []
+            #self._dl_iter = 0
 
         for item in list_item:
             record = self._set_census_source(
@@ -613,10 +620,19 @@ class JPDataManager:
                     name_muni_suffix
                 )
             elif process == "download":
-                self._append_download_queue(record)
+                #self._append_download_queue(record)
+                self._downloader.addJob(
+                    record["attr_url"],
+                    posixpath.join(self._folderPath, record["subfolder"], record["attr_zip"])
+                )
+                self._downloader.addJob(
+                    record["url"],
+                    posixpath.join(self._folderPath, record["subfolder"], record["zip"])
+                )
 
         if process == "download":
-            self._download_iter_2()
+            #self._download_iter_2()
+            self._downloader.start()
 
     def _set_census_source(
         self,
@@ -768,15 +784,21 @@ class JPDataManager:
                     type="urlzip"
                 )
                 if zip_filename is not None:
-                    self._dl_url_zip.append(
-                        {
-                            "year": year,
-                            "url": url,
-                            "zip": zip_filename,
-                            "subfolder": subfolder,
-                        }
+                    #self._dl_url_zip.append(
+                    #    {
+                    #        "year": year,
+                    #        "url": url,
+                    #        "zip": zip_filename,
+                    #        "subfolder": subfolder,
+                    #    }
+                    #)
+                    self._downloader.addJob(
+                        url,
+                        posixpath.join(self._folderPath, subfolder, zip_filename),
                     )
-            self._download_iter_2()
+            #self._download_iter_2()
+            self._downloader.start()
+
 
     def _tab_mhlw_download_all(self):
         if self._dw.myPB_MHLW_2.text() == TR.CANCEL():
@@ -795,15 +817,20 @@ class JPDataManager:
         code_pref = jpDataUtils.getPrefCodeByName(name_pref)
         url = self._Muni.get_url(code_pref)
         zip = self._Muni.get_zip(code_pref)
-        self._dl_url_zip.append(
-            {
-                "year": "2024",
-                "url": url,
-                "zip": zip,
-                "subfolder": "Addr",
-            })
-        if len(self._dl_url_zip) > 0:
-            self._download_iter_2()
+        #self._dl_url_zip.append(
+        #    {
+        #        "year": "2024",
+        #        "url": url,
+        #        "zip": zip,
+        #        "subfolder": "Addr",
+        #    })
+        self._downloader.addJob(
+            url,
+            posixpath.join(self._folderPath, "Addr", zip),
+        )
+        #if len(self._dl_url_zip) > 0:
+        #    self._download_iter_2()
+        self._downloader.start()
 
 
 # End of manager.py

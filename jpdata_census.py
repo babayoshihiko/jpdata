@@ -44,7 +44,7 @@ class jpDataCensus:
         return cls._instance
 
     def __init__(self):
-        self._download_fullpath = ""
+        self._download_fullpath = "" # This does NOT include Census folder
         self._lang = "j"
         self.record = None
         self._Muni = jpDataMuni.instance()
@@ -76,9 +76,7 @@ class jpDataCensus:
         return
 
     def set_download_folder(self, download_fullpath):
-        if not os.path.exists(posixpath.join(download_fullpath, "Census")):
-            os.mkdir(posixpath.join(download_fullpath, "Census"))
-        self._download_fullpath = posixpath.join(download_fullpath, "Census")
+        self._download_fullpath = download_fullpath
 
     def get_download_folder(self):
         return self._download_fullpath
@@ -100,13 +98,19 @@ class jpDataCensus:
         self.record["code_pref"] = jpDataUtils.getPrefCodeByName(name_pref)
         self.record["name_muni"] = name_muni
         self.record["code_mesh"] = code_mesh
-        self.record["code_muni"] = self._Muni.get_code_muni(name_pref, name_muni)
+        if name_muni is not None:
+            self.record["code_muni"] = self._Muni.get_code_muni(name_pref, name_muni)
         self._set_url()
         self._set_zip()
         self._set_shp()
         self._set_qml()
-        self.record["download_fullpath"] = posixpath.join(self._download_fullpath, self._CENSUS_CODE[index_census])
-        self.record["subfolder"] = posixpath.join("Census", self._CENSUS_CODE[index_census])
+        if self._CENSUS_CODE[index_census] == "":
+            self.record["subfolder"] = "Census"
+        else:
+            self.record["subfolder"] = "Census" + "-" + self._CENSUS_CODE[index_census]
+        if os.path.exists(posixpath.join(self.record["download_fullpath"], self.record["subfolder"])):
+            os.mkdir(posixpath.join(self._download_fullpath, self.record["subfolder"]))
+        self.record["download_fullpath"] = posixpath.join(self._download_fullpath, self.record["subfolder"])
         self._set_attr_url()
         self._set_attr_zip()
         self._set_attr_csv()

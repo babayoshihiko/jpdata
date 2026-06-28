@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from qgis.PyQt.QtCore import QThread, pyqtSignal
+from dataclasses import dataclass
 import os
 import requests
 import zipfile
@@ -8,7 +9,6 @@ from urllib.parse import quote
 
 try:
     import certifi
-
     DEFAULT_CA = certifi.where()
 except ImportError:
     DEFAULT_CA = True  # fallback to system store
@@ -23,22 +23,49 @@ if not logger.handlers:
     logger.setLevel(logging.INFO)
 
 
+@dataclass
+class DownloadJob:
+    url: str
+    file_path: str
+
 class DownloadThread(QThread):
     progress = pyqtSignal(int)
-    success = pyqtSignal()
+    success = pyqtSignal(str)
     error = pyqtSignal(str)
     finished = pyqtSignal()
 
+    job_started = pyqtSignal(str)
+    job_finished = pyqtSignal(str)
+
     def __init__(self):
         super().__init__()
+
         self._is_running = True
+
         self.proxy_server = None
         self.proxy_user = ""
         self.proxy_password = ""
+
         self.status_message = ""
-        self.certificate = True  # default: verify SSL
-        self.url = None
-        self.file_path = None
+        self.certificate = True
+
+        self.jobs = []
+        self.current = 0
+
+    def addJob(self, url, file_path):
+        self.jobs.append(
+            DownloadJob(
+                url=url,
+                file_path=file_path,
+            )
+        )
+
+    def clearJobs(self):
+        self.jobs.clear()
+        self.current = 0
+
+    def hasJobs(self):
+        return self.current < len(self.jobs)
 
     def setProxyServer(self, proxy_server):
         if proxy_server and len(proxy_server) > 10:
@@ -104,53 +131,79 @@ class DownloadThread(QThread):
             return False
 
     def run(self):
-        """Threaded download with progress signal."""
-        if not self.url or not self.file_path:
-            self.setStatus("URL or file path not set.")
-            return
+        self._is_running = True
 
+        while self.hasJobs() and self._is_running:
+            job = self.jobs[self.current]
+
+            self.job_started.emit(job.file_path)
+
+            ok = self._download_one(job)
+
+            if ok:
+                self.success.emit(job.file_path)
+            else:
+                self.error.emit(job.file_path)
+                break
+
+            self.job_finished.emit(job.file_path)
+
+            self.current += 1
+
+        self.finished.emit()
+
+    def _download_one(self, job):
         proxies = self._get_proxies()
 
         try:
-            self.setStatus("Downloading")
+            self.setStatus(f"Downloading {os.path.basename(job.file_path)}")
+
             with requests.get(
-                self.url,
+                job.url,
                 stream=True,
                 proxies=proxies,
                 verify=self.certificate,
                 timeout=30,
             ) as r:
                 r.raise_for_status()
+
                 total_length = r.headers.get("content-length")
 
-                os.makedirs(os.path.dirname(self.file_path), exist_ok=True)
-                with open(self.file_path, "wb") as f:
-                    if total_length is None:  # no content length header
+                os.makedirs(
+                    os.path.dirname(job.file_path),
+                    exist_ok=True,
+                )
+
+                with open(job.file_path, "wb") as f:
+                    if total_length is None:
                         f.write(r.content)
                     else:
                         dl = 0
                         total_length = int(total_length)
+
                         for data in r.iter_content(chunk_size=4096):
                             if not self._is_running:
-                                self.finished.emit(False)
-                                return
+                                return False
+
                             if data:
                                 dl += len(data)
                                 f.write(data)
-                                self.progress.emit(int(100 * dl / total_length))
-            self.setStatus("Success")
-            self.success.emit()
+                                self.progress.emit(
+                                    int(100 * dl / total_length)
+                                )
+
+            self.setStatus(
+                f"Downloaded {os.path.basename(job.file_path)}"
+            )
+
+            return True
 
         except requests.exceptions.RequestException as e:
             self.setStatus(str(e))
-            self.error.emit(str(e))
-        finally:
-            self.finished.emit()
+            return False
 
     def stop(self):
         self._is_running = False
-        self.setStatus("Download cancelled and removed: " + str(self.file_path))
-        self.remove()
 
     def remove(self):
         if self.file_path and os.path.exists(self.file_path):
