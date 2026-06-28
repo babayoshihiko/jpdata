@@ -159,8 +159,8 @@ class jpDataMuni:
         for row in self._code_pref_muni:
             if (
                 len(row) >= 2
-                and row["name_pref"] == name_pref
-                and row["name_muni"] == name_muni
+                and row["name_pref_" + self._lang] == name_pref
+                and row["name_muni_" + self._lang] == name_muni
             ):
                 row["code_pref"] = row["code_pref"].zfill(2)
                 return row

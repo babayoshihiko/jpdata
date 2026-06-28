@@ -11,7 +11,7 @@ from qgis.core import (
     QgsField,
 
 )
-from qgis.PyQt.QtCore import QCoreApplication, Qt, QVariant
+from qgis.PyQt.QtCore import QCoreApplication, Qt, QVariant, QUrl
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.PyQt.QtGui import QDesktopServices
 from . import jpDataMesh
@@ -433,12 +433,9 @@ class JPDataUIHandler:
     def _lni_web(self):
         items = self._dw.myListWidget11.selectedItems()
         if items:
-            thisLandNum = self._LNI.get_records()[items[0].text()]
-            QDesktopServices.openUrl(QUrl(thisLandNum["source"]))
-
-
-
-
+            item = self._LNI.get_record(items[0].text())
+            if item != "":
+                QDesktopServices.openUrl(QUrl(item["source"]))
 
 
     def _LW31_currentItemChanged(self, current, previous):
@@ -481,12 +478,9 @@ class JPDataUIHandler:
             self._dw.myListWidget33.clear()
             self._dw.myListWidget33.hide()
             return
-        
         years = self._Census.get_years(self._dw.myComboBox32.currentIndex())
         self._populate_CB(years, self._dw.myComboBox31)
-        self._dw.myListWidget33.clear()
         self._dw.myListWidget33.show()
-
         details = []
         if len(self._dw.myListWidget32.selectedItems()) == 0:
             details = jpDataMesh.getMesh1ByPrefName(name_pref)
@@ -513,12 +507,11 @@ class JPDataUIHandler:
     def _mhlw_web(self):
         items = self._dw.myLW_MHLW.selectedItems()
         if items:
-            thisLandNum = self._MHLW.get_records()[items[0].text()]
-            QDesktopServices.openUrl(QUrl(thisLandNum["source"]))
+            item = self._MHLW.get_record(items[0].text())
+            jpDataUtils.printDebugLog(item)
+            if item["source"] != "":
+                QDesktopServices.openUrl(QUrl(item["source"]))
         
-
-
-
 
     def _myPB_Addr_2_clicked(self):
         lon, lat = self._Muni.get_lonlat_by_addr(

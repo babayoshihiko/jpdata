@@ -37,7 +37,7 @@ class jpDataMHLW:
         return self._records
     
     def get_record(self, name_map):
-        return self.records[name_map]
+        return self._records[name_map]
 
     def get_years(self, name):
         self._set_source()

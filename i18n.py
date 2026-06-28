@@ -225,7 +225,7 @@ class TR:
 
     @staticmethod
     def CANNOT_FIND_FILE(name):
-        template = QCoreApplication.translate("jpData", "Cannot find file: %1")
+        template = QCoreApplication.translate("jpData", "Cannot find the file: %1")
         return template.replace("%1", str(name))
 
     @staticmethod
@@ -233,6 +233,11 @@ class TR:
         template = QCoreApplication.translate(
             "jpData", "Cannot find the file for layer: %1"
         )
+        return template.replace("%1", str(name))
+
+    @staticmethod
+    def CANNOT_FIND_SHP_FILE(name):
+        template = QCoreApplication.translate("jpData", "Cannot find the shapefile: %1")
         return template.replace("%1", str(name))
 
     @staticmethod

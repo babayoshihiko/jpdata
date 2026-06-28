@@ -1,67 +1,67 @@
-name_j,name_e,code_map
-【介護保険サービス】,Long-Term Care Insurance Services,heading
-訪問介護,Home-Visit Care,LTCI_110
-訪問入浴介護,Home-Visit Bathing Care,LTCI_120
-訪問看護,Home-Visit Nursing,LTCI_130
-訪問リハビリテーション,Home-Visit Rehabilitation,LTCI_140
-通所介護,Day Care,LTCI_150
-通所介護（療養通所介護）,Medical Day Care,LTCI_155
-通所リハビリテーション,Day Rehabilitation,LTCI_160
-福祉用具貸与,Welfare Equipment Rental,LTCI_170
-短期入所生活介護,Short-Stay Residential Care,LTCI_210
-短期入所療養介護（介護老人保健施設）,Short-Stay Medical Care (Geriatric Health Services Facility),LTCI_220
-短期入所療養介護（療養病床を有する病院等）,Short-Stay Medical Care (Hospital with Long-Term Care Beds),LTCI_230
-短期入所療養介護（介護医療院）,Short-Stay Medical Care (Integrated Facility for Medical and Long-Term Care),LTCI_551
-認知症対応型共同生活介護,Group Home for Persons with Dementia,LTCI_320
-特定施設入居者生活介護（有料老人ホーム）,Residential Care in Fee-Based Nursing Home,LTCI_331
-特定施設入居者生活介護（軽費老人ホーム）,Residential Care in Low-Cost Elderly Home,LTCI_332
-特定施設入居者生活介護（サービス付き高齢者向け住宅）,Residential Care in Service-Integrated Housing for Older Persons,LTCI_334
-特定施設入居者生活介護（有料老人ホーム・外部サービス利用型）,Residential Care in Fee-Based Nursing Home (External Service Type),LTCI_335
-特定施設入居者生活介護（軽費老人ホーム・外部サービス利用型）,Residential Care in Low-Cost Elderly Home (External Service Type),LTCI_336
-特定施設入居者生活介護（サービス付き高齢者向け住宅・外部サービス利用型）,Residential Care in Service-Integrated Housing for Older Persons (External Service Type),LTCI_337
-地域密着型特定施設入居者生活介護（有料老人ホーム）,Community-Based Residential Care in Fee-Based Nursing Home,LTCI_361
-地域密着型特定施設入居者生活介護（軽費老人ホーム）,Community-Based Residential Care in Low-Cost Elderly Home,LTCI_362
-地域密着型特定施設入居者生活介護（サービス付き高齢者向け住宅）,Community-Based Residential Care in Service-Integrated Housing for Older Persons,LTCI_364
-特定福祉用具販売,Sales of Specified Welfare Equipment,LTCI_410
-居宅介護支援,Care Management,LTCI_430
-介護老人福祉施設,Special Nursing Home for the Elderly,LTCI_510
-介護老人保健施設,Geriatric Health Services Facility,LTCI_520
-介護療養型医療施設,Long-Term Care Medical Facility,LTCI_530
-地域密着型介護老人福祉施設入所者生活介護,Community-Based Special Nursing Home Care,LTCI_540
-介護医療院,Integrated Facility for Medical and Long-Term Care,LTCI_550
-夜間対応型訪問介護,Night-Time Home-Visit Care,LTCI_710
-認知症対応型通所介護,Dementia Day Care,LTCI_720
-小規模多機能型居宅介護,Multifunctional Small Group Home Care,LTCI_730
-定期巡回・随時対応型訪問介護看護,Regular Patrol and On-Demand Home Care and Nursing,LTCI_760
-看護小規模多機能型居宅介護,Nursing Multifunctional Small Group Home Care,LTCI_770
-地域密着型通所介護,Community-Based Day Care,LTCI_780
-【障害福祉サービス】,Disability Welfare Services,heading
-居宅介護,Home Care,居宅介護
-重度訪問介護,Intensive Home Care,重度訪問介護
-同行援護,Accompanied Support,同行援護
-行動援護,Behavioral Support,行動援護
-重度障害者等包括支援,Comprehensive Support for Persons with Severe Disabilities,重度障害者等包括支援
-療養介護,Medical Care Support,療養介護
-生活介護,Daily Living Care,生活介護
-短期入所,Short Stay,短期入所
-施設入所支援,Residential Support,施設入所支援
-共同生活援助,Group Home Support,共同生活援助
-自立生活援助,Independent Living Support,自立生活援助
-自立訓練(機能訓練),Independent Living Training (Functional Training),自立訓練(機能訓練)
-自立訓練(生活訓練),Independent Living Training (Life Skills Training),自立訓練(生活訓練)
-宿泊型自立訓練,Residential Independent Living Training,宿泊型自立訓練
-就労移行支援,Employment Transition Support,就労移行支援
-就労継続支援Ａ型,Continuous Employment Support Type A,就労継続支援Ａ型
-就労継続支援Ｂ型,Continuous Employment Support Type B,就労継続支援Ｂ型
-就労定着支援,Employment Retention Support,就労定着支援
-児童発達支援,Child Development Support,児童発達支援
-医療型児童発達支援,Medical Child Development Support,医療型児童発達支援
-放課後等デイサービス,After-School Day Service,放課後等デイサービス
-居宅訪問型児童発達支援,Home-Visit Child Development Support,居宅訪問型児童発達支援
-保育所等訪問支援,Nursery School and Kindergarten Visit Support,保育所等訪問支援
-福祉型障害児入所施設,Welfare Residential Facility for Children with Disabilities,福祉型障害児入所施設
-医療型障害児入所施設,Medical Residential Facility for Children with Disabilities,医療型障害児入所施設
-地域相談支援(地域移行),Community Consultation Support (Community Transition),地域相談支援(地域移行)
-地域相談支援(地域定着),Community Consultation Support (Community Settlement),地域相談支援(地域定着)
-計画相談支援,Service Planning Consultation Support,計画相談支援
-障害児相談支援,Consultation Support for Children with Disabilities,障害児相談支援
+name_j,name_e,code_map,source
+【介護保険サービス】,Long-Term Care Insurance Services,heading,
+訪問介護,Home-Visit Care,LTCI_110,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+訪問入浴介護,Home-Visit Bathing Care,LTCI_120,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+訪問看護,Home-Visit Nursing,LTCI_130,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+訪問リハビリテーション,Home-Visit Rehabilitation,LTCI_140,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+通所介護,Day Care,LTCI_150,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+通所介護（療養通所介護）,Medical Day Care,LTCI_155,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+通所リハビリテーション,Day Rehabilitation,LTCI_160,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+福祉用具貸与,Welfare Equipment Rental,LTCI_170,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+短期入所生活介護,Short-Stay Residential Care,LTCI_210,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+短期入所療養介護（介護老人保健施設）,Short-Stay Medical Care (Geriatric Health Services Facility),LTCI_220,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+短期入所療養介護（療養病床を有する病院等）,Short-Stay Medical Care (Hospital with Long-Term Care Beds),LTCI_230,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+短期入所療養介護（介護医療院）,Short-Stay Medical Care (Integrated Facility for Medical and Long-Term Care),LTCI_551,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+認知症対応型共同生活介護,Group Home for Persons with Dementia,LTCI_320,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+特定施設入居者生活介護（有料老人ホーム）,Residential Care in Fee-Based Nursing Home,LTCI_331,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+特定施設入居者生活介護（軽費老人ホーム）,Residential Care in Low-Cost Elderly Home,LTCI_332,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+特定施設入居者生活介護（サービス付き高齢者向け住宅）,Residential Care in Service-Integrated Housing for Older Persons,LTCI_334,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+特定施設入居者生活介護（有料老人ホーム・外部サービス利用型）,Residential Care in Fee-Based Nursing Home (External Service Type),LTCI_335,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+特定施設入居者生活介護（軽費老人ホーム・外部サービス利用型）,Residential Care in Low-Cost Elderly Home (External Service Type),LTCI_336,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+特定施設入居者生活介護（サービス付き高齢者向け住宅・外部サービス利用型）,Residential Care in Service-Integrated Housing for Older Persons (External Service Type),LTCI_337,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+地域密着型特定施設入居者生活介護（有料老人ホーム）,Community-Based Residential Care in Fee-Based Nursing Home,LTCI_361,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+地域密着型特定施設入居者生活介護（軽費老人ホーム）,Community-Based Residential Care in Low-Cost Elderly Home,LTCI_362,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+地域密着型特定施設入居者生活介護（サービス付き高齢者向け住宅）,Community-Based Residential Care in Service-Integrated Housing for Older Persons,LTCI_364,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+特定福祉用具販売,Sales of Specified Welfare Equipment,LTCI_410,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+居宅介護支援,Care Management,LTCI_430,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+介護老人福祉施設,Special Nursing Home for the Elderly,LTCI_510,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+介護老人保健施設,Geriatric Health Services Facility,LTCI_520,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+介護療養型医療施設,Long-Term Care Medical Facility,LTCI_530,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+地域密着型介護老人福祉施設入所者生活介護,Community-Based Special Nursing Home Care,LTCI_540,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+介護医療院,Integrated Facility for Medical and Long-Term Care,LTCI_550,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+夜間対応型訪問介護,Night-Time Home-Visit Care,LTCI_710,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+認知症対応型通所介護,Dementia Day Care,LTCI_720,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+小規模多機能型居宅介護,Multifunctional Small Group Home Care,LTCI_730,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+定期巡回・随時対応型訪問介護看護,Regular Patrol and On-Demand Home Care and Nursing,LTCI_760,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+看護小規模多機能型居宅介護,Nursing Multifunctional Small Group Home Care,LTCI_770,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+地域密着型通所介護,Community-Based Day Care,LTCI_780,https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html
+【障害福祉サービス】,Disability Welfare Services,heading,
+居宅介護,Home Care,居宅介護,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+重度訪問介護,Intensive Home Care,重度訪問介護,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+同行援護,Accompanied Support,同行援護,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+行動援護,Behavioral Support,行動援護,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+重度障害者等包括支援,Comprehensive Support for Persons with Severe Disabilities,重度障害者等包括支援,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+療養介護,Medical Care Support,療養介護,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+生活介護,Daily Living Care,生活介護,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+短期入所,Short Stay,短期入所,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+施設入所支援,Residential Support,施設入所支援,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+共同生活援助,Group Home Support,共同生活援助,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+自立生活援助,Independent Living Support,自立生活援助,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+自立訓練(機能訓練),Independent Living Training (Functional Training),自立訓練(機能訓練),https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+自立訓練(生活訓練),Independent Living Training (Life Skills Training),自立訓練(生活訓練),https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+宿泊型自立訓練,Residential Independent Living Training,宿泊型自立訓練,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+就労移行支援,Employment Transition Support,就労移行支援,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+就労継続支援Ａ型,Continuous Employment Support Type A,就労継続支援Ａ型,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+就労継続支援Ｂ型,Continuous Employment Support Type B,就労継続支援Ｂ型,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+就労定着支援,Employment Retention Support,就労定着支援,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+児童発達支援,Child Development Support,児童発達支援,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+医療型児童発達支援,Medical Child Development Support,医療型児童発達支援,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+放課後等デイサービス,After-School Day Service,放課後等デイサービス,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+居宅訪問型児童発達支援,Home-Visit Child Development Support,居宅訪問型児童発達支援,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+保育所等訪問支援,Nursery School and Kindergarten Visit Support,保育所等訪問支援,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+福祉型障害児入所施設,Welfare Residential Facility for Children with Disabilities,福祉型障害児入所施設,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+医療型障害児入所施設,Medical Residential Facility for Children with Disabilities,医療型障害児入所施設,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+地域相談支援(地域移行),Community Consultation Support (Community Transition),地域相談支援(地域移行),https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+地域相談支援(地域定着),Community Consultation Support (Community Settlement),地域相談支援(地域定着),https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+計画相談支援,Service Planning Consultation Support,計画相談支援,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/
+障害児相談支援,Consultation Support for Children with Disabilities,障害児相談支援,https://www.wam.go.jp/content/wamnet/pcpub/top/sfkopendata/

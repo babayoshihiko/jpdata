@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os, posixpath
 from . import jpDataUtils
+from .jpdata_muni import jpDataMuni
 from qgis import processing
 
 
@@ -43,11 +44,32 @@ class jpDataCensus:
         return cls._instance
 
     def __init__(self):
-        self.download_fullpath = ""
-
-
-    def _get_statsid_for_mesh(self, index_census, year):
-        return self._CENSUS_YEAR_STATSID.get(index_census, {}).get(str(year))
+        self._download_fullpath = ""
+        self._lang = "j"
+        self.record = None
+        self._Muni = jpDataMuni.instance()
+    
+    def _clear_record(self):
+        self.record = {
+            "index_census":9,
+            "year":"",
+            "name_pref":"",
+            "code_pref":"",
+            "name_muni":"",
+            "code_muni":"",
+            "code_mesh":"",
+            "url":"",
+            "zip":"",
+            "shp":"",
+            "qml":"",
+            "epsg":"",
+            "encoding":"CP932",
+            "download_fullpath":"",
+            "subfolder":"",
+            "attr_url":"",
+            "attr_zip":"",
+            "attr_csv":""
+        }
 
     def init(self):
         return
@@ -55,112 +77,83 @@ class jpDataCensus:
     def set_download_folder(self, download_fullpath):
         if not os.path.exists(posixpath.join(download_fullpath, "Census")):
             os.mkdir(posixpath.join(download_fullpath, "Census"))
-        self.download_fullpath = posixpath.join(download_fullpath, "Census")
+        self._download_fullpath = posixpath.join(download_fullpath, "Census")
+
+    def get_download_folder(self, index_census):
+        return self._download_fullpath
 
     def set_lang(self, lang):
-        self.lang = lang[:1].lower()
+        self._lang = lang[:1].lower()
 
-    def get_records(self):
-        return
+    def get_record(self):
+        return self.record
     
     def get_years(self, index_census):
         return list(self._CENSUS_YEAR_STATSID.get(index_census, {}).keys())
 
-    def get_prefs(self, code_census):
-        return
-    
-    def get_url_zip(self, code_census, year, name_pref, code_muni_mesh):
-        code_pref = jpDataUtils.getPrefCodeByName(name_pref)
-        return self.getZip(year, code_pref, code_muni, type_muni=0)
+    def set_source(self, index_census, year, name_pref, name_muni=None, code_mesh=None):
+        self._clear_record()
+        self.record["index_census"] = index_census
+        self.record["year"] = year
+        self.record["name_pref"] = name_pref
+        self.record["code_pref"] = jpDataUtils.getPrefCodeByName(name_pref)
+        self.record["name_muni"] = name_muni
+        self.record["code_mesh"] = code_mesh
+        self.record["code_muni"] = self._Muni.get_code_muni(name_pref, name_muni)
+        self._set_url()
+        self._set_zip()
+        self._set_shp()
+        self._set_qml()
+        self.record["download_fullpath"] = posixpath.join(self._download_fullpath, self._CENSUS_CODE[index_census])
+        self.record["subfolder"] = posixpath.join("Census", self._CENSUS_CODE[index_census])
 
-    def get_zip_shp(self, code_census, year, name_pref, code_muni_mesh):
-        return self.getZipShp(year, code_pref, code_muni_mesh, code_census)
 
 
-
-    def _get_char_for_mesh(self, index_census):
-        if 0 <= index_census < len(_CENSUS_CODE):
-            return _CENSUS_CODE[index_census][:1]
-        return ""
-
-    def _get_string_for_mesh(self, index_census):
-        if 0 <= index_census < len(_CENSUS_CODE):
-            return _CENSUS_CODE[index_census]
-        return ""
-
-    def get_subfolder_qml(self, type_muni, year):
-        if type_muni == 0:
-            tempSubFolder = "Census"
-            tempQmlFile = "Census-" + year + ".qml"
-        else:
-            tempSubFolder = _get_string_for_mesh(type_muni)
-            tempQmlFile = "Census-" + _get_string_for_mesh(type_muni) + "-" + year + ".qml"
-        return tempSubFolder, tempQmlFile
-
-    def getZipShp(self, year, code_pref, code_muni, type_muni=0):
-        tempZipFileName = self.getZipFileName(
-            year,
-            code_pref,
-            code_muni,
-            type_muni,
-        )
-        tempShpFileName = self.getShpFileName(
-            year,
-            code_pref,
-            code_muni,
-            type_muni,
-        )
-        return tempZipFileName, tempShpFileName
-
-    def getZip(self, year, code_pref, code_muni, type_muni=0):
-        tempUrl = self.getUrl(year, code_pref, code_muni, type_muni)
-        tempZip = self.getZipFileName(year, code_pref, code_muni, type_muni)
-        tempSubFolder, tmpQmlFile = self.get_subfolder_qml(type_muni, year)
-        return tempUrl, tempZip, tempSubFolder
-
-    def getUrl(self, year, code_pref, code_muni, type_muni=0):
-        code_pref = str(code_pref).zfill(2)
-        if type_muni == 0:
-            datum = "2011" if year in ["2020", "2015"] else "2000"
-
-            return (
+    def _set_url(self):
+        year = self.record["year"] 
+        code_pref = self.record["code_pref"] 
+        code_muni = self.record["code_muni"] 
+        code_mesh = self.record["code_mesh"] 
+        if self.record["index_census"] == 0:
+            datum = "2011" if int(year) >= 2015 else "2000"
+            self.record["url"] = (
                 f"https://www.e-stat.go.jp/gis/statmap-search/data?"
                 f"dlserveyId=A00200521{year}&"
                 f"code={code_pref}{code_muni}&"
                 f"coordSys=2&format=shape&downloadType=5&datum={datum}"
             )
-        survey_char = _get_char_for_mesh(type_muni)
+        else:
+            survey_char = self._CENSUS_CODE[self.record["index_census"]][:1]
+            if not survey_char:
+                return None
+            self.record["url"] = (
+                f"https://www.e-stat.go.jp/gis/statmap-search/data?"
+                f"dlserveyId={survey_char}&"
+                f"code={code_mesh}&"
+                f"coordSys=1&format=shape&downloadType=5"
+            )
 
-        if not survey_char:
-            return None
-
-        return (
-            f"https://www.e-stat.go.jp/gis/statmap-search/data?"
-            f"dlserveyId={survey_char}&"
-            f"code={code_muni}&"
-            f"coordSys=1&format=shape&downloadType=5"
-        )
-
-    def getZipFileName(self, year, code_pref, code_muni, type_muni=0):
+    def _set_zip(self):
         zipFileName = None
-        if type_muni == 0:
-            if len(code_pref) == 1:
-                code_pref = "0" + code_pref
-            if year == "2020" or year == "2015":
+        code_pref = self.record["code_pref"]
+        code_muni = self.record["code_muni"]
+        if self.record["index_census"] == 0:
+            if int(self.record["year"]) >= 2015:
                 zipFileName = (
-                    "A00200521" + year + "XYSWC" + code_pref + code_muni + "-JGD2011.zip"
+                    "A00200521" + self.record["year"] + "XYSWC" + code_pref + code_muni + "-JGD2011.zip"
                 )
             else:
-                zipFileName = "A00200521" + year + "XYSWC" + code_pref + code_muni + ".zip"
+                zipFileName = "A00200521" + self.record["year"] + "XYSWC" + code_pref + code_muni + ".zip"
         else:
-            zipFileName = _get_string_for_mesh(type_muni) + code_muni + ".zip"
-        return zipFileName
+            zipFileName = self._CENSUS_CODE[self.record["index_census"]] + code_muni + ".zip"
+        self.record["zip"] = zipFileName
 
-    def getShpFileName(self, year, code_pref, code_muni, type_muni=0):
+    def _set_shp(self):
         shpFileName = None
-        if len(code_pref) == 1:
-            code_pref = "0" + code_pref
-        if type_muni == 0:
+        year = self.record["year"] 
+        code_pref = self.record["code_pref"] 
+        code_muni = self.record["code_muni"] 
+        if self.record["index_census"] == 0:
             if year == "2020":
                 shpFileName = "r2ka" + code_pref + code_muni + ".shp"
             elif year == "2015":
@@ -171,90 +164,65 @@ class jpDataCensus:
                 shpFileName = "h17ka" + code_pref + code_muni + ".shp"
             elif year == "2000":
                 shpFileName = "h12ka" + code_pref + code_muni + ".shp"
-        elif type_muni >= 1:
-            shpFileName = "MESH0" + code_muni + ".shp"
-        return shpFileName
-
-
-    def getAttr(self, year, code_pref, code_muni, type_muni=0):
-        tempUrl = self.getAttrUrl(year, code_pref, code_muni, type_muni)
-        tempZip = self.getAttrZipFileName(year, code_pref, code_muni, type_muni)
-        tempSubFolder, tmpQmlFile = self.get_subfolder_qml(type_muni, year)
-        return tempUrl, tempZip, tempSubFolder
-
-
-    def getAttrUrl(self, year, code_pref, code_muni, type_muni=0):
-        if type_muni == 0:
-            _code = str(code_pref).zfill(2)
         else:
-            _code = code_muni
-        _statsId = self._get_statsid_for_mesh(year, type_muni)
-        if not _code:
+            shpFileName = "MESH0" + self.record["code_mesh"]  + ".shp"
+        self.record["shp"] = shpFileName
+
+    def _set_qml(self):
+        if self.record["index_census"] == 0:
+            self.record["qml"] = "Census-" + self.record["year"]  + ".qml"
+        else:
+            self.record["qml"] = "Census-" + self._CENSUS_CODE[self.record["index_census"]] + "-" + self.record["year"] + ".qml"
+
+
+    def _get_statsid_for_mesh(self):
+        return self._CENSUS_YEAR_STATSID.get(self.record["index_census"], {}).get(self.record["year"])
+
+    def _get_attr_base(self):
+        _statsId = self._get_statsid_for_mesh()
+        if not _statsId:
             return None
+        if self.record["index_census"] == 0:
+            suffix = self.record["code_pref"]
+        else:
+            char = self._get_char_for_mesh(self.record["index_census"])
+            suffix = self._CENSUS_CODE[self.record["index_census"]][:1] + self.record["code_muni"]
+        return f"{_statsId}{suffix}"
+    
+    def _set_attr_url(self):
+        if self.record["index_census"] == 0:
+            _code = self.record["code_pref"]
+        else:
+            _code = self.record["code_mesh"]
+        _statsId = self._get_statsid_for_mesh()
         url = (
             f"https://www.e-stat.go.jp/gis/statmap-search/data?"
             f"statsId=T{_statsId}&"
             f"code={_code}&"
             f"downloadType=2"
         )
-        return url
+        self.record["attr_url"] =  url
 
-    def _get_base_filename(year, code_pref, code_muni, type_muni):
-        _statsId = self._get_statsid_for_mesh(year, type_muni)
-        if not _statsId:
-            return None
-        if type_muni == 0:
-            suffix = f"C{str(code_pref).zfill(2)}"
-        else:
-            char = self._get_char_for_mesh(type_muni)
-            suffix = f"{char}{code_muni}"
+    def _set_attr_zip(self):
+        base = self._get_attr_base()
+        self.record["attr_zip"] =   f"tblT{base}.zip" if base else None
 
-        return f"{_statsId}{suffix}"
-
-    def getAttrZipFileName(year, code_pref, code_muni, type_muni=0):
-        base = self._get_base_filename(year, code_pref, code_muni, type_muni)
-        return f"tblT{base}.zip" if base else None
-
-    def get_attr_csv_filename(year, code_pref, code_muni, type_muni=0, folder="."):
-        base = self._get_base_filename(year, code_pref, code_muni, type_muni)
-        if not base:
-            return None
-        if type_muni == 0:
-            folder_path = posixpath.join(folder, "Census")
-        else:
-            folder_path = posixpath.join(folder, "Census-" + _get_string_for_mesh(type_muni) )
-
+    def _set_attr_csv(self):
+        base = self._get_attr_base()
         file_name = f"tbl{base}.txt"
-        path = posixpath.join(folder_path, file_name)
-        if os.path.exists(path):
-            return file_name
-        
         file_name_t = f"tblT{base}.txt"
-        return file_name_t
+        path = posixpath.join(self.record["download_fullpath"], file_name)
+        if os.path.exists(posixpath.join(self.record["download_fullpath"], file_name)):
+            self.record["attr_csv"] = file_name
+        elif os.path.exists(posixpath.join(self.record["download_fullpath"], file_name_t)):
+            self.record["attr_csv"] = file_name_t
 
-    def get_attr_csv_fullpath(year, code_pref, code_muni, type_muni=0, folder="."):
-        base = self._get_base_filename(year, code_pref, code_muni, type_muni)
-        if not base:
-            return None
-        if type_muni == 0:
-            folder_path = posixpath.join(folder, "Census")
-        else:
-            folder_path = posixpath.join(folder, "Census-" + _get_string_for_mesh(type_muni) )
 
-        file_name = f"tbl{base}.txt"
-        
-        path = posixpath.join(folder_path, file_name)
-        
-        if os.path.exists(path):
-            return path
-        
-        file_name_t = f"tblT{base}.txt"
-        path_t = posixpath.join(folder_path, file_name_t)
-        
-        if os.path.exists(path_t):
-            return path_t
 
-    def perform_join(folder, year, shp_name, csv_name):
+
+
+
+    def perform_join(self, folder, year, shp_name, csv_name):
         import os
         import posixpath
         import processing
