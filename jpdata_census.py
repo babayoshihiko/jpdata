@@ -144,6 +144,7 @@ class jpDataCensus:
         zipFileName = None
         code_pref = self.record["code_pref"]
         code_muni = self.record["code_muni"]
+        code_mesh = self.record["code_mesh"]
         if self.record["index_census"] == 0:
             if int(self.record["year"]) >= 2015:
                 zipFileName = (
@@ -152,7 +153,7 @@ class jpDataCensus:
             else:
                 zipFileName = "A00200521" + self.record["year"] + "XYSWC" + code_pref + code_muni + ".zip"
         else:
-            zipFileName = self._CENSUS_CODE[self.record["index_census"]] + code_muni + ".zip"
+            zipFileName = self._CENSUS_CODE[self.record["index_census"]] + code_mesh + ".zip"
         self.record["zip"] = zipFileName
 
     def _set_shp(self):
