@@ -51,6 +51,7 @@ class jpDataCensus:
     
     def _clear_record(self):
         self.record = {
+            "source":"https://www.e-stat.go.jp/gis/statmap-search?type=1",
             "index_census":9,
             "year":"",
             "name_pref":"",
@@ -65,7 +66,7 @@ class jpDataCensus:
             "epsg":"",
             "encoding":"CP932",
             "download_fullpath":"",
-            "subfolder":"",
+            "subfolder":"Census",
             "attr_url":"",
             "attr_zip":"",
             "attr_csv":""
@@ -79,7 +80,7 @@ class jpDataCensus:
             os.mkdir(posixpath.join(download_fullpath, "Census"))
         self._download_fullpath = posixpath.join(download_fullpath, "Census")
 
-    def get_download_folder(self, index_census):
+    def get_download_folder(self):
         return self._download_fullpath
 
     def set_lang(self, lang):
@@ -106,7 +107,9 @@ class jpDataCensus:
         self._set_qml()
         self.record["download_fullpath"] = posixpath.join(self._download_fullpath, self._CENSUS_CODE[index_census])
         self.record["subfolder"] = posixpath.join("Census", self._CENSUS_CODE[index_census])
-
+        self._set_attr_url()
+        self._set_attr_zip()
+        self._set_attr_csv()
 
 
     def _set_url(self):
@@ -180,13 +183,14 @@ class jpDataCensus:
 
     def _get_attr_base(self):
         _statsId = self._get_statsid_for_mesh()
+        jpDataUtils.printDebugLog("Line 185")
+        jpDataUtils.printDebugLog(_statsId)
         if not _statsId:
             return None
         if self.record["index_census"] == 0:
             suffix = self.record["code_pref"]
         else:
-            char = self._get_char_for_mesh(self.record["index_census"])
-            suffix = self._CENSUS_CODE[self.record["index_census"]][:1] + self.record["code_muni"]
+            suffix = self._CENSUS_CODE[self.record["index_census"]][:1] + self.record["code_mesh"]
         return f"{_statsId}{suffix}"
     
     def _set_attr_url(self):
@@ -207,6 +211,10 @@ class jpDataCensus:
         base = self._get_attr_base()
         self.record["attr_zip"] =   f"tblT{base}.zip" if base else None
 
+    def set_attr_csv(self):
+        self._set_attr_csv()
+        return self.record["attr_csv"] 
+
     def _set_attr_csv(self):
         base = self._get_attr_base()
         file_name = f"tbl{base}.txt"
@@ -223,8 +231,6 @@ class jpDataCensus:
 
 
     def perform_join(self, folder, year, shp_name, csv_name):
-        import os
-        import posixpath
         import processing
         from qgis.core import (
             QgsVectorLayer,

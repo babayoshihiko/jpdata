@@ -114,6 +114,7 @@ def robust_extractall(
                         target.write(source.read())
 
             print("\nExtraction complete.")
+            return True
 
     except zipfile.BadZipFile:
         print(f"Error: The file at {zip_path} is not a valid ZIP file.")
@@ -128,4 +129,4 @@ def unzip_qgis_safe(folder_path, zip_file):
     """
     zip_path = posixpath.join(folder_path, zip_file)
 
-    robust_extractall(zip_path, folder_path)
+    return robust_extractall(zip_path, folder_path)

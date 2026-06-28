@@ -570,124 +570,149 @@ class JPDataManager:
     def _tab3_iter(self, process):
         if not self._tab3CheckSelected():
             return
+
         year = self._dw.myComboBox31.currentText()
         name_pref = self._dw.myListWidget31.selectedItems()[0].text()
-        code_mesh = None
-        if len(self._dw.myListWidget32.selectedItems()) > 0:
+        source = self._dw.myComboBox32.currentIndex()
+
+        name_muni = None
+        if self._dw.myListWidget32.selectedItems():
             name_muni = self._dw.myListWidget32.selectedItems()[0].text()
-        if len(self._dw.myListWidget33.selectedItems()) > 0:
-            code_mesh = self._dw.myListWidget33.selectedItems()[0].text()
 
-        if self._dw.myComboBox32.currentIndex() == 0:
-            # Get municipality names
+        suffix = {
+            0: "",
+            1: " " + TR.X3_MESH(),
+            2: " " + TR.X4_MESH(),
+            3: " " + TR.X5_MESH(),
+            4: " " + TR.X6_MESH(),
+        }
+        name_muni_suffix = suffix[source]
+
+        if source == 0:
             list_item = self._dw.myListWidget32.selectedItems()
-            name_muni_suffix = ""
         else:
-            # Get mesh codes
             list_item = self._dw.myListWidget33.selectedItems()
-            if self._dw.myComboBox32.currentIndex() == 1:
-                name_muni_suffix = " " + TR.X3_MESH()
-            elif self._dw.myComboBox32.currentIndex() == 2:
-                name_muni_suffix = " " + TR.X4_MESH()
-            elif self._dw.myComboBox32.currentIndex() == 3:
-                name_muni_suffix = " " + TR.X5_MESH()
-            elif self._dw.myComboBox32.currentIndex() == 4:
-                name_muni_suffix = " " + TR.X6_MESH()
 
-        if process == "add":
-            for _item_name_or_code in list_item:
-                if self._dw.myComboBox32.currentIndex() == 0:
-                    self._Census.set_source(
-                        self._dw.myComboBox32.currentIndex(),
-                        year,
-                        name_pref,
-                        _item_name_or_code.text(),
-                        None)
-                else:
-                    self._Census.set_source(
-                        self._dw.myComboBox32.currentIndex(),
-                        year,
-                        name_pref,
-                        name_muni,
-                        _item_name_or_code.text())
-                download_fullpath = self._Census.get_record()["download_fullpath"]
-                zip_filename = self._Census.get_record()["zip"]
-                shp_filename = self._Census.get_record()["shp"]
-                code_pref = self._Census.get_record()["code_pref"]
-                code_muni = self._Census.get_record()["code_muni"]
-
-                shp_full_path = jpDataUtils.unzipAndGetShp(
-                    download_fullpath,
-                    year,
-                    zip_filename,
-                    shp_filename,
-                )
-                if shp_full_path is None:
-                    self.setLabel(TR.CANNOT_FIND_SHP_FILE(shp_filename), critical=True,)
-                    break
-
-                if shp_full_path != "":
-                    jpDataUtils.unzip(download_fullpath, zip_filename)
-                    csv_filename = self._Census.get_record()["attr_csv"]
-                    encoding = self._Census.get_record()["encoding"]
-                    if csv_filename != "":
-                        shp_full_path, encoding = self._Census.perform_join(
-                            download_fullpath,
-                            year,
-                            shp_filename,
-                            csv_filename,
-                        )
-                    else:
-                        self.setLabel("")
-                    self._add_map(
-                        shp_full_path,
-                        _item_name_or_code.text() + name_muni_suffix + " (" + year + ")",
-                        self._Census.get_record()["qml"],
-                        encoding=encoding,
-                    )
-        elif process == "download":
+        if process == "download":
             self._dl_url_zip = []
             self._dl_iter = 0
-            for _item_name_or_code in list_item:
-                if self._dw.myComboBox32.currentIndex() == 0:
-                    self._Census.set_source(
-                        self._dw.myComboBox32.currentIndex(),
-                        year,
-                        name_pref,
-                        _item_name_or_code.text(),
-                        None)
-                else:
-                    self._Census.set_source(
-                        self._dw.myComboBox32.currentIndex(),
-                        year,
-                        name_pref,
-                        name_muni,
-                        _item_name_or_code.text())
-                code_pref = self._Census.get_record()["code_pref"]
-                code_muni = self._Census.get_record()["code_muni"]
-                attr_url = self._Census.get_record()["attr_url"]
-                attr_zip = self._Census.get_record()["attr_zip"]
 
-                if attr_zip:
-                    self._dl_url_zip.append(
-                        {
-                            "year": year,
-                            "url": attr_url,
-                            "zip": attr_zip,
-                            "subfolder": self._Census.get_record()["subfolder"],
-                        }
-                    )
-                if self._Census.get_record()["zip"]:
-                    self._dl_url_zip.append(
-                        {
-                            "year": self._Census.get_record()["year"],
-                            "url": self._Census.get_record()["url"],
-                            "zip": self._Census.get_record()["zip"],
-                            "subfolder": self._Census.get_record()["subfolder"],
-                        }
-                    )
+        for item in list_item:
+            record = self._set_census_source(
+                source,
+                year,
+                name_pref,
+                name_muni,
+                item.text(),
+            )
+
+            if process == "add":
+                self._add_census_layer(
+                    year,
+                    item.text(),
+                    name_muni_suffix
+                )
+            elif process == "download":
+                self._append_download_queue(record)
+
+        if process == "download":
             self._download_iter_2()
 
+    def _set_census_source(
+        self,
+        index_census,
+        year,
+        name_pref,
+        name_muni,
+        name_or_code,
+    ):
+        if index_census == 0:
+            self._Census.set_source(
+                index_census,
+                year,
+                name_pref,
+                name_or_code,
+                None,
+            )
+        else:
+            self._Census.set_source(
+                index_census,
+                year,
+                name_pref,
+                name_muni,
+                name_or_code,
+            )
+        return self._Census.get_record()
+
+    def _add_census_layer(
+        self,
+        year,
+        item_name,
+        name_muni_suffix
+    ):
+        record = self._Census.get_record()
+        jpDataUtils.unzip(record["download_fullpath"], record["zip"])
+        jpDataUtils.unzip(record["download_fullpath"], record["attr_zip"])
+        record["attr_csv"] = self._Census.set_attr_csv()
+        shp_full_path = jpDataUtils.unzipAndGetShp(
+            record["download_fullpath"],
+            year,
+            record["zip"],
+            record["shp"],
+        )
+
+        if shp_full_path is None:
+            self.setLabel(
+                TR.CANNOT_FIND_SHP_FILE(record["shp"]),
+                critical=True,
+            )
+            return
+
+        if shp_full_path == "":
+            return
+
+
+        qml = record["qml"]
+        encoding = record["encoding"]
+        jpDataUtils.printDebugLog("Line 679")
+        jpDataUtils.printDebugLog(record)
+        if record["attr_csv"]:
+            shp_full_path, encoding = self._Census.perform_join(
+                record["download_fullpath"],
+                year,
+                record["shp"],
+                record["attr_csv"],
+            )
+        else:
+            self.setLabel("")
+
+        self._add_map(
+            shp_full_path,
+            f"{item_name}{name_muni_suffix} ({year})",
+            qml,
+            encoding=encoding,
+        )
+
+    def _append_download_queue(self, record):
+        if record["attr_zip"]:
+            self._dl_url_zip.append(
+                {
+                    "year": record["year"],
+                    "url": record["attr_url"],
+                    "zip": record["attr_zip"],
+                    "subfolder": record["subfolder"],
+                }
+            )
+
+        if record["zip"]:
+            self._dl_url_zip.append(
+                {
+                    "year": record["year"],
+                    "url": record["url"],
+                    "zip": record["zip"],
+                    "subfolder": record["subfolder"],
+                }
+            )
 
 
 

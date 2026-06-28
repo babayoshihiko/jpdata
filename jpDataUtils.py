@@ -448,7 +448,7 @@ def printLog(message):
 
 
 def unzip(folder_path, zip_file):
-    jpdata_unzip.unzip_qgis_safe(folder_path, zip_file)
+    return jpdata_unzip.unzip_qgis_safe(folder_path, zip_file)
 
 
 def replaceCodes(
