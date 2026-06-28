@@ -123,6 +123,7 @@ class JPDataManager:
         self._downloader.setProxyServer(self._proxyServer)
         self._downloader.progress.connect(self._dw.progressBar.setValue)
         self._downloader.finished.connect(self._download_finished)
+        self._downloader.message.connect(self.setLabel)
 
     def setLabel(self, message, critical=False):
         message = str(message)
@@ -368,13 +369,7 @@ class JPDataManager:
     def _tab1_add_map(self):
         self._tab1_iter(process="add")
 
-    # year = 2023 and so on
-    # type must be one of ["regional","detail","single","","census"]
-    # selection_code is a dictionary of codes
-    #     (prefectural codes, municipal codes and so on)
-    # a list of "code_pref"s (type = "" or "region")
-    # or a list of "code_muni"s (type = "census")
-    def _download_iter_2(self):
+    def _download_iter_3(self):
         _bol_start_download = False
 
         for x in range(self._dl_iter, len(self._dl_url_zip)):
@@ -632,6 +627,8 @@ class JPDataManager:
 
         if process == "download":
             #self._download_iter_2()
+            jpDataUtils.printDebugLog(self._downloader.jobs)
+            jpDataUtils.printDebugLog(self._downloader.current)
             self._downloader.start()
 
     def _set_census_source(

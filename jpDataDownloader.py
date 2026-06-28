@@ -6,6 +6,7 @@ import requests
 import zipfile
 import logging
 from urllib.parse import quote
+from .i18n import TR
 
 try:
     import certifi
@@ -29,6 +30,7 @@ class DownloadJob:
     file_path: str
 
 class DownloadThread(QThread):
+    message = pyqtSignal(str)
     progress = pyqtSignal(int)
     success = pyqtSignal(str)
     error = pyqtSignal(str)
@@ -51,6 +53,7 @@ class DownloadThread(QThread):
 
         self.jobs = []
         self.current = 0
+        self.total = 0
 
     def addJob(self, url, file_path):
         self.jobs.append(
@@ -131,10 +134,23 @@ class DownloadThread(QThread):
             return False
 
     def run(self):
+        self.total = len(self.jobs)
         self._is_running = True
 
         while self.hasJobs() and self._is_running:
             job = self.jobs[self.current]
+
+            self.message.emit(
+                f"({self.current + 1}/{self.total}) "
+                f"{os.path.basename(job.file_path)} ..."
+            )
+
+            if os.path.exists(job.file_path):
+                self.message.emit(
+                    TR.FILE_EXISTS(os.path.basename(job.file_path))
+                )
+                self.current += 1
+                continue
 
             self.job_started.emit(job.file_path)
 
