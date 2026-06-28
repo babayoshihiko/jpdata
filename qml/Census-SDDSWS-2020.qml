@@ -341,7 +341,7 @@
     <alias index="47" field="T001140039" name=""/>
     <alias index="48" field="T001140040" name=""/>
     <alias index="49" field="T001140041" name=""/>
-    <alias index="50" field="T001140042" name=""7人以上世帯数/>
+    <alias index="50" field="T001140042" name="7人以上世帯数"/>
     <alias index="51" field="T001140043" name="親族のみの世帯数"/>
     <alias index="52" field="T001140044" name="核家族世帯数"/>
     <alias index="53" field="T001140045" name="核家族以外の世帯数"/>
