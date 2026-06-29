@@ -188,8 +188,6 @@ class jpDataCensus:
 
     def _get_attr_base(self):
         _statsId = self._get_statsid_for_mesh()
-        jpDataUtils.printDebugLog("Line 185")
-        jpDataUtils.printDebugLog(_statsId)
         if not _statsId:
             return None
         if self.record["index_census"] == 0:

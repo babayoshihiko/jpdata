@@ -149,71 +149,11 @@ class JPDataManager:
         pass
         # This is a method for local testing purpose.
 
-    def _add_map_old(
-        self,
-        shpFileFullPath,
-        layerName,
-        qmlFileName=None,
-        encoding="CP932",
-        epsg=None,
-    ):
-        # --- Create layer ---
-        if shpFileFullPath is None:
-            self.setLabel(TR.CANNOT_FIND_FILE_LAYER(layerName))
-            return None
-        layer = QgsVectorLayer(shpFileFullPath, layerName, "ogr")
-        if not layer.isValid():
-            self.setLabel(TR.CANNOT_LOAD_LAYER(layerName))
-            return None
-
-        layer.setProviderEncoding(encoding)
-
-        # --- CRS ---
-        if epsg:
-            epsg_str = str(epsg).strip()
-            if epsg_str.upper().startswith("EPSG:"):
-                epsg_str = epsg_str[5:]
-            if epsg_str.isdigit():
-                epsg_int = int(epsg_str)
-                epsg = epsg_int
-                crs = QgsCoordinateReferenceSystem.fromEpsgId(epsg)
-                if not crs.isValid():
-                    self.setLabel(TR.INVALID_EPSG(epsg))
-                layer.setCrs(crs)
-
-        # --- Check geometry ---
-        if not self._dw.myCheckBox2.isChecked():
-            count_invalid = jpDataUtils.count_invalid_geometry(layer)
-            if count_invalid > 0:
-                layer.setName(f"{layerName} [invalid]")
-                self.setLabel(TR.INVALID_GEOM(count_invalid))
-
-        # --- Style from QML file ---
-        if qmlFileName:
-            qml_path = posixpath.join(self._plugin_dir, "qml", qmlFileName)
-            if os.path.isfile(qml_path):
-                with tempfile.TemporaryDirectory() as temp_dir:
-                    temp_qml = posixpath.join(temp_dir, qmlFileName)
-
-                    with open(qml_path, "r") as f:
-                        contents = f.read().replace("PLUGIN_DIR", self._plugin_dir)
-
-                    with open(temp_qml, "w") as f:
-                        f.write(contents)
-
-                    if layer.loadNamedStyle(temp_qml):
-                        layer.triggerRepaint()
-
-        # --- Add to the current project ---
-        QgsProject.instance().addMapLayer(layer)
-
-        return layer
-
     def _add_map(
         self,
         shpFileFullPath,
         layerName,
-        qmlFileName=None,
+        qml=None,
         encoding="CP932",
         epsg=None,
         xField=None,
@@ -282,11 +222,11 @@ class JPDataManager:
                 self.setLabel(TR.INVALID_GEOM(count_invalid))
 
         # --- Style from QML file ---
-        if qmlFileName:
-            qml_path = posixpath.join(self._plugin_dir, "qml", qmlFileName)
+        if qml:
+            qml_path = posixpath.join(self._plugin_dir, "qml", qml)
             if os.path.isfile(qml_path):
                 with tempfile.TemporaryDirectory() as temp_dir:
-                    temp_qml = posixpath.join(temp_dir, qmlFileName)
+                    temp_qml = posixpath.join(temp_dir, qml)
 
                     with open(qml_path, "r") as f:
                         contents = f.read().replace("PLUGIN_DIR", self._plugin_dir)
@@ -369,33 +309,6 @@ class JPDataManager:
     def _tab1_add_map(self):
         self._tab1_iter(process="add")
 
-    def _download_iter_3(self):
-        _bol_start_download = False
-
-        for x in range(self._dl_iter, len(self._dl_url_zip)):
-            tempUrl = self._dl_url_zip[x]["url"]
-            tempZipFileName = self._dl_url_zip[x]["zip"]
-            tempSubFolder = self._dl_url_zip[x]["subfolder"]
-            if not os.path.exists(
-                posixpath.join(
-                    self._folderPath,
-                    tempSubFolder,
-                    tempZipFileName,
-                )
-            ):
-                _bol_start_download = True
-                break
-            else:
-                # The file exists, so skip to the next one
-                self.setLabel(TR.FILE_EXISTS(tempZipFileName))
-        if _bol_start_download:
-            self._dw.progressBar.setValue(0)
-            self._ui.enable_download(False)
-            self._dl_iter = x + 1
-            self._start_download(tempUrl, tempSubFolder, tempZipFileName)
-        else:
-            self._ui.enable_download()
-            self._dl_iter = 0
 
 
     def _start_download(self, url, subFolder, zipFileName):
@@ -425,14 +338,6 @@ class JPDataManager:
         self.setLabel(current_text + TR.DONE())
         self._ui.enable_download()
         self._dw.progressBar.setValue(100)
-
-        #if len(self._dl_url_zip) > 0 and self._dl_iter < len(self._dl_url_zip):
-        #    # Download next
-        #    self._download_iter_2()
-        #else:
-        #    # All downloads finished
-        #    self._dl_iter = 0
-        #    self._dl_url_zip = []
 
     def _cancel_download(self):
         self._dl_url_zip = []
@@ -486,87 +391,93 @@ class JPDataManager:
         if not self._tab1CheckSelected():
             return
         name_map = self._dw.myListWidget11.selectedItems()[0].text()
-        this_landmum = self._LNI.get_record(name_map)
         year = self._dw.myComboBox11.currentText()
         list_code = []  # Either name_pref from LW12 or code_mesh from LW13 (multiple)
+        name_pref = self._dw.myListWidget12.selectedItems()[0].text() if len(self._dw.myListWidget12.selectedItems()) > 0 else ""
+        name_muni = self._dw.myListWidget13.selectedItems()[0].text() if len(self._dw.myListWidget13.selectedItems()) > 0 else ""
         detail = None   # detail from LW13 (single)
+        type_muni = self._LNI.get_records()[name_map]["type_muni"].lower()
 
-        if this_landmum["type_muni"].lower() == "mesh1":
-            for code_mesh1 in self._dw.myListWidget13.selectedItems():
-                list_code.append(code_mesh1.text())
-        elif this_landmum["type_muni"] == "single":
+        if type_muni == "single":
             list_code = [""]
-        else:
-            for name_pref in self._dw.myListWidget12.selectedItems():
-                list_code.append(name_pref.text())
-            if (
-                this_landmum["type_muni"].lower() == "detail"
-                and self._dw.myListWidget13.selectedItems()
-            ):
-                detail = self._dw.myListWidget13.selectedItems()[0].text()
-
-        count_prefs = len(self._dw.myListWidget12.selectedItems())
+        elif type_muni == "" or type_muni == "regional":
+            for item in self._dw.myListWidget12.selectedItems():
+                list_code.append(item.text())
+        elif type_muni == "mesh1":
+            for item in self._dw.myListWidget13.selectedItems():
+                list_code.append(item.text())
+        elif type_muni == "detail":
+            for item in self._dw.myListWidget13.selectedItems():
+                list_code.append(item.text())
 
         if process == "add":
-            for x in range(len(list_code)):
-                (
-                    zip_filename,
-                    shp_filename,
-                    altdir,
-                    qml_filename,
-                    epsg,
-                    encoding,
-                    subfolder,
-                    layer_name,
-                ) = self._LNI.get_zip_shp(
-                    name_map,
-                    year,
-                    list_code[x],
-                    detail=detail,
-                )
+            for x in list_code:
+                self._set_lni_source(type_muni, name_map, year, x)
+                jpDataUtils.unzip(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
                 shp_full_path = jpDataUtils.unzipAndGetShp(
-                    posixpath.join(self._folderPath, subfolder),
+                    self._LNI.get_record()["download_fullpath"],
                     year,
-                    zip_filename,
-                    shp_filename,
-                    altdir,
-                    list_code[x],
-                    epsg=epsg,
-                    encoding=encoding,
+                    self._LNI.get_record()["zip"],
+                    self._LNI.get_record()["shp"],
                 )
+                if type_muni == "single":
+                    layer_name =  self._LNI.get_record()["name_map"] + " (" + year + ")"
+                elif type_muni == "" or type_muni == "regional":
+                    layer_name =  self._LNI.get_record()["name_map"] + " (" + self._LNI.get_record()["name_pref"] + ", " + year + ")"
+                elif type_muni == "mesh1":
+                    layer_name =  self._LNI.get_record()["name_map"] + " (" + self._LNI.get_record()["code_mesh"] + ", " + year + ")"
+                elif type_muni == "detail":
+                    layer_name =  self._LNI.get_record()["name_map"] + " (" + self._LNI.get_record()["detail"] + ", " + year + ")"
+                
                 self._add_map(
                     shp_full_path,
                     layer_name,
-                    qml_filename,
-                    encoding=encoding,
-                    epsg=epsg,
+                    qml=self._LNI.get_record()["qml"],
+                    encoding=self._LNI.get_record()["encoding"],
+                    epsg=self._LNI.get_record()["epsg"],
                 )
         elif process == "download":
-            #self._dl_url_zip = []
-            #self._dl_iter = 0
-            for x in range(len(list_code)):
-                url, zip_filename, subfolder = self._LNI.get_url_zip(
-                    name_map,
-                    year,
-                    list_code[x],
-                    detail=detail,
+            for x in list_code:
+                self._set_lni_source(type_muni, name_map, year, x)
+                self._downloader.addJob(
+                    self._LNI.get_record()["url"],
+                    posixpath.join(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
                 )
-                if zip_filename is not None:
-                    #self._dl_url_zip.append(
-                    #    {
-                    #        "year": year,
-                    #        "url": url,
-                    #        "zip": zip_filename,
-                    #        "subfolder": subfolder,
-                    #    }
-                    #)
+            jpDataUtils.printDebugLog("Line 497")
+            jpDataUtils.printDebugLog(list_code)
+            jpDataUtils.printDebugLog(self._LNI.get_record())
+            self._downloader.start()
 
-                    self._downloader.addJob(
-                        url,
-                        posixpath.join(self._folderPath, subfolder, zip_filename),
-                    )
-            #self._download_iter_2()
-            self._download.start()
+    def _set_lni_source(self, type_muni, name_map, year, x):
+        if type_muni in ("", "single", "regional"):
+            self._LNI.set_source(
+                name_map,
+                year,
+                x,
+                None,
+                None,
+                None,
+            )
+
+        elif type_muni == "mesh1":
+            self._LNI.set_source(
+                name_map,
+                year,
+                name_pref,
+                None,
+                x,
+                None,
+            )
+        elif type_muni == "detail":
+            self._LNI.set_source(
+                name_map,
+                year,
+                name_pref,
+                None,
+                None,
+                x,
+            )
+
 
     def _tab3_iter(self, process):
         if not self._tab3CheckSelected():
@@ -615,7 +526,6 @@ class JPDataManager:
                     name_muni_suffix
                 )
             elif process == "download":
-                #self._append_download_queue(record)
                 self._downloader.addJob(
                     record["attr_url"],
                     posixpath.join(self._folderPath, record["subfolder"], record["attr_zip"])
@@ -626,9 +536,6 @@ class JPDataManager:
                 )
 
         if process == "download":
-            #self._download_iter_2()
-            jpDataUtils.printDebugLog(self._downloader.jobs)
-            jpDataUtils.printDebugLog(self._downloader.current)
             self._downloader.start()
 
     def _set_census_source(
@@ -687,8 +594,6 @@ class JPDataManager:
 
         qml = record["qml"]
         encoding = record["encoding"]
-        jpDataUtils.printDebugLog("Line 679")
-        jpDataUtils.printDebugLog(record)
         if record["attr_csv"]:
             shp_full_path, encoding = self._Census.perform_join(
                 record["download_fullpath"],
@@ -706,26 +611,6 @@ class JPDataManager:
             encoding=encoding,
         )
 
-    def _append_download_queue(self, record):
-        if record["attr_zip"]:
-            self._dl_url_zip.append(
-                {
-                    "year": record["year"],
-                    "url": record["attr_url"],
-                    "zip": record["attr_zip"],
-                    "subfolder": record["subfolder"],
-                }
-            )
-
-        if record["zip"]:
-            self._dl_url_zip.append(
-                {
-                    "year": record["year"],
-                    "url": record["url"],
-                    "zip": record["zip"],
-                    "subfolder": record["subfolder"],
-                }
-            )
 
 
 
@@ -781,19 +666,10 @@ class JPDataManager:
                     type="urlzip"
                 )
                 if zip_filename is not None:
-                    #self._dl_url_zip.append(
-                    #    {
-                    #        "year": year,
-                    #        "url": url,
-                    #        "zip": zip_filename,
-                    #        "subfolder": subfolder,
-                    #    }
-                    #)
                     self._downloader.addJob(
                         url,
                         posixpath.join(self._folderPath, subfolder, zip_filename),
                     )
-            #self._download_iter_2()
             self._downloader.start()
 
 
@@ -814,19 +690,10 @@ class JPDataManager:
         code_pref = jpDataUtils.getPrefCodeByName(name_pref)
         url = self._Muni.get_url(code_pref)
         zip = self._Muni.get_zip(code_pref)
-        #self._dl_url_zip.append(
-        #    {
-        #        "year": "2024",
-        #        "url": url,
-        #        "zip": zip,
-        #        "subfolder": "Addr",
-        #    })
         self._downloader.addJob(
             url,
             posixpath.join(self._folderPath, "Addr", zip),
         )
-        #if len(self._dl_url_zip) > 0:
-        #    self._download_iter_2()
         self._downloader.start()
 
 

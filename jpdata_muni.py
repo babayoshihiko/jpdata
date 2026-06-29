@@ -151,10 +151,8 @@ class jpDataMuni:
         return filtered_rows
 
     def get_code_muni(self, name_pref, name_muni):
-        row = self._getRowFromNames(name_pref, name_muni)
-        return row["code_muni"]
-
-    def _getRowFromNames(self, name_pref, name_muni):
+        if name_pref is None or name_muni is None:
+            return ""
         self._load_code_pref_muni()
         for row in self._code_pref_muni:
             if (

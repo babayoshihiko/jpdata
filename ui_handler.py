@@ -335,7 +335,8 @@ class JPDataUIHandler:
         if len(self._dw.myListWidget11.selectedItems()) == 0:
             return
         name_map = self._dw.myListWidget11.selectedItems()[0].text()
-        thisLandNum = self._LNI.get_record(name_map)
+        self._LNI.set_source(name_map)
+        thisLandNum = self._LNI.get_record()
         self._dw.myLabelStatus.setText(thisLandNum.get("code_map", ""))
         str_new_LW12_text = []
         bol_redraw_LW12 = True
@@ -346,7 +347,7 @@ class JPDataUIHandler:
             return [jpDataUtils.getPrefNameByCode(code, self._lang) for code in range(1, 48)]
 
         if muni_type in ("", "allprefs"):
-            if self._LNI.get_prev_name() == "" or self._LNI.get_record(self._LNI.get_prev_name()).get("type_muni", "").lower() not in ("", "allprefs", "mesh1"):
+            if self._LNI.get_prev_name() == "" or self._LNI.get_records()[self._LNI.get_prev_name()].get("type_muni", "").lower() not in ("", "allprefs", "mesh1"):
                 str_new_LW12_text = all_prefs()
             else:
                 bol_redraw_LW12 = False
@@ -395,9 +396,11 @@ class JPDataUIHandler:
         ):
             return
         name_map = self._dw.myListWidget11.selectedItems()[0].text()
+        year = self._dw.myComboBox11.currentText()
         name_pref = self._dw.myListWidget12.selectedItems()[0].text()
         self._tab1_populate_years(name_map)
-        thisLandNum = self._LNI.get_record(name_map)
+        self._LNI.set_source(name_map, year, name_pref)
+        thisLandNum = self._LNI.get_record()
         if thisLandNum["type_muni"].lower() in ("detail", "mesh1"):
             self._tab1_set_LW13(name_map, name_pref)
 
@@ -508,7 +511,6 @@ class JPDataUIHandler:
         items = self._dw.myLW_MHLW.selectedItems()
         if items:
             item = self._MHLW.get_record(items[0].text())
-            jpDataUtils.printDebugLog(item)
             if item["source"] != "":
                 QDesktopServices.openUrl(QUrl(item["source"]))
         
