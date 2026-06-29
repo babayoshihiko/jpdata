@@ -167,6 +167,7 @@ class DownloadThread(QThread):
             self.current += 1
 
         self.finished.emit()
+        self.clearJobs()
 
     def _download_one(self, job):
         proxies = self._get_proxies()
