@@ -412,7 +412,7 @@ class JPDataManager:
 
         if process == "add":
             for x in list_code:
-                self._set_lni_source(type_muni, name_map, year, x)
+                self._set_lni_source(type_muni, name_map, year, name_pref, x)
                 jpDataUtils.unzip(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
                 shp_full_path = jpDataUtils.unzipAndGetShp(
                     self._LNI.get_record()["download_fullpath"],
@@ -438,7 +438,7 @@ class JPDataManager:
                 )
         elif process == "download":
             for x in list_code:
-                self._set_lni_source(type_muni, name_map, year, x)
+                self._set_lni_source(type_muni, name_map, year, name_pref, x)
                 self._downloader.addJob(
                     self._LNI.get_record()["url"],
                     posixpath.join(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
@@ -448,7 +448,7 @@ class JPDataManager:
             jpDataUtils.printDebugLog(self._LNI.get_record())
             self._downloader.start()
 
-    def _set_lni_source(self, type_muni, name_map, year, x):
+    def _set_lni_source(self, type_muni, name_map, year, name_pref, x):
         if type_muni in ("", "single", "regional"):
             self._LNI.set_source(
                 name_map,
