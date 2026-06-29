@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="ja_JP">
+<!DOCTYPE TS><TS version="2.0" language="ja_JP" sourcelanguage="">
 <context>
     <name>jpData</name>
     <message>
@@ -24,342 +23,222 @@
         <translation>6次メッシュ</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="31"/>
+        <location filename="../i18n.py" line="46"/>
         <source>Address</source>
         <translation>住所</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="35"/>
+        <location filename="../i18n.py" line="50"/>
         <source>Address data is missing</source>
         <translation>住所データがありません</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="42"/>
+        <location filename="../i18n.py" line="35"/>
         <source>Add to Map</source>
         <translation>地図に追加</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="46"/>
+        <location filename="../i18n.py" line="39"/>
         <source>Add Shapefile as a Layer to Map on QGIS</source>
         <translation>QGIS の地図にシェープファイルをレイヤとして追加</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="53"/>
+        <location filename="../i18n.py" line="57"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="57"/>
+        <location filename="../i18n.py" line="61"/>
         <source>...Cancelled</source>
         <translation>...キャンセル</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="61"/>
+        <location filename="../i18n.py" line="65"/>
         <source>Census</source>
         <translation>国勢調査</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="79"/>
+        <location filename="../i18n.py" line="83"/>
         <source>Choose Folder</source>
         <translation>フォルダを選択</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="83"/>
+        <location filename="../i18n.py" line="87"/>
         <source>Choose folder for zip/shp files</source>
         <translation>zip/shp 用のフォルダを選択</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="90"/>
+        <location filename="../i18n.py" line="94"/>
         <source>Choose a map type</source>
         <translation>地図タイプを選択してください</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="94"/>
+        <location filename="../i18n.py" line="98"/>
         <source>Choose a mesh code</source>
         <translation>メッシュコードをを選択してください</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="98"/>
+        <location filename="../i18n.py" line="102"/>
         <source>Choose a municipality</source>
         <translation>市町村を選択してください</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="105"/>
+        <location filename="../i18n.py" line="109"/>
         <source>Choose a prefecture</source>
         <translation>都道府県を選択してください</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="112"/>
+        <location filename="../i18n.py" line="116"/>
         <source>Choose a prefecture or region</source>
         <translation>都道府県または地域を選択してください</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="119"/>
+        <location filename="../i18n.py" line="123"/>
         <source>...Done</source>
         <translation>...終了</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="123"/>
+        <location filename="../i18n.py" line="127"/>
         <source>Download</source>
         <translation>ダウンロード</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="127"/>
+        <location filename="../i18n.py" line="131"/>
         <source>Download census data by city</source>
         <translation>市長論で国勢調査をダウンロード</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="134"/>
+        <location filename="../i18n.py" line="138"/>
         <source>Download Land Numerical Information data</source>
         <translation>国土数値情報を追加</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="141"/>
+        <location filename="../i18n.py" line="145"/>
         <source>GSI Tiles</source>
         <translation>地理院タイル</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="145"/>
+        <location filename="../i18n.py" line="149"/>
         <source>Add GSI xyz tile server to Map on QGIS</source>
         <translation>&gt;QGIS の地図に地理院 xyz タイルサーバを追加</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="152"/>
+        <location filename="../i18n.py" line="156"/>
         <source>Jump</source>
         <translation>移動</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="156"/>
+        <location filename="../i18n.py" line="160"/>
         <source>LandNumInfo</source>
         <translation>国土数値情報</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="164"/>
+        <location filename="../i18n.py" line="168"/>
         <source>Nation-wide</source>
         <translation>全国</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="168"/>
+        <location filename="../i18n.py" line="172"/>
         <source>Neighbourhood</source>
         <translation>小地域</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="172"/>
+        <location filename="../i18n.py" line="184"/>
         <source>Run</source>
         <translation>実行</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="176"/>
+        <location filename="../i18n.py" line="188"/>
         <source>Setting</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="180"/>
+        <location filename="../i18n.py" line="192"/>
         <source>Turn off background download</source>
         <translation>バックグラウンドでダウンロードしない</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="187"/>
+        <location filename="../i18n.py" line="199"/>
         <source>Check geometry validity when adding layers</source>
         <translation>追加するときにジオメトリをチェック</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="194"/>
+        <location filename="../i18n.py" line="206"/>
         <source>Web</source>
         <translation>ウェブ</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="198"/>
+        <location filename="../i18n.py" line="210"/>
         <source>Open the webpage with the standard browser</source>
         <translation>標準ブラウザでWebページを開く</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="205"/>
+        <location filename="../i18n.py" line="217"/>
         <source>Year</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="209"/>
-        <source>Cannot find file: %1</source>
-        <translation>ファイルが見つかりません: %1</translation>
-    </message>
-    <message>
-        <location filename="../i18n.py" line="214"/>
+        <location filename="../i18n.py" line="233"/>
         <source>Cannot find the file for layer: %1</source>
         <translation>このレイヤのファイルが見つかりません: %1</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="221"/>
+        <location filename="../i18n.py" line="245"/>
         <source>Cannot load the layer: %1</source>
         <translation>レイヤ %1 を読み込めません</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="226"/>
+        <location filename="../i18n.py" line="250"/>
         <source>Downloading: %1</source>
         <translation>ダウンロード中: %1</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="231"/>
+        <location filename="../i18n.py" line="255"/>
         <source>The file already exists: %1</source>
         <translation>ファイルが存在します: %1</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="236"/>
+        <location filename="../i18n.py" line="260"/>
         <source>Invalid EPSG: %1. Uses default instead.</source>
         <translation>不正な EPSG: %1。デフォルトを使用します。</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="243"/>
+        <location filename="../i18n.py" line="267"/>
         <source>The layer has %1 invalid geometries.</source>
         <translation>このレイヤは、%1 の不正なジオメトリがあります。</translation>
     </message>
     <message>
-        <location filename="../i18n.py" line="160"/>
+        <location filename="../i18n.py" line="164"/>
         <source>MHLW</source>
         <translation>厚労省</translation>
+    </message>
+    <message>
+        <location filename="../i18n.py" line="31"/>
+        <source>Add Graticules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../i18n.py" line="176"/>
+        <source>No coordinate data available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../i18n.py" line="180"/>
+        <source>Reproject</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../i18n.py" line="228"/>
+        <source>Cannot find the file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../i18n.py" line="240"/>
+        <source>Cannot find the shapefile: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>jpdataDockWidgetBase</name>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="14"/>
-        <source>jpdata</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="25"/>
-        <source>tab_1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="90"/>
-        <source>myPushButton15</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="103"/>
-        <source>myPushuButton11</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="110"/>
-        <source>myPushuButton14</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="120"/>
-        <source>tab_2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="129"/>
-        <source>myPushButton25</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="137"/>
-        <source>tab_3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="152"/>
-        <source>myLabel31</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="206"/>
-        <source>myPushButton31</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="213"/>
-        <source>myPushButton32</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="223"/>
-        <source>tab_mhlw</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="250"/>
-        <source>myPB_MHLW_1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="257"/>
-        <source>myPB_MHLW_2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="264"/>
-        <source>myPB_MHLW_3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="274"/>
-        <source>tab_addr</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="296"/>
-        <source>PushButton</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="321"/>
-        <source>tab_setting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="341"/>
-        <source>myPushButtonTest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="348"/>
-        <source>Proxy User</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="357"/>
-        <source>myLabel1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="370"/>
-        <source>myPushuButton2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="379"/>
-        <source>Proxy Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="386"/>
-        <source>Proxy Server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="400"/>
-        <source>Shape Folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="420"/>
-        <source>myCheckBox1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="427"/>
-        <source>myCheckBox2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../jpdata_dockwidget_base.ui" line="451"/>
-        <source>myLabelStatus</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 </TS>
