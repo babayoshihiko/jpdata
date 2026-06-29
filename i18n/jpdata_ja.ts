@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="ja_JP" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.1" language="ja_JP">
 <context>
     <name>jpData</name>
     <message>
@@ -215,30 +216,27 @@
     <message>
         <location filename="../i18n.py" line="31"/>
         <source>Add Graticules</source>
-        <translation type="unfinished"></translation>
+        <translation>経緯線を追加</translation>
     </message>
     <message>
         <location filename="../i18n.py" line="176"/>
         <source>No coordinate data available</source>
-        <translation type="unfinished"></translation>
+        <translation>座業がありません</translation>
     </message>
     <message>
         <location filename="../i18n.py" line="180"/>
         <source>Reproject</source>
-        <translation type="unfinished"></translation>
+        <translation>再投影</translation>
     </message>
     <message>
         <location filename="../i18n.py" line="228"/>
         <source>Cannot find the file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルが見つかりません: %1</translation>
     </message>
     <message>
         <location filename="../i18n.py" line="240"/>
         <source>Cannot find the shapefile: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>シェープファイルが見つかりません: %1</translation>
     </message>
-</context>
-<context>
-    <name>jpdataDockWidgetBase</name>
 </context>
 </TS>
