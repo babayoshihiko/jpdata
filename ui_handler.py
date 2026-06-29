@@ -418,16 +418,12 @@ class JPDataUIHandler:
             return
         self._LNI.set_source(name_map, year, name_pref)
         thisLandNum = self._LNI.get_record()
-        jpDataUtils.printDebugLog("Line 421")
-        jpDataUtils.printDebugLog(thisLandNum)
         if thisLandNum["type_muni"].lower() not in ("detail", "mesh1"):
             self._dw.myListWidget13.hide()
             return
         self._dw.myListWidget13.show()
         if thisLandNum["type_muni"].lower() == "detail":
-            jpDataUtils.printDebugLog("Line 428")
             details = self._LNI.get_details(name_map, year, name_pref)
-            jpDataUtils.printDebugLog(len(details))
         else:
             details = jpDataMesh.getMesh1ByPrefName(name_pref)
 

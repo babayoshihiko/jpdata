@@ -443,9 +443,6 @@ class JPDataManager:
                     self._LNI.get_record()["url"],
                     posixpath.join(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
                 )
-            jpDataUtils.printDebugLog("Line 497")
-            jpDataUtils.printDebugLog(list_code)
-            jpDataUtils.printDebugLog(self._LNI.get_record())
             self._downloader.start()
 
     def _set_lni_source(self, type_muni, name_map, year, name_pref, x):

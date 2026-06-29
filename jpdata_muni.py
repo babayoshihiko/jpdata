@@ -161,7 +161,7 @@ class jpDataMuni:
                 and row["name_muni_" + self._lang] == name_muni
             ):
                 row["code_pref"] = row["code_pref"].zfill(2)
-                return row
+                return row["code_muni"]
 
     def get_all_designated_cities(self, year=None):
         """Return all the designated cities"""

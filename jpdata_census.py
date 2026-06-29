@@ -147,6 +147,9 @@ class jpDataCensus:
         code_mesh = self.record["code_mesh"]
         if self.record["index_census"] == 0:
             if int(self.record["year"]) >= 2015:
+                jpDataUtils.printDebugLog(self.record["year"])
+                jpDataUtils.printDebugLog(code_pref)
+                jpDataUtils.printDebugLog(code_muni)
                 zipFileName = (
                     "A00200521" + self.record["year"] + "XYSWC" + code_pref + code_muni + "-JGD2011.zip"
                 )
