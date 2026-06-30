@@ -189,35 +189,29 @@ class jpDataLNI:
     def get_prefs(self, name_map):
         prefs_or_regions = []
         csvfile = self.records[name_map].get("year", "")
-
-        pref_or_region = self.records[name_map].get("type_muni","")
-        if pref_or_region == "allprefs" or pref_or_region == "" or pref_or_region == "mesh1":
-            for code_pref in range(1, 48):
-                prefs_or_regions.append(
-                    jpDataUtils.getPrefNameByCode(code_pref, self.lang)
-                )
-            return prefs_or_regions
-        elif pref_or_region == "single" or pref_or_region == "Nation-wide":
-            prefs_or_regions.append(TR.NATIONWIDE())
-            return prefs_or_regions
-
-        # pref_or_region == "regional" OR "detail"
-        # This method DOES NOT translate
-        # regional names defined in CSV files
-        # but returns as are
+        if csvfile.isdigit():
+            type_muni = self.records[name_map].get("type_muni","")
+            if type_muni == "" or type_muni == "mesh1":
+                for code_pref in range(1, 48):
+                    prefs_or_regions.append(
+                        jpDataUtils.getPrefNameByCode(code_pref, self.lang)
+                    )
+                return prefs_or_regions
+            elif type_muni == "single":
+                prefs_or_regions.append(TR.NATIONWIDE())
+                return prefs_or_regions
         self._load_source(name_map)
         _allprefs = False
         for row in self.source:
-            if len(row) >= 2:
-                if row["availability"] == "allprefs":
-                    if _allprefs == False:
-                        _allprefs = True
-                        for code_pref in range(1, 48):
-                            prefs_or_regions.append(
-                                jpDataUtils.getPrefNameByCode(code_pref, self.lang)
-                            )
-                else:
-                    prefs_or_regions.append(row["availability"])
+            if row["availability"] == "allprefs":
+                if _allprefs == False:
+                    _allprefs = True
+                    for code_pref in range(1, 48):
+                        prefs_or_regions.append(
+                            jpDataUtils.getPrefNameByCode(code_pref, self.lang)
+                        )
+            else:
+                prefs_or_regions.append(row["availability"])
         return jpDataUtils.unique_list(prefs_or_regions)
 
     def get_details(self, name_map, year, name_pref):
@@ -249,7 +243,7 @@ class jpDataLNI:
         csvfile = self.records[name_map].get("year", "")
         if csvfile.isdigit():
             return
-        if csvfile.upper()[-3:] == "CSV" and len(csvfile) > 3:
+        if csvfile.upper()[-4:] == ".CSV":
             csv_full_path = posixpath.join(os.path.dirname(__file__), "csv", csvfile)
         if not os.path.exists(csv_full_path):
             jpDataUtils.printLog(
