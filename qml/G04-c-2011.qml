@@ -12,9 +12,9 @@
       <range label="500 - 1000" upper="1000.399999999999977" symbol="1" render="true" lower="500.399999999999977"/>
       <range label="1000 - 1500" upper="1500.400000000000091" symbol="2" render="true" lower="1000.399999999999977"/>
       <range label="1500 - 2000" upper="2000.400000000000091" symbol="3" render="true" lower="1500.400000000000091"/>
-      <range label="2000　-　2500" upper="2500.000000000000000" symbol="4" render="true" lower="2000.000000000000000"/>
-      <range label="2500　-　3000" upper="3000.000000000000000" symbol="5" render="true" lower="2500.000000000000000"/>
-      <range label="3000　-　5000" upper="5000.000000000000000" symbol="6" render="true" lower="3000.000000000000000"/>
+      <range label="2000 - 2500" upper="2500.000000000000000" symbol="4" render="true" lower="2000.000000000000000"/>
+      <range label="2500 - 3000" upper="3000.000000000000000" symbol="5" render="true" lower="2500.000000000000000"/>
+      <range label="3000 - 5000" upper="5000.000000000000000" symbol="6" render="true" lower="3000.000000000000000"/>
     </ranges>
     <symbols>
       <symbol type="fill" clip_to_extent="1" force_rhr="0" name="0" frame_rate="10" alpha="1" is_animated="0">
