@@ -335,7 +335,7 @@ class JPDataUIHandler:
         if len(self._dw.myListWidget11.selectedItems()) == 0:
             return
         name_map = self._dw.myListWidget11.selectedItems()[0].text()
-        self._LNI.set_source(name_map)
+        self._LNI.set_record(name_map)
         thisLandNum = self._LNI.get_record()
         self._dw.myLabelStatus.setText(thisLandNum.get("code_map", ""))
         str_new_LW12_text = []
@@ -399,7 +399,7 @@ class JPDataUIHandler:
         year = self._dw.myComboBox11.currentText()
         name_pref = self._dw.myListWidget12.selectedItems()[0].text()
         self._tab1_populate_years(name_map)
-        self._LNI.set_source(name_map, year, name_pref)
+        self._LNI.set_record(name_map, year, name_pref)
         thisLandNum = self._LNI.get_record()
         if thisLandNum["type_muni"].lower() in ("detail", "mesh1"):
             self._tab1_set_LW13(name_map, name_pref)
@@ -416,7 +416,7 @@ class JPDataUIHandler:
         year = self._dw.myComboBox11.currentText()
         if not year.strip():
             return
-        self._LNI.set_source(name_map, year, name_pref)
+        self._LNI.set_record(name_map, year, name_pref)
         thisLandNum = self._LNI.get_record()
         if thisLandNum["type_muni"].lower() not in ("detail", "mesh1"):
             self._dw.myListWidget13.hide()
@@ -509,6 +509,13 @@ class JPDataUIHandler:
             item = self._MHLW.get_record(items[0].text())
             if item["source"] != "":
                 QDesktopServices.openUrl(QUrl(item["source"]))
+
+    def _mhlw_wiki(self):
+        items = self._dw.myLW_MHLW.selectedItems()
+        if items:
+            name_map = items[0].text()
+            web_wiki = "https://github.com/yoshihiko-baba/jpData/wiki/" + name_map
+            QDesktopServices.openUrl(web_wiki)
         
 
     def _myPB_Addr_2_clicked(self):

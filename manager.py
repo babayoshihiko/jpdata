@@ -447,7 +447,7 @@ class JPDataManager:
 
     def _set_lni_source(self, type_muni, name_map, year, name_pref, x):
         if type_muni in ("", "single", "regional"):
-            self._LNI.set_source(
+            self._LNI.set_record(
                 name_map,
                 year,
                 x,
@@ -457,7 +457,7 @@ class JPDataManager:
             )
 
         elif type_muni == "mesh1":
-            self._LNI.set_source(
+            self._LNI.set_record(
                 name_map,
                 year,
                 name_pref,
@@ -466,7 +466,7 @@ class JPDataManager:
                 None,
             )
         elif type_muni == "detail":
-            self._LNI.set_source(
+            self._LNI.set_record(
                 name_map,
                 year,
                 name_pref,
@@ -544,7 +544,7 @@ class JPDataManager:
         name_or_code,
     ):
         if index_census == 0:
-            self._Census.set_source(
+            self._Census.set_record(
                 index_census,
                 year,
                 name_pref,
@@ -552,7 +552,7 @@ class JPDataManager:
                 None,
             )
         else:
-            self._Census.set_source(
+            self._Census.set_record(
                 index_census,
                 year,
                 name_pref,

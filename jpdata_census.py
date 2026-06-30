@@ -90,7 +90,7 @@ class jpDataCensus:
     def get_years(self, index_census):
         return list(self._CENSUS_YEAR_STATSID.get(index_census, {}).keys())
 
-    def set_source(self, index_census, year, name_pref, name_muni=None, code_mesh=None):
+    def set_record(self, index_census, year, name_pref, name_muni=None, code_mesh=None):
         self._clear_record()
         self.record["index_census"] = index_census
         self.record["year"] = year

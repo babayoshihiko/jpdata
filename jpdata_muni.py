@@ -241,7 +241,6 @@ class jpDataMuni:
                 row["name_pref_" + self._lang] == name_pref
                 and row["name_muni_" + self._lang] == name_muni
             ):
-                jpDataUtils.printDebugLog("BINGO")
                 return self._float(float(row["X"]), float(row["Y"]))
         return (None, None)
 

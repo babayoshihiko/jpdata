@@ -61,7 +61,7 @@ class jpDataLNI:
     def load_records(self):
         self.records = jpDataUtils.get_records_from_csv("LandNumInfo.csv", "name_" + self.lang)
 
-    def set_source(self, name_map, year=None, name_pref=None, name_muni=None, code_mesh=None, detail=None):
+    def set_record(self, name_map, year=None, name_pref=None, name_muni=None, code_mesh=None, detail=None):
         self._clear_record()
         if name_map is None:
             jpDataUtils.printDebugLog("jpdata_lni.py: the argument name_map is None.")
