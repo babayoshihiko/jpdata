@@ -72,8 +72,6 @@ class jpDataLNI:
         self.record["csv"] = self.records[name_map]["year"] if self.records[name_map]["year"][:4].upper() == ".CSV" else ""
         self.record["year"] = year
         self.record["name_pref"] = name_pref
-        jpDataUtils.printDebugLog("Line 75")
-        jpDataUtils.printDebugLog(name_pref)
         self.record["code_pref"] = jpDataUtils.getPrefCodeByName(name_pref) if name_pref is not None else ""
         self.record["name_muni"] = name_muni
         self.record["code_muni"] = self._Muni.get_code_muni(name_pref, name_muni)
@@ -96,7 +94,6 @@ class jpDataLNI:
         type_muni = self.record["type_muni"]
         code_pref_or_mesh1 = self.record["code_pref"]
         for row in self.source:
-            jpDataUtils.printDebugLog(row["year"] + row["availability"])
             if row["year"] != self.record["year"]:
                 continue
             if type_muni == "single" or type_muni == "all":
