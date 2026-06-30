@@ -434,7 +434,9 @@ class JPDataUIHandler:
     def _lni_web(self):
         items = self._dw.myListWidget11.selectedItems()
         if items:
-            item = self._LNI.get_record(items[0].text())
+            self._LNI.set_record(items[0].text())
+            item = self._LNI.get_record()
+            jpDataUtils.printDebugLog(item)
             if item != "":
                 QDesktopServices.openUrl(QUrl(item["source"]))
 

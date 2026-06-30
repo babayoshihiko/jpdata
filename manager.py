@@ -439,6 +439,8 @@ class JPDataManager:
         elif process == "download":
             for x in list_code:
                 self._set_lni_source(type_muni, name_map, year, name_pref, x)
+                jpDataUtils.printDebugLog(self._LNI.get_record()["url"])
+                jpDataUtils.printDebugLog(self._LNI.get_record()["zip"])
                 self._downloader.addJob(
                     self._LNI.get_record()["url"],
                     posixpath.join(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
@@ -446,34 +448,43 @@ class JPDataManager:
             self._downloader.start()
 
     def _set_lni_source(self, type_muni, name_map, year, name_pref, x):
+        jpDataUtils.printDebugLog("451")
+        jpDataUtils.printDebugLog(type_muni)
+        jpDataUtils.printDebugLog(name_map)
+        jpDataUtils.printDebugLog(year)
+        jpDataUtils.printDebugLog(name_pref)
+        jpDataUtils.printDebugLog(x)
         if type_muni in ("", "single", "regional"):
             self._LNI.set_record(
                 name_map,
                 year,
-                x,
-                None,
-                None,
-                None,
+                name_pref=x,
+                name_muni=None,
+                code_mesh=None,
+                detail=None,
             )
 
         elif type_muni == "mesh1":
             self._LNI.set_record(
                 name_map,
                 year,
-                name_pref,
-                None,
-                x,
-                None,
+                name_pref=name_pref,
+                name_muni=None,
+                code_mesh=x,
+                detail=None,
             )
         elif type_muni == "detail":
             self._LNI.set_record(
                 name_map,
                 year,
-                name_pref,
-                None,
-                None,
-                x,
+                name_pref=name_pref,
+                name_muni=None,
+                code_mesh=None,
+                detail=x,
             )
+        jpDataUtils.printDebugLog("485")
+        jpDataUtils.printDebugLog(self._LNI.get_record()["name_map"])
+        jpDataUtils.printDebugLog(self._LNI.get_record()["zip"])
 
 
     def _tab3_iter(self, process):

@@ -56,6 +56,8 @@ class DownloadThread(QThread):
         self.total = 0
 
     def addJob(self, url, file_path):
+        if url == "" or file_path == "":
+            return
         self.jobs.append(
             DownloadJob(
                 url=url,
