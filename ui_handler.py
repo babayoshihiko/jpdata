@@ -436,7 +436,6 @@ class JPDataUIHandler:
         if items:
             self._LNI.set_record(items[0].text())
             item = self._LNI.get_record()
-            jpDataUtils.printDebugLog(item)
             if item != "":
                 QDesktopServices.openUrl(QUrl(item["source"]))
 
