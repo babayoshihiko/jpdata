@@ -68,6 +68,7 @@ class JPDataUIHandler:
         # Tab MHLW
         self._dw.myLW_MHLW.currentRowChanged.connect(self._mhlw_map_changed)
         self._dw.myPB_MHLW_1.clicked.connect(self._mhlw_web)
+        self._dw.myPB_MHLW_Wiki.clicked.connect(self._mhlw_wiki)
 
         # Tab Addr
         self._dw.myCB_Addr_1.currentIndexChanged.connect(self._myCB_Addr_1_changed)
@@ -165,6 +166,7 @@ class JPDataUIHandler:
             if hasattr(QAbstractItemView, "SelectionMode")
             else QAbstractItemView.ExtendedSelection
         )
+        self._dw.myPB_MHLW_Wiki.setText("Wiki")
 
     def _setup_tab_addr(self, i):
         self._dw.myTabWidget.setTabText(i, TR.ADDRESS())
@@ -514,8 +516,8 @@ class JPDataUIHandler:
         items = self._dw.myLW_MHLW.selectedItems()
         if items:
             name_map = items[0].text()
-            web_wiki = "https://github.com/yoshihiko-baba/jpData/wiki/" + name_map
-            QDesktopServices.openUrl(web_wiki)
+            web_wiki = "https://github.com/babayoshihiko/jpdata/wiki/" + name_map
+            QDesktopServices.openUrl(QUrl(web_wiki))
         
 
     def _myPB_Addr_2_clicked(self):

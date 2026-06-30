@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="myTabWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -243,6 +243,13 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="myPB_MHLW_Wiki">
+            <property name="text">
+             <string>myPB_MHLW_Wiki</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="myPB_MHLW_1">
