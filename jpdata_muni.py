@@ -201,6 +201,14 @@ class jpDataMuni:
         jpDataUtils.unzip(self._download_fullpath, self.get_zip(code_pref))
 
 
+    def _float(self, x, y):
+        try:
+            float(x)
+            float(y)
+            return (x, y)
+        except (ValueError, TypeError):
+            return (None, None)
+
     def get_lonlat_by_addr(self, name_pref, name_muni, name_town, detail_code):
         if name_muni == "" or name_muni == "---":
             return self._get_lonlat_by_pref(name_pref)
@@ -221,7 +229,8 @@ class jpDataMuni:
                 row["name_pref_" + self._lang] == name_pref
                 and row["name_muni_" + self._lang] == ""
             ):
-                return (float(row["X"]), float(row["Y"]))
+                return self._float(float(row["X"]), float(row["Y"]))
+        return (None, None)
 
     def _get_lonlat_by_muni(self, name_pref, name_muni):
         rows = self._code_pref_muni
@@ -232,10 +241,9 @@ class jpDataMuni:
                 row["name_pref_" + self._lang] == name_pref
                 and row["name_muni_" + self._lang] == name_muni
             ):
-                if row["X"].isdigit() and row["Y"].isdigit():
-                    return (float(row["X"]), float(row["Y"]))
-                else:
-                    return (None, None)
+                jpDataUtils.printDebugLog("BINGO")
+                return self._float(float(row["X"]), float(row["Y"]))
+        return (None, None)
 
 
     def _get_lonlat_by_town(self, name_pref, name_muni, name_town):
@@ -249,7 +257,8 @@ class jpDataMuni:
                 and row[2] == name_town
                 and row[4] == ""
             ):
-                return (float(row[9]), float(row[8]))
+                return self._float(float(row[9]), float(row[8]))
+        return (None, None)
 
     def _get_lonlat_by_detail(self, name_pref, name_muni, name_town, detail_code):
         self._load_csv(name_pref)
@@ -262,7 +271,8 @@ class jpDataMuni:
                 and row[2] == name_town
                 and row[4] == detail_code
             ):
-                return (float(row[9]), float(row[8]))
+                return self._float(float(row[9]), float(row[8]))
+        return (None, None)
 
     def get_projections(self):
         dict_projection = {
