@@ -64,9 +64,6 @@ class JPDataManager:
         self._connect_signals()
         self._setup_initial_ui_state()
 
-        if self._ui:
-            self._ui.init_tabs()
-
         # QGIS 4 compatible
         dock_area = (
             Qt.DockWidgetArea.LeftDockWidgetArea
@@ -139,6 +136,7 @@ class JPDataManager:
             )
 
     def unload(self):
+        self._ui.unload()
         if self._dw:
             self._iface.removeDockWidget(self._dw)
             self._dw.deleteLater()

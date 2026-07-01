@@ -14,6 +14,7 @@ from qgis.core import (
 from qgis.PyQt.QtCore import QCoreApplication, Qt, QVariant, QUrl
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtWidgets import QLabel
 from . import jpDataMesh
 from . import jpDataUtils
 from .i18n import TR
@@ -37,6 +38,18 @@ class JPDataUIHandler:
         self._Census = jpDataCensus.instance()     # Singleton. See manager.py
         self._MHLW = jpDataMHLW.instance()         # Singleton. See manager.py
 
+    def unload(self):
+        try:
+            self._iface.mapCanvas().xyCoordinates.disconnect(
+                self._updateMeshCode
+            )
+        except TypeError:
+            pass
+
+        if self.meshLabel:
+            self._iface.statusBarIface().removeWidget(self.meshLabel)
+            self.meshLabel.deleteLater()
+            self.meshLabel = None
 
     def setLabel(self, message, critical=False):
         message = str(message)
@@ -53,6 +66,7 @@ class JPDataUIHandler:
         
 
     def _connect_signals(self):
+        self._iface.mapCanvas().xyCoordinates.connect(self._updateMeshCode)
         self._dw.myTabWidget.currentChanged.connect(self._tab_changed)
 
         # Tab LNI
@@ -89,7 +103,11 @@ class JPDataUIHandler:
             if hasattr(QLineEdit, "EchoMode")
             else QLineEdit.Password
         )
-
+        self.meshLabel = QLabel("Japanese Mesh Code")
+        self._iface.statusBarIface().addPermanentWidget(self.meshLabel)
+        self.meshLabel.setTextInteractionFlags(
+            Qt.TextSelectableByMouse
+        )
         self._setup_tab1(0)
         self._setup_tab2(1)
         self._setup_tab3(2)
@@ -180,8 +198,31 @@ class JPDataUIHandler:
         self._dw.myCheckBox1.setText(TR.SETTING_BACKGROUND())
         self._dw.myCheckBox2.setText(TR.SETTING_GEOMETRY())
 
-    def init_tabs(self):
-        pass
+
+    def _mesh1code(self, lat, lon):
+        p = int(lat * 60 / 40)
+        a = int(lon) - 100
+        return f"{p:02d}{a:02d}"
+
+    def _updateMeshCode(self, point):
+        canvas = self._iface.mapCanvas()
+
+        # WGS84へ変換
+        src_crs = canvas.mapSettings().destinationCrs()
+        dst_crs = QgsCoordinateReferenceSystem("EPSG:4612")
+
+        if src_crs != dst_crs:
+            tr = QgsCoordinateTransform(
+                src_crs,
+                dst_crs,
+                QgsProject.instance()
+            )
+            pt = tr.transform(point)
+        else:
+            pt = point
+
+        code = self._mesh1code(pt.y(), pt.x())
+        self.meshLabel.setText(f"mesh: {code}")
 
     def _lni_populate_init_values(self):
         self._LNI.init()
