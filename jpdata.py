@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 
@@ -35,7 +34,8 @@ class jpData:
         if self.action:
             self.iface.removeToolBarIcon(self.action)
             self.iface.removePluginMenu("&jpdata", self.action)
-        self.manager.unload()
+        if self.manager is not None:
+            self.manager.unload()
 
     def run(self):
         self.manager.run()

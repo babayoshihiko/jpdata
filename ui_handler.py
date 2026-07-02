@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from qgis.core import (
+    QgsApplication,
     QgsVectorLayer,
     QgsFeature,
     QgsGeometry,
@@ -9,9 +10,11 @@ from qgis.core import (
     QgsCoordinateTransform,
     QgsProject,
     QgsField,
-
+    QgsMarkerSymbol,
+    QgsSvgMarkerSymbolLayer,
+    QgsUnitTypes,
 )
-from qgis.PyQt.QtCore import QCoreApplication, Qt, QVariant, QUrl
+from qgis.PyQt.QtCore import Qt, QVariant, QUrl,  QMetaType
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import QLabel
@@ -37,6 +40,34 @@ class JPDataUIHandler:
         self._LNI = jpDataLNI.instance()           # Singleton. See manager.py
         self._Census = jpDataCensus.instance()     # Singleton. See manager.py
         self._MHLW = jpDataMHLW.instance()         # Singleton. See manager.py
+
+        # Memory Layer For Address Search
+        self._pin_layer = QgsVectorLayer(
+            f"Point?crs={QgsProject.instance().crs().authid()}",
+            "Address Pin",
+            "memory"
+        )
+        pr = self._pin_layer.dataProvider()
+        pr.addAttributes([
+            QgsField("name", QMetaType.Type.QString),
+            QgsField("pref", QMetaType.Type.QString),
+            QgsField("muni", QMetaType.Type.QString),
+        ])
+        self._pin_layer.updateFields()
+        svg_path = None
+        for p in QgsApplication.svgPaths():
+            candidate = os.path.join(p, "symbol", "blue-marker.svg")
+            if os.path.exists(candidate):
+                svg_path = candidate
+                break
+        if svg_path:
+            symbol = QgsMarkerSymbol.createSimple({})
+            svg_layer = QgsSvgMarkerSymbolLayer(svg_path)
+            svg_layer.setSize(128)  # 32 px
+            svg_layer.setSizeUnit(QgsUnitTypes.RenderPixels)
+            symbol.changeSymbolLayer(0, svg_layer)
+            self._pin_layer.renderer().setSymbol(symbol)
+        QgsProject.instance().addMapLayer(self._pin_layer)
 
     def unload(self):
         try:
@@ -223,6 +254,7 @@ class JPDataUIHandler:
 
         code = self._mesh1code(pt.y(), pt.x())
         self.meshLabel.setText(f"mesh: {code}")
+        return code
 
     def _lni_populate_init_values(self):
         self._LNI.init()
@@ -389,21 +421,29 @@ class JPDataUIHandler:
         def all_prefs():
             return [jpDataUtils.getPrefNameByCode(code, self._lang) for code in range(1, 48)]
 
+        prev_muni_type = "DUMMY"
+        if self._LNI.get_prev_name() != "":
+            prev_muni_type = self._LNI.get_records()[self._LNI.get_prev_name()].get("type_muni", "").lower() 
         if muni_type in ("", "allprefs"):
-            if self._LNI.get_prev_name() == "" or self._LNI.get_records()[self._LNI.get_prev_name()].get("type_muni", "").lower() not in ("", "allprefs", "mesh1"):
-                str_new_LW12_text = all_prefs()
-            else:
+            if prev_muni_type in ("", "allprefs", "mesh1"):
                 bol_redraw_LW12 = False
                 self._dw.myListWidget13.hide()
+            else:
+                str_new_LW12_text = all_prefs()
         elif muni_type == "single":
             str_new_LW12_text = [TR.NATIONWIDE()]
         elif muni_type in ("regional", "detail"):
             if muni_type == "detail":
                 bol_show_LW13 = True
+                self._dw.myListWidget13.clear()
             str_new_LW12_text = self._LNI.get_prefs(name_map)
         elif muni_type == "mesh1":
             bol_show_LW13 = True
-            str_new_LW12_text = all_prefs()
+            if prev_muni_type in ("", "allprefs", "mesh1"):
+                bol_redraw_LW12 = False
+            else:
+                str_new_LW12_text = all_prefs()
+                self._dw.myListWidget13.clear()
 
         if bol_redraw_LW12:
             self._tab1_clear(bol_show_LW13)
@@ -445,6 +485,7 @@ class JPDataUIHandler:
         self._LNI.set_record(name_map, year, name_pref)
         thisLandNum = self._LNI.get_record()
         if thisLandNum["type_muni"].lower() in ("detail", "mesh1"):
+            self._LNI_is_Mesh = (thisLandNum["type_muni"].lower() == "mesh1")
             self._tab1_set_LW13(name_map, name_pref)
 
     def _tab1_populate_years(self, name_map):
@@ -469,8 +510,21 @@ class JPDataUIHandler:
             details = self._LNI.get_details(name_map, year, name_pref)
         else:
             details = jpDataMesh.getMesh1ByPrefName(name_pref)
-
         self._populate_LW(details, self._dw.myListWidget13)
+        if (
+            not self._dw.myListWidget13.selectedItems()
+            and thisLandNum["type_muni"].lower() == "mesh1"
+        ):
+            point = self._iface.mapCanvas().center()
+            code = self._updateMeshCode(point)
+            lw = self._dw.myListWidget13
+            for i in range(lw.count()):
+                item = lw.item(i)
+                if item.text() == code:
+                    item.setSelected(True)
+                    lw.setCurrentItem(item)
+                    break
+
 
     def _lni_web(self):
         items = self._dw.myListWidget11.selectedItems()
@@ -584,6 +638,23 @@ class JPDataUIHandler:
         canvas = self._iface.mapCanvas()
         canvas.setCenter(point_project)
         canvas.refresh()
+
+        self.set_pin(lon,lat)
+
+    def set_pin(self,lon,lat):
+        pr = self._pin_layer.dataProvider()
+        pr.truncate()
+        feat = QgsFeature(self._pin_layer.fields())
+        feat.setGeometry(
+            QgsGeometry.fromPointXY(QgsPointXY(lon,lat))
+        )
+        feat["pref"] = str(self._dw.myCB_Addr_1.currentText())
+        feat["muni"] = str(self._dw.myCB_Addr_2.currentText())
+        pr.addFeature(feat)
+        self._pin_layer.updateExtents()
+        self._pin_layer.triggerRepaint()
+
+
 
     def _myPB_Addr_3_clicked(self):
         lon, lat = self._Muni.get_lonlat_by_addr(

@@ -136,7 +136,8 @@ class JPDataManager:
             )
 
     def unload(self):
-        self._ui.unload()
+        if self._ui is not None:
+            self._ui.unload()
         if self._dw:
             self._iface.removeDockWidget(self._dw)
             self._dw.deleteLater()
@@ -287,7 +288,13 @@ class JPDataManager:
         )
         layer = QgsRasterLayer(tile_url, tile_name, "wms")
         if layer.isValid():
-            QgsProject.instance().addMapLayer(layer)
+            # QgsProject.instance().addMapLayer(layer)
+            project = QgsProject.instance()
+            root = project.layerTreeRoot()
+
+            project.addMapLayer(layer, False)
+            root.addLayer(layer)
+
 
     def _tab1CheckSelected(self):
         if not self._dw.myListWidget11.selectedItems():
