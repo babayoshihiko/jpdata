@@ -14,7 +14,13 @@ from qgis.core import (
     QgsSvgMarkerSymbolLayer,
     QgsUnitTypes,
 )
-from qgis.PyQt.QtCore import Qt, QVariant, QUrl,  QMetaType
+from qgis.PyQt.QtCore import (
+    Qt, 
+    QVariant, 
+    QUrl, 
+    QMetaType, 
+    QPointF
+)
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import QLabel
@@ -40,34 +46,43 @@ class JPDataUIHandler:
         self._LNI = jpDataLNI.instance()           # Singleton. See manager.py
         self._Census = jpDataCensus.instance()     # Singleton. See manager.py
         self._MHLW = jpDataMHLW.instance()         # Singleton. See manager.py
+        self._pin_layer = None
 
+    def _create_pin_layer(self):
         # Memory Layer For Address Search
-        self._pin_layer = QgsVectorLayer(
-            f"Point?crs={QgsProject.instance().crs().authid()}",
-            "Address Pin",
-            "memory"
-        )
-        pr = self._pin_layer.dataProvider()
-        pr.addAttributes([
-            QgsField("name", QMetaType.Type.QString),
-            QgsField("pref", QMetaType.Type.QString),
-            QgsField("muni", QMetaType.Type.QString),
-        ])
-        self._pin_layer.updateFields()
-        svg_path = None
-        for p in QgsApplication.svgPaths():
-            candidate = os.path.join(p, "symbol", "blue-marker.svg")
-            if os.path.exists(candidate):
-                svg_path = candidate
-                break
-        if svg_path:
-            symbol = QgsMarkerSymbol.createSimple({})
-            svg_layer = QgsSvgMarkerSymbolLayer(svg_path)
-            svg_layer.setSize(128)  # 32 px
-            svg_layer.setSizeUnit(QgsUnitTypes.RenderPixels)
-            symbol.changeSymbolLayer(0, svg_layer)
-            self._pin_layer.renderer().setSymbol(symbol)
-        QgsProject.instance().addMapLayer(self._pin_layer)
+        layers = QgsProject.instance().mapLayersByName("Address Pin")
+
+        if layers:
+            self._pin_layer = layers[0]
+        else:
+            self._pin_layer = QgsVectorLayer(
+                f"Point?crs={QgsProject.instance().crs().authid()}",
+                "Address Pin",
+                "memory"
+            )
+            pr = self._pin_layer.dataProvider()
+            pr.addAttributes([
+                QgsField("name", QMetaType.Type.QString),
+                QgsField("pref", QMetaType.Type.QString),
+                QgsField("muni", QMetaType.Type.QString),
+            ])
+            self._pin_layer.updateFields()
+            svg_path = None
+            for p in QgsApplication.svgPaths():
+                candidate = os.path.join(p, "symbol", "blue-marker.svg")
+                if os.path.exists(candidate):
+                    svg_path = candidate
+                    break
+            if svg_path:
+                symbol = QgsMarkerSymbol.createSimple({})
+                svg_layer = QgsSvgMarkerSymbolLayer(svg_path)
+                svg_layer.setSize(128)  # 32 px
+                svg_layer.setSizeUnit(QgsUnitTypes.RenderPixels)
+                svg_layer.setOffset(QPointF(0, -64))
+                svg_layer.setOffsetUnit(QgsUnitTypes.RenderPixels)
+                symbol.changeSymbolLayer(0, svg_layer)
+                self._pin_layer.renderer().setSymbol(symbol)
+            QgsProject.instance().addMapLayer(self._pin_layer)
 
     def unload(self):
         try:
@@ -642,6 +657,7 @@ class JPDataUIHandler:
         self.set_pin(lon,lat)
 
     def set_pin(self,lon,lat):
+        self._create_pin_layer()
         pr = self._pin_layer.dataProvider()
         pr.truncate()
         feat = QgsFeature(self._pin_layer.fields())
