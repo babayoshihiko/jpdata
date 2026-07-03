@@ -139,7 +139,6 @@ class JPDataUIHandler:
         self._dw.myPB_Addr_4.clicked.connect(self._myPB_Addr_4_clicked)
 
 
-
     def _setup_ui_static_text(self):
         self._dw.myPushButton2.setText(TR.CHOOSE_FOLDER())
         self._dw.myPushButton2.setToolTip(TR.CHOOSE_FOLDER())
@@ -254,7 +253,6 @@ class JPDataUIHandler:
     def _updateMeshCode(self, point):
         canvas = self._iface.mapCanvas()
 
-        # WGS84へ変換
         src_crs = canvas.mapSettings().destinationCrs()
         dst_crs = QgsCoordinateReferenceSystem("EPSG:4612")
 

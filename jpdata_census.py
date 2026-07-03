@@ -3,6 +3,7 @@ import os, posixpath
 from . import jpDataUtils
 from .jpdata_muni import jpDataMuni
 from qgis import processing
+import json
 
 
 class jpDataCensus:
@@ -48,7 +49,10 @@ class jpDataCensus:
         self._lang = "j"
         self.record = None
         self._Muni = jpDataMuni.instance()
-    
+        _census_json = posixpath.join(os.path.dirname(__file__), "csv", "census_attr.json")
+        with open(_census_json, encoding="utf-8") as f:
+            self._CENSUS_ATTR = json.load(f)
+
     def _clear_record(self):
         self.record = {
             "source":"https://www.e-stat.go.jp/gis/statmap-search?type=1",
@@ -89,6 +93,12 @@ class jpDataCensus:
     
     def get_years(self, index_census):
         return list(self._CENSUS_YEAR_STATSID.get(index_census, {}).keys())
+
+    def get_attrs(type_, year):
+        try:
+            return list(self._CENSUS_ATTR[year][type_].keys())
+        except KeyError:
+            return []
 
     def set_record(self, index_census, year, name_pref, name_muni=None, code_mesh=None):
         self._clear_record()
@@ -210,16 +220,47 @@ class jpDataCensus:
         )
         self.record["attr_url"] =  url
 
-    def _set_attr_zip(self):
-        base = self._get_attr_base()
-        self.record["attr_zip"] =   f"tblT{base}.zip" if base else None
+    def set_attr_zip(self, key=None):
+        self._set_attr_csv(key)
+        return self.record["attr_zip"] 
 
-    def set_attr_csv(self):
-        self._set_attr_csv()
+    def _set_attr_zip(self, key=None):
+        # Uses
+        jpDataUtils.printDebugLog(  self._CENSUS_ATTR  )
+        jpDataUtils.printDebugLog(  self.record["year"]  )
+        jpDataUtils.printDebugLog(  self.record["index_census"]  )
+        # key = "人口及び世帯"
+        jpDataUtils.printDebugLog(  self.record["code_pref"]  )
+        jpDataUtils.printDebugLog(  self.record["code_mesh"]  )
+        str_i = str(self.record["index_census"])
+        if self.record["index_census"] == 0:
+            if key is None:
+                key = "年齢（５歳階級、４区分）別、男女別人口"
+            int_attr = self._CENSUS_ATTR[self.record["year"]][str_i][key]
+            base = str(int_attr).zfill(6) + "C" + self.record["code_pref"]        
+        else:
+            if key is None:
+                key = "人口及び世帯"
+            int_attr = self._CENSUS_ATTR[self.record["year"]][str_i][key]
+            base = str(int_attr).zfill(6) + self._CENSUS_CODE[self.record["index_census"]][:1] + self.record["code_mesh"]
+            self.record["attr_zip"] = f"tblT{base}.zip"
+
+    def set_attr_csv(self, key=None):
+        self._set_attr_csv(key)
         return self.record["attr_csv"] 
 
-    def _set_attr_csv(self):
-        base = self._get_attr_base()
+    def _set_attr_csv(self, key=None):
+        str_i = str(self.record["index_census"])
+        if self.record["index_census"] == 0:
+            if key is None:
+                key = "年齢（５歳階級、４区分）別、男女別人口"
+            int_attr = self._CENSUS_ATTR[self.record["year"]][str_i][key]
+            base = str(int_attr).zfill(6) + "C" + self.record["code_pref"]        
+        else:
+            if key is None:
+                key = "人口及び世帯"
+            int_attr = self._CENSUS_ATTR[self.record["year"]][str_i][key]
+            base = str(int_attr).zfill(6) + self._CENSUS_CODE[self.record["index_census"]][:1] + self.record["code_mesh"]
         file_name = f"tbl{base}.txt"
         file_name_t = f"tblT{base}.txt"
         path = posixpath.join(self.record["download_fullpath"], file_name)
