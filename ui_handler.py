@@ -243,6 +243,7 @@ class JPDataUIHandler:
         self._dw.myTabWidget.setTabText(i, TR.SETTING())
         self._dw.myCheckBox1.setText(TR.SETTING_BACKGROUND())
         self._dw.myCheckBox2.setText(TR.SETTING_GEOMETRY())
+        self._dw.myCheckBox2.setChecked(True)
 
 
     def _mesh1code(self, lat, lon):

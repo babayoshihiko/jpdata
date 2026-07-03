@@ -3,6 +3,7 @@ from qgis.core import QgsMessageLog, Qgis, QgsCoordinateReferenceSystem
 from qgis.core import QgsVectorLayer
 import csv, os, posixpath
 from . import jpdata_unzip
+import unicodedata
 
 PREF_NAMES = {
     "j": {
@@ -363,6 +364,8 @@ def findShpFile2(folderPath, year, shp, altdir, code_pref, code_muni="", name_mu
     altDir = replaceCodes(
         altdir, year=year, code_pref_or_mesh1=code_pref, code_muni=code_muni, name_muni=name_muni
     )
+    folderPath = unicodedata.normalize("NFC", folderPath)
+    shpFileTarget = unicodedata.normalize("NFC", shpFileTarget)
     if os.path.exists(posixpath.join(folderPath, shpFileTarget)):
         shpFile = posixpath.join(folderPath, shpFileTarget)
     elif os.path.exists(posixpath.join(folderPath, altDir, shpFileTarget)):

@@ -213,7 +213,7 @@ class JPDataManager:
         geom_type = layer.geometryType()
         if (
             geom_type != QgsWkbTypes.PointGeometry
-            and not self._dw.myCheckBox2.isChecked()
+            and self._dw.myCheckBox2.isChecked()
         ):
             count_invalid = jpDataUtils.count_invalid_geometry(layer)
             if count_invalid > 0:
