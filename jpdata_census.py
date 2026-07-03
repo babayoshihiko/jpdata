@@ -243,15 +243,11 @@ class jpDataCensus:
         from qgis.PyQt.QtCore import QUrl
 
         # 1. Path
-        shp_path = (
-            posixpath.join(folder, shp_name)
-        )
-        csv_path = (
-            posixpath.join(folder, csv_name)
-        )
+        shp_path = posixpath.join(folder, shp_name)
+        csv_path = posixpath.join(folder, csv_name)
         output_path = shp_path[:-4] + "-" + year + ".shp"
 
-        # --- 2. CSV from CP932 (.txt) to UTF-8 (.csv) ---
+        # 2. CSV from CP932 (.txt) to UTF-8 (.csv) ---
         csv_utf8 = csv_path[:-4] + ".csv"
         if not os.path.exists(csv_utf8):
             with open(csv_path, "r", encoding="CP932") as fin, open(
@@ -270,7 +266,7 @@ class jpDataCensus:
                         continue
                     fout.write(line.replace("*", ""))
 
-        # --- 3. Create layer objects WITH ENCODING ---
+        # 3. Create layer objects WITH ENCODING ---
         lyr_shp = QgsVectorLayer(shp_path, "base_shp", "ogr")
         lyr_shp.setProviderEncoding("CP932")
         lyr_shp.dataProvider().setEncoding("CP932")

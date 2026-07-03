@@ -597,6 +597,7 @@ class JPDataManager:
 
         qml = record["qml"]
         encoding = record["encoding"]
+        jpDataUtils.printDebugLog(record)
         if record["attr_csv"]:
             shp_full_path, encoding = self._Census.perform_join(
                 record["download_fullpath"],
@@ -605,6 +606,7 @@ class JPDataManager:
                 record["attr_csv"],
             )
         else:
+            jpDataUtils.printDebugLog("CSV for Census not found.")
             self.setLabel("")
 
         self._add_map(

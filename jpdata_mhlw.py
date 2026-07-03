@@ -23,9 +23,12 @@ class jpDataMHLW:
             self.load_records()
 
     def set_download_folder(self, download_fullpath):
+        if not os.path.exists(download_fullpath):
+            return False
         if not os.path.exists(posixpath.join(download_fullpath, "MHLW")):
             os.mkdir(posixpath.join(download_fullpath, "MHLW"))
         self._download_fullpath = posixpath.join(download_fullpath, "MHLW")
+        return True
 
     def set_lang(self, lang):
         self._lang = lang[:1].lower()

@@ -29,9 +29,12 @@ class jpDataMuni:
         self._year = 2025
 
     def set_download_folder(self, download_fullpath):
+        if not os.path.exists(download_fullpath):
+            return False
         if not os.path.exists(posixpath.join(download_fullpath, "Addr")):
             os.mkdir(posixpath.join(download_fullpath, "Addr"))
         self._download_fullpath = posixpath.join(download_fullpath, "Addr")
+        return True
 
     def set_lang(self, lang):
         self._lang = lang[:1].lower()
