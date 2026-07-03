@@ -121,7 +121,7 @@ DID人口集中地区,,A16,,DID,2015,https://nlftp.mlit.go.jp/ksj/gml/data/A16/A
 医療機関,yes,P04,,Medical Institution,LandNumInfo_P04.csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P04-v3_0.html,,,,,,,,,,
 福祉施設,yes,P14,,Welfare Facility,LandNumInfo_P14.csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P14-v2_1.html,,,,,,,,,,
 文化施設,yes,P27,,Cultural Facility,2013,https://nlftp.mlit.go.jp/ksj/gml/data/P27/P27-13/P27-13_code_pref.zip,P27-13_code_pref.zip,P27-13_code_pref.shp,,P27-13_code_pref,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P27.html,,,,,P27_001 ,code_pref_muni,CP932,,4612,
-学校,yes,P29,,School,LandNumInfo_P29.csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P29-2024.html,,,,,,,,,,
+学校,yes,P29,,School,LandNumInfo_P29.csv,,,,,,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P29-2013.html,,,,,,,,,,
 上水道関連施設（浄水場）,yes,P21,,Filtration Plant ,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P21/P21-12/P21-12_code_pref_GML.zip,P21-12_code_pref_GML.zip,P21-12b_code_pref.shp,,21-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P21.html,,,,,,,CP932,P21b-2012.qml,4612,
 上水道関連施設（給水区域）,yes,P21,,Water Supply District,2012,https://nlftp.mlit.go.jp/ksj/gml/data/P21/P21-12/P21-12_code_pref_GML.zip,P21-12_code_pref_GML.zip,P21-12a_code_pref.shp,,21-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P21.html,,,,,,,CP932,P21a-2012.qml,4612,
 下水道関連施設（ポンプ場施設）,yes,P22,,Sewerage System Related Facility (Sewage Treatment Plant Facility),2012,https://nlftp.mlit.go.jp/ksj/gml/data/P22/P22-12/P22-12_code_pref_GML.zip,P22-12_code_pref_GML.zip,P22a-12_code_pref.shp,,P22-12_code_pref_GML,https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P22.html,,,,,,,CP932,P22a-2012.qml,4612,
