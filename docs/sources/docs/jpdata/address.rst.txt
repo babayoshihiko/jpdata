@@ -1,0 +1,153 @@
+.. Purpose: 
+
+.. index:: Address
+.. _`label_address`:
+
+***************************
+住所
+***************************
+
+jpData の ``住所`` タブについて説明します。
+
+住所
+======================================================================
+
+住所検索機能は、おそらく地図と切っても切り離せない機能です。
+住所から地理座標 (緯度経度など) に変換することを、ジオコーディングといいます。
+
+ところが、日本の住所システムはかなり複雑で、いまだに住所から緯度経度を取得するベストな方法というものはありません。
+
+jpData では、市町村レベルの移動経度はあらかじめデータとして持っています。
+街区レベル、番地レベルは、街区レベル位置参照情報をダウンロードして検索するようにしています。
+
+https://nlftp.mlit.go.jp/isj/
+
+
+さまざまな図法による再投影
+======================================================================
+
+地球はボールのような立体です。
+この表面を、紙で表現する作業を投影 (Projection) といいます。
+
+``空港間流通量`` を ``地図に追加`` しましょう。
+``港湾間流通量・海上経路`` も試してみましょう。
+また、背景は地理院タイルを設定しておきます。
+
+中心とする位置を、住所検索から決めます。
+ここでは、札幌市にしてみましょう。
+``正距方位図法`` を選択し、 ``再投影`` ボタンを押しましょう。
+
+
+ソースコード
+======================================================================
+
+ソースコード: 再投影
+----------------------------------------------------------------------
+
+2 行目の文字列は、PROJ 文字列(Proj String) と言います。
+aeqd は、正距方位図法を指しています。
+
+.. code-block:: python
+   :linenos:
+   :emphasize-lines: 2
+
+        from qgis.core import QgsCoordinateReferenceSystem, QgsProject
+        proj_string = "+proj=aeqd +lat_0=139.691722 +lon_0=35.689501 +datum=WGS84 +units=m +no_defs"
+        crs = QgsCoordinateReferenceSystem.fromProj(proj_string)
+        if crs.isValid():
+            QgsProject.instance().setCrs(crs)
+
+
+ソースコード: 経緯度線
+----------------------------------------------------------------------
+
+.. code-block:: python
+   :linenos:
+
+        layer = QgsVectorLayer(
+            "LineString?crs=EPSG:4326",
+            f"Graticule_{interval}deg",
+            "memory",
+        )
+        provider = layer.dataProvider()
+        provider.addAttributes([
+            QgsField("type", QVariant.String),
+            QgsField("value", QVariant.Int),
+        ])
+        layer.updateFields()
+        features = []
+        for lon in range(-180, 181, interval):
+            points = [
+                QgsPointXY(lon, lat)
+                for lat in range(-90, 91)
+            ]
+
+            feat = QgsFeature(layer.fields())
+            feat.setGeometry(QgsGeometry.fromPolylineXY(points))
+            feat["type"] = "longitude"
+            feat["value"] = lon
+            features.append(feat)
+        for lat in range(-80, 81, interval):
+            points = [
+                QgsPointXY(lon, lat)
+                for lon in range(-180, 181)
+            ]
+            feat = QgsFeature(layer.fields())
+            feat.setGeometry(QgsGeometry.fromPolylineXY(points))
+            feat["type"] = "latitude"
+            feat["value"] = lat
+            features.append(feat)
+        provider.addFeatures(features)
+        layer.updateExtents()
+        QgsProject.instance().addMapLayer(layer)
+        return layer
+
+
+.. Substitutions definitions - AVOID EDITING PAST THIS LINE
+   This will be automatically updated by the find_set_subst.py script.
+   If you need to create a new substitution manually,
+   please add it also to the substitutions.txt file in the
+   source folder.
+
+.. |addLayer| image:: /static/common/mActionAddLayer.png
+   :width: 1.5em
+.. |addOgrLayer| image:: /static/common/mActionAddOgrLayer.png
+   :width: 1.5em
+.. |addRasterLayer| image:: /static/common/mActionAddRasterLayer.png
+   :width: 1.5em
+.. |arrowDown| image:: /static/common/mActionArrowDown.png
+   :width: 1.5em
+.. |arrowUp| image:: /static/common/mActionArrowUp.png
+   :width: 1.5em
+.. |browserCollapse| image:: /static/common/browser_collapse.png
+   :width: 1.5em
+.. |browserExpand| image:: /static/common/browser_expand.png
+   :width: 1.5em
+.. |checkbox| image:: /static/common/checkbox.png
+   :width: 1.3em
+.. |clearText| image:: /static/common/mIconClearText.png
+   :width: 1.5em
+.. |collapseTree| image:: /static/common/mActionCollapseTree.png
+   :width: 1.5em
+.. |deleteAttribute| image:: /static/common/mActionDeleteAttribute.png
+   :width: 1.5em
+.. |metadata| image:: /static/common/metadata.png
+   :width: 1.5em
+.. |newAttribute| image:: /static/common/mActionNewAttribute.png
+   :width: 1.5em
+.. |options| image:: /static/common/mActionOptions.png
+   :width: 1em
+.. |settings| image:: /static/common/settings.png
+   :width: 1.5em
+.. |unchecked| image:: /static/common/unchecked.png
+   :width: 1.3em
+.. |vectorTileLayer| image:: /static/common/mIconVectorTileLayer.png
+   :width: 1.5em
+.. |wcs| image:: /static/common/mIconWcs.png
+   :width: 1.5em
+.. |wfs| image:: /static/common/mIconWfs.png
+   :width: 1.5em
+.. |wms| image:: /static/common/mIconWms.png
+   :width: 1.5em
+.. |xyz| image:: /static/common/mIconXyz.png
+   :width: 1.5em
