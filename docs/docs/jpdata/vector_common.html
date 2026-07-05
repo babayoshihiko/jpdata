@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. ベクタデータ (共通) &mdash; jpData for QGIS  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/qgis_docs.css?v=9a6c854a" />
+      <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/qgis_topbar.css?v=5613a779" />
+
+  
+    <link rel="shortcut icon" href="../../_static/qgis_logo.ico"/>
+    <link rel="canonical" href="https://docs.qgis.org/latest/en/docs/jpdata/vector_common.html"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=c033477b"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+        <script>let toggleHintShow = 'クリックして表示';</script>
+        <script>let toggleHintHide = 'クリックして非表示';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+        <script src="../../_static/translations.js?v=91613774"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="3. ベクタデータ (国土数値情報)" href="vector_lni.html" />
+    <link rel="prev" title="1. はじめに" href="intro.html" />
+  <meta name="description" content="QGIS testing documentation: 2. ベクタデータ (共通)">
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(["disableCookies"]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.qgis.org/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+</head>
+
+<body class="wy-body-for-nav">
+
+  <nav class="release_status_topbar">
+    <div class="row isTesting">
+     This documentation is a work in progress. For the Long Term Release and translations, please visit the <a href="https://docs.qgis.org/latest/ja/docs/jpdata/vector_common.html">latest version</a>.
+    </div>
+  </nav>
+
+   
+
+ 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            jpData for QGIS
+              <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                testing
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+   <a href= "../../genindex.html">索引</a>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">jpData for QGIS について</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/preamble.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/foreword.html">刊行に寄せて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/conventions.html">本書で用いる表記</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/features.html">主な機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/help_and_support.html">サポート情報</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/contributors.html">作者と著者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/license/index.html">ライセンス準拠</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">利用ガイド</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">jpData for QGIS マニュアル</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">1. はじめに</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. ベクタデータ (共通)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2.1. ダウンロード</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2.2. 地図に追加</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2.2.1. 解凍</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">2.3. ウェブ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#url">2.3.1. ソースコード: ブラウザで URL を開く</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#wiki">2.4. Wiki</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="vector_lni.html">3. ベクタデータ (国土数値情報)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector_census.html">4. ベクタデータ (国勢調査)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tile.html">5. 地理院タイル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="address.html">6. 住所</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appendices/index.html">7. 補足事項</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../highschool/index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">jpData for QGIS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">jpData for QGIS ガイド</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>ベクタデータ (共通)</li>
+
+    <li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/qgis/QGIS-Documentation/edit/master/docs/jpdata/vector_common.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+        <!-- Add a button to guide potential contributors
+	     To do: add a more generic page for contributing in QGIS docs to keep users in the same website
+	     <a class="qgis-edit-guidelines" href="https://docs.qgis.org/testing/ja/docs/documentation_guidelines/index.html">
+	-->
+	<a class="qgis-edit-guidelines" href="https://qgis.org/community/involve/">
+		Learn how to contribute!
+	</a>
+    </li>
+
+
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="intro.html" class="btn btn-neutral float-left" title="1. はじめに" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="vector_lni.html" class="btn btn-neutral float-right" title="3. ベクタデータ (国土数値情報)" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="label-address">
+<span id="index-0"></span><span id="id1"></span><h1><span class="section-number">2. </span>ベクタデータ (共通)<a class="headerlink" href="#label-address" title="Link to this heading"></a></h1>
+<p>jpData のベクタデータのダンロード等に関する機能について紹介します。</p>
+<p>GIS は、国や地方自治体が作成したデータを使うことが一般的です。
+しかし、以下のような課題があり、その一部は今でも課題として残っており、使いづらさを感じている人もいます。</p>
+<ul class="simple">
+<li><p>複数のデータを簡便にダウンロードしづらい</p></li>
+<li><p>座標参照系が設定されていないことがあり、重ならない</p></li>
+<li><p>macOS や Linux では、デフォルトでは文字化けする</p></li>
+<li><p>デフォルトのスタイルがない</p></li>
+<li><p>不正なジオメトリがある</p></li>
+<li><p>空間インデックスがない</p></li>
+</ul>
+<p>このため、検索、ダウンロード、スタイル設定という単純作業に時間が取られていました。</p>
+<p>こうした処理を自動化しているのが国土数値情報タブの <code class="docutils literal notranslate"><span class="pre">ダウンロード</span></code> と <code class="docutils literal notranslate"><span class="pre">地図に追加</span></code> 機能です。</p>
+<section id="id2">
+<h2><span class="section-number">2.1. </span>ダウンロード<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>地理情報システムのデータは大きいものも多いので、ダウンロードや地図に追加する際に時間がかかることがあります。
+たとえば、国土数値情報の土地利用細分メッシュは、メッシュごとに 20 MB を超えています。
+洪水浸水想定区域の中には、100 MB を超えるものもあります。</p>
+<p>ダウンロードは、スレッド化といって、ダウンロードを実行中に他の作業ができるようになっています。
+<code class="docutils literal notranslate"><span class="pre">設定</span></code> で、「バックグラウンドでダウンロードしない」 にチェックすると、ダウンロードが終わるまで QGIS 上での他の操作をできないようにします。
+これは、開発途中の古い機能なので、将来はなくす予定です。</p>
+<p>ダウンロードしたファイルは、ZIP 形式もそのまま保存します。
+解凍はこの段階ではしません。</p>
+<p>なお、現在のマップキャンバスのメッシュ番号をステータスバーの一番右に表示しています。
+地図の種類がメッシュの場合、これを選択してください。
+現状では、都道府県からメッシュを選択していく流れになっています。</p>
+<p>まだメッシュ番号が選択されていない状態の場合、自動的にマップキャンバスのメッシュを選択します。</p>
+<p>なお、現在の UI では、都道府県を選択していないと、メッシュ番号が選択されていてもダウンロードされません。
+これは、0.7.4 までには改善する予定です。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">2.2. </span>地図に追加<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>ダウンロード済みの地図については、ZIP 形式の場合は、解凍します。
+多くの場合、解凍したファイルをそのまま追加します。
+座標参照系については、設定されていない場合は設定します。
+文字エンコードについては、設定します。</p>
+<p>追加時に、ジオメトリチェックを行います。
+<code class="docutils literal notranslate"><span class="pre">設定</span></code> で、「ジオメトリをチェックしない」 すると、この過程を省略できます。</p>
+<p>地理情報のスタイルは、QML ファイルとしてあらかじめ定義しているものについては、QML ファイルを適用します。</p>
+<section id="id4">
+<h3><span class="section-number">2.2.1. </span>解凍<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>GIS データは、ZIP 形式で圧縮されていることが多く、解凍を必要とします。</p>
+<p>これが、一筋縄ではいきません。
+macOS などでは、解凍してみると文字化けすることがあります。
+また、QGIS プラグインとして Python で解凍してみると、文字化けの他にも様々な問題が出てきました。</p>
+<p>そのために、作成したのが <code class="docutils literal notranslate"><span class="pre">jpdata_unzip.py</span></code> です。
+原因は一つではないので、たくさんの処理を行なっています。</p>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">2.3. </span>ウェブ<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>ダウンロードが可能な地図について、提供元のウェブを開きます。</p>
+<section id="url">
+<h3><span class="section-number">2.3.1. </span>ソースコード: ブラウザで URL を開く<a class="headerlink" href="#url" title="Link to this heading"></a></h3>
+<p>6行目にあるように、QUrl 関数で囲む必要があります。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>   <span class="kn">from</span><span class="w"> </span><span class="nn">qgis.PyQt.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qurl</span>
+<span class="linenos">2</span>   <span class="kn">from</span><span class="w"> </span><span class="nn">qgis.PyQt.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="n">QDesktopServices</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span>   <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://nlftp.mlit.go.jp/ksj/&quot;</span>
+<span class="linenos">5</span>   <span class="k">if</span> <span class="n">item</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+<span class="hll"><span class="linenos">6</span>         <span class="n">QDesktopServices</span><span class="o">.</span><span class="n">openUrl</span><span class="p">(</span><span class="n">QUrl</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</section>
+</section>
+<section id="wiki">
+<h2><span class="section-number">2.4. </span>Wiki<a class="headerlink" href="#wiki" title="Link to this heading"></a></h2>
+<p>ダウンロードが可能な地図について、それぞれ Wiki ページを用意しています。
+これは GitHub の機能を使っているので、編集権限を希望する方は著者までご連絡ください。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="intro.html" class="btn btn-neutral float-left" title="1. はじめに" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="vector_lni.html" class="btn btn-neutral float-right" title="3. ベクタデータ (国土数値情報)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-now, BABA Yoshihiko.
+      <span class="lastupdated">最終更新: 2026 7月 05, 15:30 +0900
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- Transifex follows a particular logic to build target pages:
+Expected French translation link for https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/overview_composer.html
+would return https://app.transifex.com/qgis/qgis-documentation/translate/#fr/aa6d8bc653526d38b295ca94bf8eee5e
+with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_MESSAGES/docs/user_manual/print_composer/overview_composer.po"-->
+<!--Make sure that mismatching language codes between Transifex and Sphinx are converted-->
+
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-info-circle"> jpData for QGIS </span>
+      v: testing
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Languages</dt>
+        
+          <dd><a href="https://docs.qgis.org/testing/ja/docs/jpdata/vector_common.html">ja</a></dd>
+        
+      </dl>
+
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://docs.qgis.org/testing/ja/docs/jpdata/vector_common.html">testing</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/latest/ja/docs/jpdata/vector_common.html">latest</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.44/ja/docs/jpdata/vector_common.html">3.44</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.40/ja/docs/jpdata/vector_common.html">3.40</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.34/ja/docs/jpdata/vector_common.html">3.34</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.28/ja/docs/jpdata/vector_common.html">3.28</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.22/ja/docs/jpdata/vector_common.html">3.22</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.16/ja/docs/jpdata/vector_common.html">3.16</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.10/ja/docs/jpdata/vector_common.html">3.10</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.4/ja/docs/jpdata/vector_common.html">3.4</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/2.18/ja/docs/jpdata/vector_common.html">2.18</a></dd>
+        
+      </dl>
+
+      
+       <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://docs.qgis.org/testing/pdf">PDF</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/testing/zip">HTML</a></dd>
+        
+      </dl>
+      
+
+      
+      
+      <dl>
+        <dt>Contribute to Docs</dt>
+          <dd>
+            <a href="https://github.com/qgis/QGIS-Documentation/edit/master/docs/jpdata/vector_common.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+          </dd>
+          
+          
+          <dd>
+            <a href="https://github.com/qgis/QGIS-Documentation/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+          </dd>
+      </dl>
+      
+
+      <dl>
+        <dt>On QGIS Project</dt>
+          <dd>
+            <a href="https://qgis.org" target="_blank" rel="noopener noreferrer">Home</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/api/" target="_blank" rel="noopener noreferrer">C++ API</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/pyqgis/master" target="_blank" rel="noopener noreferrer">PyQGIS API</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/qgis/QGIS/tree/master" target="_blank" rel="noopener noreferrer">Source</a>
+          </dd>
+      </dl>
+
+    </div>
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

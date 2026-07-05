@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lesson: Useful QGIS Plugins &mdash; jpData for QGIS  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/qgis_docs.css?v=9a6c854a" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/qgis_topbar.css?v=5613a779" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/qgis_logo.ico"/>
+    <link rel="canonical" href="https://docs.qgis.org/latest/en/docs/highschool/01_qgis_plugins/plugin_examples.html"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=c033477b"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script>let toggleHintShow = 'クリックして表示';</script>
+        <script>let toggleHintHide = 'クリックして非表示';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+        <script src="../../../_static/translations.js?v=91613774"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" />
+  <meta name="description" content="QGIS testing documentation: Lesson: Useful QGIS Plugins">
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(["disableCookies"]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.qgis.org/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+</head>
+
+<body class="wy-body-for-nav">
+
+  <nav class="release_status_topbar">
+    <div class="row isTesting">
+     This documentation is a work in progress. For the Long Term Release and translations, please visit the <a href="https://docs.qgis.org/latest/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">latest version</a>.
+    </div>
+  </nav>
+
+   
+
+ 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            jpData for QGIS
+              <img src="../../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                testing
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+   <a href= "../../../genindex.html">索引</a>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">jpData for QGIS について</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../about/preamble.html">はじめに</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/foreword.html">刊行に寄せて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/conventions.html">本書で用いる表記</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/features.html">主な機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/help_and_support.html">サポート情報</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/contributors.html">作者と著者</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about/license/index.html">ライセンス準拠</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">利用ガイド</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../jpdata/index.html">jpData for QGIS マニュアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">jpData for QGIS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Lesson: Useful QGIS Plugins</li>
+
+    <li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/qgis/QGIS-Documentation/edit/master/docs/highschool/01_qgis_plugins/plugin_examples.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+        <!-- Add a button to guide potential contributors
+	     To do: add a more generic page for contributing in QGIS docs to keep users in the same website
+	     <a class="qgis-edit-guidelines" href="https://docs.qgis.org/testing/ja/docs/documentation_guidelines/index.html">
+	-->
+	<a class="qgis-edit-guidelines" href="https://qgis.org/community/involve/">
+		Learn how to contribute!
+	</a>
+    </li>
+
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lesson-useful-qgis-plugins">
+<h1>Lesson: Useful QGIS Plugins<a class="headerlink" href="#lesson-useful-qgis-plugins" title="Link to this heading"></a></h1>
+<p>Now that you can install, enable and disable plugins, let's see how this can
+help you in practice by looking at some examples of useful plugins.</p>
+<p><strong>The goal for this lesson:</strong> To familiarize yourself with the plugin interface
+and get acquainted with some useful plugins.</p>
+<section id="follow-along-jpdata">
+<h2><abbr title="Basic level">★☆☆</abbr> Follow Along: プラグイン jpData<a class="headerlink" href="#follow-along-jpdata" title="Link to this heading"></a></h2>
+<p>プラグイン jpData は、日本のさまざまデータをダウンロードし、マップキャンバスに追加することができるプラグインです。
+本書の著者によって作成されています。
+ダウンロードと追加以外にも、日本の地図を作るための多くの機能が備わっています。</p>
+<ol class="arabic simple">
+<li><p>国勢調査から好きな市町村をえらんで <code class="docutils literal notranslate"><span class="pre">小地域</span></code> レイヤを追加します。layer from the <code class="file docutils literal notranslate"><span class="pre">training_data</span></code>
+GeoPackage.</p></li>
+<li><p>Install the <strong>QuickMapServices</strong> plugin.</p></li>
+<li><p>Click on <span class="menuselection">Web ► QuickMapServices</span>.
+The first menu lists different map providers (<code class="docutils literal notranslate"><span class="pre">OSM</span></code>, <code class="docutils literal notranslate"><span class="pre">NASA</span></code>) with available maps.</p></li>
+<li><p>Click on an entry and you would load the base map into your project.</p></li>
+</ol>
+</section>
+<section id="follow-along-the-quickmapservices-plugin">
+<h2><abbr title="Basic level">★☆☆</abbr> Follow Along: The QuickMapServices Plugin<a class="headerlink" href="#follow-along-the-quickmapservices-plugin" title="Link to this heading"></a></h2>
+<p>The QuickMapServices plugin is a simple and easy to use plugin that adds base maps
+to your QGIS project.
+It has many different options and settings.
+Let's start to explore some of its features.</p>
+<ol class="arabic">
+<li><p>Start a new map and add the <code class="docutils literal notranslate"><span class="pre">roads</span></code> layer from the <code class="file docutils literal notranslate"><span class="pre">training_data</span></code>
+GeoPackage.</p></li>
+<li><p>Install the <strong>QuickMapServices</strong> plugin.</p></li>
+<li><p>Click on <span class="menuselection">Web ► QuickMapServices</span>.
+The first menu lists different map providers (<code class="docutils literal notranslate"><span class="pre">OSM</span></code>, <code class="docutils literal notranslate"><span class="pre">NASA</span></code>) with available maps.</p></li>
+<li><p>Click on an entry and you would load the base map into your project.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/qms_result.png"><img alt="../../../_images/qms_result.png" src="../../../_images/qms_result.png" style="width: 80%;" /></a>
+</figure>
+</li>
+</ol>
+<p>Nice! But one of the main strengths of QMS is to provide access to many data providers.
+Let's add them.</p>
+<ol class="arabic">
+<li><p>Click on <span class="menuselection">Web ► QuickMapServices ► Settings</span></p></li>
+<li><p>Go to the <span class="guilabel">More services</span> tab.</p></li>
+<li><p>Read carefully the message of this tab and if you agree click on the
+<span class="guilabel">Get Contributed pack</span> button.</p></li>
+<li><p>Click <span class="guilabel">Save</span>.</p></li>
+<li><p>Reopen the <span class="menuselection">Web ► QuickMapServices</span> menu you will see
+that more providers are available.</p>
+<figure class="align-center">
+<img alt="../../../_images/qms_menu.png" src="../../../_images/qms_menu.png" />
+</figure>
+</li>
+<li><p>Choose the one that best fits your needs, and load the data in the project!</p></li>
+</ol>
+<p>It is also possible to search through the now available data providers</p>
+<ol class="arabic">
+<li><p>Open the plugin's search tab by clicking on <span class="menuselection">Web ► QuickMapServices ► Search QMS</span>.
+This option of the plugin allows you to filter the available base maps
+by the current extent of the map canvas or using a search word.</p></li>
+<li><p>Click on the <span class="guilabel">Filter by extent</span> and you should see one service available.
+If no service is found, zoom out and pan around the world (or your location)
+or search with a keyword.</p></li>
+<li><p>Click on the <span class="guilabel">Add</span> button next to a returned dataset to load it.</p></li>
+<li><p>The base map will be loaded and you will have a background for the map.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/qms_search_added.png"><img alt="../../../_images/qms_search_added.png" src="../../../_images/qms_search_added.png" style="width: 80%;" /></a>
+</figure>
+</li>
+</ol>
+</section>
+<section id="follow-along-the-quickosm-plugin">
+<h2><abbr title="Basic level">★☆☆</abbr> Follow Along: The QuickOSM Plugin<a class="headerlink" href="#follow-along-the-quickosm-plugin" title="Link to this heading"></a></h2>
+<p>With an incredible simple interface, the QuickOSM plugin allows you to download
+<a class="reference external" href="https://www.openstreetmap.org/">OpenStreetMap</a> data.</p>
+<section id="follow-along-using-the-quick-query">
+<h3><abbr title="Basic level">★☆☆</abbr> Follow Along: Using the Quick Query<a class="headerlink" href="#follow-along-using-the-quick-query" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p>Start a new empty project and add the <code class="docutils literal notranslate"><span class="pre">roads</span></code> layer from the
+<code class="file docutils literal notranslate"><span class="pre">training_data</span></code> GeoPackage.</p></li>
+<li><p>Install the <strong>QuickOSM</strong> plugin.
+The plugin adds two new buttons in the QGIS Toolbar
+and is accessible in the <span class="menuselection">Vector ► QuickOSM</span> menu.</p></li>
+<li><p>Open the QuickOSM dialog. The plugin has many different tabs: we will use the
+<span class="guilabel">Quick Query</span> one.</p></li>
+<li><p>You can download specific features by selecting a generic <span class="guilabel">Key</span> or be more
+specific and choose a specific <span class="guilabel">Key</span> and <span class="guilabel">Value</span> pair.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>if you are not familiar with the <span class="guilabel">Key</span> and <span class="guilabel">Value</span>
+system, click on the <span class="guilabel">Help with key/value</span> button. It will open a
+web page with a complete description of this concept of OpenStreetMap.</p>
+</div>
+</li>
+<li><p>Look for <code class="docutils literal notranslate"><span class="pre">railway</span></code> in the <span class="guilabel">Key</span> menu and let the <span class="guilabel">Value</span> be
+empty: so we are downloading all the <code class="docutils literal notranslate"><span class="pre">railway</span></code> features without specifying
+any values.</p></li>
+<li><p>Select <span class="guilabel">Layer Extent</span> in the next drop-down menu and choose <code class="docutils literal notranslate"><span class="pre">roads</span></code>.</p></li>
+<li><p>Click on the <span class="guilabel">Run query</span> button.</p>
+<figure class="align-center">
+<img alt="../../../_images/quickosm_setup.png" src="../../../_images/quickosm_setup.png" />
+</figure>
+</li>
+</ol>
+<p>After some seconds the plugin will download all the features tagged in OpenStreetMap
+as <code class="docutils literal notranslate"><span class="pre">railway</span></code> and load them directly into the map.</p>
+<p>Nothing more! All the layers are loaded in the legend and are shown in the map
+canvas.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/quickosm_result.png"><img alt="../../../_images/quickosm_result.png" src="../../../_images/quickosm_result.png" style="width: 60%;" /></a>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>QuickOSM creates temporary layer when downloading the data. If you
+want to save them permanently, click on the <a class="reference internal" href="../../../_images/mIndicatorMemory.png"><img alt="indicatorMemory" src="../../../_images/mIndicatorMemory.png" style="width: 1.5em;" /></a> icon next to the
+layer and choose the options you prefer. Alternatively you can open the
+<span class="guilabel">Advanced</span> menu in QuickOSM and choose where to save the data in the
+<span class="guilabel">Directory</span> menu.</p>
+</div>
+</section>
+<section id="follow-along-the-quickosm-query-engine">
+<h3><abbr title="Advanced level">★★★</abbr> Follow Along: The QuickOSM Query engine<a class="headerlink" href="#follow-along-the-quickosm-query-engine" title="Link to this heading"></a></h3>
+<p>The quickest way to download data from QuickOSM plugin is using the <span class="guilabel">Quick query</span>
+tab and set some small parameters. But if you need some more specific data?</p>
+<p>If you are an OpenStreetMap query master you can use QuickOSM plugin also with
+your personal queries.</p>
+<p>QuickOSM has an incredible data parser that, together with the amazing query engine
+of Overpass, lets you download data with your specific needs.</p>
+<p>For example: we want to download the mountain peaks that belongs into a specific
+mountain area known as <a class="reference external" href="https://en.wikipedia.org/wiki/Dolomites">Dolomites</a>.</p>
+<p>You cannot achieve this task with the <span class="guilabel">Quick query</span> tab, you have to
+be more specific and write your own query. Let's try to do this.</p>
+<ol class="arabic">
+<li><p>Start a new project.</p></li>
+<li><p>Open the QuickOSM plugin and click on the <span class="guilabel">Query</span> tab.</p></li>
+<li><p>Copy and paste the following code into the query canvas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  &lt;!--
+This shows all mountains (peaks) in the Dolomites.
+You may want to use the &quot;zoom onto data&quot; button. =&gt;
+--&gt;
+&lt;osm-script output=&quot;json&quot;&gt;
+&lt;!-- search the area of the Dolomites --&gt;
+&lt;query type=&quot;area&quot;&gt;
+  &lt;has-kv k=&quot;place&quot; v=&quot;region&quot;/&gt;
+  &lt;has-kv k=&quot;region:type&quot; v=&quot;mountain_area&quot;/&gt;
+  &lt;has-kv k=&quot;name:en&quot; v=&quot;Dolomites&quot;/&gt;
+&lt;/query&gt;
+&lt;print mode=&quot;body&quot; order=&quot;quadtile&quot;/&gt;
+&lt;!-- get all peaks in the area --&gt;
+&lt;query type=&quot;node&quot;&gt;
+  &lt;area-query/&gt;
+  &lt;has-kv k=&quot;natural&quot; v=&quot;peak&quot;/&gt;
+&lt;/query&gt;
+&lt;print mode=&quot;body&quot; order=&quot;quadtile&quot;/&gt;
+&lt;!-- additionally, show the outline of the area --&gt;
+&lt;query type=&quot;relation&quot;&gt;
+  &lt;has-kv k=&quot;place&quot; v=&quot;region&quot;/&gt;
+  &lt;has-kv k=&quot;region:type&quot; v=&quot;mountain_area&quot;/&gt;
+  &lt;has-kv k=&quot;name:en&quot; v=&quot;Dolomites&quot;/&gt;
+&lt;/query&gt;
+&lt;print mode=&quot;body&quot; order=&quot;quadtile&quot;/&gt;
+&lt;recurse type=&quot;down&quot;/&gt;
+&lt;print mode=&quot;skeleton&quot; order=&quot;quadtile&quot;/&gt;
+&lt;/osm-script&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>This query is written in a <code class="docutils literal notranslate"><span class="pre">xml</span></code> like language. If you are more
+used to the <code class="docutils literal notranslate"><span class="pre">Overpass</span> <span class="pre">QL</span></code> you can write the query in this language.</p>
+</div>
+</li>
+<li><p>And click on <span class="guilabel">Run Query</span>:</p>
+<figure class="align-center">
+<img alt="../../../_images/quickosm_advanced_query.png" src="../../../_images/quickosm_advanced_query.png" />
+</figure>
+</li>
+</ol>
+<p>The mountain peaks layer will be downloaded and shown in QGIS:</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../../../_images/quickosm_advanced_result.png"><img alt="../../../_images/quickosm_advanced_result.png" src="../../../_images/quickosm_advanced_result.png" style="width: 60%;" /></a>
+</figure>
+<p>You can write complex queries using the <a class="reference external" href="https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL">Overpass Query language</a>.
+Take a look at some example and try to explore the query language.</p>
+</section>
+</section>
+<section id="follow-along-the-dataplotly-plugin">
+<h2><abbr title="Basic level">★☆☆</abbr> Follow Along: The DataPlotly Plugin<a class="headerlink" href="#follow-along-the-dataplotly-plugin" title="Link to this heading"></a></h2>
+<p>The <strong>DataPlotly</strong> plugin allows you to create <a class="reference external" href="https://d3js.org/">D3</a> plots of vector
+attributes data thanks to the <a class="reference external" href="https://plotly.com/">plotly</a> library.</p>
+<ol class="arabic simple">
+<li><p>Start a new project</p></li>
+<li><p>Load the <code class="docutils literal notranslate"><span class="pre">sample_points</span></code> layer from the <code class="file docutils literal notranslate"><span class="pre">exercise_data/plugins</span></code>
+folder</p></li>
+<li><p>Install the plugin following the guidelines described in <a class="reference internal" href="using_tile.html#plugin-installation"><span class="std std-ref">★☆☆ Follow Along: jpData で国土地理院タイル</span></a>
+searching <span class="guilabel">Data Plotly</span></p></li>
+<li><p>Open the plugin by clicking on the new icon in the toolbar or in the
+<span class="menuselection">Plugins ► Data Plotly</span> menu</p></li>
+</ol>
+<p>In the following example we are creating a simple <code class="docutils literal notranslate"><span class="pre">Scatter</span> <span class="pre">Plot</span></code> of two fields
+of the <code class="docutils literal notranslate"><span class="pre">sample_points</span></code> layer.
+In the DataPlotly Panel:</p>
+<ol class="arabic">
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">sample_points</span></code> in the Layer filter, <span class="guilabel">cl</span> for
+the <span class="guilabel">X Field</span> and <span class="guilabel">mg</span> for the <span class="guilabel">Y Field</span>:</p>
+<figure class="align-center">
+<img alt="../../../_images/dataplotly_setup.png" src="../../../_images/dataplotly_setup.png" />
+</figure>
+</li>
+<li><p>If you want you can change the colors, the marker type, the transparency and
+many other settings: try to change some parameters to create the plot
+below.</p>
+<figure class="align-center">
+<img alt="../../../_images/dataplotly_scatterplot.png" src="../../../_images/dataplotly_scatterplot.png" />
+</figure>
+</li>
+<li><p>Once you have set all the parameters, click on the <span class="guilabel">Create Plot</span>
+button to create the plot.</p></li>
+</ol>
+<p>The plot is interactive: this means you can use all the upper buttons to resize,
+move, or zoom in/out the plot canvas. Moreover, each element of the plot is interactive:
+by clicking or selecting one or more point on the plot, the corresponding point(s)
+will be selected in the plot canvas.</p>
+<p>You can save the plot as a <code class="docutils literal notranslate"><span class="pre">png</span></code> static image or as an <code class="docutils literal notranslate"><span class="pre">html</span></code> file by clicking
+on the <a class="reference internal" href="../../../_images/mActionSaveMapAsImage.png"><img alt="saveMapAsImage" src="../../../_images/mActionSaveMapAsImage.png" style="width: 1.5em;" /></a> or on the <a class="reference internal" href="../../../_images/mActionAddHtml.png"><img alt="addHtml" src="../../../_images/mActionAddHtml.png" style="width: 1.5em;" /></a> button in the lower right corner
+of the plot.</p>
+<p>There is more. Sometimes it can be useful to have two (or more) plots showing
+different plot types with different variables on the same page. Let's do this!</p>
+<ol class="arabic">
+<li><p>Go back to the main plot settings tab by clicking on the <a class="reference internal" href="../../../_images/symbology.png"><img alt="symbology" src="../../../_images/symbology.png" style="width: 2em;" /></a> button
+in the upper left corner of the plugin panel</p></li>
+<li><p>Change the <span class="guilabel">Plot Type</span> to <span class="guilabel">Box Plot</span></p></li>
+<li><p>Choose <span class="guilabel">group</span> as <span class="guilabel">Grouping Field</span> and <span class="guilabel">ph</span> as
+<span class="guilabel">Y Field</span></p></li>
+<li><p>In the lower part of the panel, change the <span class="guilabel">Type of Plot</span> from
+<span class="guilabel">SinglePlot</span> to <span class="guilabel">SubPlots</span> and let the default option
+<span class="guilabel">Plot in Rows</span> selected.</p>
+<figure class="align-center">
+<img alt="../../../_images/dataplotly_boxplot.png" src="../../../_images/dataplotly_boxplot.png" />
+</figure>
+</li>
+<li><p>Once done click on the <span class="guilabel">Create Plot</span> button to draw the plot</p>
+<figure class="align-center">
+<img alt="../../../_images/dataplotly_subplots.png" src="../../../_images/dataplotly_subplots.png" />
+</figure>
+</li>
+</ol>
+<p>Now both scatter plot and box plot are shown in the same plot page. You still
+have the chance to click on each plot item and select the corresponding features
+in the map canvas.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Each plot has its own manual page available in the <a class="reference internal" href="../../../_images/mActionHelpContents.png"><img alt="helpContents" src="../../../_images/mActionHelpContents.png" style="width: 1.5em;" /></a> tab.
+Try to explore all the plot types and see all the other settings available.</p>
+</div>
+</section>
+<section id="in-conclusion">
+<h2>In Conclusion<a class="headerlink" href="#in-conclusion" title="Link to this heading"></a></h2>
+<p>There are many useful plugins available for QGIS. Using the built-in tools for
+installing and managing these plugins, you can find new plugins and make
+optimum use of them.</p>
+</section>
+<section id="what-s-next">
+<h2>What's Next?<a class="headerlink" href="#what-s-next" title="Link to this heading"></a></h2>
+<p>Next we'll look at how to use layers that are hosted on remote servers in real
+time.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-now, BABA Yoshihiko.
+      <span class="lastupdated">最終更新: 2026 7月 05, 19:23 +0900
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- Transifex follows a particular logic to build target pages:
+Expected French translation link for https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/overview_composer.html
+would return https://app.transifex.com/qgis/qgis-documentation/translate/#fr/aa6d8bc653526d38b295ca94bf8eee5e
+with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_MESSAGES/docs/user_manual/print_composer/overview_composer.po"-->
+<!--Make sure that mismatching language codes between Transifex and Sphinx are converted-->
+
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-info-circle"> jpData for QGIS </span>
+      v: testing
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Languages</dt>
+        
+          <dd><a href="https://docs.qgis.org/testing/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">ja</a></dd>
+        
+      </dl>
+
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://docs.qgis.org/testing/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">testing</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/latest/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">latest</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.44/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">3.44</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.40/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">3.40</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.34/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">3.34</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.28/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">3.28</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.22/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">3.22</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.16/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">3.16</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.10/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">3.10</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/3.4/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">3.4</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/2.18/ja/docs/highschool/01_qgis_plugins/plugin_examples.html">2.18</a></dd>
+        
+      </dl>
+
+      
+       <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://docs.qgis.org/testing/pdf">PDF</a></dd>
+        
+          <dd><a href="https://docs.qgis.org/testing/zip">HTML</a></dd>
+        
+      </dl>
+      
+
+      
+      
+      <dl>
+        <dt>Contribute to Docs</dt>
+          <dd>
+            <a href="https://github.com/qgis/QGIS-Documentation/edit/master/docs/highschool/01_qgis_plugins/plugin_examples.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+          </dd>
+          
+          
+          <dd>
+            <a href="https://github.com/qgis/QGIS-Documentation/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+          </dd>
+      </dl>
+      
+
+      <dl>
+        <dt>On QGIS Project</dt>
+          <dd>
+            <a href="https://qgis.org" target="_blank" rel="noopener noreferrer">Home</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/api/" target="_blank" rel="noopener noreferrer">C++ API</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/pyqgis/master" target="_blank" rel="noopener noreferrer">PyQGIS API</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/qgis/QGIS/tree/master" target="_blank" rel="noopener noreferrer">Source</a>
+          </dd>
+      </dl>
+
+    </div>
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

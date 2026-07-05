@@ -1,33 +1,46 @@
 
 **********************************
- Documentation for QGIS |version|
+ jpData for QGIS
 **********************************
 
 .. only:: testing
 
-  .. attention::  こちらは、jpData のドキュメントです。QGIS のドキュメントではありません。
-    QGIS のドキュメントは `こちら <https://docs.qgis.org/latest/en/docs/>`_ です。
+  .. attention::  このサイトは、QGIS 公式サイトではありません。
+    jpData for QGIS という、QGIS プラグインのサイトです。
 
-.. only:: not testing
+.. only:: ltr
 
-  .. hint:: こちらは、jpData のドキュメントです。QGIS のドキュメントではありません。
-    QGIS のドキュメントは `こちら <https://docs.qgis.org/latest/en/docs/>`_ です。
+  .. hint:: Looking for documentation of versions newer than the
+    |version| Long Term Release? Have a look at the
+    `testing docs <https://docs.qgis.org/testing/en/>`_.
+
+.. only:: not (ltr or testing or outdated)
+
+  .. hint:: Looking for documentation of versions newer than
+    |version|, the next Long Term Release? Have a look at the
+    `testing docs <https://docs.qgis.org/testing/en/>`_.
+
+`jpData for QGIS <https://babayoshihiko.github.io/jpdata>` 公式ページへようこそ。
 
 
 .. toctree::
+   :maxdepth: 1
+   :caption: jpData for QGIS について
+
+   about/preamble
+   about/foreword
+   about/conventions
+   about/features
+   about/help_and_support
+   about/contributors
+   about/license/index
+
+.. toctree::
    :maxdepth: 2
-   :caption: For Users
+   :caption: 利用ガイド
 
-   Advanced QGIS Desktop User Guide/Manual with jpdata <user_manual_advanced/index>
-
-jpData は、QGIS のプラグインです。QGIS のドキュメントは、QGIS のインストールに含まれています。
-
+   jpData for QGIS マニュアル <jpdata/index>
+   jpData for QGIS で学ぶ高校地理総合 <highschool/index>
 
 
-.. Substitutions definitions - AVOID EDITING PAST THIS LINE
-   This will be automatically updated by the find_set_subst.py script.
-   If you need to create a new substitution manually,
-   please add it also to the substitutions.txt file in the
-   source folder.
-
-.. |CURRENT| replace:: 3.40
+* :ref:`genindex`
