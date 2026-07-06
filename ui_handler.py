@@ -13,6 +13,9 @@ from qgis.core import (
     QgsMarkerSymbol,
     QgsSvgMarkerSymbolLayer,
     QgsUnitTypes,
+    QgsPalLayerSettings,
+    QgsVectorLayerSimpleLabeling,
+    QgsTextFormat,
 )
 from qgis.PyQt.QtCore import (
     Qt, 
@@ -22,7 +25,7 @@ from qgis.PyQt.QtCore import (
     QPointF
 )
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
-from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtGui import QDesktopServices, QFont, QColor
 from qgis.PyQt.QtWidgets import QLabel
 from . import jpDataMesh
 from . import jpDataUtils
@@ -690,7 +693,7 @@ class JPDataUIHandler:
         self.add_graticule_layer()
 
     def _myPB_Addr_4_clicked(self):
-        self.add_graticule_layer()
+        self.add_mesh_layer()
 
     def _myCB_Addr_1_changed(self):
         name_pref = self._dw.myCB_Addr_1.currentText()
@@ -754,3 +757,79 @@ class JPDataUIHandler:
         layer.updateExtents()
         QgsProject.instance().addMapLayer(layer)
         return layer
+
+    def add_mesh_layer(self):
+        """日本をカバーする1次メッシュを追加し、メッシュコードをラベル表示する"""
+
+        layer = QgsVectorLayer(
+            "Polygon?crs=EPSG:4326",
+            "Mesh",
+            "memory"
+        )
+
+        pr = layer.dataProvider()
+        pr.addAttributes([QgsField("code_mesh", QVariant.String)])
+        layer.updateFields()
+
+        features = []
+
+        for p in range(30, 69):
+            for u in range(22, 46):
+
+                code = f"{p}{u}"
+
+                lat0 = p / 1.5
+                lon0 = u + 100
+                lat1 = lat0 + 40 / 60
+                lon1 = lon0 + 1
+
+                geom = QgsGeometry.fromPolygonXY([[
+                    QgsPointXY(lon0, lat0),
+                    QgsPointXY(lon1, lat0),
+                    QgsPointXY(lon1, lat1),
+                    QgsPointXY(lon0, lat1),
+                    QgsPointXY(lon0, lat0),
+                ]])
+
+                feat = QgsFeature(layer.fields())
+                feat["code_mesh"] = code
+                feat.setGeometry(geom)
+                features.append(feat)
+
+        pr.addFeatures(features)
+        layer.updateExtents()
+
+        # ラベル設定
+        fmt = QgsTextFormat()
+        fmt.setFont(QFont("Meiryo", 8))
+
+        settings = QgsPalLayerSettings()
+        settings.fieldName = "code_mesh"
+        settings.setFormat(fmt)
+
+        layer.setLabeling(QgsVectorLayerSimpleLabeling(settings))
+        layer.setLabelsEnabled(True)
+
+
+        # 薄いグレーの塗りつぶし・枠線
+        symbol = layer.renderer().symbol()
+        symbol.setColor(QColor(230, 230, 230, 51))      # α=51≒80%透明
+        symbol.symbolLayer(0).setStrokeColor(QColor(180, 180, 180))
+        symbol.symbolLayer(0).setStrokeWidth(0.1)
+
+        # レイヤ全体の透過率（こちらでも可）
+        # layer.setOpacity(0.2)   # 不透明度20% = 透過率80%
+
+        # プロジェクトに追加
+        QgsProject.instance().addMapLayer(layer)
+
+        # レイヤツリーの一番上へ移動
+        root = QgsProject.instance().layerTreeRoot()
+        node = root.findLayer(layer.id())
+        clone = node.clone()
+        root.insertChildNode(0, clone)
+        root.removeChildNode(node)
+
+        return layer
+
+

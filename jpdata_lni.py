@@ -45,6 +45,8 @@ class jpDataLNI:
             "url":"",
             "zip":"",
             "shp":"",
+            "zip_fullpath":"",
+            "shp_fullpath":"",
             "altdir":"",
             "qml":"",
             "epsg":"",
@@ -128,7 +130,22 @@ class jpDataLNI:
             year=self.record["year"],
         )
         self.record["encoding"] = "UTF-8" if self.record["encoding"][:3] == "UTF" else "CP932"
-    
+        if os.path.exists(posixpath.join(self.record["download_fullpath"], self.record["zip"])):
+            self.record["zip_fullpath"] = posixpath.join(self.record["download_fullpath"], self.record["zip"])
+        shp_fullpath = jpDataUtils.findShpFile2(self.record["download_fullpath"], 
+                                                self.record["year"], 
+                                                self.record["shp"], 
+                                                self.record["altdir"], 
+                                                self.record["code_pref"], 
+                                                self.record["code_muni"], 
+                                                self.record["name_muni"])
+        if shp_fullpath is not None:
+            self.record["shp_fullpath"] = shp_fullpath
+        jpDataUtils.printDebugLog("167")
+        jpDataUtils.printDebugLog(self.record["zip_fullpath"])
+        jpDataUtils.printDebugLog(self.record["shp_fullpath"])
+
+
     def _set_record_from_source(self):
         type_muni = self.record["type_muni"]
         for row in self.source:
@@ -151,8 +168,6 @@ class jpDataLNI:
         self.record["qml"] = row["qml"] if "qml" in row else self.record["qml"]
         self.record["epsg"] = row["epsg"] if "encoding" in row else self.record["epsg"]
         self.record["encoding"] = row["encoding"] if "encoding" in row else self.record["encoding"]
-
-
 
 
 
