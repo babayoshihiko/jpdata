@@ -300,9 +300,11 @@ class JPDataManager:
         if not self._dw.myListWidget11.selectedItems():
             self._dw.myLabelStatus.setText(TR.CHOOSE_MAP_TYPE())
             return False
+        name_map = str(self._dw.myListWidget11.selectedItems()[0].text())
         if not self._dw.myListWidget12.selectedItems():
-            self._dw.myLabelStatus.setText(TR.CHOOSE_PREFECTURE_REGION())
-            return False
+            if not (self._dw.myListWidget13.selectedItems() and self._LNI.get_records()[name_map]["type_muni"].lower() == "mesh1"):
+                self._dw.myLabelStatus.setText(TR.CHOOSE_PREFECTURE_REGION())
+                return False
         return True
 
     def _tab1_download_all(self):

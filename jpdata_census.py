@@ -226,12 +226,7 @@ class jpDataCensus:
 
     def _set_attr_zip(self, key=None):
         # Uses
-        jpDataUtils.printDebugLog(  self._CENSUS_ATTR  )
-        jpDataUtils.printDebugLog(  self.record["year"]  )
-        jpDataUtils.printDebugLog(  self.record["index_census"]  )
         # key = "人口及び世帯"
-        jpDataUtils.printDebugLog(  self.record["code_pref"]  )
-        jpDataUtils.printDebugLog(  self.record["code_mesh"]  )
         str_i = str(self.record["index_census"])
         if self.record["index_census"] == 0:
             if key is None:

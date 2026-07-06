@@ -141,9 +141,6 @@ class jpDataLNI:
                                                 self.record["name_muni"])
         if shp_fullpath is not None:
             self.record["shp_fullpath"] = shp_fullpath
-        jpDataUtils.printDebugLog("167")
-        jpDataUtils.printDebugLog(self.record["zip_fullpath"])
-        jpDataUtils.printDebugLog(self.record["shp_fullpath"])
 
 
     def _set_record_from_source(self):
