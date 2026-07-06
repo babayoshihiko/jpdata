@@ -43,6 +43,9 @@ class JPDataUIHandler:
         self._iface = iface
         self._dw = dockwidget
         self._lang = lang
+        self.meshLabel = QLabel("Japanese Mesh Code")
+        self._iface.statusBarIface().addPermanentWidget(self.meshLabel)
+        self.meshLabel.setTextInteractionFlags(Qt.TextSelectableByMouse)
         self._connect_signals()
         self._setup_ui_static_text()
         self._Muni = jpDataMuni.instance()
@@ -96,9 +99,10 @@ class JPDataUIHandler:
         except TypeError:
             pass
 
-        if self.meshLabel:
-            self._iface.statusBarIface().removeWidget(self.meshLabel)
-            self.meshLabel.deleteLater()
+        meshLabel = getattr(self, "meshLabel", None)
+        if meshLabel is not None:
+            self._iface.statusBarIface().removeWidget(meshLabel)
+            meshLabel.deleteLater()
             self.meshLabel = None
 
     def setLabel(self, message, critical=False):
@@ -145,6 +149,7 @@ class JPDataUIHandler:
         # Tree View
         view = self._iface.layerTreeView()
         view.contextMenuAboutToShow.connect(self.on_context_menu)
+        self._iface.mapCanvas().contextMenuAboutToShow.connect(self.on_canvas_context_menu)
 
 
     def _setup_ui_static_text(self):
@@ -155,11 +160,6 @@ class JPDataUIHandler:
             QLineEdit.EchoMode.Password
             if hasattr(QLineEdit, "EchoMode")
             else QLineEdit.Password
-        )
-        self.meshLabel = QLabel("Japanese Mesh Code")
-        self._iface.statusBarIface().addPermanentWidget(self.meshLabel)
-        self.meshLabel.setTextInteractionFlags(
-            Qt.TextSelectableByMouse
         )
         self._setup_tab1(0)
         self._setup_tab2(1)
@@ -259,11 +259,11 @@ class JPDataUIHandler:
         return f"{p:02d}{a:02d}"
 
     def _updateMeshCode(self, point):
+        if not hasattr(self, "meshLabel") or self.meshLabel is None:
+            return
         canvas = self._iface.mapCanvas()
-
         src_crs = canvas.mapSettings().destinationCrs()
         dst_crs = QgsCoordinateReferenceSystem("EPSG:4612")
-
         if src_crs != dst_crs:
             tr = QgsCoordinateTransform(
                 src_crs,
@@ -273,10 +273,8 @@ class JPDataUIHandler:
             pt = tr.transform(point)
         else:
             pt = point
-
         code = self._mesh1code(pt.y(), pt.x())
-        if self.meshLabel is not None:
-            self.meshLabel.setText(f"mesh: {code}")
+        self.meshLabel.setText(f"mesh: {code}")
         return code
 
     def _lni_populate_init_values(self):
@@ -846,11 +844,10 @@ class JPDataUIHandler:
 
 
     def on_context_menu(self, menu):
-        #layer = self._iface.activeLayer()
-
-        #if layer is None:
-        #    return
-
+        action = menu.addAction("選択したメッシュから3次メッシュを作成")
+        action.triggered.connect(self.add_mesh3_from_selected)
+    
+    def on_canvas_context_menu(self, menu, event):
         action = menu.addAction("選択したメッシュから3次メッシュを作成")
         action.triggered.connect(self.add_mesh3_from_selected)
 
