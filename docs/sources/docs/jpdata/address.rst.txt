@@ -102,6 +102,15 @@ aeqd は、正距方位図法を指しています。
         QgsProject.instance().addMapLayer(layer)
         return layer
 
+メッシュの追加
+======================================================================
+
+メッシュをポリゴンとして仮想レイヤを追加します。
+
+なお、ポリゴンを選択し、右クリックをするとコンテキストメニューが出ますが、ここで3次メッシュを追加することもできます。
+
+
+
 
 .. Substitutions definitions - AVOID EDITING PAST THIS LINE
    This will be automatically updated by the find_set_subst.py script.

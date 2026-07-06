@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2.1. Lesson: プラグインをインストール &mdash; jpData for QGIS  ドキュメント</title>
+  <title>Lesson: 国土数値情報を使ってみよう &mdash; jpData for QGIS  ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../../static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../static/css/qgis_docs.css?v=9a6c854a" />
       <link rel="stylesheet" type="text/css" href="../../static/togglebutton.css?v=9c3e77be" />
@@ -13,7 +13,7 @@
 
   
     <link rel="shortcut icon" href="../../static/qgis_logo.ico"/>
-    <link rel="canonical" href="https://babayoshihiko.github.io/jpdata/docs/highschool/01_qgis_plugins/fetching_plugins.html"/>
+    <link rel="canonical" href="https://babayoshihiko.github.io/jpdata/docs/highschool/01_qgis_plugins/using_lni.html"/>
   <!--[if lt IE 9]>
     <script src="../../static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -35,9 +35,7 @@
     <script src="../../static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="2.2. Lesson: 国勢調査を使ってみよう" href="using_census.html" />
-    <link rel="prev" title="2. プラグイン" href="index.html" />
-  <meta name="description" content="QGIS latest documentation: 2.1. Lesson: プラグインをインストール">
+  <meta name="description" content="QGIS latest documentation: Lesson: 国土数値情報を使ってみよう">
   <script>
     var _paq = window._paq = window._paq || [];
     _paq.push(["disableCookies"]);
@@ -57,7 +55,7 @@
 
   <nav class="release_status_topbar">
     <div class="row isTesting">
-     This documentation is a work in progress. For the Long Term Release and translations, please visit the <a href="https://docs.qgis.org/latest/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">latest version</a>.
+     This documentation is a work in progress. For the Long Term Release and translations, please visit the <a href="https://docs.qgis.org/latest/ja/docs/highschool/01_qgis_plugins/using_lni.html">latest version</a>.
     </div>
   </nav>
 
@@ -100,27 +98,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../about/license/index.html">ライセンス準拠</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">利用ガイド</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../jpdata/index.html">jpData for QGIS マニュアル</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">jpData for QGIS で学ぶ高校地理総合</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../00_foreword/index.html">1. コース紹介</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">2. プラグイン</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">2.1. Lesson: プラグインをインストール</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#follow-along-managing-plugins">2.1.1. <abbr title="初級">★☆☆</abbr> Follow Along: Managing Plugins</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#try-yourself-wms">2.1.2. <abbr title="中級">★★☆</abbr> Try Yourself: WMS を探してみよう</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="using_census.html">2.2. Lesson: 国勢調査を使ってみよう</a></li>
-<li class="toctree-l3"><a class="reference internal" href="using_tile.html">2.3. Lesson: タイルを使ってみよう</a></li>
-<li class="toctree-l3"><a class="reference internal" href="concl.html">2.4. まとめ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="concl.html#id2">2.5. 次はなに？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../10_A.html">3. 地図や地理情報システムで捉える現代世界</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../20_B.html">4. 国際理解と国際協力</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../30_C.html">5. 持続可能な地域づくりと私たち</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
 </ul>
 
         </div>
@@ -137,15 +117,13 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
-          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">2. </span>プラグイン</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">2.1. </span>Lesson: プラグインをインストール</li>
+      <li class="breadcrumb-item active">Lesson: 国土数値情報を使ってみよう</li>
 
     <li style="float: right; text-align: right;">
 	<ul>
 		
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/qgis/jpData-doc/edit/master/docs/highschool/01_qgis_plugins/fetching_plugins.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/qgis/jpData-doc/edit/master/docs/highschool/01_qgis_plugins/using_lni.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
 	</ul>
 
@@ -159,57 +137,42 @@
     </li>
 
 
-  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="index.html" class="btn btn-neutral float-left" title="2. プラグイン" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="using_census.html" class="btn btn-neutral float-right" title="2.2. Lesson: 国勢調査を使ってみよう" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-  </div>
+  </ul>
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
   <section id="lesson">
-<h1><span class="section-number">2.1. </span>Lesson: プラグインをインストール<a class="headerlink" href="#lesson" title="Link to this heading"></a></h1>
+<h1>Lesson: 国土数値情報を使ってみよう<a class="headerlink" href="#lesson" title="Link to this heading"></a></h1>
 <p>To begin using plugins, you need to know how to download, install and activate
 them. To do this, you will learn how to use the <span class="guilabel">Plugin Installer</span>
 and <span class="guilabel">Plugin Manager</span>.</p>
 <p><strong>The goal for this lesson:</strong> To understand and use QGIS' plugin system.</p>
-<section id="follow-along-managing-plugins">
-<h2><span class="section-number">2.1.1. </span><abbr title="初級">★☆☆</abbr> Follow Along: Managing Plugins<a class="headerlink" href="#follow-along-managing-plugins" title="Link to this heading"></a></h2>
-<ol class="arabic">
-<li><p>To open the <span class="guilabel">Plugin Manager</span>, click on the menu item
-<span class="menuselection">Plugins ► Manage and Install Plugins</span>.</p></li>
-<li><p>In the dialog that opens, find the <span class="guilabel">Processing</span> plugin:</p>
-<figure class="align-center">
-<img alt="../../images/select_processing_plugin.png" src="../../images/select_processing_plugin.png" />
-</figure>
-</li>
-<li><p>Click in the box next to this plugin and uncheck it to deactivate it.</p></li>
-<li><p>Click <span class="guilabel">Close</span>.</p></li>
+<section id="follow-along">
+<h2><abbr title="初級">★☆☆</abbr> Follow Along: 行政区域<a class="headerlink" href="#follow-along" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
 <li><p>Looking at the menu, you will notice that the <span class="guilabel">Processing</span> menu is
 is now gone. This means that many of the processing functions you have been
 using before have disappeared! For example look at the <span class="menuselection">Vector
-►</span> and <span class="menuselection">Raster ►</span> menus. This is because they are part of
-the <span class="guilabel">Processing</span> plugin, which needs to be activated to use them.</p></li>
-<li><p>Open the <span class="guilabel">Plugin Manager</span> again and reactivate the
-<span class="guilabel">Processing</span> plugin by clicking in the checkbox next to it.</p></li>
-<li><p><span class="guilabel">Close</span> the dialog.
-The <span class="guilabel">Processing</span> menu and functions should be available again.</p></li>
+►</span> and <span class="menuselection">Raster ►</span> menus. This is because they are part of</p></li>
 </ol>
 </section>
-<section id="try-yourself-wms">
-<span id="plugin-installation"></span><h2><span class="section-number">2.1.2. </span><abbr title="中級">★★☆</abbr> Try Yourself: WMS を探してみよう<a class="headerlink" href="#try-yourself-wms" title="Link to this heading"></a></h2>
-<p><a class="reference external" href="https://docs.qgis.org/3.44/en/docs/training_manual/online_resources/wms.html">https://docs.qgis.org/3.44/en/docs/training_manual/online_resources/wms.html</a></p>
+<section id="id1">
+<h2><abbr title="中級">★★☆</abbr> Follow Along: 用途地域<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Looking at the menu, you will notice that the <span class="guilabel">Processing</span> menu is
+is now gone. This means that many of the processing functions you have been
+using before have disappeared! For example look at the <span class="menuselection">Vector
+►</span> and <span class="menuselection">Raster ►</span> menus. This is because they are part of</p></li>
+</ol>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="2. プラグイン" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="using_census.html" class="btn btn-neutral float-right" title="2.2. Lesson: 国勢調査を使ってみよう" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
@@ -247,34 +210,34 @@ with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_
       <dl>
         <dt>Languages</dt>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">ja</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/highschool/01_qgis_plugins/using_lni.html">ja</a></dd>
         
       </dl>
 
       <dl>
         <dt>Versions</dt>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdatatesting/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">testing</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdatatesting/ja/docs/highschool/01_qgis_plugins/using_lni.html">testing</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">latest</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/highschool/01_qgis_plugins/using_lni.html">latest</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.44/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">3.44</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.44/ja/docs/highschool/01_qgis_plugins/using_lni.html">3.44</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.40/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">3.40</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.40/ja/docs/highschool/01_qgis_plugins/using_lni.html">3.40</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.34/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">3.34</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.34/ja/docs/highschool/01_qgis_plugins/using_lni.html">3.34</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.28/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">3.28</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.28/ja/docs/highschool/01_qgis_plugins/using_lni.html">3.28</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.22/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">3.22</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.22/ja/docs/highschool/01_qgis_plugins/using_lni.html">3.22</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.16/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">3.16</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.16/ja/docs/highschool/01_qgis_plugins/using_lni.html">3.16</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.10/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">3.10</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.10/ja/docs/highschool/01_qgis_plugins/using_lni.html">3.10</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.4/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">3.4</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.4/ja/docs/highschool/01_qgis_plugins/using_lni.html">3.4</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata2.18/ja/docs/highschool/01_qgis_plugins/fetching_plugins.html">2.18</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata2.18/ja/docs/highschool/01_qgis_plugins/using_lni.html">2.18</a></dd>
         
       </dl>
 
@@ -294,7 +257,7 @@ with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_
       <dl>
         <dt>Contribute to Docs</dt>
           <dd>
-            <a href="https://github.com/babayoshihiko/jpData-doc/edit/master/docs/highschool/01_qgis_plugins/fetching_plugins.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+            <a href="https://github.com/babayoshihiko/jpData-doc/edit/master/docs/highschool/01_qgis_plugins/using_lni.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
           </dd>
           
           
