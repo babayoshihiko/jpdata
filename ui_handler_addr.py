@@ -24,6 +24,7 @@ from qgis.PyQt.QtCore import (
     QPointF
 )
 from qgis.PyQt.QtGui import QFont, QColor
+from qgis.PyQt.QtWidgets import QAction
 from . import jpDataUtils
 from .i18n import TR
 from .jpdata_muni import jpDataMuni
@@ -40,6 +41,7 @@ class JPDataUIHandlerAddr:
         self._Muni = jpDataMuni.instance()
         self._pin_layer = None
         self._mesh_layer = None
+        self.mesh3_action = None
         self._connect_signals()
         self._setup_tab_addr()
         self._addr_populate_init_values()
@@ -60,11 +62,17 @@ class JPDataUIHandlerAddr:
         view.contextMenuAboutToShow.connect(self.on_context_menu)
         self._iface.mapCanvas().contextMenuAboutToShow.connect(self.on_canvas_context_menu)
 
+        # Create mesh
+        self.mesh3_action = QAction(TR.CREATE_THIRD_MESH(), self._iface.mainWindow())
+        self.mesh3_action.triggered.connect(
+            self.add_mesh3_from_selected
+        )
+
     def _setup_tab_addr(self):
         self._dw.myPB_Addr_1.setText(TR.DOWNLOAD())
         self._dw.myPB_Addr_2.setText(TR.JUMP())
         self._dw.myPB_Addr_3.setText(TR.REPROJECT())
-        self._dw.myPB_Addr_4.setText("メッシュレイヤを追加")
+        self._dw.myPB_Addr_4.setText(TR.ADD_MESH())
 
     def _addr_populate_init_values(self):
         self._ui.populate_CB("allprefs", self._dw.myCB_Addr_1, add_empty_item=True)
@@ -308,12 +316,12 @@ class JPDataUIHandlerAddr:
 
 
     def on_context_menu(self, menu):
-        action = menu.addAction(TR.CREATE_THIRD_MESH())
-        action.triggered.connect(self.add_mesh3_from_selected)
+        if self.mesh3_action not in menu.actions():
+            menu.addAction(self.mesh3_action)
     
     def on_canvas_context_menu(self, menu, event):
-        action = menu.addAction(TR.CREATE_THIRD_MESH())
-        action.triggered.connect(self.add_mesh3_from_selected)
+        if self.mesh3_action not in menu.actions():
+            menu.addAction(self.mesh3_action)
 
     def add_mesh3_from_selected(self):
         if self._mesh_layer is None:
@@ -350,5 +358,6 @@ class JPDataUIHandlerAddr:
                             features.append(f)
         pr.addFeatures(features)
         self._mesh_layer.updateExtents()
+        self._mesh_layer.removeSelection()
 
 

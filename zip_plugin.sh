@@ -29,6 +29,7 @@ perl -pi -e "s|DEBUG_MODE = True|DEBUG_MODE = False|g" jpdata/jpDataUtils.py
 rm -f jpdata/csv/.~lock*
 rm -f jpdata/MEMO.py
 rm -f jpdata/MEMO.txt
+rm -rf jpdata/win
 rm -rf jpdata/docs
 rm -rf jpdata/temp
 

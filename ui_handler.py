@@ -164,7 +164,6 @@ class JPDataUIHandler:
         self._setup_tab2(1)
         self._setup_tab3(2)
         self._set_tab_mhlw(3)
-        self._setup_tab_addr(4)
         self._setup_tab_setting(5)
         for index, name in self.TABS.items():
             self._dw.myTabWidget.setTabText(index, name)
@@ -236,12 +235,6 @@ class JPDataUIHandler:
             else QAbstractItemView.ExtendedSelection
         )
         self._dw.myPB_MHLW_Wiki.setText("Wiki")
-
-    def _setup_tab_addr(self, i):
-        self._dw.myPB_Addr_1.setText(TR.DOWNLOAD())
-        self._dw.myPB_Addr_2.setText(TR.JUMP())
-        self._dw.myPB_Addr_3.setText(TR.REPROJECT())
-        self._dw.myPB_Addr_4.setText(TR.ADD_GRATICULES())
 
     def _setup_tab_setting(self, i):
         self._dw.myPushButton2.clicked.connect(self.chooseFolder)

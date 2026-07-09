@@ -1,0 +1,9 @@
+これは、Git Bash ではなく、cmd に貼り付けてください。
+
+
+cd /d E:\github\jpdata
+call "C:\Program Files\QGIS 3.44.12\bin\o4w_env.bat"
+"C:\Program Files\QGIS 3.44.12\apps\Python312\Scripts\pylupdate5.exe" -noobsolete i18n\jpData.pro
+
+
+このあと、Linguist で開いて、翻訳をしてリリース。

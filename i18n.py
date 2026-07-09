@@ -29,6 +29,10 @@ class TR:
     @staticmethod
     def ADD_GRATICULES():
         return QCoreApplication.translate("jpData", "Add Graticules")
+    
+    @staticmethod
+    def ADD_MESH():
+        return QCoreApplication.translate("jpData", "Add Mesh")
 
     @staticmethod
     def ADD_TO_MAP():
