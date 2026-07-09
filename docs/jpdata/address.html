@@ -34,7 +34,7 @@
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
-    <link rel="search" title="検索" href="search.html" />
+    <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="7. 補足事項" href="appendices/index.html" />
     <link rel="prev" title="5. 地理院タイル" href="tile.html" />
   <meta name="description" content="QGIS latest documentation: 6. 住所">
@@ -80,7 +80,7 @@
                 latest
               </div>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -109,13 +109,16 @@
 <li class="toctree-l2"><a class="reference internal" href="tile.html">5. 地理院タイル</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">6. 住所</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">6.1. 住所</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">6.2. さまざまな図法による再投影</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">6.3. ソースコード</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id5">6.3.1. ソースコード: 再投影</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">6.3.2. ソースコード: 経緯度線</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">6.2. さまざまな図法による再投影</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">6.2.1. 操作方法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">6.4. メッシュの追加</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">6.3. ソースコード</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">6.3.1. ソースコード: 再投影</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">6.3.2. ソースコード: 経緯度線</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">6.4. メッシュの追加</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="appendices/index.html">7. 補足事項</a></li>
@@ -190,11 +193,20 @@
 <p>中心とする位置を、住所検索から決めます。
 ここでは、札幌市にしてみましょう。
 <code class="docutils literal notranslate"><span class="pre">正距方位図法</span></code> を選択し、 <code class="docutils literal notranslate"><span class="pre">再投影</span></code> ボタンを押しましょう。</p>
-</section>
 <section id="id4">
-<h2><span class="section-number">6.3. </span>ソースコード<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<h3><span class="section-number">6.2.1. </span>操作方法<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>住所検索と図法の変換を行ってみましょう。</p>
+<iframe width="927" height="521" src="https://www.youtube.com/embed/1AZOLNwuYBU?list=PLCOOOWfovn3E" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><ul class="simple">
+<li><p>まず、空港間交通量をダウンロード・地図に追加</p></li>
+<li><p>沖縄県那覇市を検索</p></li>
+<li><p>正距方位図法に変換</p></li>
+</ul>
+</section>
+</section>
 <section id="id5">
-<h3><span class="section-number">6.3.1. </span>ソースコード: 再投影<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<h2><span class="section-number">6.3. </span>ソースコード<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<section id="id6">
+<h3><span class="section-number">6.3.1. </span>ソースコード: 再投影<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <p>2 行目の文字列は、PROJ 文字列(Proj String) と言います。
 aeqd は、正距方位図法を指しています。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>     <span class="kn">from</span><span class="w"> </span><span class="nn">qgis.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">QgsCoordinateReferenceSystem</span><span class="p">,</span> <span class="n">QgsProject</span>
@@ -205,8 +217,8 @@ aeqd は、正距方位図法を指しています。</p>
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h3><span class="section-number">6.3.2. </span>ソースコード: 経緯度線<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<section id="id7">
+<h3><span class="section-number">6.3.2. </span>ソースコード: 経緯度線<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>     <span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span>
 <span class="linenos"> 2</span>         <span class="s2">&quot;LineString?crs=EPSG:4326&quot;</span><span class="p">,</span>
 <span class="linenos"> 3</span>         <span class="sa">f</span><span class="s2">&quot;Graticule_</span><span class="si">{</span><span class="n">interval</span><span class="si">}</span><span class="s2">deg&quot;</span><span class="p">,</span>
@@ -248,8 +260,8 @@ aeqd は、正距方位図法を指しています。</p>
 </div>
 </section>
 </section>
-<section id="id7">
-<h2><span class="section-number">6.4. </span>メッシュの追加<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<section id="id8">
+<h2><span class="section-number">6.4. </span>メッシュの追加<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
 <p>メッシュをポリゴンとして仮想レイヤを追加します。</p>
 <p>なお、ポリゴンを選択し、右クリックをするとコンテキストメニューが出ますが、ここで3次メッシュを追加することもできます。</p>
 </section>
@@ -267,7 +279,7 @@ aeqd は、正距方位図法を指しています。</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2024-now, BABA Yoshihiko.
-      <span class="lastupdated">最終更新: 2026 7月 09, 09:25 +0900
+      <span class="lastupdated">最終更新: 2026 7月 09, 10:12 +0900
       </span></p>
   </div>
 
