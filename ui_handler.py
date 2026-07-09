@@ -38,30 +38,30 @@ from .jpdata_muni import jpDataMuni
 
 class JPDataUIHandler:
     _verbose = True
-    TABS = {
-        0: TR.LANDNUMINFO(),
-        1: TR.GSI_TILES(),
-        2: TR.CENSUS(),
-        3: TR.MHLW(),
-        4: TR.ADDRESS(),
-        5: TR.SETTING()
-    }
 
     def __init__(self, iface, dockwidget, lang):
         self._iface = iface
         self._dw = dockwidget
         self._lang = lang
+        self.TABS = {
+            0: TR.LANDNUMINFO(),
+            1: TR.GSI_TILES(),
+            2: TR.CENSUS(),
+            3: TR.MHLW(),
+            4: TR.ADDRESS(),
+            5: TR.SETTING()
+        }
         self.meshLabel = QLabel("Japanese Mesh Code")
         self._iface.statusBarIface().addPermanentWidget(self.meshLabel)
         self.meshLabel.setTextInteractionFlags(Qt.TextSelectableByMouse)
         self._connect_signals()
-        self._setup_ui_static_text()
         self._Muni = jpDataMuni.instance()
         self._LNI = jpDataLNI.instance()           # Singleton. See manager.py
         self._Census = jpDataCensus.instance()     # Singleton. See manager.py
         self._MHLW = jpDataMHLW.instance()         # Singleton. See manager.py
         self._pin_layer = None
         self._mesh_layer = None
+        self._setup_ui_static_text()
 
     def _create_pin_layer(self):
         # Memory Layer For Address Search
@@ -256,6 +256,12 @@ class JPDataUIHandler:
         self._dw.myPB_Addr_4.setText(TR.ADD_GRATICULES())
 
     def _setup_tab_setting(self, i):
+        self._dw.myPushButton2.clicked.connect(self.chooseFolder)
+        # For local testing purpose
+        if self._verbose:
+            self._dw.myPushButtonTest.clicked.connect(self._test_verbose)
+        else:
+            self._dw.myPushButtonTest.hide()
         self._dw.myCheckBox1.setText(TR.SETTING_BACKGROUND())
         self._dw.myCheckBox2.setText(TR.SETTING_GEOMETRY())
         self._dw.myCheckBox2.setChecked(True)
@@ -269,7 +275,24 @@ class JPDataUIHandler:
                 item.setData(0, Qt.UserRole, index)
                 item.setCheckState(0, Qt.Checked)
         tree.expandAll()
-    
+
+    def _test_verbose(self):
+        self._dw.myTabWidget.setTabVisible(0, False)
+        # pass
+        # This is a method for local testing purpose.
+
+    def chooseFolder(self):
+        from qgis.PyQt.QtWidgets import QFileDialog
+
+        folder = QFileDialog.getExistingDirectory(
+            self._iface.mainWindow(), TR.CHOOSE_FOLDER(), self._folderPath
+        )
+        if folder:
+            self._folderPath = folder
+            QSettings().setValue("jpdata/FolderPath", folder)
+            self._set_download_fullpath(folder)
+            self._dw.myLabel1.setText(folder)
+
     def _tree_item_changed(self, item, column):
         tab = item.data(0, Qt.UserRole)
         if tab is None:
@@ -371,9 +394,10 @@ class JPDataUIHandler:
 
     def _addr_populate_init_values(self):
         self._populate_CB("allprefs", self._dw.myCB_Addr_1, add_empty_item=True)
-        projs = self._Muni.get_projections()
-        for proj in projs:
-            self._dw.myCB_Addr_Projection.addItem(proj)
+        if hasattr(self, "_Muni"):
+            projs = self._Muni.get_projections()
+            for proj in projs:
+                self._dw.myCB_Addr_Projection.addItem(proj)
 
     def enable_download(self, enable=True):
         if enable:

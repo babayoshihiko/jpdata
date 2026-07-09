@@ -109,13 +109,6 @@ class JPDataManager:
         # Tab Address
         self._dw.myPB_Addr_1.clicked.connect(self._myPB_Addr_dl_clicked)
 
-        # Tab Setting
-        self._dw.myPushButton2.clicked.connect(self.chooseFolder)
-        # For local testing purpose
-        if self._verbose:
-            self._dw.myPushButtonTest.clicked.connect(self._test_verbose)
-        else:
-            self._dw.myPushButtonTest.hide()
 
         # Downloader
         self._downloader.setProxyServer(self._proxyServer)
@@ -145,10 +138,6 @@ class JPDataManager:
             self._dw = None
             self._ui = None
 
-    def _test_verbose(self):
-        self._dw.myTabWidget.setTabVisible(0, False)
-        # pass
-        # This is a method for local testing purpose.
 
     def _add_map(
         self,
@@ -246,19 +235,6 @@ class JPDataManager:
 
 
 
-
-
-    def chooseFolder(self):
-        from qgis.PyQt.QtWidgets import QFileDialog
-
-        folder = QFileDialog.getExistingDirectory(
-            self._iface.mainWindow(), TR.CHOOSE_FOLDER(), self._folderPath
-        )
-        if folder:
-            self._folderPath = folder
-            QSettings().setValue("jpdata/FolderPath", folder)
-            self._set_download_fullpath(folder)
-            self._dw.myLabel1.setText(folder)
 
     def _addTile(self):
         from qgis.core import QgsRasterLayer, QgsProject
