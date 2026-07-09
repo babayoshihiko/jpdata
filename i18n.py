@@ -119,6 +119,13 @@ class TR:
         )
 
     @staticmethod
+    def CREATE_THIRD_MESH():
+        return QCoreApplication.translate(
+            "jpData",
+            "Create tertiary mesh from selection"
+        )
+
+    @staticmethod
     def DONE():
         return QCoreApplication.translate("jpData", "...Done")
 
