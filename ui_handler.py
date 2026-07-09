@@ -795,11 +795,8 @@ class JPDataUIHandler:
         return layer
 
     def add_mesh_layer(self):
-        """日本をカバーする1次メッシュを追加し、メッシュコードをラベル表示する"""
-
         # Memory Layer For Address Search
         layers = QgsProject.instance().mapLayersByName("Mesh")
-
         if layers:
             self._mesh_layer = layers[0]
         else:
@@ -808,23 +805,17 @@ class JPDataUIHandler:
                 "Mesh",
                 "memory"
             )
-
         pr = self._mesh_layer.dataProvider()
         pr.addAttributes([QgsField("code_mesh", QVariant.String)])
         self._mesh_layer.updateFields()
-
         features = []
-
         for p in range(30, 69):
             for u in range(22, 46):
-
                 code = f"{p}{u}"
-
                 lat0 = p / 1.5
                 lon0 = u + 100
                 lat1 = lat0 + 40 / 60
                 lon1 = lon0 + 1
-
                 geom = QgsGeometry.fromPolygonXY([[
                     QgsPointXY(lon0, lat0),
                     QgsPointXY(lon1, lat0),
@@ -832,88 +823,63 @@ class JPDataUIHandler:
                     QgsPointXY(lon0, lat1),
                     QgsPointXY(lon0, lat0),
                 ]])
-
                 feat = QgsFeature(self._mesh_layer.fields())
                 feat["code_mesh"] = code
                 feat.setGeometry(geom)
                 features.append(feat)
-
         pr.addFeatures(features)
         self._mesh_layer.updateExtents()
-
-        # ラベル設定
+        # Label
         fmt = QgsTextFormat()
         fmt.setFont(QFont("Meiryo", 8))
-
         settings = QgsPalLayerSettings()
         settings.fieldName = "code_mesh"
         settings.setFormat(fmt)
-
         self._mesh_layer.setLabeling(QgsVectorLayerSimpleLabeling(settings))
         self._mesh_layer.setLabelsEnabled(True)
-
-
-        # 薄いグレーの塗りつぶし・枠線
+        # Symbol
         symbol = self._mesh_layer.renderer().symbol()
         symbol.setColor(QColor(230, 230, 230, 51))      # α=51≒80%透明
         symbol.symbolLayer(0).setStrokeColor(QColor(180, 180, 180))
         symbol.symbolLayer(0).setStrokeWidth(0.1)
-
-        # レイヤ全体の透過率（こちらでも可）
-        # self._mesh_layer.setOpacity(0.2)   # 不透明度20% = 透過率80%
-
-        # プロジェクトに追加
         QgsProject.instance().addMapLayer(self._mesh_layer)
-
-        # レイヤツリーの一番上へ移動
+        # Layer tree
         root = QgsProject.instance().layerTreeRoot()
         node = root.findLayer(self._mesh_layer.id())
         clone = node.clone()
         root.insertChildNode(0, clone)
         root.removeChildNode(node)
-
         return self._mesh_layer
 
 
     def on_context_menu(self, menu):
-        action = menu.addAction("選択したメッシュから3次メッシュを作成")
+        action = menu.addAction(TR.CREATE_THIRD_MESH())
         action.triggered.connect(self.add_mesh3_from_selected)
     
     def on_canvas_context_menu(self, menu, event):
-        action = menu.addAction("選択したメッシュから3次メッシュを作成")
+        action = menu.addAction(TR.CREATE_THIRD_MESH())
         action.triggered.connect(self.add_mesh3_from_selected)
 
     def add_mesh3_from_selected(self):
-        """選択された1次メッシュから3次メッシュレイヤを作成"""
-
         features = []
-
         pr = self._mesh_layer.dataProvider()
         for feat in self._mesh_layer.selectedFeatures():
             code1 = feat["code_mesh"]
-
             p = int(code1[:2])
             u = int(code1[2:4])
-
             lat0 = p / 1.5
             lon0 = u + 100
-
             for q in range(8):
                 for v in range(8):
-
                     lat2 = lat0 + q * (5 / 60)
                     lon2 = lon0 + v * (7.5 / 60)
-
                     for r in range(10):
                         for w in range(10):
-
                             code3 = f"{code1}{q}{v}{r}{w}"
-
                             y0 = lat2 + r * (30 / 3600)
                             x0 = lon2 + w * (45 / 3600)
                             y1 = y0 + 30 / 3600
                             x1 = x0 + 45 / 3600
-
                             geom = QgsGeometry.fromPolygonXY([[
                                 QgsPointXY(x0, y0),
                                 QgsPointXY(x1, y0),
@@ -921,12 +887,10 @@ class JPDataUIHandler:
                                 QgsPointXY(x0, y1),
                                 QgsPointXY(x0, y0),
                             ]])
-
                             f = QgsFeature(self._mesh_layer.fields())
                             f.setGeometry(geom)
                             f["code_mesh"] = code3
                             features.append(f)
-
         pr.addFeatures(features)
         self._mesh_layer.updateExtents()
 
