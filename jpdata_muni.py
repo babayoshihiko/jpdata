@@ -101,6 +101,12 @@ class jpDataMuni:
         year2digit = str(int(year) - 1)[2:]
         fullpath = posixpath.join(
             self._download_fullpath,
+            str(code_pref).zfill(2) + "_" + year4digit + ".csv",
+        )
+        if os.path.exists(fullpath):
+            return fullpath
+        fullpath = posixpath.join(
+            self._download_fullpath,
             str(code_pref).zfill(2) + "000-" + year2digit + ".0a",
             str(code_pref).zfill(2) + "_" + year4digit + ".csv",
         )
@@ -120,6 +126,7 @@ class jpDataMuni:
         csvfullpath = self.get_csv_fullpath(code_pref)
         if not csvfullpath:
             self.unzip_addr_data(code_pref)
+            csvfullpath = self.get_csv_fullpath(code_pref)
         if csvfullpath:
             self._current_pref = code_pref
             self._addr = jpDataUtils.get_records_from_csv(csvfullpath, encoding=encoding)
@@ -255,11 +262,10 @@ class jpDataMuni:
             return (None, None)
         for row in rows:
             if (
-                row[1] == name_muni
-                and row[2] == name_town
-                and row[4] == ""
+                row["市区町村名"] == name_muni
+                and row["大字・丁目名"] == name_town
             ):
-                return self._float(float(row[9]), float(row[8]))
+                return self._float(float(row["経度"]), float(row["緯度"]))
         return (None, None)
 
     def _get_lonlat_by_detail(self, name_pref, name_muni, name_town, detail_code):
@@ -268,12 +274,13 @@ class jpDataMuni:
         if rows is None:
             return (None, None)
         for row in rows:
+            jpDataUtils.printDebugLog(row)
             if (
-                row[1] == name_muni
-                and row[2] == name_town
-                and row[4] == detail_code
+                row["市区町村名"] == name_muni
+                and row["大字・丁目名"] == name_town
+                and row["街区符号・地番"] == detail_code
             ):
-                return self._float(float(row[9]), float(row[8]))
+                return self._float(float(row["経度"]), float(row["緯度"]))
         return (None, None)
 
     def get_projections(self):

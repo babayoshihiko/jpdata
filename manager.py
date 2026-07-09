@@ -45,9 +45,7 @@ class JPDataManager:
         self._set_download_fullpath(self._folderPath)
 
         self._downloader = jpDataDownloader.DownloadThread()
-        #self._dl_status = ""
-        #self._dl_url_zip = []
-        #self._dl_iter = 0
+
     
     def _set_download_fullpath(self, fullpath):
         self._Muni.set_download_folder(fullpath)
