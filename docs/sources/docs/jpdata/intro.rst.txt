@@ -25,6 +25,19 @@ jpData for QGIS を初めて使うとき、タブのうち一番右側にある 
 ここでは、まずは ``Shape Folder`` は設定してください。
 ここで設定したフォルダにダウンロードしたファイルを保存します。
 
+下記の動画では、プラグイン jpData のインストールから国勢調査表示までを 1:30 ほどで行っています。
+
+.. raw:: html
+   
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/DpV9DTfFroQ?si=D6OTPPHFqtOK6jTw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+* 実験的プラグインをチェック
+* プラグインをインストール
+* jpData を開く
+* 保存先フォルダを選択
+* 国勢調査をダウンロード・地図に追加
+
+
 GIS データは巨大で、すぐに数 GB になります。
 十分な余裕のあるディスクを選んでください。
 
