@@ -76,6 +76,7 @@ class JPDataManager:
     def _setup_initial_ui_state(self):
         if self._folderPath != "~":
             self._dw.myLabel1.setText(self._folderPath)
+            self._ui._tab_changed(0)
             self._dw.myTabWidget.setCurrentIndex(0)
         else:
             self._dw.myLabel1.setText(TR.CHOOSE_FOLDER_INIT())
@@ -89,7 +90,6 @@ class JPDataManager:
 
     def _connect_signals(self):
         # Tab LNI
-        self._dw.myPushButton2.clicked.connect(self.chooseFolder)
         self._dw.myPushButton11.clicked.connect(self._tab1_download_all)
         self._dw.myPushButton14.clicked.connect(self._tab1_add_map)
 
@@ -109,7 +109,8 @@ class JPDataManager:
         # Tab Address
         self._dw.myPB_Addr_1.clicked.connect(self._myPB_Addr_dl_clicked)
 
-
+        # Tab Setting
+        self._dw.myPushButton2.clicked.connect(self.chooseFolder)
         # For local testing purpose
         if self._verbose:
             self._dw.myPushButtonTest.clicked.connect(self._test_verbose)
@@ -145,7 +146,8 @@ class JPDataManager:
             self._ui = None
 
     def _test_verbose(self):
-        pass
+        self._dw.myTabWidget.setTabVisible(0, False)
+        # pass
         # This is a method for local testing purpose.
 
     def _add_map(

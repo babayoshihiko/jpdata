@@ -26,7 +26,7 @@ from qgis.PyQt.QtCore import (
 )
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from qgis.PyQt.QtGui import QDesktopServices, QFont, QColor
-from qgis.PyQt.QtWidgets import QLabel
+from qgis.PyQt.QtWidgets import QLabel, QTreeWidgetItem
 from . import jpDataMesh
 from . import jpDataUtils
 from .i18n import TR
@@ -38,6 +38,14 @@ from .jpdata_muni import jpDataMuni
 
 class JPDataUIHandler:
     _verbose = True
+    TABS = {
+        0: TR.LANDNUMINFO(),
+        1: TR.GSI_TILES(),
+        2: TR.CENSUS(),
+        3: TR.MHLW(),
+        4: TR.ADDRESS(),
+        5: TR.SETTING()
+    }
 
     def __init__(self, iface, dockwidget, lang):
         self._iface = iface
@@ -127,6 +135,7 @@ class JPDataUIHandler:
         self._dw.myListWidget11.itemSelectionChanged.connect(self._LW11_itemSelectionChanged)
         self._dw.myListWidget12.itemSelectionChanged.connect(self._LW12_itemSelectionChanged)
         self._dw.myPushButton15.clicked.connect(self._lni_web)
+        self._dw.myPB_LNI_Wiki.clicked.connect(self._lni_wiki)
 
         # Tab Census
         self._dw.myListWidget31.currentItemChanged.connect(self._LW31_currentItemChanged)
@@ -145,6 +154,8 @@ class JPDataUIHandler:
         self._dw.myPB_Addr_2.clicked.connect(self._myPB_Addr_2_clicked)
         self._dw.myPB_Addr_3.clicked.connect(self._myPB_Addr_3_clicked)
         self._dw.myPB_Addr_4.clicked.connect(self._myPB_Addr_4_clicked)
+
+        self._dw.myTreeWidget.itemChanged.connect(self._tree_item_changed)
 
         # Tree View
         view = self._iface.layerTreeView()
@@ -167,16 +178,18 @@ class JPDataUIHandler:
         self._set_tab_mhlw(3)
         self._setup_tab_addr(4)
         self._setup_tab_setting(5)
+        for index, name in self.TABS.items():
+            self._dw.myTabWidget.setTabText(index, name)
 
 
     def _setup_tab1(self, i):
-        self._dw.myTabWidget.setTabText(i, TR.LANDNUMINFO())
         self._dw.myPushButton11.setText(TR.DOWNLOAD())
         self._dw.myPushButton11.setToolTip(TR.DOWNLOAD_LNI())
         self._dw.myPushButton14.setText(TR.ADD_TO_MAP())
         self._dw.myPushButton14.setToolTip(TR.ADD_TO_MAP_TOOLTIP())
         self._dw.myPushButton15.setText(TR.WEB())
         self._dw.myPushButton15.setToolTip(TR.WEB_TOOLTIP())
+        self._dw.myPB_LNI_Wiki.setText("Wiki")
 
         # Selection Modes
         self._dw.myListWidget12.setSelectionMode(
@@ -192,12 +205,10 @@ class JPDataUIHandler:
         self._dw.myListWidget13.hide()
 
     def _setup_tab2(self, i):
-        self._dw.myTabWidget.setTabText(i, TR.GSI_TILES())
         self._dw.myPushButton25.setText(TR.ADD_TO_MAP())
         self._dw.myPushButton25.setToolTip(TR.GSI_TILES_TOOLTIP())
     
     def _setup_tab3(self, i):
-        self._dw.myTabWidget.setTabText(i, TR.CENSUS())
         self._dw.myLabel31.setText(TR.YEAR())
         self._dw.myPushButton31.setText(TR.DOWNLOAD())
         self._dw.myPushButton32.setText(TR.ADD_TO_MAP())
@@ -227,7 +238,6 @@ class JPDataUIHandler:
         )
 
     def _set_tab_mhlw(self, i):
-        self._dw.myTabWidget.setTabText(i, TR.MHLW())
         self._dw.myPB_MHLW_1.setText(TR.WEB())
         self._dw.myPB_MHLW_2.setText(TR.DOWNLOAD())
         self._dw.myPB_MHLW_3.setText(TR.ADD_TO_MAP())
@@ -240,18 +250,35 @@ class JPDataUIHandler:
         self._dw.myPB_MHLW_Wiki.setText("Wiki")
 
     def _setup_tab_addr(self, i):
-        self._dw.myTabWidget.setTabText(i, TR.ADDRESS())
         self._dw.myPB_Addr_1.setText(TR.DOWNLOAD())
         self._dw.myPB_Addr_2.setText(TR.JUMP())
         self._dw.myPB_Addr_3.setText(TR.REPROJECT())
         self._dw.myPB_Addr_4.setText(TR.ADD_GRATICULES())
 
     def _setup_tab_setting(self, i):
-        self._dw.myTabWidget.setTabText(i, TR.SETTING())
         self._dw.myCheckBox1.setText(TR.SETTING_BACKGROUND())
         self._dw.myCheckBox2.setText(TR.SETTING_GEOMETRY())
         self._dw.myCheckBox2.setChecked(True)
 
+        tree = self._dw.myTreeWidget
+        tree.setHeaderHidden(True)
+        for index, name in self.TABS.items():
+            if name != TR.SETTING():
+                item = QTreeWidgetItem(tree)
+                item.setText(0, name)
+                item.setData(0, Qt.UserRole, index)
+                item.setCheckState(0, Qt.Checked)
+        tree.expandAll()
+    
+    def _tree_item_changed(self, item, column):
+        tab = item.data(0, Qt.UserRole)
+        if tab is None:
+            return
+
+        self._dw.myTabWidget.setTabVisible(
+            tab,
+            item.checkState(0) == Qt.Checked
+        )
 
     def _mesh1code(self, lat, lon):
         p = int(lat * 60 / 40)
@@ -546,7 +573,6 @@ class JPDataUIHandler:
                     lw.setCurrentItem(item)
                     break
 
-
     def _lni_web(self):
         items = self._dw.myListWidget11.selectedItems()
         if items:
@@ -555,6 +581,26 @@ class JPDataUIHandler:
             if item != "":
                 QDesktopServices.openUrl(QUrl(item["source"]))
 
+    def _lni_wiki(self):
+        items = self._dw.myListWidget11.selectedItems()
+        if items:
+            name_map = items[0].text()
+            web_wiki = "https://github.com/babayoshihiko/jpdata/wiki/" + name_map
+            QDesktopServices.openUrl(QUrl(web_wiki))
+
+    def _mhlw_web(self):
+        items = self._dw.myLW_MHLW.selectedItems()
+        if items:
+            item = self._MHLW.get_record(items[0].text())
+            if item["source"] != "":
+                QDesktopServices.openUrl(QUrl(item["source"]))
+
+    def _mhlw_wiki(self):
+        items = self._dw.myLW_MHLW.selectedItems()
+        if items:
+            name_map = items[0].text()
+            web_wiki = "https://github.com/babayoshihiko/jpdata/wiki/" + name_map
+            QDesktopServices.openUrl(QUrl(web_wiki))
 
     def _LW31_currentItemChanged(self, current, previous):
         if not current or current == previous or isinstance(current, int):
@@ -622,20 +668,6 @@ class JPDataUIHandler:
         years = self._MHLW.get_years(name_map)
         self._populate_CB(years, self._dw.myCB_MHLW)
 
-    def _mhlw_web(self):
-        items = self._dw.myLW_MHLW.selectedItems()
-        if items:
-            item = self._MHLW.get_record(items[0].text())
-            if item["source"] != "":
-                QDesktopServices.openUrl(QUrl(item["source"]))
-
-    def _mhlw_wiki(self):
-        items = self._dw.myLW_MHLW.selectedItems()
-        if items:
-            name_map = items[0].text()
-            web_wiki = "https://github.com/babayoshihiko/jpdata/wiki/" + name_map
-            QDesktopServices.openUrl(QUrl(web_wiki))
-        
 
     def _myPB_Addr_2_clicked(self):
         lon, lat = self._Muni.get_lonlat_by_addr(

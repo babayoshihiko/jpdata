@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="myTabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -83,6 +83,13 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="myPB_LNI_Wiki">
+            <property name="text">
+             <string>myPB_LNI_Wiki</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="myPushButton15">
@@ -365,17 +372,24 @@
         <string>tab_setting</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="myLineEditSetting2">
-          <property name="text">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
          <widget class="QLineEdit" name="myLineEditSetting1">
           <property name="text">
            <string notr="true">http://</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="myLabelSetting2">
+          <property name="text">
+           <string>Proxy Server</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QCheckBox" name="myCheckBox2">
+          <property name="text">
+           <string>myCheckBox2</string>
           </property>
          </widget>
         </item>
@@ -386,10 +400,30 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="myLabelSetting3">
+        <item row="8" column="1">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="myLineEditSetting3">
           <property name="text">
-           <string>Proxy User</string>
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="myLineEditSetting2">
+          <property name="text">
+           <string notr="true"/>
           </property>
          </widget>
         </item>
@@ -417,24 +451,10 @@
           </item>
          </layout>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="myLabelSetting4">
+        <item row="2" column="0">
+         <widget class="QLabel" name="myLabelSetting3">
           <property name="text">
-           <string>Proxy Password</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="myLabelSetting2">
-          <property name="text">
-           <string>Proxy Server</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="myLineEditSetting3">
-          <property name="text">
-           <string notr="true"/>
+           <string>Proxy User</string>
           </property>
          </widget>
         </item>
@@ -445,19 +465,6 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="1">
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="5" column="1">
          <widget class="QCheckBox" name="myCheckBox1">
           <property name="text">
@@ -465,11 +472,20 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
-         <widget class="QCheckBox" name="myCheckBox2">
+        <item row="3" column="0">
+         <widget class="QLabel" name="myLabelSetting4">
           <property name="text">
-           <string>myCheckBox2</string>
+           <string>Proxy Password</string>
           </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QTreeWidget" name="myTreeWidget">
+          <column>
+           <property name="text">
+            <string notr="true">1</string>
+           </property>
+          </column>
          </widget>
         </item>
        </layout>
