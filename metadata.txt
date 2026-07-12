@@ -8,7 +8,7 @@ name=jpdata
 qgisMinimumVersion=3.0
 qgisMaximumVersion=4.99
 description=Download and load various data of Japan
-version=0.7.2
+version=0.7.3
 author=Yoshihiko Baba
 email=babayoshihiko@mac.com
 
@@ -24,7 +24,10 @@ hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
 changelog=
       0.7.3
+        * Many bugfixes
+        * Address, reprojection and mesh
         * mesh code in status bar
+        * LNI A31b, P09
       0.7.2
         * Many bugfixes (Many thanks to MLIT College Geographical Survey Institute students 2026)
         * MHLW

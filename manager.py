@@ -598,8 +598,6 @@ class JPDataManager:
 
 
     def _tab_mhlw_iter(self, process):
-        # if not self._tab1CheckSelected():
-        #     return
         year = self._dw.myCB_MHLW.currentText()
         these_services = self._dw.myLW_MHLW.selectedItems()
 
