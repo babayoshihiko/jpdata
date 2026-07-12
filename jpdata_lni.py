@@ -68,7 +68,7 @@ class jpDataLNI:
         if name_map is None:
             jpDataUtils.printDebugLog("jpdata_lni.py: the argument name_map is None.")
             return
-        self._clear_record()        
+        self._clear_record()
         self.record["name_map"] = name_map
         self.record["year"] = year
         self.record["name_pref"] = name_pref
@@ -143,21 +143,34 @@ class jpDataLNI:
             self.record["shp_fullpath"] = shp_fullpath
 
 
+
     def _set_record_from_source(self):
         type_muni = self.record["type_muni"]
         for row in self.source:
-            if row["year"] != self.record["year"]:
-                continue
-            if type_muni == "single" or type_muni == "all":
-                break
-            if type_muni == "detail" and row["detail1"] + " " + row["detail2"] == self.record["detail"]:
-                break
-            if type_muni == "regional" and "allprefs" == row["availability"] and (self.record["name_pref"] in jpDataUtils.PREF_NAMES["j"] or self.record["name_pref"] in jpDataUtils.PREF_NAMES["e"]): 
-                break
-            if type_muni == "regional" and self.record["name_pref"] == row["availability"]:
-                break
-            if type_muni == "mesh1":
-                break
+            if row["year"] == self.record["year"]:
+
+                if type_muni == "single" or type_muni == "all":
+                    self._set_record_from_row(row)
+                    break
+                elif type_muni == "detail" and row["detail1"] + " " + row["detail2"] == self.record["detail"]:
+                    self._set_record_from_row(row)
+                    break
+                elif (
+                        type_muni == "regional"
+                        and row["availability"] == "allprefs") and (
+                        self.record["name_pref"] in jpDataUtils.PREF_NAMES["j"].values()
+                        or self.record["name_pref"] in jpDataUtils.PREF_NAMES["e"].values()
+                    ):
+                    self._set_record_from_row(row)
+                    break
+                elif type_muni == "regional" and self.record["name_pref"] == row["availability"]:
+                    self._set_record_from_row(row)
+                    break
+                elif type_muni == "mesh1":
+                    self._set_record_from_row(row)
+                    break
+
+    def _set_record_from_row(self, row):
         self.record["url"] = row["url"]
         self.record["zip"] = row["zip"]
         self.record["shp"] = row["shp"]
@@ -165,7 +178,6 @@ class jpDataLNI:
         self.record["qml"] = row["qml"] if "qml" in row else self.record["qml"]
         self.record["epsg"] = row["epsg"] if "encoding" in row else self.record["epsg"]
         self.record["encoding"] = row["encoding"] if "encoding" in row else self.record["encoding"]
-
 
 
     def get_record(self):
