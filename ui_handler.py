@@ -25,7 +25,7 @@ from qgis.PyQt.QtCore import (
     QPointF
 )
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
-from qgis.PyQt.QtGui import QDesktopServices, QFont, QColor
+from qgis.PyQt.QtGui import QDesktopServices, QFont, QColor, QFontMetrics
 from qgis.PyQt.QtWidgets import QLabel, QTreeWidgetItem
 from . import jpDataMesh
 from . import jpDataUtils
@@ -630,19 +630,13 @@ class JPDataUIHandler:
 
     def populate_folder(self, folder):
         home = os.path.expanduser("~")
-        jpDataUtils.printDebugLog(home)
         if folder.startswith(home + os.sep):
-            jpDataUtils.printDebugLog("635")
-            if len(folder) < 10:
-                display = "~" + folder[len(home):]
-            else:
-                display = "~/..." + folder[-7:]
+            display = "~" + folder[len(home):]
         elif folder == home:
             display = "~"
-        elif len(folder) > 10:
-            display = folder[:3] + "..." + folder[-13:]
-        else:
-            display = folder
+
+        fm = QFontMetrics(self._dw.myLabel1.font())
+        display = fm.elidedText(display, Qt.TextElideMode.ElideMiddle, self._dw.myLabel1.width())
 
         self._dw.myLabel1.setText(display)
         self._dw.myLabel1.setToolTip(folder)
