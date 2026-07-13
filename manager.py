@@ -58,7 +58,7 @@ class JPDataManager:
             from .jpdata_dockwidget import jpdataDockWidget
             self._dw = jpdataDockWidget()
 
-        self._ui = JPDataUIHandler(self._iface, self._dw, self._lang)
+        self._ui = JPDataUIHandler(self, self._iface, self._dw, self._lang)
         self._connect_signals()
         self._setup_initial_ui_state()
 
@@ -73,7 +73,7 @@ class JPDataManager:
 
     def _setup_initial_ui_state(self):
         if self._folderPath != "~":
-            self._dw.myLabel1.setText(self._folderPath)
+            self._ui.populate_folder(self._folderPath)
             self._ui._tab_changed(0)
             self._dw.myTabWidget.setCurrentIndex(0)
         else:
@@ -598,6 +598,8 @@ class JPDataManager:
 
 
     def _tab_mhlw_iter(self, process):
+        # if not self._tab1CheckSelected():
+        #     return
         year = self._dw.myCB_MHLW.currentText()
         these_services = self._dw.myLW_MHLW.selectedItems()
 
@@ -676,6 +678,15 @@ class JPDataManager:
             posixpath.join(self._folderPath, "Addr", zip),
         )
         self._downloader.start()
+
+    def set_folder(self, folder):
+        if folder:
+            self._folderPath = folder
+            QSettings().setValue("jpdata/FolderPath", folder)
+            self._set_download_fullpath(folder)
+
+    def get_folder(self):
+        return self._folderPath
 
 
 # End of manager.py

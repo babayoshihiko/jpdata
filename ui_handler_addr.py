@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os
+import os, posixpath
 from qgis.core import (
     QgsApplication,
     QgsVectorLayer,
@@ -98,23 +98,31 @@ class JPDataUIHandlerAddr:
                 "Address Pin",
                 "memory"
             )
+            try:
+                # PyQt6
+                from qgis.PyQt.QtCore import QMetaType
+                STRING_TYPE = QMetaType.Type.QString
+            except (ImportError, AttributeError):
+                # PyQt5
+                from qgis.PyQt.QtCore import QVariant
+                STRING_TYPE = QVariant.String
             pr = self._pin_layer.dataProvider()
             pr.addAttributes([
-                QgsField("name", QMetaType.Type.QString),
-                QgsField("pref", QMetaType.Type.QString),
-                QgsField("muni", QMetaType.Type.QString),
+                QgsField("name", STRING_TYPE),
+                QgsField("pref", STRING_TYPE),
+                QgsField("muni", STRING_TYPE),
             ])
             self._pin_layer.updateFields()
             svg_path = None
             for p in QgsApplication.svgPaths():
-                candidate = os.path.join(p, "symbol", "blue-marker.svg")
+                candidate = posixpath.join(p, "symbol", "blue-marker.svg")
                 if os.path.exists(candidate):
                     svg_path = candidate
                     break
             if svg_path:
                 symbol = QgsMarkerSymbol.createSimple({})
                 svg_layer = QgsSvgMarkerSymbolLayer(svg_path)
-                svg_layer.setSize(128)  # 32 px
+                svg_layer.setSize(128)
                 svg_layer.setSizeUnit(QgsUnitTypes.RenderPixels)
                 svg_layer.setOffset(QPointF(0, -64))
                 svg_layer.setOffsetUnit(QgsUnitTypes.RenderPixels)
@@ -160,7 +168,7 @@ class JPDataUIHandlerAddr:
     def set_pin(self,lon,lat):
         self._create_pin_layer()
         pr = self._pin_layer.dataProvider()
-        pr.truncate()
+        # pr.truncate()
         feat = QgsFeature(self._pin_layer.fields())
         feat.setGeometry(
             QgsGeometry.fromPointXY(QgsPointXY(lon,lat))

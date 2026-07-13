@@ -11,7 +11,7 @@ from qgis.PyQt.QtCore import (
 
 def setup_translation(plugin_dir, plugin_name):
 
-    locale = QSettings().value('locale/userLocale')[0:2]
+    locale = str(QSettings().value("locale/userLocale", "en"))[:2]
 
     qt_major = QT_VERSION_STR.split('.')[0]
 

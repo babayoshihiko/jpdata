@@ -41,7 +41,8 @@ from .ui_handler_addr import JPDataUIHandlerAddr
 class JPDataUIHandler:
     _verbose = True
 
-    def __init__(self, iface, dockwidget, lang):
+    def __init__(self, manager, iface, dockwidget, lang):
+        self._manager = manager
         self._iface = iface
         self._dw = dockwidget
         self._lang = lang
@@ -64,42 +65,6 @@ class JPDataUIHandler:
         self._setup_ui_static_text()
         self._ui_addr = None
 
-
-    def _create_pin_layer(self):
-        # Memory Layer For Address Search
-        layers = QgsProject.instance().mapLayersByName("Address Pin")
-
-        if layers:
-            self._pin_layer = layers[0]
-        else:
-            self._pin_layer = QgsVectorLayer(
-                f"Point?crs={QgsProject.instance().crs().authid()}",
-                "Address Pin",
-                "memory"
-            )
-            pr = self._pin_layer.dataProvider()
-            pr.addAttributes([
-                QgsField("name", QMetaType.Type.QString),
-                QgsField("pref", QMetaType.Type.QString),
-                QgsField("muni", QMetaType.Type.QString),
-            ])
-            self._pin_layer.updateFields()
-            svg_path = None
-            for p in QgsApplication.svgPaths():
-                candidate = os.path.join(p, "symbol", "blue-marker.svg")
-                if os.path.exists(candidate):
-                    svg_path = candidate
-                    break
-            if svg_path:
-                symbol = QgsMarkerSymbol.createSimple({})
-                svg_layer = QgsSvgMarkerSymbolLayer(svg_path)
-                svg_layer.setSize(128)  # 32 px
-                svg_layer.setSizeUnit(QgsUnitTypes.RenderPixels)
-                svg_layer.setOffset(QPointF(0, -64))
-                svg_layer.setOffsetUnit(QgsUnitTypes.RenderPixels)
-                symbol.changeSymbolLayer(0, svg_layer)
-                self._pin_layer.renderer().setSymbol(symbol)
-            QgsProject.instance().addMapLayer(self._pin_layer)
 
     def unload(self):
         try:
@@ -262,17 +227,6 @@ class JPDataUIHandler:
         # pass
         # This is a method for local testing purpose.
 
-    def chooseFolder(self):
-        from qgis.PyQt.QtWidgets import QFileDialog
-
-        folder = QFileDialog.getExistingDirectory(
-            self._iface.mainWindow(), TR.CHOOSE_FOLDER(), self._folderPath
-        )
-        if folder:
-            self._folderPath = folder
-            QSettings().setValue("jpdata/FolderPath", folder)
-            self._set_download_fullpath(folder)
-            self._dw.myLabel1.setText(folder)
 
     def _lni_populate_init_values(self):
         self._LNI.init()
@@ -660,3 +614,35 @@ class JPDataUIHandler:
         code = self._mesh1code(pt.y(), pt.x())
         self.meshLabel.setText(f"mesh: {code}")
         return code
+
+
+    def chooseFolder(self):
+        from qgis.PyQt.QtWidgets import QFileDialog
+
+        folder = QFileDialog.getExistingDirectory(
+            self._iface.mainWindow(), 
+            TR.CHOOSE_FOLDER(), 
+            self._manager.get_folder()
+        )
+        if folder:
+            self._manager.set_folder(folder)
+            self.populate_folder(folder)
+
+    def populate_folder(self, folder):
+        home = os.path.expanduser("~")
+        jpDataUtils.printDebugLog(home)
+        if folder.startswith(home + os.sep):
+            jpDataUtils.printDebugLog("635")
+            if len(folder) < 10:
+                display = "~" + folder[len(home):]
+            else:
+                display = "~/..." + folder[-7:]
+        elif folder == home:
+            display = "~"
+        elif len(folder) > 10:
+            display = folder[:3] + "..." + folder[-13:]
+        else:
+            display = folder
+
+        self._dw.myLabel1.setText(display)
+        self._dw.myLabel1.setToolTip(folder)
