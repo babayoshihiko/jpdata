@@ -39,8 +39,16 @@ class jpDataMHLW:
     def get_records(self):
         return self._records
     
-    def get_record(self, name_map):
-        return self._records[name_map]
+    def get_record(self, name_map, year):
+        self._set_source()
+        for row in self._source:
+            if (row.get("name_j") == name_map or row.get("name_e") == name_map) and row.get("year") == year:
+                row["subfolder"] = "MHLW"
+                row["epsg"] = "6668"
+                row["encoding"] = "UTF-8"
+                row["zip_fullpath"] = posixpath.join(self._download_fullpath, year, row.get("zip"))
+                row["shp_fullpath"] = posixpath.join(self._download_fullpath, year, row.get("shp"))
+                return row
 
     def get_years(self, name):
         self._set_source()
