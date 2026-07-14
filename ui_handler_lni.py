@@ -174,8 +174,6 @@ class JPDataUIHandlerLNI:
         name_pref = None
         if len(self._dw.myListWidget12.selectedItems()) > 0:
             name_pref = self._dw.myListWidget12.selectedItems()[0].text()
-        jpDataUtils.printDebugLog("177")
-        jpDataUtils.printDebugLog(name_pref)
         years = self._LNI.get_years(name_map, name_pref)
         self._ui.populate_CB(years, self._dw.myComboBox11)
 
