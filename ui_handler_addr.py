@@ -57,10 +57,10 @@ class JPDataUIHandlerAddr:
 
         self._dw.myTreeWidget.itemChanged.connect(self._tree_item_changed)
 
-        # Tree View
-        view = self._iface.layerTreeView()
-        view.contextMenuAboutToShow.connect(self.on_context_menu)
-        self._iface.mapCanvas().contextMenuAboutToShow.connect(self.on_canvas_context_menu)
+        # Tree View  contextMenuAboutToShow since QGIS 3.40
+        # view = self._iface.layerTreeView()
+        # view.contextMenuAboutToShow.connect(self.on_context_menu)
+        # self._iface.mapCanvas().contextMenuAboutToShow.connect(self.on_canvas_context_menu)
 
         # Create mesh
         self.mesh3_action = QAction(TR.CREATE_THIRD_MESH(), self._iface.mainWindow())
@@ -98,19 +98,11 @@ class JPDataUIHandlerAddr:
                 "Address Pin",
                 "memory"
             )
-            try:
-                # PyQt6
-                from qgis.PyQt.QtCore import QMetaType
-                STRING_TYPE = QMetaType.Type.QString
-            except (ImportError, AttributeError):
-                # PyQt5
-                from qgis.PyQt.QtCore import QVariant
-                STRING_TYPE = QVariant.String
             pr = self._pin_layer.dataProvider()
             pr.addAttributes([
-                QgsField("name", STRING_TYPE),
-                QgsField("pref", STRING_TYPE),
-                QgsField("muni", STRING_TYPE),
+                self._create_string_field("name"),
+                self._create_string_field("pref"),
+                self._create_string_field("muni"),
             ])
             self._pin_layer.updateFields()
             svg_path = None
@@ -129,6 +121,30 @@ class JPDataUIHandlerAddr:
                 symbol.changeSymbolLayer(0, svg_layer)
                 self._pin_layer.renderer().setSymbol(symbol)
             QgsProject.instance().addMapLayer(self._pin_layer)
+
+
+    def _create_string_field(self, name):
+        # QGIS 3.22 and earlier
+        try:
+            from qgis.PyQt.QtCore import QVariant
+            return QgsField(name, QVariant.String)
+        except Exception:
+            pass
+
+        # Qt6/QGIS4 and QGIS3.40
+        try:
+            from qgis.PyQt.QtCore import QMetaType
+            return QgsField(name, QMetaType.QString)
+        except Exception:
+            pass
+
+        try:
+            from qgis.PyQt.QtCore import QMetaType
+            return QgsField(name, QMetaType.Type.QString)
+        except Exception:
+            pass
+
+        raise RuntimeError("No compatible string type found for QgsField")
 
     def _tree_item_changed(self, item, column):
         tab = item.data(0, Qt.UserRole)

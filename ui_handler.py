@@ -625,15 +625,23 @@ class JPDataUIHandler:
             self._manager.get_folder()
         )
         if folder:
-            self._manager.set_folder(folder)
-            self.populate_folder(folder)
+            if self._manager.set_folder(folder):
+                self.populate_folder(folder)
+            else:
+                self.populate_folder("~")
+                self.setLabel(TR.CHOOSE_FOLDER_INIT())
+
 
     def populate_folder(self, folder):
-        home = os.path.expanduser("~")
-        if folder.startswith(home + os.sep):
-            display = "~" + folder[len(home):]
-        elif folder == home:
+        home = os.path.normpath(os.path.expanduser("~"))
+        folder = os.path.normpath(folder)
+
+        if os.path.normcase(folder) == os.path.normcase(home):
             display = "~"
+        elif os.path.normcase(folder).startswith(os.path.normcase(home + os.sep)):
+            display = "~" + folder[len(home):]
+        else:
+            display = folder
 
         fm = QFontMetrics(self._dw.myLabel1.font())
         display = fm.elidedText(display, Qt.TextElideMode.ElideMiddle, self._dw.myLabel1.width())

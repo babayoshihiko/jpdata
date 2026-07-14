@@ -680,13 +680,30 @@ class JPDataManager:
         self._downloader.start()
 
     def set_folder(self, folder):
-        if folder:
-            self._folderPath = folder
-            QSettings().setValue("jpdata/FolderPath", folder)
-            self._set_download_fullpath(folder)
+        if not folder:
+            return False
+        if not os.path.isdir(folder):
+            return False
+        if not self._is_writable(folder):
+            return False
+
+        self._folderPath = folder
+        QSettings().setValue("jpdata/FolderPath", folder)
+        self._set_download_fullpath(folder)
+        return True
 
     def get_folder(self):
         return self._folderPath
+
+    def _is_writable(self, folder):
+        try:
+            fd, path = tempfile.mkstemp(dir=folder)
+            os.close(fd)
+            os.remove(path)
+            return True
+        except OSError:
+            return False
+
 
 
 # End of manager.py
