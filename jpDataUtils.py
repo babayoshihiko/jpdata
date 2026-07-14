@@ -406,9 +406,6 @@ def unzipAndGetShp(
             return result
 
     # --- if not, unzip ---
-    printDebugLog("409")
-    printDebugLog(zip_file)
-    printDebugLog(shp_file)
     zipFileName = replaceCodes(zip_file, 
                                code_pref_or_mesh1=code_pref,
                                code_muni=code_muni,
@@ -453,9 +450,6 @@ def printLog(message):
 
 
 def unzip(folder_path, zip_file):
-    printDebugLog("457")
-    printDebugLog(folder_path)
-    printDebugLog(zip_file)
     return jpdata_unzip.unzip_qgis_safe(folder_path, zip_file)
 
 

@@ -197,16 +197,17 @@ class jpDataLNI:
             return years
         
         self._load_source(name_map)
+        type_muni = self.records[name_map].get("type_muni", "")
         if name_pref is None:
             for row in self.source:
                 years.append(row["year"])
         elif name_pref.replace("県", "") == "沖縄":
             for row in self.source:
-                if 1971 < int(row["year"]) and (row["availability"] == name_pref or row["availability"] != "regional"):
+                if 1971 < int(row["year"]) and (row["availability"] == name_pref or (type_muni != "regional" and type_muni != "detail")):
                     years.append(row["year"])
         else:
             for row in self.source:
-                if row["availability"] == name_pref or row["availability"] != "regional":
+                if row["availability"] == name_pref or (type_muni != "regional" and type_muni != "detail"):
                     years.append(row["year"])
         return jpDataUtils.unique_list(years)
 

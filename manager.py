@@ -372,9 +372,6 @@ class JPDataManager:
             for x in list_code:
                 self._set_lni_source(type_muni, name_map, year, name_pref, x)
                 record = self._LNI.get_record()
-                jpDataUtils.printDebugLog("375")
-                jpDataUtils.printDebugLog(record["download_fullpath"])
-                jpDataUtils.printDebugLog(record["zip"])
                 #jpDataUtils.unzip(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
                 shp_full_path = jpDataUtils.unzipAndGetShp(
                     record["download_fullpath"],
@@ -383,8 +380,6 @@ class JPDataManager:
                     record["shp"],
                     record["altdir"]
                 )
-                jpDataUtils.printDebugLog("383")
-                jpDataUtils.printDebugLog(shp_full_path)
                 if type_muni == "single":
                     layer_name =  record["name_map"] + " (" + year + ")"
                 elif type_muni == "" or type_muni == "regional":
@@ -555,7 +550,6 @@ class JPDataManager:
 
         qml = record["qml"]
         encoding = record["encoding"]
-        jpDataUtils.printDebugLog(record)
         if record["attr_csv"]:
             shp_full_path, encoding = self._Census.perform_join(
                 record["download_fullpath"],
