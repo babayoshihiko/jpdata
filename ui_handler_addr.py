@@ -172,7 +172,12 @@ class JPDataUIHandlerAddr:
         crs_src = QgsCoordinateReferenceSystem("EPSG:6668")  # JGD2011
         crs_dest = self._iface.mapCanvas().mapSettings().destinationCrs()
         transform = QgsCoordinateTransform(crs_src, crs_dest, QgsProject.instance())
-        point_project = transform.transform(point_jgd2011)
+        try:
+            point_project = transform.transform(point_jgd2011)
+        except Exception as e:
+            self.setLabel(str(e))
+            return
+
 
         # Set canvas center
         canvas = self._iface.mapCanvas()
@@ -213,7 +218,10 @@ class JPDataUIHandlerAddr:
         crs = QgsCoordinateReferenceSystem.fromProj(proj_string)
         if crs.isValid():
             QgsProject.instance().setCrs(crs)
-        self.add_graticule_layer()
+            self.add_graticule_layer()
+        else:
+            self.setLabel(TR.INVALID_PROJECTION())
+
 
     def _myPB_Addr_4_clicked(self):
         self.add_mesh_layer()
@@ -333,6 +341,8 @@ class JPDataUIHandlerAddr:
         # Layer tree
         root = QgsProject.instance().layerTreeRoot()
         node = root.findLayer(self._mesh_layer.id())
+        if node is None:
+            return self._mesh_layer
         clone = node.clone()
         root.insertChildNode(0, clone)
         root.removeChildNode(node)

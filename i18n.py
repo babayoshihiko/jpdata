@@ -163,6 +163,10 @@ class TR:
         )
 
     @staticmethod
+    def INVALID_PROJECTION():
+        return QCoreApplication.translate("jpData", "Invalid projection")
+
+    @staticmethod
     def JUMP():
         return QCoreApplication.translate("jpData", "Jump")
 
