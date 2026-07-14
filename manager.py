@@ -296,7 +296,7 @@ class JPDataManager:
 
     def _start_download(self, url, subFolder, zipFileName):
         if not os.path.exists(posixpath.join(self._folderPath, subFolder)):
-            os.mkdir(posixpath.join(self._folderPath, subFolder))
+            os.makedirs(posixpath.join(self._folderPath, subFolder), exist_ok=True)
 
         if not os.path.exists(posixpath.join(self._folderPath, subFolder, zipFileName)):
             self.set_proxy()
@@ -605,22 +605,24 @@ class JPDataManager:
 
         if process == "add":
             for this_service in these_services:
-                (
-                    zip_filename,
-                    shp_filename,
-                    altdir,
-                    qml_filename,
-                    epsg,
-                    encoding,
-                    subfolder,
-                    layer_name,
-                    xField,
-                    yField
-                ) =  self._MHLW.get_zip(
-                    year,
-                    this_service.text(),
-                    type="add"
-                )
+                record = self._MHLW.get_record(this_service.text(), year)
+                if record is None:
+                    self.setLabel(TR.CANNOT_FIND_FILE(this_service.text()))
+                    return
+                zip_filename = record.get("zip")
+                shp_filename = record.get("shp")
+                altdir = ""
+                qml_filename = record.get("qml")
+                epsg = record.get("epsg")
+                encoding = record.get("encoding")
+                subfolder = record.get("subfolder")
+                layer_name = this_service.text() + " (" + year + ")"
+                if record.get("code_map","")[:4] == "LTCI":
+                    xField = "経度"
+                    yField = "緯度"
+                else:
+                    xField = "事業所経度"
+                    yField = "事業所緯度"
                 shp_full_path = jpDataUtils.unzipAndGetShp(
                     posixpath.join(self._folderPath, subfolder),
                     year,

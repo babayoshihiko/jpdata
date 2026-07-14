@@ -43,7 +43,7 @@ class jpDataMHLW:
         self._set_source()
         for row in self._source:
             if (row.get("name_j") == name_map or row.get("name_e") == name_map) and row.get("year") == year:
-                row["subfolder"] = "MHLW"
+                row["subfolder"] = posixpath.join("MHLW", year)
                 row["epsg"] = "6668"
                 row["encoding"] = "UTF-8"
                 row["zip_fullpath"] = posixpath.join(self._download_fullpath, year, row.get("zip"))
