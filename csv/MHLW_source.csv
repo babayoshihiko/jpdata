@@ -1,4 +1,4 @@
-﻿name_j,code_map,name_e,year,url,zip,shp,altdir,qml
+name_j,code_map,name_e,year,url,zip,shp,altdir,qml
 訪問介護,LTCI_110,Home-Visit Care,2025年12月末時点,https://www.mhlw.go.jp/content/12300000/jigyosho_110.csv,jigyosho_110.csv,jigyosho_110.csv,,
 訪問入浴介護,LTCI_120,Home-Visit Bathing Care,2025年12月末時点,https://www.mhlw.go.jp/content/12300000/jigyosho_120.csv,jigyosho_120.csv,jigyosho_120.csv,,
 訪問看護,LTCI_130,Home-Visit Nursing,2025年12月末時点,https://www.mhlw.go.jp/content/12300000/jigyosho_130.csv,jigyosho_130.csv,jigyosho_130.csv,,
