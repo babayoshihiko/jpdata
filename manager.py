@@ -292,30 +292,6 @@ class JPDataManager:
     def _tab1_add_map(self):
         self._tab1_iter(process="add")
 
-
-
-    def _start_download(self, url, subFolder, zipFileName):
-        if not os.path.exists(posixpath.join(self._folderPath, subFolder)):
-            os.makedirs(posixpath.join(self._folderPath, subFolder), exist_ok=True)
-
-        if not os.path.exists(posixpath.join(self._folderPath, subFolder, zipFileName)):
-            self.set_proxy()
-            self.setLabel(TR.DOWNLOADING(zipFileName))
-            self._downloader.setUrl(url)
-            self._downloader.setFilePath(
-                posixpath.join(self._folderPath, subFolder, zipFileName)
-            )
-            self._ui.enable_download(False)
-            if self._dw.myCheckBox1.isChecked():
-                self._downloader.download_wo_thread()
-                self._ui.enable_download()
-            else:
-                self._downloader.start()
-        else:
-            # The file existance was checked, so this should not happen, but just in case
-            self.setLabel(TR.FILE_EXISTS(zipFileName))
-            self._ui.enable_download()
-
     def _download_finished(self):
         current_text = self._dw.myLabelStatus.text()
         self.setLabel(current_text + TR.DONE())
@@ -323,7 +299,6 @@ class JPDataManager:
         self._dw.progressBar.setValue(100)
 
     def _cancel_download(self):
-        self._dl_url_zip = []
         if self._downloader is not None:
             current_text = self._dw.myLabelStatus.text()
             self.setLabel(current_text + TR.CANCELLED())
@@ -396,31 +371,38 @@ class JPDataManager:
         if process == "add":
             for x in list_code:
                 self._set_lni_source(type_muni, name_map, year, name_pref, x)
-                jpDataUtils.unzip(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
+                record = self._LNI.get_record()
+                jpDataUtils.printDebugLog("375")
+                jpDataUtils.printDebugLog(record["download_fullpath"])
+                jpDataUtils.printDebugLog(record["zip"])
+                #jpDataUtils.unzip(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
                 shp_full_path = jpDataUtils.unzipAndGetShp(
-                    self._LNI.get_record()["download_fullpath"],
+                    record["download_fullpath"],
                     year,
-                    self._LNI.get_record()["zip"],
-                    self._LNI.get_record()["shp"],
-                    self._LNI.get_record()["altdir"]
+                    record["zip"],
+                    record["shp"],
+                    record["altdir"]
                 )
+                jpDataUtils.printDebugLog("383")
+                jpDataUtils.printDebugLog(shp_full_path)
                 if type_muni == "single":
-                    layer_name =  self._LNI.get_record()["name_map"] + " (" + year + ")"
+                    layer_name =  record["name_map"] + " (" + year + ")"
                 elif type_muni == "" or type_muni == "regional":
-                    layer_name =  self._LNI.get_record()["name_map"] + " (" + self._LNI.get_record()["name_pref"] + ", " + year + ")"
+                    layer_name =  record["name_map"] + " (" + record["name_pref"] + ", " + year + ")"
                 elif type_muni == "mesh1":
-                    layer_name =  self._LNI.get_record()["name_map"] + " (" + self._LNI.get_record()["code_mesh"] + ", " + year + ")"
+                    layer_name =  record["name_map"] + " (" + record["code_mesh"] + ", " + year + ")"
                 elif type_muni == "detail":
-                    layer_name =  self._LNI.get_record()["name_map"] + " (" + self._LNI.get_record()["detail"] + ", " + year + ")"
+                    layer_name =  record["name_map"] + " (" + record["detail"] + ", " + year + ")"
                 
                 self._add_map(
                     shp_full_path,
                     layer_name,
-                    qml=self._LNI.get_record()["qml"],
-                    encoding=self._LNI.get_record()["encoding"],
-                    epsg=self._LNI.get_record()["epsg"],
+                    qml=record["qml"],
+                    encoding=record["encoding"],
+                    epsg=record["epsg"],
                 )
         elif process == "download":
+            self._downloader.clearJobs()
             for x in list_code:
                 self._set_lni_source(type_muni, name_map, year, name_pref, x)
                 self._downloader.addJob(
@@ -488,8 +470,6 @@ class JPDataManager:
 
         if process == "download":
             self._downloader.clearJobs()
-            #self._dl_url_zip = []
-            #self._dl_iter = 0
 
         for item in list_item:
             record = self._set_census_source(
@@ -642,8 +622,6 @@ class JPDataManager:
                     yField=yField
                 )
         elif process == "download":
-            self._dl_url_zip = []
-            self._dl_iter = 0
             for this_service in these_services:
                 url, zip_filename, subfolder = self._MHLW.get_zip(
                     year,
@@ -669,8 +647,6 @@ class JPDataManager:
 
 
     def _myPB_Addr_dl_clicked(self):
-        self._dl_url_zip = []
-        self._dl_iter = 0
         name_pref = self._dw.myCB_Addr_1.currentText()
         code_pref = jpDataUtils.getPrefCodeByName(name_pref)
         url = self._Muni.get_url(code_pref)
