@@ -164,8 +164,13 @@ class JPDataManager:
                 f"&xField={xField}"
                 f"&yField={yField}"
             )
-
             layer = QgsVectorLayer(uri, layerName, "delimitedtext")
+            if layer.isValid():
+                layer.setCrs(QgsCoordinateReferenceSystem(f"EPSG:{epsg}"))
+            else:
+                from . import compatibility
+                layer = compatibility.add_map_qgis322(shpFileFullPath, layerName, xField, yField, epsg, encoding)
+
 
         else:
 
