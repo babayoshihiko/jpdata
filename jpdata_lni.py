@@ -2,6 +2,7 @@
 import os, csv, posixpath
 from . import jpDataUtils
 from .jpdata_muni import jpDataMuni
+from .i18n import TR
 
 
 class jpDataLNI:
@@ -229,7 +230,7 @@ class jpDataLNI:
         _allprefs = False
         for row in self.source:
             if row["availability"] == "allprefs":
-                if _allprefs == False:
+                if _allprefs is False:
                     _allprefs = True
                     for code_pref in range(1, 48):
                         prefs_or_regions.append(

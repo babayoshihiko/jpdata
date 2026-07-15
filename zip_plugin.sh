@@ -32,6 +32,7 @@ rm -f jpdata/csv/.~lock*
 rm -f jpdata/MEMO.py
 rm -f jpdata/MEMO.txt
 rm -rf jpdata/win
+rm -f pylupdate5
 rm -rf jpdata/docs
 rm -rf jpdata/temp
 

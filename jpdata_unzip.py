@@ -27,8 +27,9 @@ def _repair_filename(raw_filename: str, encodings_to_try: List[str]) -> str:
         # This is a lossless way to recover the original byte sequence from the garbled string.
         try:
             raw_bytes = raw_filename.encode(intermediate_enc)
-        except Exception:
-            # Skip this intermediate encoding if encoding fails (highly unlikely with latin1/cp437)
+        except UnicodeEncodeError:
+            # Skip this intermediate encoding if encoding fails 
+            # (highly unlikely with latin1/cp437)
             continue
 
         # 2. Try decoding the raw bytes with the candidate encodings

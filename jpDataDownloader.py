@@ -45,8 +45,8 @@ class DownloadThread(QThread):
         self._is_running = True
 
         self.proxy_server = None
-        self.proxy_user = ""
-        self.proxy_password = ""
+        self.proxy_user = None
+        self.proxy_password = None
 
         self.status_message = ""
         self.certificate = True
@@ -262,12 +262,12 @@ class DownloadThread(QThread):
         if not self.proxy_server:
             return proxies
 
-        user_pass = ""
+        proxy_string = ""
         if self.proxy_user:
-            user_pass = quote(self.proxy_user)
+            proxy_string = quote(self.proxy_user)
             if self.proxy_password:
-                user_pass += ":" + quote(self.proxy_password)
-            user_pass += "@"
+                proxy_string += ":" + quote(self.proxy_password)
+            proxy_string += "@"
 
         if self.proxy_server.lower().startswith("https://"):
             proxy_host = self.proxy_server.replace("https://", "")
@@ -277,7 +277,7 @@ class DownloadThread(QThread):
             proxy_host = self.proxy_server
 
         proxies = {
-            "http": f"http://{user_pass}{proxy_host}",
-            "https": f"http://{user_pass}{proxy_host}",
+            "http": f"http://{proxy_string}{proxy_host}",
+            "https": f"http://{proxy_string}{proxy_host}",
         }
         return proxies

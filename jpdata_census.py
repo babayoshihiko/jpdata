@@ -94,7 +94,7 @@ class jpDataCensus:
     def get_years(self, index_census):
         return list(self._CENSUS_YEAR_STATSID.get(index_census, {}).keys())
 
-    def get_attrs(type_, year):
+    def get_attrs(self, type_, year):
         try:
             return list(self._CENSUS_ATTR[year][type_].keys())
         except KeyError:

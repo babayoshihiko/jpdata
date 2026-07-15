@@ -12,6 +12,29 @@ from qgis.core import (
     QgsCoordinateReferenceSystem,
     QgsWkbTypes
 )
+from qgis.PyQt.QtCore import (
+    Qt, 
+    QVariant, 
+    QMetaType, 
+    QPointF
+)
+
+try:
+    from qgis.PyQt.QtCore import QMetaType
+
+    STRING = QMetaType.Type.QString
+    INT = QMetaType.Type.Int
+    DOUBLE = QMetaType.Type.Double
+    BOOL = QMetaType.Type.Bool
+    DATE = QMetaType.Type.QDate
+except ImportError:
+    from qgis.PyQt.QtCore import QVariant
+
+    STRING = QVariant.String
+    INT = QVariant.Int
+    DOUBLE = QVariant.Double
+    BOOL = QVariant.Bool
+    DATE = QVariant.Date
 
 
 def add_map_qgis322(shp_fullpath, layerName, xField, yField, epsg, encoding="UTF-8"):

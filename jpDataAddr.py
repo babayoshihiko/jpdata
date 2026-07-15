@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # For path join, poxispath.join seems a better option for cross-platform compatibility
 # when a path contains both slash and backslash.
-# import os, csv, posixpath
-# from . import jpDataMuni
+import os, posixpath
 from . import jpDataUtils
 from .jpdata_muni import jpDataMuni
 

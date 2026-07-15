@@ -19,15 +19,16 @@ from qgis.core import (
 )
 from qgis.PyQt.QtCore import (
     Qt, 
-    QVariant, 
-    QMetaType, 
     QPointF
 )
 from qgis.PyQt.QtGui import QFont, QColor
 from qgis.PyQt.QtWidgets import QAction
 from . import jpDataUtils
+from .compatibility import STRING, INT
 from .i18n import TR
 from .jpdata_muni import jpDataMuni
+
+
 
 
 class JPDataUIHandlerAddr:
@@ -82,10 +83,6 @@ class JPDataUIHandlerAddr:
                 self._dw.myCB_Addr_Projection.addItem(proj)
 
 
-    def unload(self):
-        pass
-
-
     def _create_pin_layer(self):
         # Memory Layer For Address Search
         layers = QgsProject.instance().mapLayersByName("Address Pin")
@@ -124,27 +121,7 @@ class JPDataUIHandlerAddr:
 
 
     def _create_string_field(self, name):
-        # QGIS 3.22 and earlier
-        try:
-            from qgis.PyQt.QtCore import QVariant
-            return QgsField(name, QVariant.String)
-        except Exception:
-            pass
-
-        # Qt6/QGIS4 and QGIS3.40
-        try:
-            from qgis.PyQt.QtCore import QMetaType
-            return QgsField(name, QMetaType.QString)
-        except Exception:
-            pass
-
-        try:
-            from qgis.PyQt.QtCore import QMetaType
-            return QgsField(name, QMetaType.Type.QString)
-        except Exception:
-            pass
-
-        raise RuntimeError("No compatible string type found for QgsField")
+        return QgsField(name, STRING)
 
     def _tree_item_changed(self, item, column):
         tab = item.data(0, Qt.UserRole)
@@ -258,8 +235,8 @@ class JPDataUIHandlerAddr:
         )
         provider = layer.dataProvider()
         provider.addAttributes([
-            QgsField("type", QVariant.String),
-            QgsField("value", QVariant.Int),
+            QgsField("type", STRING),
+            QgsField("value", INT),
         ])
         layer.updateFields()
         features = []
@@ -301,7 +278,7 @@ class JPDataUIHandlerAddr:
                 "memory"
             )
         pr = self._mesh_layer.dataProvider()
-        pr.addAttributes([QgsField("code_mesh", QVariant.String)])
+        pr.addAttributes([QgsField("code_mesh", STRING)])
         self._mesh_layer.updateFields()
         features = []
         for p in range(30, 69):
