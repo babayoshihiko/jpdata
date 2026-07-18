@@ -26,16 +26,13 @@ from .i18n import TR
 
 class JPDataUIHandlerSettings:
 
-    def __init__(self, iface, dockwidget, handler, lang):
+    def __init__(self, iface, dockwidget, handler, lang=None):
         self.settings = jpDataSettings.instance()
 
         self._iface = iface
         self._dw = dockwidget
         self._ui = handler
-        self._lang = lang
-
-        # self._folderPath = QSettings().value("jpdata/FolderPath", "~")
-        # self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
+        # self._lang = lang
 
         self._setup()
 
@@ -44,17 +41,17 @@ class JPDataUIHandlerSettings:
         tree.clear()
 
         tree.setColumnCount(2)
-        tree.setHeaderLabels(["項目", "値"])
+        tree.setHeaderLabels([TR.DESC(), TR.VALUE()])
 
         #
-        # 一般
+        # General
         #
         general = QTreeWidgetItem(tree)
-        general.setText(0, "一般")
+        general.setText(0, TR.GENERAL())
 
-        # ダウンロードフォルダ
+        # Download
         item = QTreeWidgetItem(general)
-        item.setText(0, "ダウンロードフォルダ")
+        item.setText(0, TR.DOWNLOAD_FOLDER())
 
         w = QWidget()
         layout = QHBoxLayout(w)
@@ -70,19 +67,15 @@ class JPDataUIHandlerSettings:
 
         btn.clicked.connect(self.chooseFolder)
 
-        # ジオメトリ
         item = QTreeWidgetItem(general)
-        item.setText(0, "ジオメトリをチェック")
+        item.setText(0, TR.CHECK_GEOM())
 
         self._geometryCheck = QCheckBox()
         self._geometryCheck.setChecked(True)
         tree.setItemWidget(item, 1, self._geometryCheck)
 
-        #
-        # プロキシ
-        #
         proxy = QTreeWidgetItem(tree)
-        proxy.setText(0, "プロキシ")
+        proxy.setText(0, TR.PROXY())
 
         def addLine(parent, title, value="", password=False):
             item = QTreeWidgetItem(parent)
@@ -96,14 +89,12 @@ class JPDataUIHandlerSettings:
             return edit
 
         self._proxyUrlEdit = addLine(proxy, "URL", self.settings.proxy_server)
-        self._proxyUserEdit = addLine(proxy, "ユーザ")
-        self._proxyPassEdit = addLine(proxy, "パスワード", password=True)
+        self._proxyUserEdit = addLine(proxy, TR.USER())
+        self._proxyPassEdit = addLine(proxy, TR.PASSWORD(), password=True)
 
-        #
-        # タブ
-        #
+        # Tab
         tabs = QTreeWidgetItem(tree)
-        tabs.setText(0, "タブ")
+        tabs.setText(0, TR.TAB())
 
         for index, name in self._ui.TABS.items():
             if name == TR.SETTING():

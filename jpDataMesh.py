@@ -24,7 +24,9 @@ def getMesh1ByPrefMuniName(name_pref, name_munis, lang="j"):
 
     for row in rows:
         for name_muni in name_munis:
-            if int(row["code_pref"]) == int_code_pref and row["name_muni_" + lang] == name_muni:
+            if int(row["code_pref"]) == int_code_pref and (
+                row["name_muni_e"] == name_muni or row["name_muni_j"] == name_muni
+            ):
                 if row["code_mesh1"] not in unique_mesh1s:
                     unique_mesh1s.append(row["code_mesh1"])
 

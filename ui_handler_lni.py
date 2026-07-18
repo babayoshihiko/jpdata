@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from qgis.PyQt.QtCore import (
-    Qt, 
-    QUrl, 
+    Qt,
+    QUrl,
 )
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView
 from qgis.PyQt.QtGui import QDesktopServices
@@ -13,24 +13,26 @@ from .jpdata_lni import jpDataLNI
 
 class JPDataUIHandlerLNI:
 
-    def __init__(self, iface, dockwidget, handler, lang):
+    def __init__(self, iface, dockwidget, handler, lang=None):
         self._iface = iface
         self._dw = dockwidget
         self._ui = handler
         self._lang = lang
         self._connect_signals()
-        self._LNI = jpDataLNI.instance()           # Singleton. See manager.py
+        self._LNI = jpDataLNI.instance()  # Singleton. See manager.py
         self._setup_ui_static_text()
         self._lni_populate_init_values()
 
-
     def _connect_signals(self):
         # Tab LNI
-        self._dw.myListWidget11.itemSelectionChanged.connect(self._LW11_itemSelectionChanged)
-        self._dw.myListWidget12.itemSelectionChanged.connect(self._LW12_itemSelectionChanged)
+        self._dw.myListWidget11.itemSelectionChanged.connect(
+            self._LW11_itemSelectionChanged
+        )
+        self._dw.myListWidget12.itemSelectionChanged.connect(
+            self._LW12_itemSelectionChanged
+        )
         self._dw.myPushButton15.clicked.connect(self._lni_web)
         self._dw.myPB_LNI_Wiki.clicked.connect(self._lni_wiki)
-
 
     def _setup_ui_static_text(self):
         self._dw.myPushButton11.setText(TR.DOWNLOAD())
@@ -54,21 +56,12 @@ class JPDataUIHandlerLNI:
         )
         self._dw.myListWidget13.hide()
 
-
     def _lni_populate_init_values(self):
         self._LNI.init()
         self._dw.myListWidget11.clear()
-        bg = (
-            Qt.GlobalColor.darkGray
-            if hasattr(Qt, "GlobalColor")
-            else Qt.darkGray
-        )
-        fg = (
-            Qt.GlobalColor.white if hasattr(Qt, "GlobalColor") else Qt.white
-        )
-        gray = (
-            Qt.GlobalColor.gray if hasattr(Qt, "GlobalColor") else Qt.gray
-        )
+        bg = Qt.GlobalColor.darkGray if hasattr(Qt, "GlobalColor") else Qt.darkGray
+        fg = Qt.GlobalColor.white if hasattr(Qt, "GlobalColor") else Qt.white
+        gray = Qt.GlobalColor.gray if hasattr(Qt, "GlobalColor") else Qt.gray
         for key, record in self._LNI.get_records().items():
             item = QListWidgetItem(key)
 
@@ -100,11 +93,18 @@ class JPDataUIHandlerLNI:
         muni_type = thisLandNum.get("type_muni", "").lower()
 
         def all_prefs():
-            return [jpDataUtils.getPrefNameByCode(code, self._lang) for code in range(1, 48)]
+            return [
+                jpDataUtils.getPrefNameByCode(code, self._LNI.settings.lang1)
+                for code in range(1, 48)
+            ]
 
         prev_muni_type = "DUMMY"
         if self._LNI.get_prev_name() != "":
-            prev_muni_type = self._LNI.get_records()[self._LNI.get_prev_name()].get("type_muni", "").lower() 
+            prev_muni_type = (
+                self._LNI.get_records()[self._LNI.get_prev_name()]
+                .get("type_muni", "")
+                .lower()
+            )
         if muni_type in ("", "allprefs"):
             if prev_muni_type in ("", "allprefs", "mesh1"):
                 bol_redraw_LW12 = False
@@ -166,7 +166,7 @@ class JPDataUIHandlerLNI:
         self._LNI.set_record(name_map, year, name_pref)
         thisLandNum = self._LNI.get_record()
         if thisLandNum["type_muni"].lower() in ("detail", "mesh1"):
-            self._LNI_is_Mesh = (thisLandNum["type_muni"].lower() == "mesh1")
+            self._LNI_is_Mesh = thisLandNum["type_muni"].lower() == "mesh1"
             self._tab1_set_LW13(name_map, name_pref)
 
     def _tab1_populate_years(self, name_map):
@@ -220,5 +220,3 @@ class JPDataUIHandlerLNI:
             name_map = items[0].text()
             web_wiki = "https://github.com/babayoshihiko/jpdata/wiki/" + name_map
             QDesktopServices.openUrl(QUrl(web_wiki))
-
-

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from qgis.PyQt.QtCore import (
-    Qt, 
+    Qt,
 )
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
 from . import jpDataMesh
@@ -12,24 +12,28 @@ from .jpdata_census import jpDataCensus
 
 class JPDataUIHandlerCensus:
 
-    def __init__(self, iface, dockwidget, handler, lang):
+    def __init__(self, iface, dockwidget, handler, lang=None):
         self._iface = iface
         self._dw = dockwidget
         self._ui = handler
-        self._lang = lang
+        # self._lang = lang
         self._connect_signals()
         self._Muni = jpDataMuni.instance()
-        self._Census = jpDataCensus.instance()     # Singleton. See manager.py
+        self._Census = jpDataCensus.instance()  # Singleton. See manager.py
         self._setup_ui_static_text()
         self._census_populate_init_values()
 
-
     def _connect_signals(self):
         # Tab Census
-        self._dw.myListWidget31.currentItemChanged.connect(self._LW31_currentItemChanged)
-        self._dw.myListWidget32.itemSelectionChanged.connect(self._LW32_itemSelectionChanged)
-        self._dw.myComboBox32.currentIndexChanged.connect(self._LW32_itemSelectionChanged)
-
+        self._dw.myListWidget31.currentItemChanged.connect(
+            self._LW31_currentItemChanged
+        )
+        self._dw.myListWidget32.itemSelectionChanged.connect(
+            self._LW32_itemSelectionChanged
+        )
+        self._dw.myComboBox32.currentIndexChanged.connect(
+            self._LW32_itemSelectionChanged
+        )
 
     def _setup_ui_static_text(self):
         self._dw.myLabel31.setText(TR.YEAR())
@@ -60,7 +64,6 @@ class JPDataUIHandlerCensus:
             else QAbstractItemView.ExtendedSelection
         )
 
-
     def _census_populate_init_values(self):
         index = self._dw.myComboBox32.currentIndex()
         self._ui.populate_CB(self._Census.get_years(index), self._dw.myComboBox31)
@@ -84,7 +87,7 @@ class JPDataUIHandlerCensus:
             name_munis = []
             for name_muni in self._dw.myListWidget32.selectedItems():
                 name_munis.append(name_muni.text())
-            details = jpDataMesh.getMesh1ByPrefMuniName(name_pref, name_munis, self._lang)
+            details = jpDataMesh.getMesh1ByPrefMuniName(name_pref, name_munis)
         self._ui.populate_LW(details, self._dw.myListWidget33)
 
     def _LW31_currentItemChanged(self, current, previous):

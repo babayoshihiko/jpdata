@@ -170,24 +170,16 @@ class JPDataUIHandler:
         """Called whenever the current tab changes."""
         if index == 0:
             if self._ui_lni is None:
-                self._ui_lni = JPDataUIHandlerLNI(
-                    self._iface, self._dw, self, self._lang
-                )
+                self._ui_lni = JPDataUIHandlerLNI(self._iface, self._dw, self)
         elif index == 2:
             if self._ui_census is None:
-                self._ui_census = JPDataUIHandlerCensus(
-                    self._iface, self._dw, self, self._lang
-                )
+                self._ui_census = JPDataUIHandlerCensus(self._iface, self._dw, self)
         elif index == 3:
             if self._ui_mhlw is None:
-                self._ui_mhlw = JPDataUIHandlerMHLW(
-                    self._iface, self._dw, self, self._lang
-                )
+                self._ui_mhlw = JPDataUIHandlerMHLW(self._iface, self._dw, self)
         elif index == 4:  # addr
             if self._ui_addr is None:
-                self._ui_addr = JPDataUIHandlerAddr(
-                    self._iface, self._dw, self, self._lang
-                )
+                self._ui_addr = JPDataUIHandlerAddr(self._iface, self._dw, self)
 
     def _mesh1code(self, lat, lon):
         p = int(lat * 60 / 40)
@@ -206,5 +198,6 @@ class JPDataUIHandler:
         else:
             pt = point
         code = self._mesh1code(pt.y(), pt.x())
-        self.meshLabel.setText(f"mesh: {code}")
+        if self.meshLabel is not None:
+            self.meshLabel.setText(f"mesh: {code}")
         return code

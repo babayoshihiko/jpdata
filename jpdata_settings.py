@@ -23,6 +23,8 @@ class jpDataSettings:
         self.proxy_user = ""
         self.proxy_password = self.proxy_user
         self.current_tab = 0
+        self.lang2 = self.locale
+        self.lang1 = self.lang2[:1]
 
     # ------------------------------------------------------------------
     # Persistent settings
@@ -84,4 +86,4 @@ class jpDataSettings:
             "en",
             type=str,
         )
-        return locale[:2]
+        return locale.lower()[:2]

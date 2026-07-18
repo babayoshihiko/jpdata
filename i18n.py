@@ -1,11 +1,6 @@
 # i18n.py
 import os
-from qgis.PyQt.QtCore import (
-    QCoreApplication,
-    QSettings,
-    QTranslator,
-    QT_VERSION_STR
-)
+from qgis.PyQt.QtCore import QCoreApplication, QSettings, QTranslator, QT_VERSION_STR
 
 
 class TR:
@@ -29,7 +24,7 @@ class TR:
     @staticmethod
     def ADD_GRATICULES():
         return QCoreApplication.translate("jpData", "Add Graticules")
-    
+
     @staticmethod
     def ADD_MESH():
         return QCoreApplication.translate("jpData", "Add Mesh")
@@ -41,20 +36,16 @@ class TR:
     @staticmethod
     def ADD_TO_MAP_TOOLTIP():
         return QCoreApplication.translate(
-            "jpData",
-            "Add Shapefile as a Layer to Map on QGIS"
+            "jpData", "Add Shapefile as a Layer to Map on QGIS"
         )
-    
+
     @staticmethod
     def ADDRESS():
         return QCoreApplication.translate("jpData", "Address")
 
     @staticmethod
     def ADDRESS_MISSING():
-        return QCoreApplication.translate(
-            "jpData",
-            "Address data is missing"
-        )
+        return QCoreApplication.translate("jpData", "Address data is missing")
 
     @staticmethod
     def CANCEL():
@@ -83,15 +74,16 @@ class TR:
         )
 
     @staticmethod
+    def CHECK_GEOM():
+        return QCoreApplication.translate("jpData", "Check Geometry")
+
+    @staticmethod
     def CHOOSE_FOLDER():
         return QCoreApplication.translate("jpData", "Choose Folder")
 
     @staticmethod
     def CHOOSE_FOLDER_INIT():
-        return QCoreApplication.translate(
-            "jpData",
-            "Choose folder for zip/shp files"
-        )
+        return QCoreApplication.translate("jpData", "Choose folder for zip/shp files")
 
     @staticmethod
     def CHOOSE_MAP_TYPE():
@@ -103,31 +95,25 @@ class TR:
 
     @staticmethod
     def CHOOSE_MUNICIPALITY():
-        return QCoreApplication.translate(
-            "jpData",
-            "Choose a municipality"
-        )
+        return QCoreApplication.translate("jpData", "Choose a municipality")
 
     @staticmethod
     def CHOOSE_PREFECTURE():
-        return QCoreApplication.translate(
-            "jpData",
-            "Choose a prefecture"
-        )
+        return QCoreApplication.translate("jpData", "Choose a prefecture")
 
     @staticmethod
     def CHOOSE_PREFECTURE_REGION():
-        return QCoreApplication.translate(
-            "jpData",
-            "Choose a prefecture or region"
-        )
+        return QCoreApplication.translate("jpData", "Choose a prefecture or region")
 
     @staticmethod
     def CREATE_THIRD_MESH():
         return QCoreApplication.translate(
-            "jpData",
-            "Create tertiary mesh from selection"
+            "jpData", "Create tertiary mesh from selection"
         )
+
+    @staticmethod
+    def DESC():
+        return QCoreApplication.translate("jpData", "Description")
 
     @staticmethod
     def DONE():
@@ -139,17 +125,21 @@ class TR:
 
     @staticmethod
     def DOWNLOAD_CENSUS():
-        return QCoreApplication.translate(
-            "jpData",
-            "Download census data by city"
-        )
+        return QCoreApplication.translate("jpData", "Download census data by city")
+
+    @staticmethod
+    def DOWNLOAD_FOLDER():
+        return QCoreApplication.translate("jpData", "Download Folder")
 
     @staticmethod
     def DOWNLOAD_LNI():
         return QCoreApplication.translate(
-            "jpData",
-            "Download Land Numerical Information data"
+            "jpData", "Download Land Numerical Information data"
         )
+
+    @staticmethod
+    def GENERAL():
+        return QCoreApplication.translate("jpData", "General")
 
     @staticmethod
     def GSI_TILES():
@@ -158,8 +148,7 @@ class TR:
     @staticmethod
     def GSI_TILES_TOOLTIP():
         return QCoreApplication.translate(
-            "jpData",
-            "Add GSI xyz tile server to Map on QGIS"
+            "jpData", "Add GSI xyz tile server to Map on QGIS"
         )
 
     @staticmethod
@@ -185,10 +174,18 @@ class TR:
     @staticmethod
     def NEIGHBOURHOOD():
         return QCoreApplication.translate("jpData", "Neighbourhood")
-    
+
     @staticmethod
     def NO_XY():
         return QCoreApplication.translate("jpData", "No coordinate data available")
+
+    @staticmethod
+    def PASSWORD():
+        return QCoreApplication.translate("jpData", "Password")
+
+    @staticmethod
+    def PROXY():
+        return QCoreApplication.translate("jpData", "Proxy")
 
     @staticmethod
     def REPROJECT():
@@ -204,17 +201,25 @@ class TR:
 
     @staticmethod
     def SETTING_BACKGROUND():
-        return QCoreApplication.translate(
-            "jpData",
-            "Turn off background download"
-        )
+        return QCoreApplication.translate("jpData", "Turn off background download")
 
     @staticmethod
     def SETTING_GEOMETRY():
         return QCoreApplication.translate(
-            "jpData",
-            "Check geometry validity when adding layers"
+            "jpData", "Check geometry validity when adding layers"
         )
+
+    @staticmethod
+    def TAB():
+        return QCoreApplication.translate("jpData", "Tab")
+
+    @staticmethod
+    def USER():
+        return QCoreApplication.translate("jpData", "User")
+
+    @staticmethod
+    def VALUE():
+        return QCoreApplication.translate("jpData", "Value")
 
     @staticmethod
     def WEB():
@@ -223,20 +228,19 @@ class TR:
     @staticmethod
     def WEB_TOOLTIP():
         return QCoreApplication.translate(
-            "jpData",
-            "Open the webpage with the standard browser"
+            "jpData", "Open the webpage with the standard browser"
         )
 
     @staticmethod
     def YEAR():
         return QCoreApplication.translate("jpData", "Year")
-    
-    # 
+
+    #
     # From this point
-    # 
+    #
     # The text accepts arguments
-    # 
-    # 
+    #
+    #
 
     @staticmethod
     def CANNOT_FIND_FILE(name):
@@ -284,17 +288,13 @@ class TR:
         )
         return template.replace("%1", str(value))
 
-
     def setup_translation(plugin_dir, plugin_name):
-        locale = QSettings().value('locale/userLocale')[0:2]
+        locale = QSettings().value("locale/userLocale")[0:2]
 
-        qt_major = QT_VERSION_STR.split('.')[0]
+        qt_major = QT_VERSION_STR.split(".")[0]
 
         locale_path = os.path.join(
-            plugin_dir,
-            'i18n',
-            f'qt{qt_major}',
-            f'{plugin_name}_{locale}.qm'
+            plugin_dir, "i18n", f"qt{qt_major}", f"{plugin_name}_{locale}.qm"
         )
 
         if os.path.exists(locale_path):

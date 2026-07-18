@@ -9,8 +9,8 @@ from qgis.core import (
     QgsWkbTypes,
 )
 
-from .i18n import TR
 from .jpdata_settings import jpDataSettings
+from .i18n import TR
 from .ui_handler import JPDataUIHandler
 from . import jpDataDownloader
 from . import jpDataUtils
@@ -30,26 +30,27 @@ class JPDataManager:
 
         self._dw = None
         self._ui = None
-        self._lang = "e"
-        if QgsSettings().value("locale/userLocale", "en")[:2] == "ja":
-            self._lang = "j"
+        self._lang = self.settings.lang1
+        # if QgsSettings().value("locale/userLocale", "en")[:2] == "ja":
+        #    self._lang = "j"
 
         self._Muni = jpDataMuni.instance()
-        self._Muni.set_lang(self._lang)
+        # self._Muni.set_lang(self._lang)
         self._LNI = jpDataLNI.instance()
         self._Census = jpDataCensus.instance()
         self._MHLW = jpDataMHLW.instance()
-        self._LNI.set_lang(self._lang)
-        self._MHLW.set_lang(self._lang)
+        # self._LNI.set_lang(self._lang)
+        # self._MHLW.set_lang(self._lang)
         self._GSI = jpDataUtils.getTilesFromCsv()
 
         self._downloader = jpDataDownloader.DownloadThread()
 
-    def _set_download_fullpath(self, fullpath):
-        self._Muni.set_download_folder(fullpath)
-        self._LNI.set_download_folder(fullpath)
-        self._Census.set_download_folder(fullpath)
-        self._MHLW.set_download_folder(fullpath)
+    # def _set_download_fullpath(self, fullpath):
+    #    pass
+    # self._Muni.set_download_folder(fullpath)
+    # self._LNI.set_download_folder(fullpath)
+    # self._Census.set_download_folder(fullpath)
+    # self._MHLW.set_download_folder(fullpath)
 
     def run(self):
         if not self._dw:
@@ -57,7 +58,7 @@ class JPDataManager:
 
             self._dw = jpdataDockWidget()
 
-        self._ui = JPDataUIHandler(self, self._iface, self._dw, self._lang)
+        self._ui = JPDataUIHandler(self, self._iface, self._dw, self.settings.lang1)
         self._connect_signals()
         self._setup_initial_ui_state()
 
@@ -90,7 +91,7 @@ class JPDataManager:
         # Tab 2
         self._dw.myPushButton25.clicked.connect(self._addTile)
         for row in self._GSI:
-            self._dw.myListWidget23.addItem(row["name_" + self._lang])
+            self._dw.myListWidget23.addItem(row["name_" + self.settings.lang1])
 
         # Tab 3
         self._dw.myPushButton31.clicked.connect(self._tab3_download_all)
@@ -243,7 +244,7 @@ class JPDataManager:
         zoom_max = ""
 
         for current_gsi in self._GSI:
-            if current_gsi["name_" + self._lang] == tile_name:
+            if current_gsi["name_" + self.settings.lang1] == tile_name:
                 tile_url_base = current_gsi["url"]
                 zoom_min = current_gsi["zoom_min"]
                 zoom_max = current_gsi["zoom_max"]
@@ -475,7 +476,7 @@ class JPDataManager:
 
         if process == "download":
             self._downloader.clearJobs()
-            self._Census.set_download_folder(self.settings.folder_path)
+            # self._Census.set_download_folder(self.settings.folder_path)
 
         for item in list_item:
             record = self._set_census_source(
@@ -621,7 +622,7 @@ class JPDataManager:
                 )
         elif process == "download":
             self._downloader.clearJobs()
-            self._MHLW.set_download_folder(self.settings.folder_path)
+            # self._MHLW.set_download_folder(self.settings.folder_path)
             for this_service in these_services:
                 url, zip_filename, subfolder = self._MHLW.get_zip(
                     year, this_service.text(), type="urlzip"
