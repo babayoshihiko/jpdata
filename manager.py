@@ -6,10 +6,11 @@ from qgis.core import (
     QgsSettings,
     QgsVectorLayer,
     QgsCoordinateReferenceSystem,
-    QgsWkbTypes
+    QgsWkbTypes,
 )
 
 from .i18n import TR
+from .jpdata_settings import jpDataSettings
 from .ui_handler import JPDataUIHandler
 from . import jpDataDownloader
 from . import jpDataUtils
@@ -25,6 +26,7 @@ class JPDataManager:
     def __init__(self, iface):
         self._iface = iface
         self._plugin_dir = os.path.dirname(__file__)
+        self.settings = jpDataSettings.instance()
 
         self._dw = None
         self._ui = None
@@ -32,8 +34,6 @@ class JPDataManager:
         if QgsSettings().value("locale/userLocale", "en")[:2] == "ja":
             self._lang = "j"
 
-        self._folderPath = QSettings().value("jpdata/FolderPath", "~")
-        self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
         self._Muni = jpDataMuni.instance()
         self._Muni.set_lang(self._lang)
         self._LNI = jpDataLNI.instance()
@@ -42,11 +42,9 @@ class JPDataManager:
         self._LNI.set_lang(self._lang)
         self._MHLW.set_lang(self._lang)
         self._GSI = jpDataUtils.getTilesFromCsv()
-        self._set_download_fullpath(self._folderPath)
 
         self._downloader = jpDataDownloader.DownloadThread()
 
-    
     def _set_download_fullpath(self, fullpath):
         self._Muni.set_download_folder(fullpath)
         self._LNI.set_download_folder(fullpath)
@@ -56,6 +54,7 @@ class JPDataManager:
     def run(self):
         if not self._dw:
             from .jpdata_dockwidget import jpdataDockWidget
+
             self._dw = jpdataDockWidget()
 
         self._ui = JPDataUIHandler(self, self._iface, self._dw, self._lang)
@@ -72,19 +71,16 @@ class JPDataManager:
         self._dw.show()
 
     def _setup_initial_ui_state(self):
-        if self._folderPath != "~":
-            self._ui.populate_folder(self._folderPath)
+        if self.settings.folder_path != "~":
+            # self._ui.populate_folder(self._folderPath)
             self._ui._tab_changed(0)
             self._dw.myTabWidget.setCurrentIndex(0)
         else:
-            self._dw.myLabel1.setText(TR.CHOOSE_FOLDER_INIT())
+            # self._dw.myLabel1.setText(TR.CHOOSE_FOLDER_INIT())
             self._dw.myTabWidget.setCurrentIndex(5)
 
-        if self._proxyServer:
-            self._dw.myLineEditSetting1.setText(self._proxyServer)
-
-
-
+        # if self._proxyServer:
+        #     self._dw.myLineEditSetting1.setText(self._proxyServer)
 
     def _connect_signals(self):
         # Tab LNI
@@ -95,7 +91,7 @@ class JPDataManager:
         self._dw.myPushButton25.clicked.connect(self._addTile)
         for row in self._GSI:
             self._dw.myListWidget23.addItem(row["name_" + self._lang])
-        
+
         # Tab 3
         self._dw.myPushButton31.clicked.connect(self._tab3_download_all)
         self._dw.myPushButton32.clicked.connect(self._tab3_add_map)
@@ -107,9 +103,10 @@ class JPDataManager:
         # Tab Address
         self._dw.myPB_Addr_1.clicked.connect(self._myPB_Addr_dl_clicked)
 
-
         # Downloader
-        self._downloader.setProxyServer(self._proxyServer)
+        self._downloader.setProxyServer(self.settings.proxy_server)
+        self._downloader.setProxyUser(self.settings.proxy_user)
+        self._downloader.setProxyPassword(self.settings.proxy_password)
         self._downloader.progress.connect(self._dw.progressBar.setValue)
         self._downloader.finished.connect(self._download_finished)
         self._downloader.message.connect(self.setLabel)
@@ -135,7 +132,6 @@ class JPDataManager:
             self._dw.deleteLater()
             self._dw = None
             self._ui = None
-
 
     def _add_map(
         self,
@@ -169,8 +165,10 @@ class JPDataManager:
                 layer.setCrs(QgsCoordinateReferenceSystem(f"EPSG:{epsg}"))
             else:
                 from . import compatibility
-                layer = compatibility.add_map_qgis322(shpFileFullPath, layerName, xField, yField, epsg, encoding)
 
+                layer = compatibility.add_map_qgis322(
+                    shpFileFullPath, layerName, xField, yField, epsg, encoding
+                )
 
         else:
 
@@ -205,10 +203,7 @@ class JPDataManager:
 
         # --- Check geometry ---
         geom_type = layer.geometryType()
-        if (
-            geom_type != QgsWkbTypes.PointGeometry
-            and self._dw.myCheckBox2.isChecked()
-        ):
+        if geom_type != QgsWkbTypes.PointGeometry and self.settings.geometry_check:
             count_invalid = jpDataUtils.count_invalid_geometry(layer)
             if count_invalid > 0:
                 layer.setName(f"{layerName} [invalid]")
@@ -234,10 +229,6 @@ class JPDataManager:
         QgsProject.instance().addMapLayer(layer)
 
         return layer
-
-
-
-
 
     def _addTile(self):
         from qgis.core import QgsRasterLayer, QgsProject
@@ -276,14 +267,16 @@ class JPDataManager:
             project.addMapLayer(layer, False)
             root.addLayer(layer)
 
-
     def _tab1CheckSelected(self):
         if not self._dw.myListWidget11.selectedItems():
             self._dw.myLabelStatus.setText(TR.CHOOSE_MAP_TYPE())
             return False
         name_map = str(self._dw.myListWidget11.selectedItems()[0].text())
         if not self._dw.myListWidget12.selectedItems():
-            if not (self._dw.myListWidget13.selectedItems() and self._LNI.get_records()[name_map]["type_muni"].lower() == "mesh1"):
+            if not (
+                self._dw.myListWidget13.selectedItems()
+                and self._LNI.get_records()[name_map]["type_muni"].lower() == "mesh1"
+            ):
                 self._dw.myLabelStatus.setText(TR.CHOOSE_PREFECTURE_REGION())
                 return False
         return True
@@ -312,20 +305,6 @@ class JPDataManager:
             self._downloader = jpDataDownloader.DownloadThread()
         self._ui.enable_download()
 
-    def set_proxy(self):
-        _proxyServer = self._dw.myLineEditSetting1.text()
-        if len(_proxyServer) > 10:
-            if self._proxyServer != _proxyServer:
-                self._proxyServer = _proxyServer
-                QgsSettings().setValue("jpdata/ProxyServer", self._proxyServer)
-                self._downloader.setProxyServer(self._proxyServer)
-            self._downloader.setProxyUser(self._dw.myLineEditSetting2.text())
-            self._downloader.setProxyPassword(self._dw.myLineEditSetting3.text())
-        else:
-            self._downloader.setProxyServer("")
-            QgsSettings().setValue("jpdata/ProxyServer", "http://")
-            self._proxyServer = "http://"
-
     def _tab3CheckSelected(self):
         if len(self._dw.myListWidget31.selectedItems()) == 0:
             self.setLabel(TR.CHOOSE_PREFECTURE())
@@ -349,16 +328,23 @@ class JPDataManager:
     def _tab3_add_map(self):
         self._tab3_iter(process="add")
 
-
     def _tab1_iter(self, process):
         if not self._tab1CheckSelected():
             return
         name_map = self._dw.myListWidget11.selectedItems()[0].text()
         year = self._dw.myComboBox11.currentText()
         list_code = []  # Either name_pref from LW12 or code_mesh from LW13 (multiple)
-        name_pref = self._dw.myListWidget12.selectedItems()[0].text() if len(self._dw.myListWidget12.selectedItems()) > 0 else ""
-        name_muni = self._dw.myListWidget13.selectedItems()[0].text() if len(self._dw.myListWidget13.selectedItems()) > 0 else ""
-        detail = None   # detail from LW13 (single)
+        name_pref = (
+            self._dw.myListWidget12.selectedItems()[0].text()
+            if len(self._dw.myListWidget12.selectedItems()) > 0
+            else ""
+        )
+        name_muni = (
+            self._dw.myListWidget13.selectedItems()[0].text()
+            if len(self._dw.myListWidget13.selectedItems()) > 0
+            else ""
+        )
+        detail = None  # detail from LW13 (single)
         type_muni = self._LNI.get_records()[name_map]["type_muni"].lower()
 
         if type_muni == "single":
@@ -377,23 +363,39 @@ class JPDataManager:
             for x in list_code:
                 self._set_lni_source(type_muni, name_map, year, name_pref, x)
                 record = self._LNI.get_record()
-                #jpDataUtils.unzip(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
+                # jpDataUtils.unzip(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
                 shp_full_path = jpDataUtils.unzipAndGetShp(
                     record["download_fullpath"],
                     year,
                     record["zip"],
                     record["shp"],
-                    record["altdir"]
+                    record["altdir"],
                 )
                 if type_muni == "single":
-                    layer_name =  record["name_map"] + " (" + year + ")"
+                    layer_name = record["name_map"] + " (" + year + ")"
                 elif type_muni == "" or type_muni == "regional":
-                    layer_name =  record["name_map"] + " (" + record["name_pref"] + ", " + year + ")"
+                    layer_name = (
+                        record["name_map"]
+                        + " ("
+                        + record["name_pref"]
+                        + ", "
+                        + year
+                        + ")"
+                    )
                 elif type_muni == "mesh1":
-                    layer_name =  record["name_map"] + " (" + record["code_mesh"] + ", " + year + ")"
+                    layer_name = (
+                        record["name_map"]
+                        + " ("
+                        + record["code_mesh"]
+                        + ", "
+                        + year
+                        + ")"
+                    )
                 elif type_muni == "detail":
-                    layer_name =  record["name_map"] + " (" + record["detail"] + ", " + year + ")"
-                
+                    layer_name = (
+                        record["name_map"] + " (" + record["detail"] + ", " + year + ")"
+                    )
+
                 self._add_map(
                     shp_full_path,
                     layer_name,
@@ -403,11 +405,15 @@ class JPDataManager:
                 )
         elif process == "download":
             self._downloader.clearJobs()
+            self._LNI.set_download_folder(self.settings.folder_path)
             for x in list_code:
                 self._set_lni_source(type_muni, name_map, year, name_pref, x)
                 self._downloader.addJob(
                     self._LNI.get_record()["url"],
-                    posixpath.join(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
+                    posixpath.join(
+                        self._LNI.get_record()["download_fullpath"],
+                        self._LNI.get_record()["zip"],
+                    ),
                 )
             self._downloader.start()
 
@@ -441,7 +447,6 @@ class JPDataManager:
                 detail=x,
             )
 
-
     def _tab3_iter(self, process):
         if not self._tab3CheckSelected():
             return
@@ -470,6 +475,7 @@ class JPDataManager:
 
         if process == "download":
             self._downloader.clearJobs()
+            self._Census.set_download_folder(self.settings.folder_path)
 
         for item in list_item:
             record = self._set_census_source(
@@ -481,19 +487,21 @@ class JPDataManager:
             )
 
             if process == "add":
-                self._add_census_layer(
-                    year,
-                    item.text(),
-                    name_muni_suffix
-                )
+                self._add_census_layer(year, item.text(), name_muni_suffix)
             elif process == "download":
                 self._downloader.addJob(
                     record["attr_url"],
-                    posixpath.join(self._folderPath, record["subfolder"], record["attr_zip"])
+                    posixpath.join(
+                        self.settings.folder_path,
+                        record["subfolder"],
+                        record["attr_zip"],
+                    ),
                 )
                 self._downloader.addJob(
                     record["url"],
-                    posixpath.join(self._folderPath, record["subfolder"], record["zip"])
+                    posixpath.join(
+                        self.settings.folder_path, record["subfolder"], record["zip"]
+                    ),
                 )
 
         if process == "download":
@@ -525,12 +533,7 @@ class JPDataManager:
             )
         return self._Census.get_record()
 
-    def _add_census_layer(
-        self,
-        year,
-        item_name,
-        name_muni_suffix
-    ):
+    def _add_census_layer(self, year, item_name, name_muni_suffix):
         record = self._Census.get_record()
         jpDataUtils.unzip(record["download_fullpath"], record["zip"])
         jpDataUtils.unzip(record["download_fullpath"], record["attr_zip"])
@@ -552,7 +555,6 @@ class JPDataManager:
         if shp_full_path == "":
             return
 
-
         qml = record["qml"]
         encoding = record["encoding"]
         if record["attr_csv"]:
@@ -563,7 +565,7 @@ class JPDataManager:
                 record["attr_csv"],
             )
         else:
-            jpDataUtils.printDebugLog("CSV for Census not found.")
+            jpDataUtils.printDebugLog("CSV for Census not given.")
             self.setLabel("")
 
         self._add_map(
@@ -572,9 +574,6 @@ class JPDataManager:
             qml,
             encoding=encoding,
         )
-
-
-
 
     def _tab_mhlw_iter(self, process):
         # if not self._tab1CheckSelected():
@@ -596,14 +595,14 @@ class JPDataManager:
                 encoding = record.get("encoding")
                 subfolder = record.get("subfolder")
                 layer_name = this_service.text() + " (" + year + ")"
-                if record.get("code_map","")[:4] == "LTCI":
+                if record.get("code_map", "")[:4] == "LTCI":
                     xField = "経度"
                     yField = "緯度"
                 else:
                     xField = "事業所経度"
                     yField = "事業所緯度"
                 shp_full_path = jpDataUtils.unzipAndGetShp(
-                    posixpath.join(self._folderPath, subfolder),
+                    posixpath.join(self.settings.folder_path, subfolder),
                     year,
                     zip_filename,
                     shp_filename,
@@ -618,22 +617,23 @@ class JPDataManager:
                     encoding=encoding,
                     epsg=epsg,
                     xField=xField,
-                    yField=yField
+                    yField=yField,
                 )
         elif process == "download":
+            self._downloader.clearJobs()
+            self._MHLW.set_download_folder(self.settings.folder_path)
             for this_service in these_services:
                 url, zip_filename, subfolder = self._MHLW.get_zip(
-                    year,
-                    this_service.text(),
-                    type="urlzip"
+                    year, this_service.text(), type="urlzip"
                 )
                 if zip_filename is not None:
                     self._downloader.addJob(
                         url,
-                        posixpath.join(self._folderPath, subfolder, zip_filename),
+                        posixpath.join(
+                            self.settings.folder_path, subfolder, zip_filename
+                        ),
                     )
             self._downloader.start()
-
 
     def _tab_mhlw_download_all(self):
         if self._dw.myPB_MHLW_2.text() == TR.CANCEL():
@@ -644,7 +644,6 @@ class JPDataManager:
     def _tab_mhlw_add_map(self):
         self._tab_mhlw_iter(process="add")
 
-
     def _myPB_Addr_dl_clicked(self):
         name_pref = self._dw.myCB_Addr_1.currentText()
         code_pref = jpDataUtils.getPrefCodeByName(name_pref)
@@ -652,35 +651,9 @@ class JPDataManager:
         zip = self._Muni.get_zip(code_pref)
         self._downloader.addJob(
             url,
-            posixpath.join(self._folderPath, "Addr", zip),
+            posixpath.join(self.settings.folder_path, "Addr", zip),
         )
         self._downloader.start()
-
-    def set_folder(self, folder):
-        if not folder:
-            return False
-        if not os.path.isdir(folder):
-            return False
-        if not self._is_writable(folder):
-            return False
-
-        self._folderPath = folder
-        QSettings().setValue("jpdata/FolderPath", folder)
-        self._set_download_fullpath(folder)
-        return True
-
-    def get_folder(self):
-        return self._folderPath
-
-    def _is_writable(self, folder):
-        try:
-            fd, path = tempfile.mkstemp(dir=folder)
-            os.close(fd)
-            os.remove(path)
-            return True
-        except OSError:
-            return False
-
 
 
 # End of manager.py

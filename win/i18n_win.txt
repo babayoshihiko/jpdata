@@ -12,5 +12,5 @@ call "C:\Program Files\QGIS 3.44.12\bin\o4w_env.bat"
 リンクの作り方
 
 mklink /J ^
-"C:\Users\あなた\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\jpdata" ^
-"C:\Users\あなた\github\jpdata"
+"C:\Users\baba\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\jpdata" ^
+"C:\Users\baba\github\jpdata"

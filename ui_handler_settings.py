@@ -1,0 +1,190 @@
+# -*- coding: utf-8 -*-
+import os
+from qgis.core import (
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
+    QgsProject,
+)
+from qgis.PyQt.QtCore import (
+    Qt,
+    QUrl,
+)
+from qgis.PyQt.QtWidgets import (
+    QTreeWidgetItem,
+    QLineEdit,
+    QCheckBox,
+    QWidget,
+    QHBoxLayout,
+    QPushButton,
+)
+from qgis.PyQt.QtGui import QDesktopServices, QFontMetrics
+from qgis.PyQt.QtWidgets import QLabel, QTreeWidgetItem
+from .jpdata_settings import jpDataSettings
+from . import jpDataUtils
+from .i18n import TR
+
+
+class JPDataUIHandlerSettings:
+
+    def __init__(self, iface, dockwidget, handler, lang):
+        self.settings = jpDataSettings.instance()
+
+        self._iface = iface
+        self._dw = dockwidget
+        self._ui = handler
+        self._lang = lang
+
+        # self._folderPath = QSettings().value("jpdata/FolderPath", "~")
+        # self._proxyServer = QSettings().value("jpdata/ProxyServer", "http://")
+
+        self._setup()
+
+    def _setup(self):
+        tree = self._dw.myTreeWidget
+        tree.clear()
+
+        tree.setColumnCount(2)
+        tree.setHeaderLabels(["項目", "値"])
+
+        #
+        # 一般
+        #
+        general = QTreeWidgetItem(tree)
+        general.setText(0, "一般")
+
+        # ダウンロードフォルダ
+        item = QTreeWidgetItem(general)
+        item.setText(0, "ダウンロードフォルダ")
+
+        w = QWidget()
+        layout = QHBoxLayout(w)
+        layout.setContentsMargins(0, 0, 0, 0)
+
+        self._folderEdit = QLineEdit(self.settings.folder_path)
+        btn = QPushButton("...")
+
+        layout.addWidget(self._folderEdit)
+        layout.addWidget(btn)
+
+        tree.setItemWidget(item, 1, w)
+
+        btn.clicked.connect(self.chooseFolder)
+
+        # ジオメトリ
+        item = QTreeWidgetItem(general)
+        item.setText(0, "ジオメトリをチェック")
+
+        self._geometryCheck = QCheckBox()
+        self._geometryCheck.setChecked(True)
+        tree.setItemWidget(item, 1, self._geometryCheck)
+
+        #
+        # プロキシ
+        #
+        proxy = QTreeWidgetItem(tree)
+        proxy.setText(0, "プロキシ")
+
+        def addLine(parent, title, value="", password=False):
+            item = QTreeWidgetItem(parent)
+            item.setText(0, title)
+
+            edit = QLineEdit(value)
+            if password:
+                edit.setEchoMode(QLineEdit.Password)
+
+            tree.setItemWidget(item, 1, edit)
+            return edit
+
+        self._proxyUrlEdit = addLine(proxy, "URL", self.settings.proxy_server)
+        self._proxyUserEdit = addLine(proxy, "ユーザ")
+        self._proxyPassEdit = addLine(proxy, "パスワード", password=True)
+
+        #
+        # タブ
+        #
+        tabs = QTreeWidgetItem(tree)
+        tabs.setText(0, "タブ")
+
+        for index, name in self._ui.TABS.items():
+            if name == TR.SETTING():
+                continue
+
+            item = QTreeWidgetItem(tabs)
+            item.setText(0, name)
+
+            check = QCheckBox()
+            check.setChecked(True)
+
+            tree.setItemWidget(item, 1, check)
+            check.toggled.connect(
+                lambda checked, i=index: self._dw.myTabWidget.setTabVisible(i, checked)
+            )
+
+        tree.expandAll()
+        tree.resizeColumnToContents(0)
+
+    def chooseFolder(self):
+        from qgis.PyQt.QtWidgets import QFileDialog
+
+        folder = QFileDialog.getExistingDirectory(
+            self._iface.mainWindow(), TR.CHOOSE_FOLDER(), self.settings.folder_path
+        )
+        if folder:
+            if self.set_folder(folder):
+                self.populate_folder(folder)
+            else:
+                self.populate_folder("~")
+                self.setLabel(TR.CHOOSE_FOLDER_INIT())
+
+    def populate_folder(self, folder):
+        home = os.path.normpath(os.path.expanduser("~"))
+        folder = os.path.normpath(folder)
+
+        if os.path.normcase(folder) == os.path.normcase(home):
+            display = "~"
+        elif os.path.normcase(folder).startswith(os.path.normcase(home + os.sep)):
+            display = "~" + folder[len(home) :]
+        else:
+            display = folder
+
+        fm = QFontMetrics(self._dw.myLabel1.font())
+        display = fm.elidedText(
+            display, Qt.TextElideMode.ElideMiddle, self._dw.myLabel1.width()
+        )
+
+        self._dw.myLabel1.setText(display)
+        self._dw.myLabel1.setToolTip(folder)
+
+    def set_proxy(self):
+        _proxyServer = self._dw.myLineEditSetting1.text()
+        if len(_proxyServer) > 10:
+            if self._proxyServer != _proxyServer:
+                self._proxyServer = _proxyServer
+                QgsSettings().setValue("jpdata/ProxyServer", self._proxyServer)
+                self._downloader.setProxyServer(self._proxyServer)
+            self._downloader.setProxyUser(self._dw.myLineEditSetting2.text())
+            self._downloader.setProxyPassword(self._dw.myLineEditSetting3.text())
+        else:
+            self._downloader.setProxyServer("")
+            QgsSettings().setValue("jpdata/ProxyServer", "http://")
+            self._proxyServer = "http://"
+
+    def set_folder(self, folder):
+        if not folder:
+            return False
+        if not os.path.isdir(folder):
+            return False
+        if not self._is_writable(folder):
+            return False
+
+        self.settings.folder_path = folder
+        return True
+
+    def _is_writable(self, folder):
+        try:
+            fd, path = tempfile.mkstemp(dir=folder)
+            os.close(fd)
+            os.remove(path)
+            return True
+        except OSError:
+            return False
