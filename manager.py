@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 import os, posixpath, tempfile
-from qgis.PyQt.QtCore import Qt, QSettings
+from qgis.PyQt.QtCore import Qt
 from qgis.core import (
     QgsProject,
-    QgsSettings,
     QgsVectorLayer,
     QgsCoordinateReferenceSystem,
     QgsWkbTypes,
@@ -566,7 +565,7 @@ class JPDataManager:
                 record["attr_csv"],
             )
         else:
-            jpDataUtils.printDebugLog("CSV for Census not given.")
+            jpDataUtils.printDebugLog("manager.py: CSV for Census not given.")
             self.setLabel("")
 
         self._add_map(

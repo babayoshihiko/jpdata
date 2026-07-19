@@ -254,9 +254,6 @@ class JPDataUIHandlerAddr:
         else:
             self._mesh_layer = QgsVectorLayer("Polygon?crs=EPSG:6668", "Mesh", "memory")
         pr = self._mesh_layer.dataProvider()
-        jpDataUtils.printDebugLog("257")
-        jpDataUtils.printDebugLog(QgsField)
-        jpDataUtils.printDebugLog(STRING)
         pr.addAttributes([QgsField("code_mesh", STRING)])
         self._mesh_layer.updateFields()
         features = []

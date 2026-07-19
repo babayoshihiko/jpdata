@@ -2,7 +2,7 @@
 from qgis.PyQt.QtCore import (
     Qt,
 )
-from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
+from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView
 from . import jpDataMesh
 from . import jpDataUtils
 from .i18n import TR

@@ -106,18 +106,21 @@ class jpDataMuni:
         year2digit = str(int(year) - 1)[2:]
         fullpath = posixpath.join(
             self.settings.folder_path,
+            "Addr",
             str(code_pref).zfill(2) + "_" + year4digit + ".csv",
         )
         if os.path.exists(fullpath):
             return fullpath
         fullpath = posixpath.join(
             self.settings.folder_path,
+            "Addr",
             str(code_pref).zfill(2) + "000-" + year2digit + ".0a",
             str(code_pref).zfill(2) + "_" + year4digit + ".csv",
         )
         if os.path.exists(fullpath):
             return fullpath
         else:
+            jpDataUtils.printDebugLog("jpdata_muni.py: Could not find muni csv file: " + fullpath)
             return None
 
     def _load_csv(self, name_pref, year=None, encoding="cp932"):
@@ -310,7 +313,6 @@ class jpDataMuni:
         if rows is None:
             return (None, None)
         for row in rows:
-            jpDataUtils.printDebugLog(row)
             if (
                 row["市区町村名"] == name_muni
                 and row["大字・丁目名"] == name_town

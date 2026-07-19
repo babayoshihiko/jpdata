@@ -9,10 +9,8 @@ from qgis.PyQt.QtCore import (
     Qt,
     QUrl,
 )
-from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView, QLineEdit
-from qgis.PyQt.QtGui import QDesktopServices, QFontMetrics
-from qgis.PyQt.QtWidgets import QLabel, QTreeWidgetItem
-from . import jpDataMesh
+from qgis.PyQt.QtWidgets import QListWidgetItem
+from qgis.PyQt.QtWidgets import QLabel
 from . import jpDataUtils
 from .i18n import TR
 from .ui_handler_lni import JPDataUIHandlerLNI

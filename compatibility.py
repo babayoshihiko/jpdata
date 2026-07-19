@@ -45,7 +45,7 @@ def add_map_qgis322(shp_fullpath, layerName, xField, yField, epsg, encoding="UTF
     csv_layer = QgsVectorLayer(uri, layerName, "delimitedtext")
 
     if not csv_layer.isValid():
-        jpDataUtils.printDebugLog("28")
+        jpDataUtils.printDebugLog("compatibility.py: Failed to load the csv file: " + shp_fullpath)
         return None
 
     point_layer = QgsVectorLayer(f"Point?crs=EPSG:{epsg}", layerName, "memory")

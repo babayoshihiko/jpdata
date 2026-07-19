@@ -1,13 +1,7 @@
 # -*- coding: utf-8 -*-
-import os
-from qgis.core import (
-    QgsCoordinateReferenceSystem,
-    QgsCoordinateTransform,
-    QgsProject,
-)
+import os, tempfile
 from qgis.PyQt.QtCore import (
     Qt,
-    QUrl,
 )
 from qgis.PyQt.QtWidgets import (
     QTreeWidgetItem,
@@ -17,8 +11,8 @@ from qgis.PyQt.QtWidgets import (
     QHBoxLayout,
     QPushButton,
 )
-from qgis.PyQt.QtGui import QDesktopServices, QFontMetrics
-from qgis.PyQt.QtWidgets import QLabel, QTreeWidgetItem
+from qgis.PyQt.QtGui import QFontMetrics
+from qgis.PyQt.QtWidgets import QTreeWidgetItem
 from .jpdata_settings import jpDataSettings
 from . import jpDataUtils
 from .i18n import TR
@@ -138,13 +132,7 @@ class JPDataUIHandlerSettings:
         else:
             display = folder
 
-        fm = QFontMetrics(self._dw.myLabel1.font())
-        display = fm.elidedText(
-            display, Qt.TextElideMode.ElideMiddle, self._dw.myLabel1.width()
-        )
-
-        self._dw.myLabel1.setText(display)
-        self._dw.myLabel1.setToolTip(folder)
+        self._folderEdit.setText(display)
 
     def set_proxy(self):
         _proxyServer = self._dw.myLineEditSetting1.text()
