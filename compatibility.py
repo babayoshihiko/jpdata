@@ -2,24 +2,19 @@
 
 from . import jpDataUtils
 from qgis.core import (
-    QgsProject,
+    Qgis,
     QgsProviderRegistry,
     QgsFeature,
     QgsGeometry,
     QgsPointXY,
-    QgsSettings,
     QgsVectorLayer,
-    QgsCoordinateReferenceSystem,
-    QgsWkbTypes
 )
 from qgis.PyQt.QtCore import (
-    Qt, 
-    QVariant, 
-    QMetaType, 
-    QPointF
+    QVariant,
+    QMetaType,
 )
 
-try:
+if Qgis.QGIS_VERSION_INT >= 34000:
     from qgis.PyQt.QtCore import QMetaType
 
     STRING = QMetaType.Type.QString
@@ -27,7 +22,7 @@ try:
     DOUBLE = QMetaType.Type.Double
     BOOL = QMetaType.Type.Bool
     DATE = QMetaType.Type.QDate
-except ImportError:
+else:
     from qgis.PyQt.QtCore import QVariant
 
     STRING = QVariant.String
@@ -44,9 +39,8 @@ def add_map_qgis322(shp_fullpath, layerName, xField, yField, epsg, encoding="UTF
             "path": shp_fullpath,
             "delimiter": ",",
             "encoding": encoding,
-        }
+        },
     )
-
 
     csv_layer = QgsVectorLayer(uri, layerName, "delimitedtext")
 
@@ -54,11 +48,7 @@ def add_map_qgis322(shp_fullpath, layerName, xField, yField, epsg, encoding="UTF
         jpDataUtils.printDebugLog("28")
         return None
 
-    point_layer = QgsVectorLayer(
-        f"Point?crs=EPSG:{epsg}",
-        layerName,
-        "memory"
-    )
+    point_layer = QgsVectorLayer(f"Point?crs=EPSG:{epsg}", layerName, "memory")
 
     pr = point_layer.dataProvider()
     pr.addAttributes(csv_layer.fields())
@@ -76,9 +66,7 @@ def add_map_qgis322(shp_fullpath, layerName, xField, yField, epsg, encoding="UTF
 
         feat = QgsFeature(point_layer.fields())
         feat.setAttributes(row.attributes())
-        feat.setGeometry(
-            QgsGeometry.fromPointXY(QgsPointXY(x, y))
-        )
+        feat.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(x, y)))
 
         features.append(feat)
 
@@ -90,5 +78,3 @@ def add_map_qgis322(shp_fullpath, layerName, xField, yField, epsg, encoding="UTF
     # QgsProject.instance().addMapLayer(point_layer)
 
     return point_layer
-
-

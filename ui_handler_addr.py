@@ -213,7 +213,7 @@ class JPDataUIHandlerAddr:
 
     def add_graticule_layer(self, interval=10):
         layer = QgsVectorLayer(
-            "LineString?crs=EPSG:4326",
+            "LineString?crs=EPSG:6668",
             f"Graticule_{interval}deg",
             "memory",
         )
@@ -252,8 +252,11 @@ class JPDataUIHandlerAddr:
         if layers:
             self._mesh_layer = layers[0]
         else:
-            self._mesh_layer = QgsVectorLayer("Polygon?crs=EPSG:4326", "Mesh", "memory")
+            self._mesh_layer = QgsVectorLayer("Polygon?crs=EPSG:6668", "Mesh", "memory")
         pr = self._mesh_layer.dataProvider()
+        jpDataUtils.printDebugLog("257")
+        jpDataUtils.printDebugLog(QgsField)
+        jpDataUtils.printDebugLog(STRING)
         pr.addAttributes([QgsField("code_mesh", STRING)])
         self._mesh_layer.updateFields()
         features = []
