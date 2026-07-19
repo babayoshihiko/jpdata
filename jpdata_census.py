@@ -70,6 +70,8 @@ class jpDataCensus:
             "url": "",
             "zip": "",
             "shp": "",
+            "zip_fullpath": "",
+            "shp_fullpath": "",
             "qml": "",
             "epsg": "",
             "encoding": "CP932",
@@ -115,9 +117,6 @@ class jpDataCensus:
         if name_muni is not None:
             self.record["code_muni"] = self._Muni.get_code_muni(name_pref, name_muni)
         self._set_url()
-        self._set_zip()
-        self._set_shp()
-        self._set_qml()
         if self._CENSUS_CODE[index_census] == "":
             self.record["subfolder"] = "Census"
         else:
@@ -129,6 +128,9 @@ class jpDataCensus:
         )
         os.makedirs(path, exist_ok=True)
         self.record["download_fullpath"] = path
+        self._set_zip()
+        self._set_shp()
+        self._set_qml()
 
         self._set_attr_url()
         self._set_attr_zip()
@@ -187,6 +189,7 @@ class jpDataCensus:
                 self._CENSUS_CODE[self.record["index_census"]] + code_mesh + ".zip"
             )
         self.record["zip"] = zipFileName
+        self.record["zip_fullpath"] = posixpath.join(self.record["download_fullpath"] , zipFileName)
 
     def _set_shp(self):
         shpFileName = None
@@ -207,6 +210,7 @@ class jpDataCensus:
         else:
             shpFileName = "MESH0" + self.record["code_mesh"] + ".shp"
         self.record["shp"] = shpFileName
+        self.record["shp_fullpath"] = posixpath.join(self.record["download_fullpath"] , shpFileName)
 
     def _set_qml(self):
         if self.record["index_census"] == 0:
@@ -253,7 +257,7 @@ class jpDataCensus:
         self.record["attr_url"] = url
 
     def set_attr_zip(self, key=None):
-        self._set_attr_csv(key)
+        self._set_attr_zip(key)
         return self.record["attr_zip"]
 
     def _set_attr_zip(self, key=None):
@@ -274,7 +278,9 @@ class jpDataCensus:
                 + self._CENSUS_CODE[self.record["index_census"]][:1]
                 + self.record["code_mesh"]
             )
-            self.record["attr_zip"] = f"tblT{base}.zip"
+        self.record["attr_zip"] = f"tblT{base}.zip"
+        self.record["attr_zip_fullpath"] = posixpath.join(self.record["download_fullpath"] , self.record["attr_zip"])
+
 
     def set_attr_csv(self, key=None):
         self._set_attr_csv(key)
@@ -299,10 +305,12 @@ class jpDataCensus:
         file_name = f"tbl{base}.txt"
         file_name_t = f"tblT{base}.txt"
         path = posixpath.join(self.settings.folder_path, file_name)
-        if os.path.exists(path, file_name):
+        if os.path.exists(posixpath.join(path, file_name)):
             self.record["attr_csv"] = file_name
-        elif os.path.exists(posixpath.join(path, file_name_t)):
+            self.record["attr_csv_fullpath"] = posixpath.join(self.record["download_fullpath"] , self.record["attr_csv"])
+        else:
             self.record["attr_csv"] = file_name_t
+            self.record["attr_csv_fullpath"] = posixpath.join(self.record["download_fullpath"] , self.record["attr_csv"])
 
     def perform_join(self, folder, year, shp_name, csv_name):
         import processing

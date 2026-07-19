@@ -130,12 +130,14 @@ class jpDataLNI:
             code_pref_or_mesh1=code_pref_or_mesh1,
             year=self.record["year"],
         )
+        self.record["zip_fullpath"] = posixpath.join(self.record["download_fullpath"], self.record["zip"] )
         self.record["shp"] = jpDataUtils.replaceCodes(
             self.record["shp"],
             code_map=self.record["code_map"],
             code_pref_or_mesh1=code_pref_or_mesh1,
             year=self.record["year"],
         )
+        self.record["shp_fullpath"] = posixpath.join(self.record["download_fullpath"], self.record["shp"] )
         self.record["altdir"] = jpDataUtils.replaceCodes(
             self.record["altdir"],
             code_map=self.record["code_map"],
@@ -151,12 +153,6 @@ class jpDataLNI:
         self.record["encoding"] = (
             "UTF-8" if self.record["encoding"][:3] == "UTF" else "CP932"
         )
-        if os.path.exists(
-            posixpath.join(self.record["download_fullpath"], self.record["zip"])
-        ):
-            self.record["zip_fullpath"] = posixpath.join(
-                self.record["download_fullpath"], self.record["zip"]
-            )
         shp_fullpath = jpDataUtils.findShpFile2(
             self.record["download_fullpath"],
             self.record["year"],

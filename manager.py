@@ -389,12 +389,14 @@ class JPDataManager:
             self._downloader.setProxyPassword(self.settings.proxy_password)
             for x in list_code:
                 self._set_lni_source(type_muni, name_map, year, name_pref, x)
+                jpDataUtils.printDebugLog("392")
+                jpDataUtils.printDebugLog("392")
+                jpDataUtils.printDebugLog(self._LNI.get_record()["zip_fullpath"])
+                jpDataUtils.printDebugLog(self._LNI.get_record()["shp_fullpath"])
                 self._downloader.addJob(
                     self._LNI.get_record()["url"],
-                    posixpath.join(
-                        self._LNI.get_record()["download_fullpath"],
-                        self._LNI.get_record()["zip"],
-                    ),
+                    self._LNI.get_record()["zip_fullpath"],
+                    self._LNI.get_record()["shp_fullpath"]
                 )
             self._downloader.start()
 
@@ -474,17 +476,13 @@ class JPDataManager:
             elif process == "download":
                 self._downloader.addJob(
                     record["attr_url"],
-                    posixpath.join(
-                        self.settings.folder_path,
-                        record["subfolder"],
-                        record["attr_zip"],
-                    ),
+                    record["attr_zip_fullpath"],
+                    record["attr_csv_fullpath"]
                 )
                 self._downloader.addJob(
                     record["url"],
-                    posixpath.join(
-                        self.settings.folder_path, record["subfolder"], record["zip"]
-                    ),
+                    record["zip_fullpath"],
+                    record["shp_fullpath"]
                 )
 
         if process == "download":
@@ -520,7 +518,7 @@ class JPDataManager:
         record = self._Census.get_record()
         jpDataUtils.unzip(record["download_fullpath"], record["zip"])
         jpDataUtils.unzip(record["download_fullpath"], record["attr_zip"])
-        record["attr_csv"] = self._Census.set_attr_csv()
+        #record["attr_csv"] = self._Census.set_attr_csv()
         shp_full_path = jpDataUtils.unzipAndGetShp(
             record["download_fullpath"],
             year,
@@ -608,15 +606,12 @@ class JPDataManager:
             self._downloader.setProxyUser(self.settings.proxy_user)
             self._downloader.setProxyPassword(self.settings.proxy_password)
             for this_service in these_services:
-                url, zip_filename, subfolder = self._MHLW.get_zip(
-                    year, this_service.text(), type="urlzip"
-                )
-                if zip_filename is not None:
+                record = self._MHLW.get_record(this_service.text(), year)
+                if record["url"] != "":
                     self._downloader.addJob(
-                        url,
-                        posixpath.join(
-                            self.settings.folder_path, subfolder, zip_filename
-                        ),
+                        record["url"],
+                        record["zip_fullpath"],
+                        record["shp_fullpath"]
                     )
             self._downloader.start()
 

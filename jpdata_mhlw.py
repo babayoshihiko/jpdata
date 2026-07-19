@@ -53,10 +53,10 @@ class jpDataMHLW:
                 row["epsg"] = "6668"
                 row["encoding"] = "UTF-8"
                 row["zip_fullpath"] = posixpath.join(
-                    self.settings.folder_path, year, row.get("zip")
+                    self.settings.folder_path, row["subfolder"], row.get("zip")
                 )
                 row["shp_fullpath"] = posixpath.join(
-                    self.settings.folder_path, year, row.get("shp")
+                    self.settings.folder_path, row["subfolder"], row.get("shp")
                 )
                 return row
 
