@@ -30,26 +30,14 @@ class JPDataManager:
         self._dw = None
         self._ui = None
         self._lang = self.settings.lang1
-        # if QgsSettings().value("locale/userLocale", "en")[:2] == "ja":
-        #    self._lang = "j"
 
         self._Muni = jpDataMuni.instance()
-        # self._Muni.set_lang(self._lang)
         self._LNI = jpDataLNI.instance()
         self._Census = jpDataCensus.instance()
         self._MHLW = jpDataMHLW.instance()
-        # self._LNI.set_lang(self._lang)
-        # self._MHLW.set_lang(self._lang)
         self._GSI = jpDataUtils.getTilesFromCsv()
-
         self._downloader = jpDataDownloader.DownloadThread()
 
-    # def _set_download_fullpath(self, fullpath):
-    #    pass
-    # self._Muni.set_download_folder(fullpath)
-    # self._LNI.set_download_folder(fullpath)
-    # self._Census.set_download_folder(fullpath)
-    # self._MHLW.set_download_folder(fullpath)
 
     def run(self):
         if not self._dw:
@@ -72,15 +60,10 @@ class JPDataManager:
 
     def _setup_initial_ui_state(self):
         if self.settings.folder_path != "~":
-            # self._ui.populate_folder(self._folderPath)
             self._ui._tab_changed(0)
             self._dw.myTabWidget.setCurrentIndex(0)
         else:
-            # self._dw.myLabel1.setText(TR.CHOOSE_FOLDER_INIT())
             self._dw.myTabWidget.setCurrentIndex(5)
-
-        # if self._proxyServer:
-        #     self._dw.myLineEditSetting1.setText(self._proxyServer)
 
     def _connect_signals(self):
         # Tab LNI
@@ -104,9 +87,6 @@ class JPDataManager:
         self._dw.myPB_Addr_1.clicked.connect(self._myPB_Addr_dl_clicked)
 
         # Downloader
-        self._downloader.setProxyServer(self.settings.proxy_server)
-        self._downloader.setProxyUser(self.settings.proxy_user)
-        self._downloader.setProxyPassword(self.settings.proxy_password)
         self._downloader.progress.connect(self._dw.progressBar.setValue)
         self._downloader.finished.connect(self._download_finished)
         self._downloader.message.connect(self.setLabel)
@@ -363,7 +343,6 @@ class JPDataManager:
             for x in list_code:
                 self._set_lni_source(type_muni, name_map, year, name_pref, x)
                 record = self._LNI.get_record()
-                # jpDataUtils.unzip(self._LNI.get_record()["download_fullpath"], self._LNI.get_record()["zip"])
                 shp_full_path = jpDataUtils.unzipAndGetShp(
                     record["download_fullpath"],
                     year,
@@ -405,7 +384,9 @@ class JPDataManager:
                 )
         elif process == "download":
             self._downloader.clearJobs()
-            self._LNI.set_download_folder(self.settings.folder_path)
+            self._downloader.setProxyServer(self.settings.proxy_server)
+            self._downloader.setProxyUser(self.settings.proxy_user)
+            self._downloader.setProxyPassword(self.settings.proxy_password)
             for x in list_code:
                 self._set_lni_source(type_muni, name_map, year, name_pref, x)
                 self._downloader.addJob(
@@ -475,7 +456,9 @@ class JPDataManager:
 
         if process == "download":
             self._downloader.clearJobs()
-            # self._Census.set_download_folder(self.settings.folder_path)
+            self._downloader.setProxyServer(self.settings.proxy_server)
+            self._downloader.setProxyUser(self.settings.proxy_user)
+            self._downloader.setProxyPassword(self.settings.proxy_password)
 
         for item in list_item:
             record = self._set_census_source(
@@ -621,7 +604,9 @@ class JPDataManager:
                 )
         elif process == "download":
             self._downloader.clearJobs()
-            # self._MHLW.set_download_folder(self.settings.folder_path)
+            self._downloader.setProxyServer(self.settings.proxy_server)
+            self._downloader.setProxyUser(self.settings.proxy_user)
+            self._downloader.setProxyPassword(self.settings.proxy_password)
             for this_service in these_services:
                 url, zip_filename, subfolder = self._MHLW.get_zip(
                     year, this_service.text(), type="urlzip"
@@ -649,6 +634,10 @@ class JPDataManager:
         code_pref = jpDataUtils.getPrefCodeByName(name_pref)
         url = self._Muni.get_url(code_pref)
         zip = self._Muni.get_zip(code_pref)
+        self._downloader.clearJobs()
+        self._downloader.setProxyServer(self.settings.proxy_server)
+        self._downloader.setProxyUser(self.settings.proxy_user)
+        self._downloader.setProxyPassword(self.settings.proxy_password)
         self._downloader.addJob(
             url,
             posixpath.join(self.settings.folder_path, "Addr", zip),

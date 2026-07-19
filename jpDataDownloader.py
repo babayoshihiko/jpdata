@@ -27,7 +27,8 @@ if not logger.handlers:
 @dataclass
 class DownloadJob:
     url: str
-    file_path: str
+    zip_fullpath: str
+    target_fullpath: str
 
 class DownloadThread(QThread):
     message = pyqtSignal(str)
@@ -55,13 +56,14 @@ class DownloadThread(QThread):
         self.current = 0
         self.total = 0
 
-    def addJob(self, url, file_path):
-        if url == "" or file_path == "":
+    def addJob(self, url, zip_fullpath, target_fullpath=None):
+        if url == "" or zip_fullpath == "":
             return
         self.jobs.append(
             DownloadJob(
                 url=url,
-                file_path=file_path,
+                zip_fullpath=zip_fullpath,
+                target_fullpath=target_fullpath
             )
         )
 
@@ -98,8 +100,8 @@ class DownloadThread(QThread):
         # certificate can be bool or path
         self.certificate = certificate if certificate else DEFAULT_CA
 
-    def setFilePath(self, file_path):
-        self.file_path = file_path.strip()
+    def setFilePath(self, zip_fullpath):
+        self.zip_fullpath = zip_fullpath.strip()
 
     def setStatus(self, status_message):
         self.status_message = status_message
@@ -110,7 +112,7 @@ class DownloadThread(QThread):
 
     def download_wo_thread(self):
         """Simple blocking download (no signals)."""
-        if not self.url or not self.file_path:
+        if not self.url or not self.zip_fullpath:
             self.setStatus("URL or file path not set.")
             return False
 
@@ -124,8 +126,8 @@ class DownloadThread(QThread):
                 timeout=30,
             ) as r:
                 r.raise_for_status()
-                os.makedirs(os.path.dirname(self.file_path), exist_ok=True)
-                with open(self.file_path, "wb") as f:
+                os.makedirs(os.path.dirname(self.zip_fullpath), exist_ok=True)
+                with open(self.zip_fullpath, "wb") as f:
                     for chunk in r.iter_content(chunk_size=8192):
                         if chunk:
                             f.write(chunk)
@@ -144,27 +146,33 @@ class DownloadThread(QThread):
 
             self.message.emit(
                 f"({self.current + 1}/{self.total}) "
-                f"{os.path.basename(job.file_path)} ..."
+                f"{os.path.basename(job.zip_fullpath)} ..."
             )
 
-            if os.path.exists(job.file_path):
+            if os.path.exists(job.zip_fullpath):
                 self.message.emit(
-                    TR.FILE_EXISTS(os.path.basename(job.file_path))
+                    TR.FILE_EXISTS(os.path.basename(job.zip_fullpath))
+                )
+                self.current += 1
+                continue
+            elif os.path.exists(job.target_fullpath):
+                self.message.emit(
+                    TR.FILE_EXISTS(os.path.basename(job.target_fullpath))
                 )
                 self.current += 1
                 continue
 
-            self.job_started.emit(job.file_path)
+            self.job_started.emit(job.zip_fullpath)
 
             ok = self._download_one(job)
 
             if ok:
-                self.success.emit(job.file_path)
+                self.success.emit(job.zip_fullpath)
             else:
-                self.error.emit(job.file_path)
+                self.error.emit(job.zip_fullpath)
                 break
 
-            self.job_finished.emit(job.file_path)
+            self.job_finished.emit(job.zip_fullpath)
 
             self.current += 1
 
@@ -175,7 +183,7 @@ class DownloadThread(QThread):
         proxies = self._get_proxies()
 
         try:
-            self.setStatus(f"Downloading {os.path.basename(job.file_path)}")
+            self.setStatus(f"Downloading {os.path.basename(job.zip_fullpath)}")
 
             with requests.get(
                 job.url,
@@ -189,11 +197,11 @@ class DownloadThread(QThread):
                 total_length = r.headers.get("content-length")
 
                 os.makedirs(
-                    os.path.dirname(job.file_path),
+                    os.path.dirname(job.zip_fullpath),
                     exist_ok=True,
                 )
 
-                with open(job.file_path, "wb") as f:
+                with open(job.zip_fullpath, "wb") as f:
                     if total_length is None:
                         f.write(r.content)
                     else:
@@ -212,7 +220,7 @@ class DownloadThread(QThread):
                                 )
 
             self.setStatus(
-                f"Downloaded {os.path.basename(job.file_path)}"
+                f"Downloaded {os.path.basename(job.zip_fullpath)}"
             )
 
             return True
@@ -225,36 +233,36 @@ class DownloadThread(QThread):
         self._is_running = False
 
     def remove(self):
-        if self.file_path and os.path.exists(self.file_path):
-            os.remove(self.file_path)
+        if self.zip_fullpath and os.path.exists(self.zip_fullpath):
+            os.remove(self.zip_fullpath)
 
     def checkStatus(self):
         """Check if downloaded file is valid ZIP."""
-        if not self.file_path:
+        if not self.zip_fullpath:
             self.setStatus("The zipfile has not been defined.")
             return
-        if os.path.exists(self.file_path):
-            if os.stat(self.file_path).st_size == 0:
+        if os.path.exists(self.zip_fullpath):
+            if os.stat(self.zip_fullpath).st_size == 0:
                 self.setStatus(
-                    "The zipfile exists but the filesize is zero: " + self.file_path
+                    "The zipfile exists but the filesize is zero: " + self.zip_fullpath
                 )
             else:
                 try:
-                    ret = zipfile.ZipFile(self.file_path).testzip()
+                    ret = zipfile.ZipFile(self.zip_fullpath).testzip()
                     if ret is not None:
                         self.setStatus(
-                            "The zipfile exists with a problem: " + self.file_path
+                            "The zipfile exists with a problem: " + self.zip_fullpath
                         )
                     else:
                         self.setStatus(
-                            "The zipfile exists and is valid: " + self.file_path
+                            "The zipfile exists and is valid: " + self.zip_fullpath
                         )
                 except Exception:
                     self.setStatus(
-                        "The zipfile exists but may be corrupt: " + self.file_path
+                        "The zipfile exists but may be corrupt: " + self.zip_fullpath
                     )
         else:
-            self.setStatus("The zipfile does not exist: " + self.file_path)
+            self.setStatus("The zipfile does not exist: " + self.zip_fullpath)
 
     def _get_proxies(self):
         """Build proxy dict for requests."""
