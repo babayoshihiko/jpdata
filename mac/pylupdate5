@@ -1,0 +1,2 @@
+#!/bin/sh
+exec '/Applications/QGIS-3.40.5.app/Contents/MacOS/bin/python3.9' -m PyQt5.pylupdate_main ${1+"$@"}
