@@ -12,14 +12,13 @@ from .jpdata_census import jpDataCensus
 
 class JPDataUIHandlerCensus:
 
-    def __init__(self, iface, dockwidget, handler, lang=None):
+    def __init__(self, iface, dockwidget, handler):
         self._iface = iface
         self._dw = dockwidget
         self._ui = handler
-        # self._lang = lang
         self._connect_signals()
         self._Muni = jpDataMuni.instance()
-        self._Census = jpDataCensus.instance()  # Singleton. See manager.py
+        self._Census = jpDataCensus.instance()
         self._setup_ui_static_text()
         self._census_populate_init_values()
 

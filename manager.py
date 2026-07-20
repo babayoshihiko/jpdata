@@ -518,7 +518,6 @@ class JPDataManager:
         record = self._Census.get_record()
         jpDataUtils.unzip(record["download_fullpath"], record["zip"])
         jpDataUtils.unzip(record["download_fullpath"], record["attr_zip"])
-        #record["attr_csv"] = self._Census.set_attr_csv()
         shp_full_path = jpDataUtils.unzipAndGetShp(
             record["download_fullpath"],
             year,

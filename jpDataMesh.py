@@ -4,67 +4,60 @@ import os, posixpath, csv
 from . import jpDataUtils
 
 
+def unique_sorted_values(rows, key):
+    return sorted({row[key] for row in rows})
+
+
 def getMesh1ByPrefName(name_pref):
     str_code_pref = jpDataUtils.getPrefCodeByName(name_pref)
-    mesh1s = getMesh1ByPrefCode(str_code_pref)
-    unique_mesh1s = []
-    for x in mesh1s:
-        if x["code_mesh1"] not in unique_mesh1s:
-            unique_mesh1s.append(x["code_mesh1"])
-    return unique_mesh1s
+    return getMesh1ByPrefCode(str_code_pref)
 
 
 def getMesh1ByPrefMuniName(name_pref, name_munis, lang="j"):
     str_code_pref = jpDataUtils.getPrefCodeByName(name_pref)
     int_code_pref = int(str_code_pref)
-    unique_mesh1s = []
 
     cvsfile = posixpath.join(os.path.dirname(__file__), "csv", "muni_mesh1.csv")
     rows = jpDataUtils.get_records_from_csv(cvsfile)
 
-    for row in rows:
-        for name_muni in name_munis:
-            if int(row["code_pref"]) == int_code_pref and (
-                row["name_muni_e"] == name_muni or row["name_muni_j"] == name_muni
-            ):
-                if row["code_mesh1"] not in unique_mesh1s:
-                    unique_mesh1s.append(row["code_mesh1"])
+    mesh1s = [
+        row["code_mesh1"]
+        for row in rows
+        if int(row["code_pref"]) == int_code_pref
+        and (row["name_muni_e"] in name_munis or row["name_muni_j"] in name_munis)
+    ]
 
-    return unique_mesh1s
+    return sorted(set(mesh1s))
 
 
 def getMesh1ByPrefCode(code_pref):
     if code_pref == "":
-        return ""
+        return []
+
     int_code_pref = int(code_pref)
-    unique_mesh1s = []
 
     cvsfile = posixpath.join(os.path.dirname(__file__), "csv", "muni_mesh1.csv")
     rows = jpDataUtils.get_records_from_csv(cvsfile)
 
-    for row in rows:
-        if int(row["code_pref"]) == int_code_pref:
-            unique_mesh1s.append(row)
+    rows = [r for r in rows if int(r["code_pref"]) == int_code_pref]
 
-    return unique_mesh1s
+    return unique_sorted_values(rows, "code_mesh1")
 
 
 def getMesh1ByPrefMuniCode(code_pref, code_muni):
     int_code_pref = int(code_pref)
     int_code_muni = int(code_muni)
-    unique_mesh1s = []
 
     cvsfile = posixpath.join(os.path.dirname(__file__), "csv", "muni_mesh1.csv")
     rows = jpDataUtils.get_records_from_csv(cvsfile)
 
-    for row in rows:
-        if (
-            int(row["code_pref"]) == int_code_pref
-            and int(row["code_muni"]) == int_code_muni
-        ):
-            unique_mesh1s.append(row)
+    rows = [
+        r for r in rows
+        if int(r["code_pref"]) == int_code_pref
+        and int(r["code_muni"]) == int_code_muni
+    ]
 
-    return unique_mesh1s
+    return unique_sorted_values(rows, "code_mesh1")
 
 
 def getMeshExpression(code_map):

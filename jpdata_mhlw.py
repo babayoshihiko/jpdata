@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, csv, posixpath
+import os, posixpath
 from . import jpDataUtils
 from .jpdata_settings import jpDataSettings
 

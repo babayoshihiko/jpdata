@@ -29,11 +29,10 @@ from .jpdata_muni import jpDataMuni
 class JPDataUIHandlerAddr:
     _verbose = True
 
-    def __init__(self, iface, dockwidget, handler, lang=None):
+    def __init__(self, iface, dockwidget, handler):
         self._iface = iface
         self._dw = dockwidget
         self._ui = handler
-        # self._lang = lang
         self._Muni = jpDataMuni.instance()
         self._pin_layer = None
         self._mesh_layer = None

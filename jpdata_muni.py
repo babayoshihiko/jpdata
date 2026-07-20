@@ -57,7 +57,7 @@ class jpDataMuni:
         for row in rows:
             if row["都道府県名"] == name_pref and row["市区町村名"] == name_muni:
                 filtered_rows.append(row["大字・丁目名"])
-        return jpDataUtils.unique_list(filtered_rows)
+        return jpDataUtils.unique_list(filtered_rows, sort=True)
 
     def get_details(self, name_pref, name_muni, name_town):
         self._load_csv(name_pref)
@@ -72,7 +72,7 @@ class jpDataMuni:
                 and row["大字・丁目名"] == name_town
             ):
                 filtered_rows.append(row["街区符号・地番"])
-        return jpDataUtils.unique_list(filtered_rows)
+        return jpDataUtils.unique_list(filtered_rows, sort=True)
 
     # For Tokyo (13) Year 2025
     #   url: https://nlftp.mlit.go.jp/isj/dls/data/24.0a/13000-24.0a.zip

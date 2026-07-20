@@ -13,15 +13,14 @@ from .jpdata_muni import jpDataMuni
 
 class JPDataUIHandlerMHLW:
 
-    def __init__(self, iface, dockwidget, handler, lang=None):
+    def __init__(self, iface, dockwidget, handler):
         self._iface = iface
         self._dw = dockwidget
         self._ui = handler
-        # self._lang = lang
 
         self._connect_signals()
         self._Muni = jpDataMuni.instance()
-        self._MHLW = jpDataMHLW.instance()  # Singleton. See manager.py
+        self._MHLW = jpDataMHLW.instance()
         self._setup_ui_static_text()
         self._mhlw_populate_init_values()
 

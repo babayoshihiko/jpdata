@@ -13,13 +13,12 @@ from .jpdata_lni import jpDataLNI
 
 class JPDataUIHandlerLNI:
 
-    def __init__(self, iface, dockwidget, handler, lang=None):
+    def __init__(self, iface, dockwidget, handler):
         self._iface = iface
         self._dw = dockwidget
         self._ui = handler
-        self._lang = lang
         self._connect_signals()
-        self._LNI = jpDataLNI.instance()  # Singleton. See manager.py
+        self._LNI = jpDataLNI.instance()
         self._setup_ui_static_text()
         self._lni_populate_init_values()
 

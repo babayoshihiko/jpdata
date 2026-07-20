@@ -428,6 +428,9 @@ def unzipAndGetShp(
 
 
 def _create_proj_qix_cpg(shp_full_path, epsg="", encoding="CP932"):
+    if shp_full_path[:-4] != ".shp":
+        return
+    
     """Create .proj, .qix and .cpg for a shapefile"""
     if not os.path.exists(shp_full_path[:-4] + ".prj") and epsg != "":
         crs = QgsCoordinateReferenceSystem(f"EPSG:{epsg}")
@@ -439,8 +442,8 @@ def _create_proj_qix_cpg(shp_full_path, epsg="", encoding="CP932"):
         if vl.isValid():
             vl.dataProvider().createSpatialIndex()
 
-    cpg_path = shp_full_path[:-4] + ".cpg"
     if not os.path.exists(cpg_path):
+        cpg_path = shp_full_path[:-4] + ".cpg"
         with open(cpg_path, "w", encoding="ascii") as f:
             f.write(encoding)
 
@@ -508,12 +511,18 @@ def count_invalid_geometry(layer):
                 count = count + 1
     return count
 
-def unique_list(given_list):
-    unique_list = []
-    for x in given_list:
-        if x not in unique_list:
-            unique_list.append(x)
-    return unique_list
+def unique_list(given_list, sort= False):
+    if sort:
+        return sorted(dict.fromkeys(given_list))
+    else:
+        return list(dict.fromkeys(given_list))
+
+
+    #unique_list = []
+    #for x in given_list:
+    #    if x not in unique_list:
+    #        unique_list.append(x)
+    #return unique_list
 
 
 

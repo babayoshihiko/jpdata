@@ -11,7 +11,6 @@ from qgis.PyQt.QtWidgets import (
     QHBoxLayout,
     QPushButton,
 )
-from qgis.PyQt.QtGui import QFontMetrics
 from qgis.PyQt.QtWidgets import QTreeWidgetItem
 from .jpdata_settings import jpDataSettings
 from . import jpDataUtils
@@ -20,13 +19,12 @@ from .i18n import TR
 
 class JPDataUIHandlerSettings:
 
-    def __init__(self, iface, dockwidget, handler, lang=None):
+    def __init__(self, iface, dockwidget, handler):
         self.settings = jpDataSettings.instance()
 
         self._iface = iface
         self._dw = dockwidget
         self._ui = handler
-        # self._lang = lang
 
         self._setup()
 

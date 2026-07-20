@@ -7,7 +7,6 @@ from qgis.core import (
 )
 from qgis.PyQt.QtCore import (
     Qt,
-    QUrl,
 )
 from qgis.PyQt.QtWidgets import QListWidgetItem
 from qgis.PyQt.QtWidgets import QLabel
@@ -55,7 +54,7 @@ class JPDataUIHandler:
         self._ui_mhlw = None
         self._ui_addr = None
         self._ui_settings = JPDataUIHandlerSettings(
-            self._iface, self._dw, self, self._lang
+            self._iface, self._dw, self
         )
 
     def unload(self):
