@@ -5,6 +5,8 @@ import csv, os, posixpath
 from . import jpdata_unzip
 import unicodedata
 
+DEBUG_MODE = True
+
 PREF_NAMES = {
     "j": {
         1: "北海道",
@@ -140,12 +142,13 @@ PREF_NAMES = {
     },
 }
 
-def DEBUG():
-    DEBUG_MODE = True
-    return DEBUG_MODE
+
+def printLog(message):
+    QgsMessageLog.logMessage(str(message), "jpdata", level=Qgis.Warning)
+
 
 def printDebugLog(message):
-    if DEBUG():
+    if DEBUG_MODE:
         printLog("DEBUG: ")
         printLog(message)
 
@@ -446,10 +449,6 @@ def _create_proj_qix_cpg(shp_full_path, epsg="", encoding="CP932"):
         cpg_path = shp_full_path[:-4] + ".cpg"
         with open(cpg_path, "w", encoding="ascii") as f:
             f.write(encoding)
-
-
-def printLog(message):
-    QgsMessageLog.logMessage(str(message), "jpdata", level=Qgis.Warning)
 
 
 def unzip(folder_path, zip_file):

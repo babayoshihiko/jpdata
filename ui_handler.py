@@ -20,7 +20,6 @@ from .ui_handler_settings import JPDataUIHandlerSettings
 
 
 class JPDataUIHandler:
-    _verbose = True
 
     def __init__(self, manager, iface, dockwidget, lang):
         self._manager = manager
@@ -72,8 +71,7 @@ class JPDataUIHandler:
     def setLabel(self, message, critical=False):
         message = str(message)
         self._dw.myLabelStatus.setText(message)
-        if self._verbose:
-            jpDataUtils.printLog(message)
+        jpDataUtils.printLog(message)
         if critical:
             self._iface.messageBar().pushMessage(
                 "Error",
@@ -91,6 +89,7 @@ class JPDataUIHandler:
         self._setup_tab2(1)
         for index, name in self.TABS.items():
             self._dw.myTabWidget.setTabText(index, name)
+        self._dw.myPushButtonTest.setEnabled(jpDataUtils.DEBUG_MODE)
 
     def _setup_tab2(self, i):
         self._dw.myPushButton25.setText(TR.ADD_TO_MAP())

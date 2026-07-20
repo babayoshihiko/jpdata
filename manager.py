@@ -20,7 +20,6 @@ from .jpdata_muni import jpDataMuni
 
 
 class JPDataManager:
-    _verbose = True
 
     def __init__(self, iface):
         self._iface = iface
@@ -89,20 +88,8 @@ class JPDataManager:
         # Downloader
         self._downloader.progress.connect(self._dw.progressBar.setValue)
         self._downloader.finished.connect(self._download_finished)
-        self._downloader.message.connect(self.setLabel)
+        self._downloader.message.connect(self._ui.setLabel)
 
-    def setLabel(self, message, critical=False):
-        message = str(message)
-        self._dw.myLabelStatus.setText(message)
-        if self._verbose:
-            jpDataUtils.printLog(message)
-        if critical:
-            self._iface.messageBar().pushMessage(
-                "Error",
-                message,
-                1,
-                duration=10,
-            )
 
     def unload(self):
         if self._ui is not None:
@@ -125,7 +112,7 @@ class JPDataManager:
     ):
 
         if shpFileFullPath is None:
-            self.setLabel(TR.CANNOT_FIND_FILE_LAYER(layerName))
+            self._ui.setLabel(TR.CANNOT_FIND_FILE_LAYER(layerName))
             return None
 
         # ------------------------------
@@ -161,7 +148,7 @@ class JPDataManager:
             layer.setProviderEncoding(encoding)
 
         if not layer.isValid():
-            self.setLabel(TR.CANNOT_LOAD_LAYER(layerName))
+            self._ui.setLabel(TR.CANNOT_LOAD_LAYER(layerName))
             return None
 
         # --- CRS ---
@@ -179,7 +166,7 @@ class JPDataManager:
                 if crs.isValid():
                     layer.setCrs(crs)
                 else:
-                    self.setLabel(TR.INVALID_EPSG(epsg))
+                    self._ui.setLabel(TR.INVALID_EPSG(epsg))
 
         # --- Check geometry ---
         geom_type = layer.geometryType()
@@ -187,7 +174,7 @@ class JPDataManager:
             count_invalid = jpDataUtils.count_invalid_geometry(layer)
             if count_invalid > 0:
                 layer.setName(f"{layerName} [invalid]")
-                self.setLabel(TR.INVALID_GEOM(count_invalid))
+                self._ui.setLabel(TR.INVALID_GEOM(count_invalid))
 
         # --- Style from QML file ---
         if qml:
@@ -272,14 +259,14 @@ class JPDataManager:
 
     def _download_finished(self):
         current_text = self._dw.myLabelStatus.text()
-        self.setLabel(current_text + TR.DONE())
+        self._ui.setLabel(current_text + TR.DONE())
         self._ui.enable_download()
         self._dw.progressBar.setValue(100)
 
     def _cancel_download(self):
         if self._downloader is not None:
             current_text = self._dw.myLabelStatus.text()
-            self.setLabel(current_text + TR.CANCELLED())
+            self._ui.setLabel(current_text + TR.CANCELLED())
             self._downloader.stop()
         else:
             self._downloader = jpDataDownloader.DownloadThread()
@@ -287,15 +274,15 @@ class JPDataManager:
 
     def _tab3CheckSelected(self):
         if len(self._dw.myListWidget31.selectedItems()) == 0:
-            self.setLabel(TR.CHOOSE_PREFECTURE())
+            self._ui.setLabel(TR.CHOOSE_PREFECTURE())
             return False
         if self._dw.myComboBox32.currentIndex() == 0:
             if len(self._dw.myListWidget32.selectedItems()) == 0:
-                self.setLabel(TR.CHOOSE_MUNICIPALITY())
+                self._ui.setLabel(TR.CHOOSE_MUNICIPALITY())
                 return False
         else:
             if len(self._dw.myListWidget33.selectedItems()) == 0:
-                self.setLabel(TR.CHOOSE_MESH())
+                self._ui.setLabel(TR.CHOOSE_MESH())
                 return False
         return True
 
@@ -389,10 +376,6 @@ class JPDataManager:
             self._downloader.setProxyPassword(self.settings.proxy_password)
             for x in list_code:
                 self._set_lni_source(type_muni, name_map, year, name_pref, x)
-                jpDataUtils.printDebugLog("392")
-                jpDataUtils.printDebugLog("392")
-                jpDataUtils.printDebugLog(self._LNI.get_record()["zip_fullpath"])
-                jpDataUtils.printDebugLog(self._LNI.get_record()["shp_fullpath"])
                 self._downloader.addJob(
                     self._LNI.get_record()["url"],
                     self._LNI.get_record()["zip_fullpath"],
@@ -526,7 +509,7 @@ class JPDataManager:
         )
 
         if shp_full_path is None:
-            self.setLabel(
+            self._ui.setLabel(
                 TR.CANNOT_FIND_SHP_FILE(record["shp"]),
                 critical=True,
             )
@@ -546,7 +529,7 @@ class JPDataManager:
             )
         else:
             jpDataUtils.printDebugLog("manager.py: CSV for Census not given.")
-            self.setLabel("")
+            self._ui.setLabel("")
 
         self._add_map(
             shp_full_path,
@@ -565,7 +548,7 @@ class JPDataManager:
             for this_service in these_services:
                 record = self._MHLW.get_record(this_service.text(), year)
                 if record is None:
-                    self.setLabel(TR.CANNOT_FIND_FILE(this_service.text()))
+                    self._ui.setLabel(TR.CANNOT_FIND_FILE(this_service.text()))
                     return
                 zip_filename = record.get("zip")
                 shp_filename = record.get("shp")

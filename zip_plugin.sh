@@ -7,12 +7,12 @@ open -a "/Volumes/mac/App/QGIS-LTR.app/Contents/Resources/python/site-packages/q
 
 # Version
 
-perl -pi -e "s|version=0.7.3.1|version=0.7.3.2|g" metadata.txt
+perl -pi -e "s|version=0.7.3.2|version=0.7.3.3|g" metadata.txt
 git add .
-git commit -m "Version 0.7.3.2"
+git commit -m "Version 0.7.3.3"
 git push origin main
-git tag -a v0.7.3.2 -m 'version 0.7.3.2'
-git push origin v0.7.3.2
+git tag -a v0.7.3.3 -m 'version 0.7.3.3'
+git push origin v0.7.3.3
 
 # Create ZIP
 mkdir ../qgis_plugins
@@ -22,8 +22,6 @@ rm -rf jpdata
 rm -f jpdata.zip 
 
 cp -R ../jpdata ./jpdata
-perl -pi -e "s|self._verbose = True|self._verbose = False|g" jpdata/manager.py
-perl -pi -e "s|self._verbose = True|self._verbose = False|g" jpdata/ui_handler.py
 perl -pi -e "s|DEBUG_MODE = True|DEBUG_MODE = False|g" jpdata/jpDataUtils.py
 
 rm -f jpdata/helper_script/*gtfs*

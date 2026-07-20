@@ -27,7 +27,6 @@ from .jpdata_muni import jpDataMuni
 
 
 class JPDataUIHandlerAddr:
-    _verbose = True
 
     def __init__(self, iface, dockwidget, handler):
         self._iface = iface
@@ -154,7 +153,6 @@ class JPDataUIHandlerAddr:
     def set_pin(self, lon, lat):
         self._create_pin_layer()
         pr = self._pin_layer.dataProvider()
-        # pr.truncate()
         feat = QgsFeature(self._pin_layer.fields())
         feat.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(lon, lat)))
         feat["pref"] = str(self._dw.myCB_Addr_1.currentText())
