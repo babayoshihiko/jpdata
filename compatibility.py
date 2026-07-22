@@ -9,12 +9,57 @@ from qgis.core import (
     QgsPointXY,
     QgsUnitTypes,
     QgsVectorLayer,
+    QgsWkbTypes,
 )
 from qgis.PyQt.QtCore import (
     Qt,
     QVariant,
     QMetaType,
 )
+from qgis.PyQt.QtWidgets import (
+    QAbstractItemView,
+    QLineEdit,
+)
+
+if Qgis.QGIS_VERSION_INT >= 40000:
+    CHECKED = Qt.CheckState.Checked
+    COL_DG = Qt.GlobalColor.darkGray
+    COL_GRAY = Qt.GlobalColor.gray
+    COL_WHITE = Qt.GlobalColor.white
+    DOCK_LEFT = Qt.DockWidgetArea.LeftDockWidgetArea
+    GEOM_POINT = QgsWkbTypes.GeometryType.PointGeometry
+    ITEM_IS_SELECTABLE = Qt.ItemFlag.ItemIsSelectable
+    LE_PASSWD = QLineEdit.EchoMode.Password
+    MESSAGE_INFO = Qgis.MessageLevel.Info
+    MESSAGE_WARNING = Qgis.MessageLevel.Warning
+    MESSAGE_CRITICAL = Qgis.MessageLevel.Critical
+    PARTIALLY_CHECKED = Qt.CheckState.PartiallyChecked
+    RENDER_MAP_UNITS = QgsUnitTypes.RenderUnit.RenderMapUnits
+    RENDER_PIXELS = QgsUnitTypes.RenderUnit.RenderPixels
+    SELECTION_EXTENDED = QAbstractItemView.SelectionMode.ExtendedSelection
+    TEXT_MOUSE = Qt.TextInteractionFlag.TextSelectableByMouse
+    UNCHECKED = Qt.CheckState.Unchecked
+    USER_ROLE = Qt.ItemDataRole.UserRole
+else:
+    CHECKED = Qt.Checked
+    COL_DG = Qt.darkGray
+    COL_GRAY = Qt.gray
+    COL_WHITE = Qt.white
+    DOCK_LEFT = Qt.LeftDockWidgetArea
+    GEOM_POINT = QgsWkbTypes.PointGeometry
+    ITEM_IS_SELECTABLE = Qt.ItemIsSelectable
+    LE_PASSWD = QLineEdit.Password
+    MESSAGE_INFO = Qgis.Info
+    MESSAGE_WARNING = Qgis.Warning
+    MESSAGE_CRITICAL = Qgis.Critical
+    PARTIALLY_CHECKED = Qt.PartiallyChecked
+    RENDER_MAP_UNITS = QgsUnitTypes.RenderMapUnits
+    RENDER_PIXELS = QgsUnitTypes.RenderPixels
+    SELECTION_EXTENDED = QAbstractItemView.ExtendedSelection
+    TEXT_MOUSE = Qt.TextSelectableByMouse
+    UNCHECKED = Qt.Unchecked
+    USER_ROLE = Qt.UserRole
+
 
 if Qgis.QGIS_VERSION_INT >= 34000:
     STRING = QMetaType.Type.QString
@@ -22,30 +67,12 @@ if Qgis.QGIS_VERSION_INT >= 34000:
     DOUBLE = QMetaType.Type.Double
     BOOL = QMetaType.Type.Bool
     DATE = QMetaType.Type.QDate
-    CHECKED = Qt.CheckState.Checked
-    UNCHECKED = Qt.CheckState.Unchecked
-    MESSAGE_INFO = Qgis.MessageLevel.Info
-    MESSAGE_WARNING = Qgis.MessageLevel.Warning
-    MESSAGE_CRITICAL = Qgis.MessageLevel.Critical
-    PARTIALLY_CHECKED = Qt.CheckState.PartiallyChecked
-    RENDER_MAP_UNITS = QgsUnitTypes.RenderUnit.RenderMapUnits
-    RENDER_PIXELS = QgsUnitTypes.RenderUnit.RenderPixels
-    USER_ROLE = Qt.ItemDataRole.UserRole
 else:
     STRING = QVariant.String
     INT = QVariant.Int
     DOUBLE = QVariant.Double
     BOOL = QVariant.Bool
     DATE = QVariant.Date
-    CHECKED = Qt.Checked
-    UNCHECKED = Qt.Unchecked
-    MESSAGE_INFO = Qgis.Info
-    MESSAGE_WARNING = Qgis.Warning
-    MESSAGE_CRITICAL = Qgis.Critical
-    PARTIALLY_CHECKED = Qt.PartiallyChecked
-    RENDER_MAP_UNITS = QgsUnitTypes.RenderMapUnits
-    RENDER_PIXELS = QgsUnitTypes.RenderPixels
-    USER_ROLE = Qt.UserRole
 
 
 def add_map_qgis322(shp_fullpath, layerName, xField, yField, epsg, encoding="UTF-8"):

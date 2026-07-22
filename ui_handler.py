@@ -10,6 +10,7 @@ from qgis.PyQt.QtCore import (
 )
 from qgis.PyQt.QtWidgets import QListWidgetItem
 from qgis.PyQt.QtWidgets import QLabel
+from .compatibility import TEXT_MOUSE
 from . import jpDataUtils
 from .i18n import TR
 from .ui_handler_lni import JPDataUIHandlerLNI
@@ -45,7 +46,7 @@ class JPDataUIHandler:
         self.meshLabel.setObjectName("MyPluginMeshLabel")
         statusbar.addPermanentWidget(self.meshLabel)
 
-        self.meshLabel.setTextInteractionFlags(Qt.TextSelectableByMouse)
+        self.meshLabel.setTextInteractionFlags(TEXT_MOUSE)
         self._connect_signals()
         self._setup_ui_static_text()
         self._ui_lni = None

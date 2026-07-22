@@ -14,6 +14,7 @@ from qgis.PyQt.QtWidgets import (
 from qgis.PyQt.QtWidgets import QTreeWidgetItem
 from .jpdata_settings import jpDataSettings
 from . import jpDataUtils
+from .compatibility import LE_PASSWD
 from .i18n import TR
 
 
@@ -75,7 +76,7 @@ class JPDataUIHandlerSettings:
 
             edit = QLineEdit(value)
             if password:
-                edit.setEchoMode(QLineEdit.Password)
+                edit.setEchoMode(LE_PASSWD)
 
             tree.setItemWidget(item, 1, edit)
             return edit

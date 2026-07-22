@@ -2,7 +2,6 @@
 from qgis.core import QgsMessageLog, Qgis, QgsCoordinateReferenceSystem
 from qgis.core import QgsVectorLayer
 import csv, os, posixpath
-from .compatibility import MESSAGE_WARNING
 from . import jpdata_unzip
 import unicodedata
 
@@ -145,7 +144,10 @@ PREF_NAMES = {
 
 
 def printLog(message):
-    QgsMessageLog.logMessage(str(message), "jpdata", level=MESSAGE_WARNING)
+    if Qgis.QGIS_VERSION_INT >= 40000:
+        QgsMessageLog.logMessage(str(message), "jpdata", level=Qgis.MessageLevel.Warning)
+    else:
+        QgsMessageLog.logMessage(str(message), "jpdata", level=Qgis.Warning)
 
 
 def printDebugLog(message):

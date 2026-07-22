@@ -5,8 +5,9 @@ from qgis.PyQt.QtCore import (
 )
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView
 from qgis.PyQt.QtGui import QDesktopServices
-from . import jpDataMesh
 from . import jpDataUtils
+from .compatibility import COL_DG, COL_GRAY, COL_WHITE, SELECTION_EXTENDED, ITEM_IS_SELECTABLE
+from . import jpDataMesh
 from .i18n import TR
 from .jpdata_lni import jpDataLNI
 
@@ -58,18 +59,15 @@ class JPDataUIHandlerLNI:
     def _lni_populate_init_values(self):
         self._LNI.init()
         self._dw.myListWidget11.clear()
-        bg = Qt.GlobalColor.darkGray if hasattr(Qt, "GlobalColor") else Qt.darkGray
-        fg = Qt.GlobalColor.white if hasattr(Qt, "GlobalColor") else Qt.white
-        gray = Qt.GlobalColor.gray if hasattr(Qt, "GlobalColor") else Qt.gray
+        bg = COL_DG
+        fg = COL_WHITE
+        gray = COL_GRAY
         for key, record in self._LNI.get_records().items():
             item = QListWidgetItem(key)
 
             if record["availability"] != "yes":
                 # Disable selection
-                if hasattr(Qt, "ItemFlag"):
-                    item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsSelectable)
-                else:
-                    item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
+                item.setFlags(item.flags() & ~ITEM_IS_SELECTABLE)
 
                 if record["availability"] == "heading":
                     item.setBackground(bg)

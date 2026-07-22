@@ -3,8 +3,9 @@ from qgis.PyQt.QtCore import (
     Qt,
 )
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView
-from . import jpDataMesh
 from . import jpDataUtils
+from .compatibility import COL_DG, COL_GRAY, COL_WHITE, SELECTION_EXTENDED, ITEM_IS_SELECTABLE
+from . import jpDataMesh
 from .i18n import TR
 from .jpdata_muni import jpDataMuni
 from .jpdata_census import jpDataCensus
@@ -50,18 +51,10 @@ class JPDataUIHandlerCensus:
         self._dw.myPushButton31.setToolTip(TR.DOWNLOAD_CENSUS())
         self._dw.myPushButton32.setText(TR.ADD_TO_MAP())
         self._dw.myPushButton32.setToolTip(TR.ADD_TO_MAP_TOOLTIP())
-        self._dw.myListWidget32.setSelectionMode(
-            QAbstractItemView.SelectionMode.ExtendedSelection
-            if hasattr(QAbstractItemView, "SelectionMode")
-            else QAbstractItemView.ExtendedSelection
-        )
+        self._dw.myListWidget32.setSelectionMode(SELECTION_EXTENDED)
 
         self._dw.myListWidget33.hide()
-        self._dw.myListWidget33.setSelectionMode(
-            QAbstractItemView.SelectionMode.ExtendedSelection
-            if hasattr(QAbstractItemView, "SelectionMode")
-            else QAbstractItemView.ExtendedSelection
-        )
+        self._dw.myListWidget33.setSelectionMode(SELECTION_EXTENDED)
 
     def _census_populate_init_values(self):
         index = self._dw.myComboBox32.currentIndex()
@@ -106,12 +99,8 @@ class JPDataUIHandlerCensus:
                 continue
             item = QListWidgetItem(name)
             if name in designated_cities:
-                if hasattr(Qt, "ItemFlag"):
-                    item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsSelectable)
-                else:
-                    item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
-                gray = Qt.GlobalColor.gray if hasattr(Qt, "GlobalColor") else Qt.gray
-                item.setForeground(gray)
+                item.setFlags(item.flags() & ~ITEM_IS_SELECTABLE)
+                item.setForeground(COL_GRAY)
 
             self._dw.myListWidget32.addItem(item)
 

@@ -5,9 +5,9 @@ from qgis.core import (
     QgsProject,
     QgsVectorLayer,
     QgsCoordinateReferenceSystem,
-    QgsWkbTypes,
 )
 
+from .compatibility import GEOM_POINT, DOCK_LEFT
 from .jpdata_settings import jpDataSettings
 from .i18n import TR
 from .ui_handler import JPDataUIHandler
@@ -49,11 +49,7 @@ class JPDataManager:
         self._setup_initial_ui_state()
 
         # QGIS 4 compatible
-        dock_area = (
-            Qt.DockWidgetArea.LeftDockWidgetArea
-            if hasattr(Qt, "DockWidgetArea")
-            else Qt.LeftDockWidgetArea
-        )
+        dock_area = DOCK_LEFT
         self._iface.addDockWidget(dock_area, self._dw)
         self._dw.show()
 
@@ -170,7 +166,7 @@ class JPDataManager:
 
         # --- Check geometry ---
         geom_type = layer.geometryType()
-        if geom_type != QgsWkbTypes.PointGeometry and self.settings.geometry_check:
+        if geom_type != GEOM_POINT and self.settings.geometry_check:
             count_invalid = jpDataUtils.count_invalid_geometry(layer)
             if count_invalid > 0:
                 layer.setName(f"{layerName} [invalid]")

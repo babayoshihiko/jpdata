@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from qgis.PyQt.QtCore import (
-    Qt,
     QUrl,
 )
-from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView
+from qgis.PyQt.QtWidgets import QListWidgetItem
 from qgis.PyQt.QtGui import QDesktopServices
 from . import jpDataUtils
+from .compatibility import COL_DG, COL_WHITE, SELECTION_EXTENDED, ITEM_IS_SELECTABLE
 from .i18n import TR
 from .jpdata_mhlw import jpDataMHLW
 from .jpdata_muni import jpDataMuni
@@ -35,18 +35,14 @@ class JPDataUIHandlerMHLW:
         self._dw.myPB_MHLW_2.setText(TR.DOWNLOAD())
         self._dw.myPB_MHLW_3.setText(TR.ADD_TO_MAP())
         # Selection Modes
-        self._dw.myLW_MHLW.setSelectionMode(
-            QAbstractItemView.SelectionMode.ExtendedSelection
-            if hasattr(QAbstractItemView, "SelectionMode")
-            else QAbstractItemView.ExtendedSelection
-        )
+        self._dw.myLW_MHLW.setSelectionMode(SELECTION_EXTENDED)
         self._dw.myPB_MHLW_Wiki.setText("Wiki")
 
     def _mhlw_populate_init_values(self):
         self._MHLW.init()
         self._dw.myLW_MHLW.clear()
-        bg = Qt.GlobalColor.darkGray if hasattr(Qt, "GlobalColor") else Qt.darkGray
-        fg = Qt.GlobalColor.white if hasattr(Qt, "GlobalColor") else Qt.white
+        bg = COL_DG
+        fg = COL_WHITE
         for key, record in self._MHLW.get_records().items():
             item = QListWidgetItem(key)
 
@@ -58,10 +54,7 @@ class JPDataUIHandlerMHLW:
                 item.setBackground(bg)
                 item.setForeground(fg)
                 # Disable selection
-                if hasattr(Qt, "ItemFlag"):
-                    item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsSelectable)
-                else:
-                    item.setFlags(item.flags() & ~Qt.ItemIsSelectable)
+                item.setFlags(item.flags() & ~ITEM_IS_SELECTABLE)
             self._dw.myLW_MHLW.addItem(item)
 
     def _mhlw_web(self):
