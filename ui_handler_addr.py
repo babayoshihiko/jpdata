@@ -21,7 +21,7 @@ from qgis.PyQt.QtCore import Qt, QPointF
 from qgis.PyQt.QtGui import QFont, QColor
 from qgis.PyQt.QtWidgets import QAction
 from . import jpDataUtils
-from .compatibility import STRING, INT
+from .compatibility import STRING, INT, CHECKED, RENDER_PIXELS, USER_ROLE 
 from .i18n import TR
 from .jpdata_muni import jpDataMuni
 
@@ -104,9 +104,9 @@ class JPDataUIHandlerAddr:
                 symbol = QgsMarkerSymbol.createSimple({})
                 svg_layer = QgsSvgMarkerSymbolLayer(svg_path)
                 svg_layer.setSize(128)
-                svg_layer.setSizeUnit(QgsUnitTypes.RenderPixels)
+                svg_layer.setSizeUnit(RENDER_PIXELS)
                 svg_layer.setOffset(QPointF(0, -64))
-                svg_layer.setOffsetUnit(QgsUnitTypes.RenderPixels)
+                svg_layer.setOffsetUnit(RENDER_PIXELS)
                 symbol.changeSymbolLayer(0, svg_layer)
                 self._pin_layer.renderer().setSymbol(symbol)
             QgsProject.instance().addMapLayer(self._pin_layer)
@@ -115,11 +115,11 @@ class JPDataUIHandlerAddr:
         return QgsField(name, STRING)
 
     def _tree_item_changed(self, item, column):
-        tab = item.data(0, Qt.UserRole)
+        tab = item.data(0, USER_ROLE)
         if tab is None:
             return
 
-        self._dw.myTabWidget.setTabVisible(tab, item.checkState(0) == Qt.Checked)
+        self._dw.myTabWidget.setTabVisible(tab, item.checkState(0) == CHECKED)
 
     def _myPB_Addr_2_clicked(self):
         lon, lat = self._Muni.get_lonlat_by_addr(

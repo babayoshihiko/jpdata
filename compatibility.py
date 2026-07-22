@@ -7,29 +7,45 @@ from qgis.core import (
     QgsFeature,
     QgsGeometry,
     QgsPointXY,
+    QgsUnitTypes,
     QgsVectorLayer,
 )
 from qgis.PyQt.QtCore import (
+    Qt,
     QVariant,
     QMetaType,
 )
 
 if Qgis.QGIS_VERSION_INT >= 34000:
-    from qgis.PyQt.QtCore import QMetaType
-
     STRING = QMetaType.Type.QString
     INT = QMetaType.Type.Int
     DOUBLE = QMetaType.Type.Double
     BOOL = QMetaType.Type.Bool
     DATE = QMetaType.Type.QDate
+    CHECKED = Qt.CheckState.Checked
+    UNCHECKED = Qt.CheckState.Unchecked
+    MESSAGE_INFO = Qgis.MessageLevel.Info
+    MESSAGE_WARNING = Qgis.MessageLevel.Warning
+    MESSAGE_CRITICAL = Qgis.MessageLevel.Critical
+    PARTIALLY_CHECKED = Qt.CheckState.PartiallyChecked
+    RENDER_MAP_UNITS = QgsUnitTypes.RenderUnit.RenderMapUnits
+    RENDER_PIXELS = QgsUnitTypes.RenderUnit.RenderPixels
+    USER_ROLE = Qt.ItemDataRole.UserRole
 else:
-    from qgis.PyQt.QtCore import QVariant
-
     STRING = QVariant.String
     INT = QVariant.Int
     DOUBLE = QVariant.Double
     BOOL = QVariant.Bool
     DATE = QVariant.Date
+    CHECKED = Qt.Checked
+    UNCHECKED = Qt.Unchecked
+    MESSAGE_INFO = Qgis.Info
+    MESSAGE_WARNING = Qgis.Warning
+    MESSAGE_CRITICAL = Qgis.Critical
+    PARTIALLY_CHECKED = Qt.PartiallyChecked
+    RENDER_MAP_UNITS = QgsUnitTypes.RenderMapUnits
+    RENDER_PIXELS = QgsUnitTypes.RenderPixels
+    USER_ROLE = Qt.UserRole
 
 
 def add_map_qgis322(shp_fullpath, layerName, xField, yField, epsg, encoding="UTF-8"):
