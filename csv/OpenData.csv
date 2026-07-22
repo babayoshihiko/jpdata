@@ -1,0 +1,7 @@
+name_pref,name_muni,start_url,save_folder,file_pattern,epsg,encoding,qml
+新潟県,新潟市,https://www.city.niigata.lg.jp/shisei/seisaku/it/open-data/opendata-gis/index.html,OpenData/{name_pref}/{name_muni},,4612,,
+新潟県,長岡市,https://www.city.nagaoka.niigata.jp/shisei/cate10/,OpenData/{name_pref}/{name_muni},,6668,UTF-8,
+新潟県,柏崎市,https://www.city.kashiwazaki.lg.jp/shiseijoho/opendata/19471.html,OpenData/{name_pref}/{name_muni},,,,
+新潟県,小千谷市,https://www.city.ojiya.niigata.jp/soshiki/kikakuseisaku/opendata.html
+新潟県,加茂市,https://citydata.jp/%E6%96%B0%E6%BD%9F%E7%9C%8C/%E5%8A%A0%E8%8C%82%E5%B8%82
+新潟県,十日町市,https://www.city.tokamachi.lg.jp/soshiki/somubu/somuka/2/gyomu/1450419657612.html
