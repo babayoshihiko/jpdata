@@ -145,9 +145,11 @@ PREF_NAMES = {
 
 def printLog(message):
     if Qgis.QGIS_VERSION_INT >= 40000:
-        QgsMessageLog.logMessage(str(message), "jpdata", level=Qgis.MessageLevel.Warning)
+        level = Qgis.MessageLevel.Warning
     else:
-        QgsMessageLog.logMessage(str(message), "jpdata", level=Qgis.Warning)
+        level = getattr(Qgis, "Warning")
+
+    QgsMessageLog.logMessage(str(message), "jpdata", level=level)
 
 
 def printDebugLog(message):

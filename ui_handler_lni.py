@@ -6,7 +6,7 @@ from qgis.PyQt.QtCore import (
 from qgis.PyQt.QtWidgets import QListWidgetItem, QAbstractItemView
 from qgis.PyQt.QtGui import QDesktopServices
 from . import jpDataUtils
-from .compatibility import COL_DG, COL_GRAY, COL_WHITE, SELECTION_EXTENDED, ITEM_IS_SELECTABLE
+from .compatibility import COL_DG, COL_GRAY, COL_WHITE, SELECTION_EXTENDED, SELECTION_SINGLE, ITEM_IS_SELECTABLE
 from . import jpDataMesh
 from .i18n import TR
 from .jpdata_lni import jpDataLNI
@@ -44,16 +44,8 @@ class JPDataUIHandlerLNI:
         self._dw.myPB_LNI_Wiki.setText("Wiki")
 
         # Selection Modes
-        self._dw.myListWidget12.setSelectionMode(
-            QAbstractItemView.SelectionMode.ExtendedSelection
-            if hasattr(QAbstractItemView, "SelectionMode")
-            else QAbstractItemView.ExtendedSelection
-        )
-        self._dw.myListWidget13.setSelectionMode(
-            QAbstractItemView.SelectionMode.ExtendedSelection
-            if hasattr(QAbstractItemView, "SelectionMode")
-            else QAbstractItemView.ExtendedSelection
-        )
+        self._dw.myListWidget12.setSelectionMode(SELECTION_EXTENDED)
+        self._dw.myListWidget13.setSelectionMode(SELECTION_EXTENDED)
         self._dw.myListWidget13.hide()
 
     def _lni_populate_init_values(self):
@@ -132,16 +124,16 @@ class JPDataUIHandlerLNI:
     def _tab1_clear(self, bol_show_LW13):
         self._dw.myListWidget12.clear()
         mode = (
-            QAbstractItemView.SelectionMode.SingleSelection
+            SELECTION_SINGLE
             if bol_show_LW13
-            else QAbstractItemView.SelectionMode.ExtendedSelection
+            else SELECTION_EXTENDED
         )
         # QGIS 3/4 compatible
         if not hasattr(QAbstractItemView, "SelectionMode"):
             mode = (
-                QAbstractItemView.SingleSelection
+                SELECTION_SINGLE
                 if bol_show_LW13
-                else QAbstractItemView.ExtendedSelection
+                else SELECTION_EXTENDED
             )
 
         self._dw.myListWidget12.setSelectionMode(mode)
