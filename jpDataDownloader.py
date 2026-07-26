@@ -177,7 +177,6 @@ class DownloadThread(QThread):
             self.current += 1
 
         self.finished.emit()
-        self.clearJobs()
 
     def _download_one(self, job):
         proxies = self._get_proxies()
@@ -195,39 +194,72 @@ class DownloadThread(QThread):
                 r.raise_for_status()
 
                 total_length = r.headers.get("content-length")
-
-                os.makedirs(
-                    os.path.dirname(job.zip_fullpath),
-                    exist_ok=True,
-                )
+                os.makedirs(os.path.dirname(job.zip_fullpath), exist_ok=True)
 
                 with open(job.zip_fullpath, "wb") as f:
-                    if total_length is None:
-                        f.write(r.content)
-                    else:
-                        dl = 0
-                        total_length = int(total_length)
+                    total_length = int(total_length) if total_length is not None else None
+                    dl = 0
 
-                        for data in r.iter_content(chunk_size=4096):
-                            if not self._is_running:
-                                return False
+                    for data in r.iter_content(chunk_size=4096):
+                        if not self._is_running:
+                            return False
 
-                            if data:
-                                dl += len(data)
-                                f.write(data)
-                                self.progress.emit(
-                                    int(100 * dl / total_length)
-                                )
+                        if data:
+                            dl += len(data)
+                            f.write(data)
+                            if total_length is not None and total_length > 0:
+                                self.progress.emit(int(100 * dl / total_length))
 
-            self.setStatus(
-                f"Downloaded {os.path.basename(job.zip_fullpath)}"
-            )
+            # ==========================================
+            # 【追加】本当に正しいZIPファイルか中身を検証
+            # ==========================================
+            if not os.path.exists(job.zip_fullpath):
+                self.setStatus("Download failed: File does not exist.")
+                return False
 
+            # 1. そもそもファイルサイズが0、またはZIPの最小サイズ（22バイト）未満ならアウト
+            if os.path.getsize(job.zip_fullpath) < 22:
+                self.setStatus("Download failed: File is empty or too small to be a ZIP.")
+                self._safe_remove(job.zip_fullpath)
+                return False
+
+            # 2. ZIPファイルの構造チェック（zipfile.is_zipfileを使う）
+            if not zipfile.is_zipfile(job.zip_fullpath):
+                self.setStatus("Download failed: Server returned an invalid ZIP file (likely an error page).")
+                self._safe_remove(job.zip_fullpath)
+                return False
+
+            # 3. さらに厳格に、ヘッダーだけでなく破損がないかテスト（任意ですが確実です）
+            try:
+                with zipfile.ZipFile(job.zip_fullpath, 'r') as zf:
+                    # testzip() はファイルが壊れていればそのファイル名を返し、正常なら None を返します
+                    bad_file = zf.testzip()
+                    if bad_file is not None:
+                        self.setStatus(f"Download failed: Corrupted file inside ZIP: {bad_file}")
+                        self._safe_remove(job.zip_fullpath)
+                        return False
+            except Exception as e:
+                self.setStatus(f"Download failed: Failed to open ZIP file: {e}")
+                self._safe_remove(job.zip_fullpath)
+                return False
+            # ==========================================
+
+            self.setStatus(f"Downloaded {os.path.basename(job.zip_fullpath)}")
             return True
 
         except requests.exceptions.RequestException as e:
             self.setStatus(str(e))
+            self._safe_remove(job.zip_fullpath)
             return False
+
+    def _safe_remove(self, path):
+        """安全にファイルを削除するためのヘルパー"""
+        if path and os.path.exists(path):
+            try:
+                os.remove(path)
+            except:
+                pass
+
 
     def stop(self):
         self._is_running = False

@@ -138,6 +138,10 @@ class TR:
         )
 
     @staticmethod
+    def FAILED():
+        return QCoreApplication.translate("jpData", "...Failed")
+
+    @staticmethod
     def GENERAL():
         return QCoreApplication.translate("jpData", "General")
 

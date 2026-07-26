@@ -253,11 +253,23 @@ class JPDataManager:
     def _tab1_add_map(self):
         self._tab1_iter(process="add")
 
+    #def _download_finished(self):
+    #    current_text = self._dw.myLabelStatus.text()
+    #    self._ui.setLabel(current_text + TR.DONE())
+    #    self._ui.enable_download()
+    #    self._dw.progressBar.setValue(100)
+
     def _download_finished(self):
         current_text = self._dw.myLabelStatus.text()
-        self._ui.setLabel(current_text + TR.DONE())
+        
+        if self._downloader.hasJobs():
+            jpDataUtils.printDebugLog(current_text + TR.DONE())
+            self._ui.setLabel(current_text + " " + TR.FAILED())
+        else:
+            self._ui.setLabel(current_text + TR.DONE())
+            self._dw.progressBar.setValue(100)
+            
         self._ui.enable_download()
-        self._dw.progressBar.setValue(100)
 
     def _cancel_download(self):
         if self._downloader is not None:
