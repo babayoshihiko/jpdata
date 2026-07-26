@@ -450,8 +450,8 @@ def _create_proj_qix_cpg(shp_full_path, epsg="", encoding="CP932"):
         if vl.isValid():
             vl.dataProvider().createSpatialIndex()
 
+    cpg_path = shp_full_path[:-4] + ".cpg"
     if not os.path.exists(cpg_path):
-        cpg_path = shp_full_path[:-4] + ".cpg"
         with open(cpg_path, "w", encoding="ascii") as f:
             f.write(encoding)
 

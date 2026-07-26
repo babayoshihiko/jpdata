@@ -164,6 +164,8 @@ class JPDataUIHandlerLNI:
         if len(self._dw.myListWidget12.selectedItems()) > 0:
             name_pref = self._dw.myListWidget12.selectedItems()[0].text()
         years = self._LNI.get_years(name_map, name_pref)
+        if len(years) == 0:
+            jpDataUtils.printLog("Failed to load definition.")
         self._ui.populate_CB(years, self._dw.myComboBox11)
 
     def _tab1_set_LW13(self, name_map, name_pref):

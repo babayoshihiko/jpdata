@@ -226,8 +226,8 @@ class jpDataLNI:
             years.append(csvfile)
             return years
 
-        self._load_source(name_map)
         type_muni = self.records[name_map].get("type_muni", "")
+        self._load_source(name_map)
         if name_pref is None:
             for row in self.source:
                 years.append(row["year"])
@@ -239,11 +239,21 @@ class jpDataLNI:
                 ):
                     years.append(row["year"])
         else:
+            _is_pref = any(
+                name_pref in pref_dict.values()
+                for pref_dict in jpDataUtils.PREF_NAMES.values()
+            )
+
             for row in self.source:
+                jpDataUtils.printDebugLog(row["availability"])
                 if row["availability"] == name_pref or (
                     type_muni != "regional" and type_muni != "detail"
+                ) or (
+                    _is_pref and row["availability"] == "allprefs"
                 ):
                     years.append(row["year"])
+        if len(years) == 0:
+            jpDataUtils.printDebugLog("jpdata_lni.py: Failed to load definition.")
         return jpDataUtils.unique_list(years)
 
     def get_prefs(self, name_map):

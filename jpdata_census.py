@@ -2,7 +2,6 @@
 import os, posixpath
 from . import jpDataUtils
 from .jpdata_muni import jpDataMuni
-from qgis import processing
 import json
 from .jpdata_settings import jpDataSettings
 
@@ -313,7 +312,7 @@ class jpDataCensus:
             self.record["attr_csv_fullpath"] = posixpath.join(self.record["download_fullpath"] , self.record["attr_csv"])
 
     def perform_join(self, folder, year, shp_name, csv_name):
-        import processing
+        from qgis import processing
         from qgis.core import (
             QgsVectorLayer,
             QgsVectorFileWriter,

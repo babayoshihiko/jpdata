@@ -11,7 +11,6 @@ from qgis.PyQt.QtWidgets import (
     QHBoxLayout,
     QPushButton,
 )
-from qgis.PyQt.QtWidgets import QTreeWidgetItem
 from .jpdata_settings import jpDataSettings
 from . import jpDataUtils
 from .compatibility import LE_PASSWD
@@ -136,16 +135,14 @@ class JPDataUIHandlerSettings:
     def set_proxy(self):
         _proxyServer = self._dw.myLineEditSetting1.text()
         if len(_proxyServer) > 10:
-            if self._proxyServer != _proxyServer:
-                self._proxyServer = _proxyServer
-                QgsSettings().setValue("jpdata/ProxyServer", self._proxyServer)
-                self._downloader.setProxyServer(self._proxyServer)
+            if self.settings.proxy_server != _proxyServer:
+                self.settings.proxy_server = _proxyServer
+                self._downloader.setProxyServer(_proxyServer)
             self._downloader.setProxyUser(self._dw.myLineEditSetting2.text())
             self._downloader.setProxyPassword(self._dw.myLineEditSetting3.text())
         else:
             self._downloader.setProxyServer("")
-            QgsSettings().setValue("jpdata/ProxyServer", "http://")
-            self._proxyServer = "http://"
+            self.settings.proxy_server = "http://"
 
     def set_folder(self, folder):
         if not folder:
