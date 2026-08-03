@@ -45,20 +45,32 @@ class jpDataMHLW:
 
     def get_record(self, name_map, year):
         self._set_source()
+
         for row in self._source:
             if (
-                row.get("name_j") == name_map or row.get("name_e") == name_map
-            ) and row.get("year") == year:
-                row["subfolder"] = posixpath.join("MHLW", year)
-                row["epsg"] = "6668"
-                row["encoding"] = "UTF-8"
-                row["zip_fullpath"] = posixpath.join(
-                    self.settings.folder_path, row["subfolder"], row.get("zip")
+                row.get("year") == year
+                and name_map in (row.get("name_j"), row.get("name_e"))
+            ):
+                record = row.copy()
+
+                record["subfolder"] = posixpath.join("MHLW", year)
+                record["epsg"] = "6668"
+                record["encoding"] = "UTF-8"
+
+                record["zip_fullpath"] = posixpath.join(
+                    self.settings.folder_path,
+                    record["subfolder"],
+                    record["zip"],
                 )
-                row["shp_fullpath"] = posixpath.join(
-                    self.settings.folder_path, row["subfolder"], row.get("shp")
+                record["shp_fullpath"] = posixpath.join(
+                    self.settings.folder_path,
+                    record["subfolder"],
+                    record["shp"],
                 )
-                return row
+
+                return record
+
+        return None
 
     def get_years(self, name):
         self._set_source()

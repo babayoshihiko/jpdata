@@ -210,29 +210,27 @@ class DownloadThread(QThread):
                             if total_length is not None and total_length > 0:
                                 self.progress.emit(int(100 * dl / total_length))
 
-            # ==========================================
-            # 【追加】本当に正しいZIPファイルか中身を検証
-            # ==========================================
+            # Checks if valid zip
             if not os.path.exists(job.zip_fullpath):
                 self.setStatus("Download failed: File does not exist.")
                 return False
 
-            # 1. そもそもファイルサイズが0、またはZIPの最小サイズ（22バイト）未満ならアウト
+            # 1. Checks filesize
             if os.path.getsize(job.zip_fullpath) < 22:
                 self.setStatus("Download failed: File is empty or too small to be a ZIP.")
                 self._safe_remove(job.zip_fullpath)
                 return False
 
-            # 2. ZIPファイルの構造チェック（zipfile.is_zipfileを使う）
+            # 2. Checks ZIP file structure
             if not zipfile.is_zipfile(job.zip_fullpath):
                 self.setStatus("Download failed: Server returned an invalid ZIP file (likely an error page).")
                 self._safe_remove(job.zip_fullpath)
                 return False
 
-            # 3. さらに厳格に、ヘッダーだけでなく破損がないかテスト（任意ですが確実です）
+            # 3. Checks any other
             try:
                 with zipfile.ZipFile(job.zip_fullpath, 'r') as zf:
-                    # testzip() はファイルが壊れていればそのファイル名を返し、正常なら None を返します
+                    # testzip() returns the filename if broken
                     bad_file = zf.testzip()
                     if bad_file is not None:
                         self.setStatus(f"Download failed: Corrupted file inside ZIP: {bad_file}")
@@ -242,7 +240,6 @@ class DownloadThread(QThread):
                 self.setStatus(f"Download failed: Failed to open ZIP file: {e}")
                 self._safe_remove(job.zip_fullpath)
                 return False
-            # ==========================================
 
             self.setStatus(f"Downloaded {os.path.basename(job.zip_fullpath)}")
             return True
@@ -253,11 +250,10 @@ class DownloadThread(QThread):
             return False
 
     def _safe_remove(self, path):
-        """安全にファイルを削除するためのヘルパー"""
         if path and os.path.exists(path):
             try:
                 os.remove(path)
-            except:
+            except OSError:
                 pass
 
 

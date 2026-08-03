@@ -90,7 +90,7 @@ class JPDataUIHandler:
         self._setup_tab2(1)
         for index, name in self.TABS.items():
             self._dw.myTabWidget.setTabText(index, name)
-        self._dw.myPushButtonTest.setEnabled(jpDataUtils.DEBUG_MODE)
+        self._dw.myPushButtonTest.setVisible(jpDataUtils.DEBUG_MODE)
 
     def _setup_tab2(self, i):
         self._dw.myPushButton25.setText(TR.ADD_TO_MAP())
