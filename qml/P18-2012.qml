@@ -8,13 +8,13 @@
   </flags>
   <renderer-v2 type="categorizedSymbol" forceraster="0" referencescale="-1" attr="P18_003" enableorderby="0" symbollevels="0">
     <categories>
-      <category type="long" symbol="0" render="true" value="1" label="1"/>
-      <category type="long" symbol="1" render="true" value="2" label="2"/>
-      <category type="long" symbol="2" render="true" value="4" label="4"/>
-      <category type="long" symbol="3" render="true" value="5" label="5"/>
-      <category type="long" symbol="4" render="true" value="6" label="6"/>
-      <category type="long" symbol="5" render="true" value="7" label="7"/>
-      <category type="long" symbol="6" render="true" value="8" label="8"/>
+      <category type="long" symbol="0" render="true" value="1" label="警察本部"/>
+      <category type="long" symbol="1" render="true" value="2" label="警察署"/>
+      <category type="long" symbol="2" render="true" value="4" label="交番"/>
+      <category type="long" symbol="3" render="true" value="5" label="駐在所"/>
+      <category type="long" symbol="4" render="true" value="6" label="派出所"/>
+      <category type="long" symbol="5" render="true" value="7" label="警察学校"/>
+      <category type="long" symbol="6" render="true" value="8" label="地域安全センター等"/>
     </categories>
     <symbols>
       <symbol alpha="1" force_rhr="0" type="marker" frame_rate="10" name="0" is_animated="0" clip_to_extent="1">
@@ -345,7 +345,7 @@
             <Option type="QString" name="angle" value="0"/>
             <Option type="QString" name="chr" value="警察学校"/>
             <Option type="QString" name="color" value="0,0,0,255"/>
-            <Option type="QString" name="font" value="Apple Braille"/>
+            <Option type="QString" name="font" value="Noto Sans JP"/>
             <Option type="QString" name="font_style" value=""/>
             <Option type="QString" name="horizontal_anchor_point" value="1"/>
             <Option type="QString" name="joinstyle" value="bevel"/>
