@@ -180,7 +180,7 @@ class jpDataLNI:
                     self._set_record_from_row(row)
                     break
                 elif (
-                    type_muni == "regional" and row["availability"] == "allprefs"
+                    (type_muni == "regional" or type_muni == "") and row["availability"] == "allprefs"
                 ) and (
                     self.record["name_pref"] in jpDataUtils.PREF_NAMES["j"].values()
                     or self.record["name_pref"] in jpDataUtils.PREF_NAMES["e"].values()
@@ -245,7 +245,6 @@ class jpDataLNI:
             )
 
             for row in self.source:
-                jpDataUtils.printDebugLog(row["availability"])
                 if row["availability"] == name_pref or (
                     type_muni != "regional" and type_muni != "detail"
                 ) or (
