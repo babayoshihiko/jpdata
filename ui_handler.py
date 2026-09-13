@@ -8,6 +8,7 @@ from qgis.core import (
 from qgis.PyQt.QtCore import (
     Qt,
 )
+from qgis.PyQt.QtGui import QFontMetrics
 from qgis.PyQt.QtWidgets import QListWidgetItem
 from qgis.PyQt.QtWidgets import QLabel
 from .compatibility import TEXT_MOUSE
@@ -71,8 +72,22 @@ class JPDataUIHandler:
 
     def setLabel(self, message, critical=False):
         message = str(message)
-        self._dw.myLabelStatus.setText(message)
+
+        label = self._dw.myLabelStatus
+        metrics = QFontMetrics(label.font())
+
+        # shorten the message for the label
+        display_message = metrics.elidedText(
+            message,
+            Qt.ElideRight,
+            label.width(),
+        )
+
+        label.setText(display_message)
+
+        # print the complete message in log
         jpDataUtils.printLog(message)
+
         if critical:
             self._iface.messageBar().pushMessage(
                 "Error",
@@ -80,6 +95,7 @@ class JPDataUIHandler:
                 1,
                 duration=10,
             )
+
 
     def _connect_signals(self):
         self._iface.mapCanvas().xyCoordinates.connect(self._updateMeshCode)
