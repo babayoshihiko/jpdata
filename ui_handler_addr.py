@@ -129,7 +129,7 @@ class JPDataUIHandlerAddr:
             str(self._dw.myCB_Addr_4.currentText()),
         )
         if lon is None or lat is None:
-            self.setLabel(TR.NO_XY())
+            self._ui.setLabel(TR.NO_XY())
             return
         point_jgd2011 = QgsPointXY(lon, lat)
 
@@ -140,7 +140,7 @@ class JPDataUIHandlerAddr:
         try:
             point_project = transform.transform(point_jgd2011)
         except Exception as e:
-            self.setLabel(str(e))
+            self._ui.setLabel(str(e))
             return
 
         # Set canvas center
@@ -169,7 +169,7 @@ class JPDataUIHandlerAddr:
             str(self._dw.myCB_Addr_4.currentText()),
         )
         if lon is None or lat is None:
-            self.setLabel(TR.NO_XY())
+            self._ui.setLabel(TR.NO_XY())
             return
         from qgis.core import QgsCoordinateReferenceSystem, QgsProject
 
@@ -180,7 +180,7 @@ class JPDataUIHandlerAddr:
             QgsProject.instance().setCrs(crs)
             self.add_graticule_layer()
         else:
-            self.setLabel(TR.INVALID_PROJECTION())
+            self._ui.setLabel(TR.INVALID_PROJECTION())
 
     def _myPB_Addr_4_clicked(self):
         self.add_mesh_layer()
