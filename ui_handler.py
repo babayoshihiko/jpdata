@@ -36,16 +36,22 @@ class JPDataUIHandler:
             4: TR.ADDRESS(),
             5: TR.SETTING(),
         }
+
+
+
         statusbar = self._iface.mainWindow().statusBar()
 
-        for label in statusbar.findChildren(QLabel):
-            if label.objectName() == "MyPluginMeshLabel":
+        for label in statusbar.findChildren(QLabel, "MyPluginMeshLabel"):
+            try:
                 statusbar.removeWidget(label)
                 label.deleteLater()
+            except RuntimeError:
+                pass
 
         self.meshLabel = QLabel("Japanese Mesh Code")
         self.meshLabel.setObjectName("MyPluginMeshLabel")
         statusbar.addPermanentWidget(self.meshLabel)
+
 
         self.meshLabel.setTextInteractionFlags(TEXT_MOUSE)
         self._connect_signals()
@@ -58,17 +64,32 @@ class JPDataUIHandler:
             self._iface, self._dw, self
         )
 
+
     def unload(self):
         try:
-            self._iface.mapCanvas().xyCoordinates.disconnect(self._updateMeshCode)
-        except TypeError:
+            self._iface.mapCanvas().xyCoordinates.disconnect(
+                self._updateMeshCode
+            )
+        except (TypeError, RuntimeError):
             pass
 
         meshLabel = getattr(self, "meshLabel", None)
+
         if meshLabel is not None:
-            self._iface.statusBarIface().removeWidget(meshLabel)
-            meshLabel.deleteLater()
+            statusbar = self._iface.mainWindow().statusBar()
+
+            try:
+                statusbar.removeWidget(meshLabel)
+            except RuntimeError:
+                pass
+
+            try:
+                meshLabel.deleteLater()
+            except RuntimeError:
+                pass
+
             self.meshLabel = None
+
 
     def setLabel(self, message, critical=False):
         message = str(message)
