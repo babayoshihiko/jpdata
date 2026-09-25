@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3. 地図や地理情報システムで捉える現代世界 &mdash; jpData for QGIS  ドキュメント</title>
+  <title>PyQt6 と PyQt6 &mdash; jpData for QGIS  ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../static/css/qgis_docs.css?v=9a6c854a" />
       <link rel="stylesheet" type="text/css" href="../static/togglebutton.css?v=9c3e77be" />
@@ -13,7 +13,7 @@
 
   
     <link rel="shortcut icon" href="../static/qgis_logo.ico"/>
-    <link rel="canonical" href="https://babayoshihiko.github.io/jpdata/docs/highschool/10_A.html"/>
+    <link rel="canonical" href="https://babayoshihiko.github.io/jpdata/docs/jpdata/pyqt56.html"/>
   <!--[if lt IE 9]>
     <script src="../static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -35,9 +35,7 @@
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="4. 国際理解と国際協力" href="20_B.html" />
-    <link rel="prev" title="2.4. まとめ" href="01_qgis_plugins/concl.html" />
-  <meta name="description" content="QGIS latest documentation: 3. 地図や地理情報システムで捉える現代世界">
+  <meta name="description" content="QGIS latest documentation: PyQt6 と PyQt6">
   <script>
     var _paq = window._paq = window._paq || [];
     _paq.push(["disableCookies"]);
@@ -57,7 +55,7 @@
 
   <nav class="release_status_topbar">
     <div class="row isTesting">
-     This documentation is a work in progress. For the Long Term Release and translations, please visit the <a href="https://docs.qgis.org/latest/ja/docs/highschool/10_A.html">latest version</a>.
+     This documentation is a work in progress. For the Long Term Release and translations, please visit the <a href="https://docs.qgis.org/latest/ja/docs/jpdata/pyqt56.html">latest version</a>.
     </div>
   </nav>
 
@@ -90,23 +88,9 @@
  
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">利用ガイド</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../jpdata/index.html">jpData for QGIS マニュアル</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">jpData for QGIS で学ぶ高校地理総合</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="00_foreword/index.html">1. コース紹介</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01_qgis_plugins/index.html">2. プラグイン</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">3. 地図や地理情報システムで捉える現代世界</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#follow-along">3.1. <abbr title="初級">★☆☆</abbr> Follow Along:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#try-yourself">3.2. <abbr title="中級">★★☆</abbr> Try Yourself: 都市計画の地図を重ねてみよう</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">3.3. <abbr title="上級">★★★</abbr> Follow Along: 豪雪地帯</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">3.4. まとめ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">3.5. 次はなに？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="20_B.html">4. 国際理解と国際協力</a></li>
-<li class="toctree-l2"><a class="reference internal" href="30_C.html">5. 持続可能な地域づくりと私たち</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">jpData for QGIS マニュアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../highschool/index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../repr/index.html">Spatial Information Representation</a></li>
 </ul>
 
@@ -124,14 +108,13 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">3. </span>地図や地理情報システムで捉える現代世界</li>
+      <li class="breadcrumb-item active">PyQt6 と PyQt6</li>
 
     <li style="float: right; text-align: right;">
 	<ul>
 		
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/qgis/jpData-doc/edit/master/docs/highschool/10_A.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/qgis/jpData-doc/edit/master/docs/jpdata/pyqt56.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
 	</ul>
 
@@ -145,57 +128,59 @@
     </li>
 
 
-  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="01_qgis_plugins/concl.html" class="btn btn-neutral float-left" title="2.4. まとめ" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="20_B.html" class="btn btn-neutral float-right" title="4. 国際理解と国際協力" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-  </div>
+  </ul>
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1><span class="section-number">3. </span>地図や地理情報システムで捉える現代世界<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
+  <section id="pyqt6-pyqt6">
+<span id="intro"></span><span id="index-0"></span><h1>PyQt6 と PyQt6<a class="headerlink" href="#pyqt6-pyqt6" title="Link to this heading"></a></h1>
+<nav class="contents local" id="id1">
+<ul class="simple">
+<li><p><a class="reference internal" href="#qtreewidget" id="id3">QTreeWidget</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id4">言語設定</a></p></li>
+</ul>
+</nav>
+<section id="qtreewidget">
+<span id="sec-pyqt6-pyqt5"></span><span id="index-1"></span><h2><a class="toc-backref" href="#id3" role="doc-backlink">QTreeWidget</a><a class="headerlink" href="#qtreewidget" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>   <span class="k">try</span><span class="p">:</span>
+<span class="linenos"> 2</span>         <span class="c1"># PyQt6</span>
+<span class="linenos"> 3</span>         <span class="kn">from</span><span class="w"> </span><span class="nn">qgis.PyQt.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QMetaType</span>
+<span class="linenos"> 4</span>         <span class="n">STRING_TYPE</span> <span class="o">=</span> <span class="n">QMetaType</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">QString</span>
+<span class="linenos"> 5</span>   <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+<span class="linenos"> 6</span>         <span class="c1"># PyQt5</span>
+<span class="linenos"> 7</span>         <span class="kn">from</span><span class="w"> </span><span class="nn">qgis.PyQt.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QVariant</span>
+<span class="linenos"> 8</span>         <span class="n">STRING_TYPE</span> <span class="o">=</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>   <span class="n">pr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pin_layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span>
+<span class="linenos">11</span>   <span class="n">pr</span><span class="o">.</span><span class="n">addAttributes</span><span class="p">([</span>
+<span class="linenos">12</span>         <span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">STRING_TYPE</span><span class="p">),</span>
+<span class="linenos">13</span>         <span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;pref&quot;</span><span class="p">,</span> <span class="n">STRING_TYPE</span><span class="p">),</span>
+<span class="linenos">14</span>         <span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;muni&quot;</span><span class="p">,</span> <span class="n">STRING_TYPE</span><span class="p">),</span>
+<span class="linenos">15</span>   <span class="p">])</span>
+</pre></div>
 </div>
-<section id="follow-along">
-<h2><span class="section-number">3.1. </span><abbr title="初級">★☆☆</abbr> Follow Along:<a class="headerlink" href="#follow-along" title="Link to this heading"></a></h2>
-</section>
-<section id="try-yourself">
-<h2><span class="section-number">3.2. </span><abbr title="中級">★★☆</abbr> Try Yourself: 都市計画の地図を重ねてみよう<a class="headerlink" href="#try-yourself" title="Link to this heading"></a></h2>
-<ol class="arabic simple">
-<li><p>Looking at the menu, you will notice that the <span class="guilabel">Processing</span> menu is
-is now gone. This means that many of the processing functions you have been
-using before have disappeared! For example look at the <span class="menuselection">Vector
-►</span> and <span class="menuselection">Raster ►</span> menus. This is because they are part of</p></li>
-</ol>
+<p>現在の実装は上になります。
+これは古い QGIS (3.22) にも対応しています。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>   <span class="n">pr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pin_layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span>
+<span class="linenos">2</span>   <span class="n">pr</span><span class="o">.</span><span class="n">addAttributes</span><span class="p">([</span>
+<span class="linenos">3</span>      <span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+<span class="linenos">4</span>      <span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;pref&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+<span class="linenos">5</span>      <span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;muni&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+<span class="linenos">6</span>   <span class="p">])</span>
+</pre></div>
+</div>
 </section>
 <section id="id2">
-<h2><span class="section-number">3.3. </span><abbr title="上級">★★★</abbr> Follow Along: 豪雪地帯<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<ol class="arabic simple">
-<li><p>Looking at the menu, you will notice that the <span class="guilabel">Processing</span> menu is
-is now gone. This means that many of the processing functions you have been
-using before have disappeared! For example look at the <span class="menuselection">Vector
-►</span> and <span class="menuselection">Raster ►</span> menus. This is because they are part of</p></li>
-</ol>
-</section>
-<section id="id3">
-<h2><span class="section-number">3.4. </span>まとめ<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<p>Installing plugins in QGIS should be straightforward and effective!</p>
-</section>
-<section id="id4">
-<h2><span class="section-number">3.5. </span>次はなに？<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
-<p>Next we'll introduce you to some useful plugins as examples.</p>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">言語設定</a><a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="01_qgis_plugins/concl.html" class="btn btn-neutral float-left" title="2.4. まとめ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="20_B.html" class="btn btn-neutral float-right" title="4. 国際理解と国際協力" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
@@ -233,34 +218,34 @@ with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_
       <dl>
         <dt>Languages</dt>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/highschool/10_A.html">ja</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/jpdata/pyqt56.html">ja</a></dd>
         
       </dl>
 
       <dl>
         <dt>Versions</dt>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdatatesting/ja/docs/highschool/10_A.html">testing</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdatatesting/ja/docs/jpdata/pyqt56.html">testing</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/highschool/10_A.html">latest</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/jpdata/pyqt56.html">latest</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.44/ja/docs/highschool/10_A.html">3.44</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.44/ja/docs/jpdata/pyqt56.html">3.44</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.40/ja/docs/highschool/10_A.html">3.40</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.40/ja/docs/jpdata/pyqt56.html">3.40</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.34/ja/docs/highschool/10_A.html">3.34</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.34/ja/docs/jpdata/pyqt56.html">3.34</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.28/ja/docs/highschool/10_A.html">3.28</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.28/ja/docs/jpdata/pyqt56.html">3.28</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.22/ja/docs/highschool/10_A.html">3.22</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.22/ja/docs/jpdata/pyqt56.html">3.22</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.16/ja/docs/highschool/10_A.html">3.16</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.16/ja/docs/jpdata/pyqt56.html">3.16</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.10/ja/docs/highschool/10_A.html">3.10</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.10/ja/docs/jpdata/pyqt56.html">3.10</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.4/ja/docs/highschool/10_A.html">3.4</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.4/ja/docs/jpdata/pyqt56.html">3.4</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata2.18/ja/docs/highschool/10_A.html">2.18</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata2.18/ja/docs/jpdata/pyqt56.html">2.18</a></dd>
         
       </dl>
 
@@ -280,7 +265,7 @@ with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_
       <dl>
         <dt>Contribute to Docs</dt>
           <dd>
-            <a href="https://github.com/babayoshihiko/jpData-doc/edit/master/docs/highschool/10_A.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+            <a href="https://github.com/babayoshihiko/jpData-doc/edit/master/docs/jpdata/pyqt56.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
           </dd>
           
           

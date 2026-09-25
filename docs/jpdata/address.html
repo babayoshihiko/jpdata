@@ -34,7 +34,7 @@
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
-    <link rel="search" title="検索" href="../search.html" />
+    <link rel="search" title="検索" href="search.html" />
     <link rel="next" title="7. 補足事項" href="appendices/index.html" />
     <link rel="prev" title="5. 地理院タイル" href="tile.html" />
   <meta name="description" content="QGIS latest documentation: 6. 住所">
@@ -80,7 +80,7 @@
                 latest
               </div>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -89,17 +89,7 @@
    <a href= "../../genindex.html">索引</a>
  
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">jpData for QGIS について</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../about/preamble.html">はじめに</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about/foreword.html">刊行に寄せて</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about/conventions.html">本書で用いる表記</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about/features.html">主な機能</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about/help_and_support.html">サポート情報</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about/contributors.html">作者と著者</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about/license/index.html">ライセンス準拠</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">利用ガイド</span></p>
+              <p class="caption" role="heading"><span class="caption-text">利用ガイド</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">jpData for QGIS マニュアル</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="intro.html">1. はじめに</a></li>
@@ -125,6 +115,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../highschool/index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../repr/index.html">Spatial Information Representation</a></li>
 </ul>
 
         </div>
@@ -219,51 +210,15 @@ aeqd は、正距方位図法を指しています。</p>
 </section>
 <section id="id7">
 <h3><span class="section-number">6.3.2. </span>ソースコード: 経緯度線<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>     <span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span>
-<span class="linenos"> 2</span>         <span class="s2">&quot;LineString?crs=EPSG:4326&quot;</span><span class="p">,</span>
-<span class="linenos"> 3</span>         <span class="sa">f</span><span class="s2">&quot;Graticule_</span><span class="si">{</span><span class="n">interval</span><span class="si">}</span><span class="s2">deg&quot;</span><span class="p">,</span>
-<span class="linenos"> 4</span>         <span class="s2">&quot;memory&quot;</span><span class="p">,</span>
-<span class="linenos"> 5</span>     <span class="p">)</span>
-<span class="linenos"> 6</span>     <span class="n">provider</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span>
-<span class="linenos"> 7</span>     <span class="n">provider</span><span class="o">.</span><span class="n">addAttributes</span><span class="p">([</span>
-<span class="linenos"> 8</span>         <span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">String</span><span class="p">),</span>
-<span class="linenos"> 9</span>         <span class="n">QgsField</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">QVariant</span><span class="o">.</span><span class="n">Int</span><span class="p">),</span>
-<span class="linenos">10</span>     <span class="p">])</span>
-<span class="linenos">11</span>     <span class="n">layer</span><span class="o">.</span><span class="n">updateFields</span><span class="p">()</span>
-<span class="linenos">12</span>     <span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="linenos">13</span>     <span class="k">for</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">181</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
-<span class="linenos">14</span>         <span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
-<span class="linenos">15</span>             <span class="n">QgsPointXY</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
-<span class="linenos">16</span>             <span class="k">for</span> <span class="n">lat</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">91</span><span class="p">)</span>
-<span class="linenos">17</span>         <span class="p">]</span>
-<span class="linenos">18</span>
-<span class="linenos">19</span>         <span class="n">feat</span> <span class="o">=</span> <span class="n">QgsFeature</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
-<span class="linenos">20</span>         <span class="n">feat</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QgsGeometry</span><span class="o">.</span><span class="n">fromPolylineXY</span><span class="p">(</span><span class="n">points</span><span class="p">))</span>
-<span class="linenos">21</span>         <span class="n">feat</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;longitude&quot;</span>
-<span class="linenos">22</span>         <span class="n">feat</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon</span>
-<span class="linenos">23</span>         <span class="n">features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
-<span class="linenos">24</span>     <span class="k">for</span> <span class="n">lat</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
-<span class="linenos">25</span>         <span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
-<span class="linenos">26</span>             <span class="n">QgsPointXY</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
-<span class="linenos">27</span>             <span class="k">for</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">181</span><span class="p">)</span>
-<span class="linenos">28</span>         <span class="p">]</span>
-<span class="linenos">29</span>         <span class="n">feat</span> <span class="o">=</span> <span class="n">QgsFeature</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">fields</span><span class="p">())</span>
-<span class="linenos">30</span>         <span class="n">feat</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QgsGeometry</span><span class="o">.</span><span class="n">fromPolylineXY</span><span class="p">(</span><span class="n">points</span><span class="p">))</span>
-<span class="linenos">31</span>         <span class="n">feat</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;latitude&quot;</span>
-<span class="linenos">32</span>         <span class="n">feat</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat</span>
-<span class="linenos">33</span>         <span class="n">features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
-<span class="linenos">34</span>     <span class="n">provider</span><span class="o">.</span><span class="n">addFeatures</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-<span class="linenos">35</span>     <span class="n">layer</span><span class="o">.</span><span class="n">updateExtents</span><span class="p">()</span>
-<span class="linenos">36</span>     <span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
-<span class="linenos">37</span>     <span class="k">return</span> <span class="n">layer</span>
-</pre></div>
-</div>
 </section>
 </section>
 <section id="id8">
 <h2><span class="section-number">6.4. </span>メッシュの追加<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
 <p>メッシュをポリゴンとして仮想レイヤを追加します。</p>
 <p>なお、ポリゴンを選択し、右クリックをするとコンテキストメニューが出ますが、ここで3次メッシュを追加することもできます。</p>
+<p>変更予定: メッシュレイヤを選択しなくとも、地図上で右クリックでコンテキストメニュー表示。
+コンテキストメニューの「メッシュを追加」でメッシュを追加する。</p>
+<p>さらに、国土数値情報で、メッシュ系のダウンロードの際、自動的に地図中のメッシュ番号を選択する（おおむね実装済み）。</p>
 </section>
 </section>
 
@@ -279,7 +234,7 @@ aeqd は、正距方位図法を指しています。</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2024-now, BABA Yoshihiko.
-      <span class="lastupdated">最終更新: 2026 7月 09, 10:12 +0900
+      <span class="lastupdated">最終更新: 2026 9月 13, 12:36 +0900
       </span></p>
   </div>
 

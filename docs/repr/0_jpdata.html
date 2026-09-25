@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3. 地図や地理情報システムで捉える現代世界 &mdash; jpData for QGIS  ドキュメント</title>
+  <title>Lecture 02: jpData and Symbols and Labels &mdash; jpData for QGIS  ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../static/css/qgis_docs.css?v=9a6c854a" />
       <link rel="stylesheet" type="text/css" href="../static/togglebutton.css?v=9c3e77be" />
@@ -13,7 +13,7 @@
 
   
     <link rel="shortcut icon" href="../static/qgis_logo.ico"/>
-    <link rel="canonical" href="https://babayoshihiko.github.io/jpdata/docs/highschool/10_A.html"/>
+    <link rel="canonical" href="https://babayoshihiko.github.io/jpdata/docs/repr/0_jpdata.html"/>
   <!--[if lt IE 9]>
     <script src="../static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -35,9 +35,7 @@
     <script src="../static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="next" title="4. 国際理解と国際協力" href="20_B.html" />
-    <link rel="prev" title="2.4. まとめ" href="01_qgis_plugins/concl.html" />
-  <meta name="description" content="QGIS latest documentation: 3. 地図や地理情報システムで捉える現代世界">
+  <meta name="description" content="QGIS latest documentation: Lecture 02: jpData and Symbols and Labels">
   <script>
     var _paq = window._paq = window._paq || [];
     _paq.push(["disableCookies"]);
@@ -57,7 +55,7 @@
 
   <nav class="release_status_topbar">
     <div class="row isTesting">
-     This documentation is a work in progress. For the Long Term Release and translations, please visit the <a href="https://docs.qgis.org/latest/ja/docs/highschool/10_A.html">latest version</a>.
+     This documentation is a work in progress. For the Long Term Release and translations, please visit the <a href="https://docs.qgis.org/latest/ja/docs/repr/0_jpdata.html">latest version</a>.
     </div>
   </nav>
 
@@ -90,24 +88,10 @@
  
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">利用ガイド</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../jpdata/index.html">jpData for QGIS マニュアル</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">jpData for QGIS で学ぶ高校地理総合</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="00_foreword/index.html">1. コース紹介</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01_qgis_plugins/index.html">2. プラグイン</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">3. 地図や地理情報システムで捉える現代世界</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#follow-along">3.1. <abbr title="初級">★☆☆</abbr> Follow Along:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#try-yourself">3.2. <abbr title="中級">★★☆</abbr> Try Yourself: 都市計画の地図を重ねてみよう</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">3.3. <abbr title="上級">★★★</abbr> Follow Along: 豪雪地帯</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">3.4. まとめ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">3.5. 次はなに？</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="20_B.html">4. 国際理解と国際協力</a></li>
-<li class="toctree-l2"><a class="reference internal" href="30_C.html">5. 持続可能な地域づくりと私たち</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../repr/index.html">Spatial Information Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../highschool/index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Spatial Information Representation</a></li>
 </ul>
 
         </div>
@@ -124,14 +108,13 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">3. </span>地図や地理情報システムで捉える現代世界</li>
+      <li class="breadcrumb-item active">Lecture 02: jpData and Symbols and Labels</li>
 
     <li style="float: right; text-align: right;">
 	<ul>
 		
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/qgis/jpData-doc/edit/master/docs/highschool/10_A.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/qgis/jpData-doc/edit/master/docs/repr/0_jpdata.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
 	</ul>
 
@@ -145,24 +128,21 @@
     </li>
 
 
-  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="01_qgis_plugins/concl.html" class="btn btn-neutral float-left" title="2.4. まとめ" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="20_B.html" class="btn btn-neutral float-right" title="4. 国際理解と国際協力" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-  </div>
+  </ul>
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1><span class="section-number">3. </span>地図や地理情報システムで捉える現代世界<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+  <section id="lecture-02-jpdata-and-symbols-and-labels">
+<h1>Lecture 02: jpData and Symbols and Labels<a class="headerlink" href="#lecture-02-jpdata-and-symbols-and-labels" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <section id="follow-along">
-<h2><span class="section-number">3.1. </span><abbr title="初級">★☆☆</abbr> Follow Along:<a class="headerlink" href="#follow-along" title="Link to this heading"></a></h2>
+<h2><abbr title="初級">★☆☆</abbr> Follow Along:<a class="headerlink" href="#follow-along" title="Link to this heading"></a></h2>
 </section>
 <section id="try-yourself">
-<h2><span class="section-number">3.2. </span><abbr title="中級">★★☆</abbr> Try Yourself: 都市計画の地図を重ねてみよう<a class="headerlink" href="#try-yourself" title="Link to this heading"></a></h2>
+<h2><abbr title="中級">★★☆</abbr> Try Yourself:<a class="headerlink" href="#try-yourself" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Looking at the menu, you will notice that the <span class="guilabel">Processing</span> menu is
 is now gone. This means that many of the processing functions you have been
@@ -170,8 +150,8 @@ using before have disappeared! For example look at the <span class="menuselectio
 ►</span> and <span class="menuselection">Raster ►</span> menus. This is because they are part of</p></li>
 </ol>
 </section>
-<section id="id2">
-<h2><span class="section-number">3.3. </span><abbr title="上級">★★★</abbr> Follow Along: 豪雪地帯<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<section id="id1">
+<h2><abbr title="上級">★★★</abbr> Follow Along:<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Looking at the menu, you will notice that the <span class="guilabel">Processing</span> menu is
 is now gone. This means that many of the processing functions you have been
@@ -179,12 +159,12 @@ using before have disappeared! For example look at the <span class="menuselectio
 ►</span> and <span class="menuselection">Raster ►</span> menus. This is because they are part of</p></li>
 </ol>
 </section>
-<section id="id3">
-<h2><span class="section-number">3.4. </span>まとめ<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
 <p>Installing plugins in QGIS should be straightforward and effective!</p>
 </section>
-<section id="id4">
-<h2><span class="section-number">3.5. </span>次はなに？<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<section id="what-s-next">
+<h2>What's Next?<a class="headerlink" href="#what-s-next" title="Link to this heading"></a></h2>
 <p>Next we'll introduce you to some useful plugins as examples.</p>
 </section>
 </section>
@@ -192,10 +172,7 @@ using before have disappeared! For example look at the <span class="menuselectio
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="01_qgis_plugins/concl.html" class="btn btn-neutral float-left" title="2.4. まとめ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="20_B.html" class="btn btn-neutral float-right" title="4. 国際理解と国際協力" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
@@ -233,34 +210,34 @@ with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_
       <dl>
         <dt>Languages</dt>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/highschool/10_A.html">ja</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/repr/0_jpdata.html">ja</a></dd>
         
       </dl>
 
       <dl>
         <dt>Versions</dt>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdatatesting/ja/docs/highschool/10_A.html">testing</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdatatesting/ja/docs/repr/0_jpdata.html">testing</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/highschool/10_A.html">latest</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/repr/0_jpdata.html">latest</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.44/ja/docs/highschool/10_A.html">3.44</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.44/ja/docs/repr/0_jpdata.html">3.44</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.40/ja/docs/highschool/10_A.html">3.40</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.40/ja/docs/repr/0_jpdata.html">3.40</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.34/ja/docs/highschool/10_A.html">3.34</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.34/ja/docs/repr/0_jpdata.html">3.34</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.28/ja/docs/highschool/10_A.html">3.28</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.28/ja/docs/repr/0_jpdata.html">3.28</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.22/ja/docs/highschool/10_A.html">3.22</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.22/ja/docs/repr/0_jpdata.html">3.22</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.16/ja/docs/highschool/10_A.html">3.16</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.16/ja/docs/repr/0_jpdata.html">3.16</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.10/ja/docs/highschool/10_A.html">3.10</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.10/ja/docs/repr/0_jpdata.html">3.10</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata3.4/ja/docs/highschool/10_A.html">3.4</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.4/ja/docs/repr/0_jpdata.html">3.4</a></dd>
         
-          <dd><a href="https://babayoshihiko.github.io/jpdata2.18/ja/docs/highschool/10_A.html">2.18</a></dd>
+          <dd><a href="https://babayoshihiko.github.io/jpdata2.18/ja/docs/repr/0_jpdata.html">2.18</a></dd>
         
       </dl>
 
@@ -280,7 +257,7 @@ with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_
       <dl>
         <dt>Contribute to Docs</dt>
           <dd>
-            <a href="https://github.com/babayoshihiko/jpData-doc/edit/master/docs/highschool/10_A.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+            <a href="https://github.com/babayoshihiko/jpData-doc/edit/master/docs/repr/0_jpdata.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
           </dd>
           
           
