@@ -1,0 +1,28 @@
+Lesson: 国土数値情報を使ってみよう
+===============================================================================
+
+To begin using plugins, you need to know how to download, install and activate
+them. To do this, you will learn how to use the :guilabel:`Plugin Installer`
+and :guilabel:`Plugin Manager`.
+
+**The goal for this lesson:** To understand and use QGIS' plugin system.
+
+:abbr:`★☆☆ (初級)` Follow Along: 行政区域
+-------------------------------------------------------------------------------
+
+
+#. Looking at the menu, you will notice that the :guilabel:`Processing` menu is
+   is now gone. This means that many of the processing functions you have been
+   using before have disappeared! For example look at the :menuselection:`Vector
+   -->` and :menuselection:`Raster -->` menus. This is because they are part of
+ 
+:abbr:`★★☆ (中級)` Follow Along: 用途地域
+-------------------------------------------------------------------------------
+
+
+#. Looking at the menu, you will notice that the :guilabel:`Processing` menu is
+   is now gone. This means that many of the processing functions you have been
+   using before have disappeared! For example look at the :menuselection:`Vector
+   -->` and :menuselection:`Raster -->` menus. This is because they are part of
+ 
+

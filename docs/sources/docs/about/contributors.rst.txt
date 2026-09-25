@@ -1,0 +1,23 @@
+.. _doc_contributors:
+
+**************
+作者と著者
+**************
+
+.. only:: html
+
+   .. contents::
+      :local:
+
+QGIS プラグイン jpData は、馬場美彦によって作成されています。
+
+.. index::
+   single: Contributors; Authors
+.. _doc_authors:
+
+Authors
+========
+
+本ドキュメントは、馬場美彦によって作成されています。
+
+Website: https://babayoshihiko.github.io/NUHW_SW_Baba/ja/

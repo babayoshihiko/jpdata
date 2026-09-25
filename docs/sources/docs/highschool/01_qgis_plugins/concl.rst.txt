@@ -1,0 +1,10 @@
+
+まとめ
+-------------------------------------------------------------------------------
+
+Installing plugins in QGIS should be straightforward and effective!
+
+次はなに？
+-------------------------------------------------------------------------------
+
+Next we'll introduce you to some useful plugins as examples.

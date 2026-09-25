@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. Lecture 05: Creating a Graticule &mdash; jpData for QGIS  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../static/css/qgis_docs.css?v=9a6c854a" />
+      <link rel="stylesheet" type="text/css" href="../static/togglebutton.css?v=9c3e77be" />
+      <link rel="stylesheet" type="text/css" href="../static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../static/css/qgis_topbar.css?v=5613a779" />
+
+  
+    <link rel="shortcut icon" href="../static/qgis_logo.ico"/>
+    <link rel="canonical" href="https://babayoshihiko.github.io/jpdata/docs/repr/05_grat.html"/>
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../static/jquery.js?v=5d32c60e"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../static/documentation_options.js?v=c033477b"></script>
+        <script src="../static/doctools.js?v=9a2dae69"></script>
+        <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../static/copybutton.js?v=f281be69"></script>
+        <script>let toggleHintShow = 'クリックして表示';</script>
+        <script>let toggleHintHide = 'クリックして非表示';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../static/togglebutton.js?v=b8b12719"></script>
+        <script src="../static/translations.js?v=91613774"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="6. Lecture 06: Reading CSV Data in QGIS" href="06_csv.html" />
+    <link rel="prev" title="4. Lecture 04: Changing Projections in QGIS" href="04_proj.html" />
+  <meta name="description" content="QGIS latest documentation: 5. Lecture 05: Creating a Graticule">
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(["disableCookies"]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.qgis.org/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+</head>
+
+<body class="wy-body-for-nav">
+
+  <nav class="release_status_topbar">
+    <div class="row isTesting">
+     This documentation is a work in progress. For the Long Term Release and translations, please visit the <a href="https://docs.qgis.org/latest/ja/docs/repr/05_grat.html">latest version</a>.
+    </div>
+  </nav>
+
+   
+
+ 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            jpData for QGIS
+              <img src="../static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+   <a href= "../../genindex.html">索引</a>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">利用ガイド</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../jpdata/index.html">jpData for QGIS マニュアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../highschool/index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Spatial Information Representation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_repr.html">1. Lecture 01: Spatial Information and Its Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_jpdata.html">2. Lecture 02: jpData, Symbols and Other Visual Techniques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_python.html">3. Lecture 03: Python in QGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_proj.html">4. Lecture 04: Changing Projections in QGIS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. Lecture 05: Creating a Graticule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#follow-along">5.1. <abbr title="Basic">★☆☆</abbr> Follow Along:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#try-yourself">5.2. <abbr title="Intermediate">★★☆</abbr> Try Yourself:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="06_csv.html">6. Lecture 06: Reading CSV Data in QGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07_if.html">7. Lecture 07: Selecting Data with if</a></li>
+<li class="toctree-l2"><a class="reference internal" href="08_func.html">8. Lecture 08: Using Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_gtfs.html">9. Lecture 09: GTFS Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="13_cogni.html">10. Lecture 13: Cognitive Science and Spatial Information</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">jpData for QGIS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Spatial Information Representation</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5. </span>Lecture 05: Creating a Graticule</li>
+
+    <li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/qgis/jpData-doc/edit/master/docs/repr/05_grat.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+        <!-- Add a button to guide potential contributors
+	     To do: add a more generic page for contributing in QGIS docs to keep users in the same website
+	     <a class="qgis-edit-guidelines" href="https://docs.qgis.org/latest/ja/docs/documentation_guidelines/index.html">
+	-->
+	<a class="qgis-edit-guidelines" href="https://qgis.org/community/involve/">
+		Learn how to contribute!
+	</a>
+    </li>
+
+
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="04_proj.html" class="btn btn-neutral float-left" title="4. Lecture 04: Changing Projections in QGIS" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="06_csv.html" class="btn btn-neutral float-right" title="6. Lecture 06: Reading CSV Data in QGIS" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lecture-05-creating-a-graticule">
+<h1><span class="section-number">5. </span>Lecture 05: Creating a Graticule<a class="headerlink" href="#lecture-05-creating-a-graticule" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<section id="follow-along">
+<h2><span class="section-number">5.1. </span><abbr title="Basic">★☆☆</abbr> Follow Along:<a class="headerlink" href="#follow-along" title="Link to this heading"></a></h2>
+<p>A <strong>graticule</strong> is a set of lines showing latitude and longitude on a map.</p>
+<p>Let's create longitude lines using Python.</p>
+</section>
+<section id="try-yourself">
+<h2><span class="section-number">5.2. </span><abbr title="Intermediate">★★☆</abbr> Try Yourself:<a class="headerlink" href="#try-yourself" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>First, create an empty line layer.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qgis.core</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">layer</span> <span class="o">=</span> <span class="n">QgsVectorLayer</span><span class="p">(</span>
+    <span class="s2">&quot;LineString?crs=EPSG:4326&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Graticule&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;memory&quot;</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">181</span><span class="p">,</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">QgsPointXY</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span> <span class="k">for</span> <span class="n">lat</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">91</span><span class="p">)]</span>
+
+    <span class="n">feat</span> <span class="o">=</span> <span class="n">QgsFeature</span><span class="p">()</span>
+    <span class="n">feat</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QgsGeometry</span><span class="o">.</span><span class="n">fromPolylineXY</span><span class="p">(</span><span class="n">points</span><span class="p">))</span>
+
+    <span class="n">layer</span><span class="o">.</span><span class="n">dataProvider</span><span class="p">()</span><span class="o">.</span><span class="n">addFeature</span><span class="p">(</span><span class="n">feat</span><span class="p">)</span>
+
+<span class="n">QgsProject</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">addMapLayer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The important programming concept in this example is the <strong>for loop</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">181</span><span class="p">,</span> <span class="mi">30</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">for</span></code> statement repeats the following operations for different values of <code class="docutils literal notranslate"><span class="pre">lon</span></code>.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">lon</span></code> takes the following values:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-180, -150, -120, ... , 120, 150, 180
+</pre></div>
+</div>
+<p>For each value, the program creates one longitude line.</p>
+<p>Without a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, we would have to write the same operation many times.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">range()</span></code> function generates a sequence of numbers. Here,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">181</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>means that we start at <code class="docutils literal notranslate"><span class="pre">-180</span></code>, increase the value by <code class="docutils literal notranslate"><span class="pre">30</span></code>, and stop before going beyond <code class="docutils literal notranslate"><span class="pre">180</span></code>.</p>
+<p>Now, let's create <strong>latitude lines</strong>.</p>
+<p>Can you modify the program so that it creates horizontal lines instead of vertical lines?</p>
+<p>Think about:</p>
+<ul class="simple">
+<li><p>Which variable should change?</p></li>
+<li><p>What should <code class="docutils literal notranslate"><span class="pre">range()</span></code> contain?</p></li>
+<li><p>Which coordinate should remain constant?</p></li>
+</ul>
+<p>Try Yourself:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">lat</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">91</span><span class="p">,</span> <span class="mi">30</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Try changing <code class="docutils literal notranslate"><span class="pre">30</span></code> to <code class="docutils literal notranslate"><span class="pre">10</span></code>. What happens to the number of lines?</p>
+<p>In this exercise, you are not learning a completely new program. You are modifying an existing program by changing the variable and the coordinates.</p>
+<p>This is an important way of thinking about programming: <strong>understand a pattern, then adapt it to a new problem.</strong></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="04_proj.html" class="btn btn-neutral float-left" title="4. Lecture 04: Changing Projections in QGIS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="06_csv.html" class="btn btn-neutral float-right" title="6. Lecture 06: Reading CSV Data in QGIS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-now, BABA Yoshihiko.
+      <span class="lastupdated">最終更新: 2026 9月 26, 05:00 +0900
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- Transifex follows a particular logic to build target pages:
+Expected French translation link for https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/overview_composer.html
+would return https://app.transifex.com/qgis/qgis-documentation/translate/#fr/aa6d8bc653526d38b295ca94bf8eee5e
+with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_MESSAGES/docs/user_manual/print_composer/overview_composer.po"-->
+<!--Make sure that mismatching language codes between Transifex and Sphinx are converted-->
+
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-info-circle"> jpData for QGIS </span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Languages</dt>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/repr/05_grat.html">ja</a></dd>
+        
+      </dl>
+
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdatatesting/ja/docs/repr/05_grat.html">testing</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/repr/05_grat.html">latest</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.44/ja/docs/repr/05_grat.html">3.44</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.40/ja/docs/repr/05_grat.html">3.40</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.34/ja/docs/repr/05_grat.html">3.34</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.28/ja/docs/repr/05_grat.html">3.28</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.22/ja/docs/repr/05_grat.html">3.22</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.16/ja/docs/repr/05_grat.html">3.16</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.10/ja/docs/repr/05_grat.html">3.10</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.4/ja/docs/repr/05_grat.html">3.4</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata2.18/ja/docs/repr/05_grat.html">2.18</a></dd>
+        
+      </dl>
+
+      
+       <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/pdf">PDF</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/zip">HTML</a></dd>
+        
+      </dl>
+      
+
+      
+      
+      <dl>
+        <dt>Contribute to Docs</dt>
+          <dd>
+            <a href="https://github.com/babayoshihiko/jpData-doc/edit/master/docs/repr/05_grat.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+          </dd>
+          
+          
+          <dd>
+            <a href="https://github.com/qgis/QGIS-Documentation/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+          </dd>
+      </dl>
+      
+
+      <dl>
+        <dt>On QGIS Project</dt>
+          <dd>
+            <a href="https://qgis.org" target="_blank" rel="noopener noreferrer">Home</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/api/latest" target="_blank" rel="noopener noreferrer">C++ API</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/pyqgis/latest" target="_blank" rel="noopener noreferrer">PyQGIS API</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/qgis/QGIS/tree/release-latest" target="_blank" rel="noopener noreferrer">Source</a>
+          </dd>
+      </dl>
+
+    </div>
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

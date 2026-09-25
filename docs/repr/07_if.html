@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7. Lecture 07: Selecting Data with if &mdash; jpData for QGIS  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../static/css/qgis_docs.css?v=9a6c854a" />
+      <link rel="stylesheet" type="text/css" href="../static/togglebutton.css?v=9c3e77be" />
+      <link rel="stylesheet" type="text/css" href="../static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../static/css/qgis_topbar.css?v=5613a779" />
+
+  
+    <link rel="shortcut icon" href="../static/qgis_logo.ico"/>
+    <link rel="canonical" href="https://babayoshihiko.github.io/jpdata/docs/repr/07_if.html"/>
+  <!--[if lt IE 9]>
+    <script src="../static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../static/jquery.js?v=5d32c60e"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../static/documentation_options.js?v=c033477b"></script>
+        <script src="../static/doctools.js?v=9a2dae69"></script>
+        <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../static/copybutton.js?v=f281be69"></script>
+        <script>let toggleHintShow = 'クリックして表示';</script>
+        <script>let toggleHintHide = 'クリックして非表示';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../static/togglebutton.js?v=b8b12719"></script>
+        <script src="../static/translations.js?v=91613774"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="8. Lecture 08: Using Functions" href="08_func.html" />
+    <link rel="prev" title="6. Lecture 06: Reading CSV Data in QGIS" href="06_csv.html" />
+  <meta name="description" content="QGIS latest documentation: 7. Lecture 07: Selecting Data with if">
+  <script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(["disableCookies"]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.qgis.org/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+</head>
+
+<body class="wy-body-for-nav">
+
+  <nav class="release_status_topbar">
+    <div class="row isTesting">
+     This documentation is a work in progress. For the Long Term Release and translations, please visit the <a href="https://docs.qgis.org/latest/ja/docs/repr/07_if.html">latest version</a>.
+    </div>
+  </nav>
+
+   
+
+ 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+   
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            jpData for QGIS
+              <img src="../static/logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                latest
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+   <a href= "../../genindex.html">索引</a>
+ 
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">利用ガイド</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../jpdata/index.html">jpData for QGIS マニュアル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../highschool/index.html">jpData for QGIS で学ぶ高校地理総合</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Spatial Information Representation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_repr.html">1. Lecture 01: Spatial Information and Its Representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_jpdata.html">2. Lecture 02: jpData, Symbols and Other Visual Techniques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_python.html">3. Lecture 03: Python in QGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_proj.html">4. Lecture 04: Changing Projections in QGIS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05_grat.html">5. Lecture 05: Creating a Graticule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06_csv.html">6. Lecture 06: Reading CSV Data in QGIS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7. Lecture 07: Selecting Data with if</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#follow-along">7.1. <abbr title="Basic">★☆☆</abbr> Follow Along:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">7.2. <abbr title="Intermediate">★★☆</abbr> Follow Along:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="08_func.html">8. Lecture 08: Using Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_gtfs.html">9. Lecture 09: GTFS Animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="13_cogni.html">10. Lecture 13: Cognitive Science and Spatial Information</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">jpData for QGIS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Spatial Information Representation</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7. </span>Lecture 07: Selecting Data with if</li>
+
+    <li style="float: right; text-align: right;">
+	<ul>
+		
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/qgis/jpData-doc/edit/master/docs/repr/07_if.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+	</ul>
+
+        <!-- Add a button to guide potential contributors
+	     To do: add a more generic page for contributing in QGIS docs to keep users in the same website
+	     <a class="qgis-edit-guidelines" href="https://docs.qgis.org/latest/ja/docs/documentation_guidelines/index.html">
+	-->
+	<a class="qgis-edit-guidelines" href="https://qgis.org/community/involve/">
+		Learn how to contribute!
+	</a>
+    </li>
+
+
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
+        <a href="06_csv.html" class="btn btn-neutral float-left" title="6. Lecture 06: Reading CSV Data in QGIS" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="08_func.html" class="btn btn-neutral float-right" title="8. Lecture 08: Using Functions" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lecture-07-selecting-data-with-if">
+<h1><span class="section-number">7. </span>Lecture 07: Selecting Data with if<a class="headerlink" href="#lecture-07-selecting-data-with-if" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<section id="follow-along">
+<h2><span class="section-number">7.1. </span><abbr title="Basic">★☆☆</abbr> Follow Along:<a class="headerlink" href="#follow-along" title="Link to this heading"></a></h2>
+<p>In the previous lecture, we read a CSV file and displayed the cities on a map.</p>
+<p>Now, let's select particular cities from the data.</p>
+<p>In GIS, we often want to answer questions such as:</p>
+<ul class="simple">
+<li><p>Which cities are north of the equator?</p></li>
+<li><p>Which bus stops are within a certain area?</p></li>
+<li><p>Which places have a particular attribute?</p></li>
+</ul>
+<p>Python's <strong>``if`` statement</strong> allows us to make these decisions.</p>
+<p>The basic structure is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
+    <span class="n">do_something</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The indented code is executed only when the condition is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lat</span> <span class="o">=</span> <span class="mf">13.7563</span>
+
+<span class="k">if</span> <span class="n">lat</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Northern Hemisphere&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">lat</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> is the condition.</p>
+<p>Because Bangkok is north of the equator, the condition is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</section>
+<section id="id1">
+<h2><span class="section-number">7.2. </span><abbr title="Intermediate">★★☆</abbr> Follow Along:<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>Let's apply <code class="docutils literal notranslate"><span class="pre">if</span></code> to the city data from the previous lecture.</p>
+<p>First, read the CSV file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="n">cities</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/cities.csv&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+        <span class="n">cities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, let's look at each city.</p>
+<p>We will display only cities north of the equator.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">city</span> <span class="ow">in</span> <span class="n">cities</span><span class="p">:</span>
+
+    <span class="n">lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">city</span><span class="p">[</span><span class="s2">&quot;lat&quot;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">lat</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">city</span><span class="p">[</span><span class="s2">&quot;city&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The result is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Bangkok
+Singapore
+Kuala Lumpur
+Taipei
+</pre></div>
+</div>
+<p>Jakarta is not included because its latitude is south of the equator.</p>
+<p>The important point is that the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop processes every city, while the
+<code class="docutils literal notranslate"><span class="pre">if</span></code> statement decides which cities should be processed further.</p>
+<p>The workflow is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>for each city
+     ↓
+check t
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="06_csv.html" class="btn btn-neutral float-left" title="6. Lecture 06: Reading CSV Data in QGIS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="08_func.html" class="btn btn-neutral float-right" title="8. Lecture 08: Using Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-now, BABA Yoshihiko.
+      <span class="lastupdated">最終更新: 2026 9月 26, 05:00 +0900
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- Transifex follows a particular logic to build target pages:
+Expected French translation link for https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/overview_composer.html
+would return https://app.transifex.com/qgis/qgis-documentation/translate/#fr/aa6d8bc653526d38b295ca94bf8eee5e
+with the md5 value of "github#qgis/QGIS-Documentation#release_3.28#locale/en/LC_MESSAGES/docs/user_manual/print_composer/overview_composer.po"-->
+<!--Make sure that mismatching language codes between Transifex and Sphinx are converted-->
+
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-info-circle"> jpData for QGIS </span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Languages</dt>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/repr/07_if.html">ja</a></dd>
+        
+      </dl>
+
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdatatesting/ja/docs/repr/07_if.html">testing</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/ja/docs/repr/07_if.html">latest</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.44/ja/docs/repr/07_if.html">3.44</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.40/ja/docs/repr/07_if.html">3.40</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.34/ja/docs/repr/07_if.html">3.34</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.28/ja/docs/repr/07_if.html">3.28</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.22/ja/docs/repr/07_if.html">3.22</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.16/ja/docs/repr/07_if.html">3.16</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.10/ja/docs/repr/07_if.html">3.10</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata3.4/ja/docs/repr/07_if.html">3.4</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdata2.18/ja/docs/repr/07_if.html">2.18</a></dd>
+        
+      </dl>
+
+      
+       <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/pdf">PDF</a></dd>
+        
+          <dd><a href="https://babayoshihiko.github.io/jpdatalatest/zip">HTML</a></dd>
+        
+      </dl>
+      
+
+      
+      
+      <dl>
+        <dt>Contribute to Docs</dt>
+          <dd>
+            <a href="https://github.com/babayoshihiko/jpData-doc/edit/master/docs/repr/07_if.rst" target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
+          </dd>
+          
+          
+          <dd>
+            <a href="https://github.com/qgis/QGIS-Documentation/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+          </dd>
+      </dl>
+      
+
+      <dl>
+        <dt>On QGIS Project</dt>
+          <dd>
+            <a href="https://qgis.org" target="_blank" rel="noopener noreferrer">Home</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/api/latest" target="_blank" rel="noopener noreferrer">C++ API</a>
+          </dd>
+          <dd>
+            <a href="https://qgis.org/pyqgis/latest" target="_blank" rel="noopener noreferrer">PyQGIS API</a>
+          </dd>
+          <dd>
+            <a href="https://github.com/qgis/QGIS/tree/release-latest" target="_blank" rel="noopener noreferrer">Source</a>
+          </dd>
+      </dl>
+
+    </div>
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

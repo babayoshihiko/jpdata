@@ -1,0 +1,69 @@
+序文
+========
+
+「jpData for QGIS で学ぶ高校地理総合」へようこそ！
+
+
+地理総合
+---------
+
+https://www.mext.go.jp/content/20220802-mxt_kyoiku02-100002620_03.pdf
+
+学習指導要領 p. 35 によると
+
+.. note::
+「地理総合」については，「歴史総合」と相互補完的な役割を果たしながら地理歴史科の目標を達成し，「学びの地図」の一端を担うため，
+
+* 持続可能な社会づくりを目指し，環境条件と人間の営みとの関わりに着目して現代の地理的な諸課題を考察することに加えて，
+* グローバルな視座から国際理解や国際協力の在り方を，地域的な視座から防災などの諸課題への対応を考察することと，
+* 地図や地理情報システム（Geographic Information System 以下，GIS と略す）などを用いることで，汎用的で実践的な地理的技能を習得すること
+
+の三点を科目の主要な特徴として構成することとした。
+
+A. 地図や地理情報システムで捉える現代世界
+
+(1) 地図や地理情報システムと現代世界
+
+Ｂ 国際理解と国際協力
+
+(1) 生活文化の多様性と国際理解
+
+(2) 地球的課題と国際協力
+
+Ｃ 持続可能な地域づくりと私たち
+
+(1) 自然環境と防災
+
+(2) 生活圏の調査と地域の展望
+
+ライセンス
+-----------
+
+.. figure:: img/license.png
+
+このマニュアルは、
+`Creative Commons Attribution 4.0 International <https://creativecommons.org/licenses/by/4.0/>`_.
+ライセンスで提供されています。
+このライセンスを超える使用方法については、著者にご相談ください。
+
+
+著者
+-------
+* 馬場美彦
+
+
+Source files and Issue reports
+-------------------------------
+The source of this document is available at GitHub
+`QGIS Documentation repository <https://github.com/qgis/QGIS-Documentation>`_.
+Consult `GitHub.com <https://github.com/>`_ for instructions on how to
+use the git version control system.
+
+Despite our efforts, you could find some errors or miss some information
+while following this training.
+Please report them at https://github.com/qgis/QGIS-Documentation/issues.
+
+
+.. note::
+   The documentation website contains links to both online and PDF versions of
+   the Training manual and other parts of the QGIS documentation.

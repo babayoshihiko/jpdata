@@ -1,0 +1,142 @@
+.. Purpose: 
+
+.. index:: Address
+.. _`label_address`:
+
+***************************
+ベクタデータ (国土数値情報)
+***************************
+
+jpData の ``国土数値情報`` タブについて説明します。
+
+
+国土数値情報
+======================================================================
+
+国土数値情報は、国土交通省が整備して無償で提供している GIS データ です。
+
+https://nlftp.mlit.go.jp/ksj/
+
+GIS データとしては、 土地利用、行政区域、公共施設、社会インフラ、地域の災害リスク情報等の国土、土地・不動産、まちづくり等に関するものがあり、どんどん増えています。
+
+膨大な GIS データがあり、日本を対象として GIS を使用する場合には、多くの人が使っています。
+しかしながら、以下のような課題があり、その一部は今でも課題として残っており、使いづらさを感じている人もいます。
+
+* 複数のデータを簡便にダウンロードしづらい
+* デフォルトのスタイルがない
+* 座標参照系が設定されていないことがあり、重ならない
+* macOS や Linux では、デフォルトでは文字化けする
+* 不正なジオメトリがある
+
+これらは、他の GIS でもみられますが、国土数値情報では、さらに以下のような課題があります。
+
+* 解凍したらファイル名が文字化けする
+* 同じデータ形式でも県によってフォルダ構成が異なることがある
+
+このため、検索、ダウンロード、スタイル設定という単純作業に時間が取られていました。
+
+こうした処理を自動化しているのが国土数値情報タブの ``ダウンロード`` と ``地図に追加`` 機能です。
+
+定義ファイル
+-------------------
+
+.. list-table:: 国土数値情報の定義ファイル
+   :widths: 20 80
+   :header-rows: 1
+   :class: longtable
+
+   * - フィールド名
+     - 記述
+   * - name_j
+     - 名称（日本語）。ListWidget に表示されます。
+   * - availability
+     - ``yes`` のみ選択可能。``heading`` は見出し。
+   * - code_map
+     - ``A01`` などのコード。フォルダ名などに使用。
+   * - type_muni
+     - 指定なしは全ての都道府県、``single`` は全国、``regional`` / ``detail`` は別ファイルで定義。
+   * - name_e
+     - 名称（英語）。デフォルト言語が日本語以外のときに ListWidget に表示されます。
+   * - year
+     - 提供年度。ただし複数年度に対応するため、CSV ファイル指定に変わりつつあります。
+   * - url
+     - ZIP ファイルのダウンロード先 URL。
+   * - zip
+     - ZIP ファイル名。
+   * - shp
+     - SHP ファイル名。CSV や KML でも可。
+   * - geojson
+     - 未使用。
+   * - altdir
+     - 県によってフォルダ構成が異なる場合に探索するフォルダ名。
+   * - source
+     - 定義が記載されている URL。未使用。
+   * - col
+     - 未使用。
+   * - levels
+     - 未使用。
+   * - labels
+     - 未使用。
+   * - palette
+     - 未使用。
+   * - muni_column
+     - 未使用。
+   * - muni_type
+     - 未使用。
+   * - encoding
+     - 文字エンコード。未使用。
+   * - qml
+     - レイヤ定義ファイル。未使用。
+   * - epsg
+     - 空間参照系の EPSG コード。
+   * - filesize
+     - 未使用。
+
+.. Substitutions definitions - AVOID EDITING PAST THIS LINE
+   This will be automatically updated by the find_set_subst.py script.
+   If you need to create a new substitution manually,
+   please add it also to the substitutions.txt file in the
+   source folder.
+
+.. |addLayer| image:: /static/common/mActionAddLayer.png
+   :width: 1.5em
+.. |addOgrLayer| image:: /static/common/mActionAddOgrLayer.png
+   :width: 1.5em
+.. |addRasterLayer| image:: /static/common/mActionAddRasterLayer.png
+   :width: 1.5em
+.. |arrowDown| image:: /static/common/mActionArrowDown.png
+   :width: 1.5em
+.. |arrowUp| image:: /static/common/mActionArrowUp.png
+   :width: 1.5em
+.. |browserCollapse| image:: /static/common/browser_collapse.png
+   :width: 1.5em
+.. |browserExpand| image:: /static/common/browser_expand.png
+   :width: 1.5em
+.. |checkbox| image:: /static/common/checkbox.png
+   :width: 1.3em
+.. |clearText| image:: /static/common/mIconClearText.png
+   :width: 1.5em
+.. |collapseTree| image:: /static/common/mActionCollapseTree.png
+   :width: 1.5em
+.. |deleteAttribute| image:: /static/common/mActionDeleteAttribute.png
+   :width: 1.5em
+.. |metadata| image:: /static/common/metadata.png
+   :width: 1.5em
+.. |newAttribute| image:: /static/common/mActionNewAttribute.png
+   :width: 1.5em
+.. |options| image:: /static/common/mActionOptions.png
+   :width: 1em
+.. |settings| image:: /static/common/settings.png
+   :width: 1.5em
+.. |unchecked| image:: /static/common/unchecked.png
+   :width: 1.3em
+.. |vectorTileLayer| image:: /static/common/mIconVectorTileLayer.png
+   :width: 1.5em
+.. |wcs| image:: /static/common/mIconWcs.png
+   :width: 1.5em
+.. |wfs| image:: /static/common/mIconWfs.png
+   :width: 1.5em
+.. |wms| image:: /static/common/mIconWms.png
+   :width: 1.5em
+.. |xyz| image:: /static/common/mIconXyz.png
+   :width: 1.5em

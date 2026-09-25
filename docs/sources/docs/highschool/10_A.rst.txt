@@ -1,0 +1,41 @@
+*******************************************************************************
+地図や地理情報システムで捉える現代世界
+*******************************************************************************
+
+.. toctree::
+   :maxdepth: 2
+
+
+:abbr:`★☆☆ (初級)` Follow Along: 
+-------------------------------------------------------------------------------
+
+
+:abbr:`★★☆ (中級)` Try Yourself: 都市計画の地図を重ねてみよう
+-------------------------------------------------------------------------------
+
+
+#. Looking at the menu, you will notice that the :guilabel:`Processing` menu is
+   is now gone. This means that many of the processing functions you have been
+   using before have disappeared! For example look at the :menuselection:`Vector
+   -->` and :menuselection:`Raster -->` menus. This is because they are part of
+ 
+:abbr:`★★★ (上級)` Follow Along: 豪雪地帯
+-------------------------------------------------------------------------------
+
+
+#. Looking at the menu, you will notice that the :guilabel:`Processing` menu is
+   is now gone. This means that many of the processing functions you have been
+   using before have disappeared! For example look at the :menuselection:`Vector
+   -->` and :menuselection:`Raster -->` menus. This is because they are part of
+ 
+
+
+まとめ
+-------------------------------------------------------------------------------
+
+Installing plugins in QGIS should be straightforward and effective!
+
+次はなに？
+-------------------------------------------------------------------------------
+
+Next we'll introduce you to some useful plugins as examples.
