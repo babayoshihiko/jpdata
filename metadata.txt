@@ -25,6 +25,7 @@ hasProcessingProvider=no
 changelog=
       0.7.4
         * Fixed bugs to treat P04, P14 and P29
+        * GSI Vector Tile (pbf)
       0.7.3.1-0.7.3.5
         * Fixed for N03, P23
         * Bugfix for QGIS 3.22
