@@ -66,7 +66,7 @@ class JPDataManager:
         self._dw.myPushButton14.clicked.connect(self._tab1_add_map)
 
         # Tab 2
-        self._dw.myPushButton25.clicked.connect(self._addTile)
+        self._dw.myPushButton25.clicked.connect(self._add_tile)
         for row in self._GSI:
             self._dw.myListWidget23.addItem(row["name_" + self.settings.lang1])
 
@@ -193,6 +193,7 @@ class JPDataManager:
 
         return layer
 
+    # Moving to _add_tile
     def _addTile(self):
         from qgis.core import QgsRasterLayer, QgsProject
 
@@ -229,6 +230,74 @@ class JPDataManager:
 
             project.addMapLayer(layer, False)
             root.addLayer(layer)
+
+    def _add_tile(self):
+        from qgis.core import (
+            QgsRasterLayer,
+            QgsVectorTileLayer,
+            QgsProject
+        )
+        from urllib.parse import urlparse
+        import os
+
+        selected_items = self._dw.myListWidget23.selectedItems()
+        if not selected_items:
+            return
+
+        tile_name = selected_items[0].text()
+
+        for current_gsi in self._GSI:
+            if current_gsi["name_" + self.settings.lang1] == tile_name:
+                tile_url_base = current_gsi["url"]
+                zoom_min = current_gsi["zoom_min"]
+                zoom_max = current_gsi["zoom_max"]
+                tile_type = current_gsi.get("type")
+
+                break
+        else:
+            return
+
+        # Determine tile type
+        if tile_type not in ("vector", "raster"):
+            extension = os.path.splitext(
+                urlparse(tile_url_base).path
+            )[1].lower().lstrip(".")
+
+            if extension == "png":
+                tile_type = "raster"
+            elif extension in ("pbf", "mvt", "pmtiles"):
+                tile_type = "vector"
+            else:
+                return
+
+        # Create layer
+        if tile_type == "vector":
+            tile_url = "type=xyz&url=" + tile_url_base
+            layer = QgsVectorTileLayer(tile_url, tile_name)
+
+        elif tile_type == "raster":
+            tile_url = (
+                "type=xyz&url="
+                + tile_url_base
+                + "&zmax="
+                + str(zoom_max)
+                + "&zmin="
+                + str(zoom_min)
+                + "&crs=EPSG3857"
+            )
+            layer = QgsRasterLayer(tile_url, tile_name, "wms")
+
+        else:
+            return
+
+        # Add layer to project
+        if layer.isValid():
+            project = QgsProject.instance()
+            root = project.layerTreeRoot()
+
+            project.addMapLayer(layer, False)
+            root.addLayer(layer)
+
 
     def _tab1CheckSelected(self):
         if not self._dw.myListWidget11.selectedItems():

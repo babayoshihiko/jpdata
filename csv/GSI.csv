@@ -4,3 +4,4 @@ name_j,name_e,url,zoom_min,zoom_max
 English,English,https://cyberjapandata.gsi.go.jp/xyz/english/{z}/{x}/{y}.png,9,11
 数値地図25000,LCM25k,https://cyberjapandata.gsi.go.jp/xyz/lcm25k_2012/{z}/{x}/{y}.png,10,16
 火山基本図,Volcano Base Map,https://cyberjapandata.gsi.go.jp/xyz/vbm/{z}/{x}/{y}.png,11,17
+ベクトルタイル,Vector Tile,https://cyberjapandata.gsi.go.jp/xyz/optimal_bvmap-v1/{z}/{x}/{y}.pbf,4,16
