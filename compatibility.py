@@ -27,6 +27,7 @@ if Qgis.QGIS_VERSION_INT >= 40000:
     COL_GRAY = Qt.GlobalColor.gray
     COL_WHITE = Qt.GlobalColor.white
     DOCK_LEFT = Qt.DockWidgetArea.LeftDockWidgetArea
+    ELIDE_RIGHT = Qt.TextElideMode.ElideRight
     GEOM_POINT = QgsWkbTypes.GeometryType.PointGeometry
     ITEM_IS_SELECTABLE = Qt.ItemFlag.ItemIsSelectable
     LE_PASSWD = QLineEdit.EchoMode.Password
@@ -47,6 +48,7 @@ else:
     COL_GRAY = getattr(Qt, "gray")
     COL_WHITE = getattr(Qt, "white")
     DOCK_LEFT = getattr(Qt, "LeftDockWidgetArea")
+    ELIDE_RIGHT = getattr(Qt, "ElideRight")
     GEOM_POINT = getattr(QgsWkbTypes, "PointGeometry")
     ITEM_IS_SELECTABLE = getattr(Qt, "ItemIsSelectable")
     LE_PASSWD = getattr(QLineEdit, "Password")

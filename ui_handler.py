@@ -11,7 +11,7 @@ from qgis.PyQt.QtCore import (
 from qgis.PyQt.QtGui import QFontMetrics
 from qgis.PyQt.QtWidgets import QListWidgetItem
 from qgis.PyQt.QtWidgets import QLabel
-from .compatibility import TEXT_MOUSE
+from .compatibility import ELIDE_RIGHT, TEXT_MOUSE
 from . import jpDataUtils
 from .i18n import TR
 from .ui_handler_lni import JPDataUIHandlerLNI
@@ -100,7 +100,7 @@ class JPDataUIHandler:
         # shorten the message for the label
         display_message = metrics.elidedText(
             message,
-            Qt.ElideRight,
+            ELIDE_RIGHT,
             label.width(),
         )
 
